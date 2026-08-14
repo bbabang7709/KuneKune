@@ -1,0 +1,975 @@
+fileFormatVersion: 2
+guid: 9c51b269acc36d342b73d7754a1a5879
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7930096515231389821
+    second: shrine_ani_0
+  - first:
+      213: -8570045624483151542
+    second: shrine_ani_1
+  - first:
+      213: 4818558951672602508
+    second: shrine_ani_2
+  - first:
+      213: 4751849075800441971
+    second: shrine_ani_3
+  - first:
+      213: -398453051708283490
+    second: shrine_ani_4
+  - first:
+      213: -5022384660789144120
+    second: shrine_ani_5
+  - first:
+      213: 4755554264834253207
+    second: shrine_ani_6
+  - first:
+      213: -8174839273518849092
+    second: shrine_ani_7
+  - first:
+      213: -4988408900013869340
+    second: shrine_ani_8
+  - first:
+      213: -6710462947569193076
+    second: shrine_ani_9
+  - first:
+      213: -2425194895951586875
+    second: shrine_ani_10
+  - first:
+      213: -9068483737408240005
+    second: shrine_ani_11
+  - first:
+      213: -8998741506055643187
+    second: shrine_ani_12
+  - first:
+      213: 2965391191671071481
+    second: shrine_ani_13
+  - first:
+      213: -5083779719336943203
+    second: shrine_ani_14
+  - first:
+      213: 5291431782798788893
+    second: shrine_ani_15
+  - first:
+      213: -46567090282854391
+    second: shrine_ani_16
+  - first:
+      213: 3968173550263584862
+    second: shrine_ani_17
+  - first:
+      213: 8554434817675082685
+    second: shrine_ani_18
+  - first:
+      213: 7951699316260365033
+    second: shrine_ani_19
+  - first:
+      213: -8358089000600056860
+    second: shrine_ani_20
+  - first:
+      213: 8979286052509428259
+    second: shrine_ani_21
+  - first:
+      213: -228971362003670342
+    second: shrine_ani_22
+  - first:
+      213: 7252388363918626600
+    second: shrine_ani_23
+  - first:
+      213: 2467789670398848700
+    second: shrine_ani_24
+  - first:
+      213: -2270809312473720565
+    second: shrine_ani_25
+  - first:
+      213: 1617026431136278066
+    second: shrine_ani_26
+  - first:
+      213: 5851514310296823174
+    second: shrine_ani_27
+  - first:
+      213: -6239427700342689117
+    second: shrine_ani_28
+  - first:
+      213: 8907006784466993605
+    second: shrine_ani_29
+  - first:
+      213: 7147877664854387781
+    second: shrine_ani_30
+  - first:
+      213: 7362150130980252812
+    second: shrine_ani_31
+  - first:
+      213: 8991052261520680069
+    second: shrine_ani_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: shrine_ani_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 387e11f1c33a2f190800000000000000
+      internalID: -7930096515231389821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_1
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a418acb19e4111980800000000000000
+      internalID: -8570045624483151542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_2
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8f59b336d5fed240800000000000000
+      internalID: 4818558951672602508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_3
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3748a5dde85f1f140800000000000000
+      internalID: 4751849075800441971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_4
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e95e1418f09687af0800000000000000
+      internalID: -398453051708283490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_5
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c5da40c2c7ec4ab0800000000000000
+      internalID: -5022384660789144120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_6
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7912a89686f1ff140800000000000000
+      internalID: 4755554264834253207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_7
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb32ffd2ef22d8e80800000000000000
+      internalID: -8174839273518849092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_8
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e6b640098c95cab0800000000000000
+      internalID: -4988408900013869340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_9
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8fa7b3b085afd2a0800000000000000
+      internalID: -6710462947569193076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_10
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c917b3671af75ed0800000000000000
+      internalID: -2425194895951586875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_11
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7600647616462280800000000000000
+      internalID: -9068483737408240005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_12
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcf5df1174c0e1380800000000000000
+      internalID: -8998741506055643187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_13
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f260a7d39f272920800000000000000
+      internalID: 2965391191671071481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_14
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d912690c749c279b0800000000000000
+      internalID: -5083779719336943203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_15
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d190fe6db21fe6940800000000000000
+      internalID: 5291431782798788893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_16
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90887756a7f8a5ff0800000000000000
+      internalID: -46567090282854391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_17
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e58cf86d1d8c11730800000000000000
+      internalID: 3968173550263584862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_18
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbbb1c1b42577b670800000000000000
+      internalID: 8554434817675082685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_19
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e26a62f56c1a5e60800000000000000
+      internalID: 7951699316260365033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_20
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eb4226465a120c80800000000000000
+      internalID: -8358089000600056860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_21
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32aa1782715dc9c70800000000000000
+      internalID: 8979286052509428259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_22
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abaa80862c782dcf0800000000000000
+      internalID: -228971362003670342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_23
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82fcb8ccac8a5a460800000000000000
+      internalID: 7252388363918626600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_24
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 0
+        width: 46
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbe608c51a95f3220800000000000000
+      internalID: 2467789670398848700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_25
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 0
+        width: 47
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b09da5926f67c70e0800000000000000
+      internalID: -2270809312473720565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_26
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 0
+        width: 48
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 236ab44c8f4d07610800000000000000
+      internalID: 1617026431136278066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_27
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 0
+        width: 48
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6856b573341c43150800000000000000
+      internalID: 5851514310296823174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_28
+      rect:
+        serializedVersion: 2
+        x: 1431
+        y: 0
+        width: 48
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a2775f70991969a0800000000000000
+      internalID: -6239427700342689117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_29
+      rect:
+        serializedVersion: 2
+        x: 1482
+        y: 0
+        width: 48
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c14628aa7b0c9b70800000000000000
+      internalID: 8907006784466993605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_30
+      rect:
+        serializedVersion: 2
+        x: 1533
+        y: 0
+        width: 48
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54c28977ddc523360800000000000000
+      internalID: 7147877664854387781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_31
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 0
+        width: 48
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8c6c2ca98c9b2660800000000000000
+      internalID: 7362150130980252812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shrine_ani_32
+      rect:
+        serializedVersion: 2
+        x: 1635
+        y: 0
+        width: 48
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 584a9ec2562a6cc70800000000000000
+      internalID: 8991052261520680069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      shrine_ani_0: -7930096515231389821
+      shrine_ani_1: -8570045624483151542
+      shrine_ani_10: -2425194895951586875
+      shrine_ani_11: -9068483737408240005
+      shrine_ani_12: -8998741506055643187
+      shrine_ani_13: 2965391191671071481
+      shrine_ani_14: -5083779719336943203
+      shrine_ani_15: 5291431782798788893
+      shrine_ani_16: -46567090282854391
+      shrine_ani_17: 3968173550263584862
+      shrine_ani_18: 8554434817675082685
+      shrine_ani_19: 7951699316260365033
+      shrine_ani_2: 4818558951672602508
+      shrine_ani_20: -8358089000600056860
+      shrine_ani_21: 8979286052509428259
+      shrine_ani_22: -228971362003670342
+      shrine_ani_23: 7252388363918626600
+      shrine_ani_24: 2467789670398848700
+      shrine_ani_25: -2270809312473720565
+      shrine_ani_26: 1617026431136278066
+      shrine_ani_27: 5851514310296823174
+      shrine_ani_28: -6239427700342689117
+      shrine_ani_29: 8907006784466993605
+      shrine_ani_3: 4751849075800441971
+      shrine_ani_30: 7147877664854387781
+      shrine_ani_31: 7362150130980252812
+      shrine_ani_32: 8991052261520680069
+      shrine_ani_4: -398453051708283490
+      shrine_ani_5: -5022384660789144120
+      shrine_ani_6: 4755554264834253207
+      shrine_ani_7: -8174839273518849092
+      shrine_ani_8: -4988408900013869340
+      shrine_ani_9: -6710462947569193076
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
