@@ -1,5 +1,4 @@
 using System;
-using NUnit.Framework;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -9,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 4f;
     private Vector2 moveDirection;
     public float CurrentFacingDirection { get; private set; } = 1f; // 1f : right / -1f : left
+    public bool IsMoving { get; private set; } = false;
 
     [Header("Sprint Settings")]
     [SerializeField] private float sprintSpeed = 6f;
@@ -16,14 +16,12 @@ public class PlayerMovement : MonoBehaviour
     private bool isSprintPressed = false;   
     private bool isSprintLocked = false;    // 탈진 시 Sprint를 강제로 막는 플래그
     private bool isSprintMode = false;      // Sprint 권한/모드 유지 플래그
-    private bool isSprinting = false;       // 실제 Sprint 속도 적용 플래그
+    public bool IsSprinting { get; private set; } = false;       // 실제 Sprint 속도 적용 플래그
 
-    [Header("Crawl Settings")]
-    [SerializeField] private float crawlSpeed = 1.5f;
-    [SerializeField] private Vector2 crawlColliderSize = new Vector2(0.8f, 0.5f);
-    [SerializeField] private Vector2 crawlColliderOffset = new Vector2(0f, -0.25f);
-    private bool isCrawlPressed = false;
-    public bool IsCrawling { get; private set; } = false;
+    [Header("Crouch Settings")]
+    [SerializeField] private float crouchSpeed = 1.5f;
+    private bool isCrouchPressed = false;
+    public bool IsCrouching { get; private set; } = false;
 
     [Header("Stamina Settings")]
     [SerializeField] private float maxStamina = 100f;
@@ -42,22 +40,14 @@ public class PlayerMovement : MonoBehaviour
     private float recoveryDelayTimer;
     private float exhaustionTimer;
     private Rigidbody2D rb;
-    private CapsuleCollider2D capsuleCollider;
-
-    private Vector2 originalColliderSize;
-    private Vector2 originalColliderOffset;
 
     public event Action<float, float> OnStaminaChanged; // Invoke(currentStamina, maxStamina);
+    public event Action<bool> OnCrouchStateChanged;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
-
         CurrentStamina = maxStamina;
-
-        originalColliderSize = capsuleCollider.size;
-        originalColliderOffset = capsuleCollider.offset;
     }
 
     void Update()
@@ -67,6 +57,14 @@ public class PlayerMovement : MonoBehaviour
         UpdateCrawlingState();
         UpdateSprintingState();
         UpdateStamina();
+
+        if (rb.linearVelocity != Vector2.zero)
+        {
+            IsMoving = true;
+        } else
+        {
+            IsMoving = false;
+        }
     }
 
     void FixedUpdate()
@@ -77,8 +75,8 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        float speed = IsCrawling ? crawlSpeed
-                    : isSprinting ? sprintSpeed 
+        float speed = IsCrouching ? crouchSpeed
+                    : IsSprinting ? sprintSpeed 
                     : moveSpeed;
 
         rb.linearVelocity = moveDirection * speed;
@@ -115,26 +113,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateCrawlingState()
     {
-        bool shouldCrawl = isCrawlPressed && !IsExhausted;
+        bool shouldCrawl = isCrouchPressed && !IsExhausted;
 
-        if (IsCrawling != shouldCrawl)
+        if (IsCrouching != shouldCrawl)
         {
-            IsCrawling = shouldCrawl;
-            ApplyColliderState(IsCrawling);
-        }
-    }
-
-    private void ApplyColliderState(bool crawling)
-    {
-        if (crawling)
-        {
-            capsuleCollider.size = crawlColliderSize;
-            capsuleCollider.offset = crawlColliderOffset;
-        }
-        else
-        {
-            capsuleCollider.size = originalColliderSize;
-            capsuleCollider.offset = originalColliderOffset;
+            IsCrouching = shouldCrawl;
+            OnCrouchStateChanged?.Invoke(IsCrouching);
         }
     }
 
@@ -144,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateSprintingState()
     {   
         // Sprint 모드 해제 조건 (Shift 뗌 / 잠금 / 탈진 / 스테미너 고갈)
-        if (!isSprintPressed || isSprintLocked || IsExhausted || IsCrawling || CurrentStamina <= 0f)
+        if (!isSprintPressed || isSprintLocked || IsExhausted || IsCrouching || CurrentStamina <= 0f)
         {
             isSprintMode = false;
         }
@@ -155,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         // Sprint 모드 유지 + 실제 이동 키가 눌려있을 때에만 isSprinting 활성화
-        isSprinting = isSprintMode && (moveDirection != Vector2.zero);
+        IsSprinting = isSprintMode && (moveDirection != Vector2.zero);
     }
 
     /// <summary>
@@ -163,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void UpdateStamina()
     {
-        if (isSprinting)
+        if (IsSprinting)
         {
             ConsumeStamina();
             recoveryDelayTimer = staminaRecoveryDelay;
@@ -210,9 +194,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetCrawlState(bool state)
+    public void SetCrouchState(bool state)
     {
-        if (isCrawlPressed != state) isCrawlPressed = state;
+        if (isCrouchPressed != state) isCrouchPressed = state;
     }
 
     // --- Private Utilities --- //
@@ -238,7 +222,7 @@ public class PlayerMovement : MonoBehaviour
     {
         IsExhausted = true;
         isSprintLocked = true;
-        isSprinting = false;
+        IsSprinting = false;
         exhaustionTimer = exhaustionDuration;
         recoveryDelayTimer = staminaRecoveryDelay;  // 회복 대기 카운트 시작
     }

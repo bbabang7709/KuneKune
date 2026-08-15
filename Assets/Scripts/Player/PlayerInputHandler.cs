@@ -8,7 +8,7 @@ public class PlayerInputHandler : MonoBehaviour
     public PlayerInputActions Actions { get; private set; }
     public float MoveInput { get; private set; }    // 1D Axis
     public bool IsSprintPressed => Actions.Player.Sprint.IsPressed();
-    public bool IsCrawlPressed => Actions.Player.Crawl.IsPressed();
+    public bool IsCrouchPressed => Actions.Player.Crawl.IsPressed();
 
     void Awake()
     {
