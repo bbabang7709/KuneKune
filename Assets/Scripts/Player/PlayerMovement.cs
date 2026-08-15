@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -10,13 +11,23 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sprint Settings")]
     [SerializeField] private float sprintSpeed = 6f;
-    private bool isSprinting = false;
+    private bool isSprintPressed = false;
+
+    [Header("Stamina Settings")]
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float staminaConsumeRate = 20f;
+    [SerializeField] private float staminaRecoveryRate = 30f;
+    public float CurrentStamina; //{ get; private set; }
 
     private Rigidbody2D rb;
+
+    public event Action<float, float> OnStaminaChanged; // Invoke(currentStamina, maxStamina);
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        CurrentStamina = maxStamina;
     }
 
     void Update()
@@ -27,11 +38,21 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale.y,
             transform.localScale.z
         );
+
+        // 스테미너 소모 & 회복 로직
+        if (isSprintPressed && moveDirection != Vector2.zero)   // L-Shift 누른 채로 **실제로 움직일 때**만 소모
+        {
+            ConsumeStamina();
+        }
+        else
+        {
+            RecoverStamina();
+        }
     }
 
     void FixedUpdate()
     {
-        float speed = isSprinting ? sprintSpeed : moveSpeed;
+        float speed = isSprintPressed ? sprintSpeed : moveSpeed;
 
         rb.linearVelocity = moveDirection * speed;
     }
@@ -49,6 +70,22 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetSprintState(bool state)
     {
-        isSprinting = state;
+        isSprintPressed = state;
+    }
+
+    private void RecoverStamina()
+    {
+        if (CurrentStamina >= maxStamina) return;
+
+        CurrentStamina += staminaRecoveryRate * Time.deltaTime;
+        OnStaminaChanged?.Invoke(CurrentStamina, maxStamina);
+    }
+
+    private void ConsumeStamina()
+    {
+        if (CurrentStamina <= 0f) return;
+
+        CurrentStamina -= staminaConsumeRate * Time.deltaTime;
+        OnStaminaChanged?.Invoke(CurrentStamina, maxStamina);
     }
 }
