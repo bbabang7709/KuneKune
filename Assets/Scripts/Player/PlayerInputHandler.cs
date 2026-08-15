@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// 플레이어의 입력을 감지 및 raw data 저장
+/// 플레이어의 입력 감지 및 raw data 저장
 /// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {

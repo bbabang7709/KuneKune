@@ -16,4 +16,4 @@ MonoBehaviour:
   standingColliderSize: {x: 0.9, y: 2.84}
   standingColliderOffset: {x: 0, y: -0.1}
   crouchingColliderSize: {x: 1, y: 1.7}
-  crouchingColliderOffset: {x: 1, y: -0.5}
+  crouchingColliderOffset: {x: 0, y: -0.5}

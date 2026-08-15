@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 플레이어 Animator의 Parameter에 값을 전달하는 Class
+/// </summary>
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator animator;

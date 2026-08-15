@@ -1,12 +1,19 @@
 using UnityEngine;
 
-public enum PlayerAge
+/// <summary>
+/// 플레이어의 나이를 표현하는 Enum Class  
+/// (Adult, Student, Child)
+/// </summary>
+public enum EPlayerAge
 {
     Adult,
     Student,
     Child
 }
 
+/// <summary>
+/// Player의 외형(Sprite Animation / CapsuleCollider2D)을 관리하는 Class
+/// </summary>
 public class PlayerAppearance : MonoBehaviour
 {
     [Header("References")]
@@ -30,7 +37,7 @@ public class PlayerAppearance : MonoBehaviour
         
         movement = GetComponent<PlayerMovement>();
 
-        SetAge(PlayerAge.Adult);
+        SetAge(EPlayerAge.Student);   // 시작은 어른
     }
 
     void OnEnable()
@@ -39,13 +46,25 @@ public class PlayerAppearance : MonoBehaviour
             movement.OnCrouchStateChanged += HandleCrouchStateChanged;
     }
 
-    public void SetAge(PlayerAge age)
+    void OnDisable()
+    {
+        if (movement != null) 
+            movement.OnCrouchStateChanged -= HandleCrouchStateChanged;
+    }
+
+    /// <summary>
+    /// 플레이어의 나이를 설정하는 메서드.
+    /// </summary>
+    /// <param name="age">
+    /// PlayerAge.Adult, PlayerAge.Student, PlayerAge.Child
+    /// </param>
+    public void SetAge(EPlayerAge age)
     {
         currentProfile = age switch
         {
-            PlayerAge.Adult => adultProfile,
-            PlayerAge.Student => studentProfile,
-            PlayerAge.Child => childProfile,
+            EPlayerAge.Adult => adultProfile,
+            EPlayerAge.Student => studentProfile,
+            EPlayerAge.Child => childProfile,
             _ => null
         };
 
@@ -56,14 +75,14 @@ public class PlayerAppearance : MonoBehaviour
         }
 
         ApplyAnimationProfile();
-        ApplyColliderProfile();
     }
 
     private void HandleCrouchStateChanged(bool isCrouching)
     {
-        ApplyColliderProfile();
+        ApplyColliderProfile(isCrouching);
     }
 
+    // Animation 적용 메서드
     private void ApplyAnimationProfile()
     {
         if (currentProfile.animatorOverride == null) return;
@@ -71,11 +90,12 @@ public class PlayerAppearance : MonoBehaviour
         anim.runtimeAnimatorController = currentProfile.animatorOverride;
     }
 
-    private void ApplyColliderProfile()
+    // Collider 적용 메서드
+    private void ApplyColliderProfile(bool isCrouching)
     {
         if (currentProfile == null) return;
 
-        if (movement.IsCrouching)
+        if (isCrouching)
         {
             bodyCollider.size = currentProfile.crouchingColliderSize;
             bodyCollider.offset = currentProfile.crouchingColliderOffset;

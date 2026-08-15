@@ -119,16 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!95 &270157981 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6355412964870483100, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
-  m_PrefabInstance: {fileID: 6276963337040065847}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &319337424 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4147783366840814454, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
-  m_PrefabInstance: {fileID: 6276963337040065847}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &319337425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4394521209122748068, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
@@ -139,34 +129,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2948278598789739297, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
   m_PrefabInstance: {fileID: 6276963337040065847}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319337424}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4cbb6e9161eae441b79d2ae123a9da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
---- !u!70 &319337431 stripped
-CapsuleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 3102280218003295224, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
-  m_PrefabInstance: {fileID: 6276963337040065847}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &319337436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319337424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c4c1172fbc17c4087814782f01c70e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAppearance
-  anim: {fileID: 270157981}
-  bodyCollider: {fileID: 319337431}
-  adultProfile: {fileID: 11400000, guid: b8dcc7709539a144c9bb9f94e541dfae, type: 2}
-  studentProfile: {fileID: 11400000, guid: 5e4212a20caaf5441b71172aea34343f, type: 2}
-  childProfile: {fileID: 11400000, guid: dcc1418a4dac3784783601213d450fac, type: 2}
 --- !u!1 &329975282
 GameObject:
   m_ObjectHideFlags: 0
@@ -1995,10 +1963,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4075234686455430864, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4147783366840814454, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2046,10 +2010,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4147783366840814454, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 319337436}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

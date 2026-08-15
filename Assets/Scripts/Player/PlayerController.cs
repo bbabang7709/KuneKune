@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         );
     }
 
-    public void SetAge(PlayerAge age)
+    public void SetAge(EPlayerAge age)
     {
         appearance.SetAge(age);
     }
