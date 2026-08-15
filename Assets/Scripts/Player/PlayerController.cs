@@ -16,5 +16,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         movement.SetMoveDirection(input.MoveInput);
+        movement.SetSprintState(input.IsSprinting);
     }
 }
