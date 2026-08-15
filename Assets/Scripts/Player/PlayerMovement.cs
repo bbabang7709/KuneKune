@@ -18,6 +18,13 @@ public class PlayerMovement : MonoBehaviour
     private bool isSprintMode = false;      // Sprint 권한/모드 유지 플래그
     private bool isSprinting = false;       // 실제 Sprint 속도 적용 플래그
 
+    [Header("Crawl Settings")]
+    [SerializeField] private float crawlSpeed = 1.5f;
+    [SerializeField] private Vector2 crawlColliderSize = new Vector2(0.8f, 0.5f);
+    [SerializeField] private Vector2 crawlColliderOffset = new Vector2(0f, -0.25f);
+    private bool isCrawlPressed = false;
+    public bool IsCrawling { get; private set; } = false;
+
     [Header("Stamina Settings")]
     [SerializeField] private float maxStamina = 100f;
     [SerializeField] private float staminaConsumeRate = 20f;
@@ -27,25 +34,37 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Exhaustion Settings")]
     [SerializeField] private float exhaustionDuration = 2f;
-    public bool IsExhausted { get; private set; } = false;  
+    public bool IsExhausted { get; private set; } = false; 
+
+    // TODO: 추후 Interact 구현 시 필요한 외부 참조용 프로퍼티 
+    //public bool CanInteract => !IsCrawling && !IsExhausted;
 
     private float recoveryDelayTimer;
     private float exhaustionTimer;
     private Rigidbody2D rb;
+    private CapsuleCollider2D capsuleCollider;
+
+    private Vector2 originalColliderSize;
+    private Vector2 originalColliderOffset;
 
     public event Action<float, float> OnStaminaChanged; // Invoke(currentStamina, maxStamina);
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
 
         CurrentStamina = maxStamina;
+
+        originalColliderSize = capsuleCollider.size;
+        originalColliderOffset = capsuleCollider.offset;
     }
 
     void Update()
     {
         UpdateFacingDirection();
         UpdateExhaustion();
+        UpdateCrawlingState();
         UpdateSprintingState();
         UpdateStamina();
     }
@@ -58,7 +77,10 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        float speed = isSprinting ? sprintSpeed : moveSpeed;
+        float speed = IsCrawling ? crawlSpeed
+                    : isSprinting ? sprintSpeed 
+                    : moveSpeed;
+
         rb.linearVelocity = moveDirection * speed;
     }
 
@@ -91,13 +113,38 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void UpdateCrawlingState()
+    {
+        bool shouldCrawl = isCrawlPressed && !IsExhausted;
+
+        if (IsCrawling != shouldCrawl)
+        {
+            IsCrawling = shouldCrawl;
+            ApplyColliderState(IsCrawling);
+        }
+    }
+
+    private void ApplyColliderState(bool crawling)
+    {
+        if (crawling)
+        {
+            capsuleCollider.size = crawlColliderSize;
+            capsuleCollider.offset = crawlColliderOffset;
+        }
+        else
+        {
+            capsuleCollider.size = originalColliderSize;
+            capsuleCollider.offset = originalColliderOffset;
+        }
+    }
+
     /// <summary>
     /// Sprint 조건을 체크하며 isSprinting 변수 갱신
     /// </summary>
     private void UpdateSprintingState()
     {   
         // Sprint 모드 해제 조건 (Shift 뗌 / 잠금 / 탈진 / 스테미너 고갈)
-        if (!isSprintPressed || isSprintLocked || IsExhausted || CurrentStamina <= 0f)
+        if (!isSprintPressed || isSprintLocked || IsExhausted || IsCrawling || CurrentStamina <= 0f)
         {
             isSprintMode = false;
         }
@@ -161,6 +208,11 @@ public class PlayerMovement : MonoBehaviour
         {
             isSprintLocked = false;
         }
+    }
+
+    public void SetCrawlState(bool state)
+    {
+        if (isCrawlPressed != state) isCrawlPressed = state;
     }
 
     // --- Private Utilities --- //

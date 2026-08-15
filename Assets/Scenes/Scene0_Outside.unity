@@ -144,6 +144,9 @@ MonoBehaviour:
   moveSpeed: 4
   sprintSpeed: 6
   minStaminaToSprint: 20
+  crawlSpeed: 1.5
+  crawlColliderSize: {x: 0.8, y: 0.5}
+  crawlColliderOffset: {x: 0, y: -0.25}
   maxStamina: 100
   staminaConsumeRate: 20
   staminaRecoveryRate: 30
