@@ -70,7 +70,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetSprintState(bool state)
     {
-        isSprintPressed = state;
+        if (isSprintPressed != state)
+            isSprintPressed = state;
     }
 
     private void RecoverStamina()
