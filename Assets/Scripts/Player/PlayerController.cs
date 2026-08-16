@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement movement;
     private PlayerAnimation anim;
     private PlayerAppearance appearance;
+    private PlayerInteraction interaction;
 
     void Awake()
     {
@@ -16,20 +17,34 @@ public class PlayerController : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
         anim = GetComponent<PlayerAnimation>();
         appearance = GetComponent<PlayerAppearance>();
+        interaction = GetComponent<PlayerInteraction>();
     }
 
     void Update()
     {
-        movement.SetMoveDirection(input.MoveInput);
-        movement.SetSprintState(input.IsSprintPressed);
-        movement.SetCrouchState(input.IsCrouchPressed);
+        if (movement != null)
+        {
+            movement.SetMoveDirection(input.MoveInput);
+            movement.SetSprintState(input.IsSprintPressed);
+            movement.SetCrouchState(input.IsCrouchPressed);
+        }
+        
+        if (interaction != null)
+        {
+            if (input.IsInteractPressed) interaction.CurrentTarget?.OnInteractPressed();
+            if (input.IsInteractHeld) interaction.CurrentTarget?.OnInteractHeld();
+            if (input.IsInteractReleased) interaction.CurrentTarget?.OnInteractReleased();    
+        }
 
-        anim.UpdateAnimation(
-            movement.IsMoving,
-            movement.IsSprinting,
-            movement.IsCrouching,
-            movement.IsExhausted
-        );
+        if (anim != null)
+        {
+            anim.UpdateAnimation(
+                movement.IsMoving,
+                movement.IsSprinting,
+                movement.IsCrouching,
+                movement.IsExhausted
+            );
+        }
     }
 
     public void SetAge(EPlayerAge age)

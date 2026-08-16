@@ -6,9 +6,20 @@ using UnityEngine;
 public class PlayerInputHandler : MonoBehaviour
 {
     public PlayerInputActions Actions { get; private set; }
+    
+    // --- Move --- //
     public float MoveInput { get; private set; }    // 1D Axis
+
+    // --- Sprint --- //
     public bool IsSprintPressed => Actions.Player.Sprint.IsPressed();
+
+    // --- Crouch --- //
     public bool IsCrouchPressed => Actions.Player.Crawl.IsPressed();
+
+    // --- Interact --- //
+    public bool IsInteractPressed => Actions.Player.Interact.WasPressedThisFrame();
+    public bool IsInteractHeld => Actions.Player.Interact.IsPressed();
+    public bool IsInteractReleased => Actions.Player.Interact.WasReleasedThisFrame();
 
     void Awake()
     {
