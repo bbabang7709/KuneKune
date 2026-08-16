@@ -6,6 +6,11 @@ public class Door : MonoBehaviour, IInteractable
     [Header("Link Settings")]
     [SerializeField] private Transform targetSpawnPoint;
     [SerializeField] private CinemachineCamera targetCamera;
+
+    [Header("Prompt Settings")]
+    [SerializeField] private Transform promptPoint;
+    public Transform PromptPoint => promptPoint;
+    
     private GameObject user;
 
     public void OnInteractPressed()

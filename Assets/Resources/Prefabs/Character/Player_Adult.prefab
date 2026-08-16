@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 2948278598789739297}
   - component: {fileID: 3527205237574185875}
   - component: {fileID: 1903586609420879912}
+  - component: {fileID: 3022991992757690216}
   m_Layer: 0
   m_Name: Player_Adult
   m_TagString: Player
@@ -291,3 +292,16 @@ MonoBehaviour:
   adultProfile: {fileID: 11400000, guid: b8dcc7709539a144c9bb9f94e541dfae, type: 2}
   studentProfile: {fileID: 11400000, guid: dcc1418a4dac3784783601213d450fac, type: 2}
   childProfile: {fileID: 11400000, guid: 5e4212a20caaf5441b71172aea34343f, type: 2}
+--- !u!114 &3022991992757690216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4147783366840814454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb5c2fbacb6a13b49bc20fa8336ffc1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
+  promptUI: {fileID: 0}

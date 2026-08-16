@@ -3,8 +3,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {   
+    [Header("Player Status")]
     [SerializeField] private Image staminaGuage;
     
+    [Header("References")]
     [SerializeField] private PlayerMovement playerMovement;
 
     void OnEnable()
