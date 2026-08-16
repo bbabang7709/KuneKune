@@ -6,6 +6,7 @@ public class CameraManager : MonoBehaviour
     public static CameraManager Instance { get; private set; }
 
     private CinemachineCamera currentCamera;
+    private Transform followTarget;
 
     void Awake()
     {
@@ -16,14 +17,40 @@ public class CameraManager : MonoBehaviour
         }
 
         Instance = this;
+
+        followTarget = GameObject.FindGameObjectWithTag("Player").transform;
     }
+
+    // public void SetCamera(CinemachineCamera targetCamera)
+    // {
+    //     if (targetCamera == null || currentCamera == targetCamera) return;
+
+    //     if (currentCamera != null) 
+    //     {
+    //         currentCamera.Priority = 0;
+    //         currentCamera.Follow = null;
+    //     }
+
+    //     targetCamera.Follow = followTarget;
+    //     targetCamera.Priority = 10;
+    //     currentCamera = targetCamera;
+    // }
 
     public void SetCamera(CinemachineCamera targetCamera)
-    {
-        if (targetCamera == null || (currentCamera == targetCamera)) return;
+{
+    if (targetCamera == null || currentCamera == targetCamera)
+        return;
 
-        if (currentCamera != null) currentCamera.Priority = 0;
-        targetCamera.Priority = 10;
-        currentCamera = targetCamera;
+    if (currentCamera != null)
+    {
+        currentCamera.Priority = 0;
+        currentCamera.Follow = null;
     }
+
+    targetCamera.Follow = followTarget;
+    targetCamera.PreviousStateIsValid = false;
+    targetCamera.Priority = 10;
+
+    currentCamera = targetCamera;
+}
 }

@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour, IInteractable
 {
@@ -42,6 +43,6 @@ public class Door : MonoBehaviour, IInteractable
 
     private void ChangeCamera()
     {
-        CameraManager.Instance.SetCamera(targetCamera);
+        CameraManager.Instance?.SetCamera(targetCamera);
     }
 }

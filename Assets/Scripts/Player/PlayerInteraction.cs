@@ -65,6 +65,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private void UpdateInteractionUI()
     {
+        if (promptUI == null) return;
+        
         if (currentTarget == null)
         {
             promptUI.Hide();
