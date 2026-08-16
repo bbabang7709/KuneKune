@@ -37,7 +37,7 @@ public class PlayerAppearance : MonoBehaviour
         
         movement = GetComponent<PlayerMovement>();
 
-        SetAge(EPlayerAge.Student);   // 시작은 어른
+        SetAge(EPlayerAge.Adult);   // 시작은 어른
     }
 
     void OnEnable()

@@ -15,18 +15,18 @@ public class InteractionPromptUI : MonoBehaviour
     public void Show()
     {
         promptFillImage.fillAmount = 1;
-        promptRoot.SetActive(true);
+        promptRoot?.SetActive(true);
     }
 
     public void ShowHold(float progress)
     {
-        promptRoot.SetActive(true);
+        promptRoot?.SetActive(true);
         promptFillImage.fillAmount = Mathf.Clamp01(progress);
     }
 
     public void Hide()
     {
-        promptRoot.SetActive(false);
+        promptRoot?.SetActive(false);
         promptFillImage.fillAmount = 0f;
     }
 
