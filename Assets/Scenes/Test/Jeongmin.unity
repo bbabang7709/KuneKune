@@ -430,6 +430,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: school_hallway
       objectReference: {fileID: 0}
+    - target: {fileID: 5854050699521877645, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 6376855959099882518, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 6783081189431294200, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.81
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

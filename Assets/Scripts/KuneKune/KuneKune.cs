@@ -1,9 +1,11 @@
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
 public enum ECharacterState
 {
+    Spawning,   // 쿠네쿠네가 사물에서 나타나는 상태
     Idle,
     Run,
 }
@@ -30,6 +32,8 @@ public class KuneKune : MonoBehaviour
 
     private float _speed = 10f;
 
+    private string _spawnAnimationName = "Spawn";
+
     [Header("FullScreenGlitch")]
     [SerializeField] Material _fullScreenGlitchMaterial;
     [SerializeField, Range(0f, 1f)] float intensity = 0.3f; // 0(정상 화면) ~ 1(글리치 강도 최대)
@@ -50,12 +54,15 @@ public class KuneKune : MonoBehaviour
         int playerLayerMask = LayerMask.GetMask("Player");
         _collider.excludeLayers = playerLayerMask;
 
-        Show();
+        Spawn();
     }
 
-    private void Show()
+    /// <summary>
+    /// 플레이어와 가까운 사물에 쿠네쿠네를 소환합니다.
+    /// </summary>
+    public void Spawn()
     {
-        // 플레이어랑 가까운 사물 찾기
+        #region 플레이어랑 가까운 사물 찾기
         // TODO: 플레이어가 위치한 맵에서만 사물 찾기
         GameObject[] objects = GameObject.FindGameObjectsWithTag("KunekuneProp");
 
@@ -78,23 +85,28 @@ public class KuneKune : MonoBehaviour
             Debug.LogError("쿠네쿠네가 플레이어와 가까운 사물을 못 찾았습니다.");
             return;
         }
+        #endregion
 
         // 쿠네쿠네 위치를 사물이 놓인 바닥 높이에 맞도록 올린다
-        // 일일이, 사물의 피벗을 가운데 바닥으로 조정하기 귀찮다
-        SpriteRenderer closestRenderer = closest.GetComponent<SpriteRenderer>();
-        float floorY = closestRenderer != null ? closestRenderer.bounds.min.y : closest.transform.position.y;
-        float offset = transform.position.y - _collider.bounds.min.y;
-        transform.position = new Vector3(closest.transform.position.x, floorY + offset, closest.transform.position.z);
+        //SpriteRenderer closestRenderer = closest.GetComponent<SpriteRenderer>();
+        //float floorY = closestRenderer != null ? closestRenderer.bounds.min.y : closest.transform.position.y;
+        //float offset = transform.position.y - _collider.bounds.min.y;
+        //transform.position = new Vector3(closest.transform.position.x, floorY + offset, closest.transform.position.z);
 
+        transform.position = closest.transform.position;
         gameObject.SetActive(true);
         closest.SetActive(false);   // 쿠네쿠네가 활성화되면 사물은 비활성화
 
         _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity));  // 0(정상 화면) ~ 1(글리치 강도 최대)
-        
-        State = ECharacterState.Run;
+
+        _spawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
+        State = ECharacterState.Spawning;
     }
 
-    public void Hide()
+    /// <summary>
+    /// 소환한 쿠네쿠네를 비활성화하고, 글리치 효과를 끕니다.
+    /// </summary>
+    public void Despawn()
     {
         gameObject.SetActive(false);
         _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    // 0(정상 화면)
@@ -104,8 +116,8 @@ public class KuneKune : MonoBehaviour
     {
         switch (_state)
         {
-            case ECharacterState.Idle:
-                _animator.Play("Idle");
+            case ECharacterState.Spawning:
+                _animator.Play(_spawnAnimationName);
                 break;
             case ECharacterState.Run:
                 _animator.Play("Run");
@@ -117,6 +129,13 @@ public class KuneKune : MonoBehaviour
     {
         switch (_state)
         {
+            case ECharacterState.Spawning:
+                // 스폰 애니메이션이 끝나면 Run 상태로 전환
+                if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+                {
+                    State = ECharacterState.Run;
+                }
+                break;
             case ECharacterState.Idle:
                 break;
             case ECharacterState.Run:
