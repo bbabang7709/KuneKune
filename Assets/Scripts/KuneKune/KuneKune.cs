@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEditor;
+using UnityEngine;
 
 public enum ECharacterState
 {
@@ -29,6 +30,11 @@ public class KuneKune : MonoBehaviour
 
     private float _speed = 10f;
 
+    [Header("FullScreenGlitch")]
+    [SerializeField] Material _fullScreenGlitchMaterial;
+    [SerializeField, Range(0f, 1f)] float intensity = 0.3f; // 0(정상 화면) ~ 1(글리치 강도 최대)
+    readonly int IntensityId = Shader.PropertyToID("_Intensity");
+
     private void Awake()
     {
         Init();
@@ -45,6 +51,8 @@ public class KuneKune : MonoBehaviour
         _collider.excludeLayers = playerLayerMask;
 
         State = ECharacterState.Run;
+
+        Show();
     }
 
     private void UpdateAnimation()
@@ -72,6 +80,20 @@ public class KuneKune : MonoBehaviour
         }
     }
 
+    private void Show()
+    {
+        gameObject.SetActive(true);
+        _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity));  // 0(정상 화면) ~ 1(글리치 강도 최대)
+
+
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+        _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    // 0(정상 화면)
+    }
+
     /// <summary>
     /// 쿠네쿠네가 플레이어를 쫓아갑니다.
     /// </summary>
@@ -89,4 +111,25 @@ public class KuneKune : MonoBehaviour
         direction = (direction.x > 0) ? Vector3.right : Vector3.left;
         transform.position += direction * _speed * Time.fixedDeltaTime;
     }
+
+#if UNITY_EDITOR
+    void OnEnable()
+    {
+        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+    }
+
+    void OnDisable()
+    {
+        EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+    }
+
+    // 에디터에서 플레이 모드가 끝나면 글리치 강도 초기화
+    void OnPlayModeStateChanged(PlayModeStateChange state)
+    {
+        if (state == PlayModeStateChange.ExitingPlayMode)
+        {
+            _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    // 0(정상 화면)
+        }
+    }
+#endif
 }
