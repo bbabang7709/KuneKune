@@ -135,6 +135,30 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4394521209122748068, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
   m_PrefabInstance: {fileID: 2127463082}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &31153317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7280438781278633607, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
+  m_PrefabInstance: {fileID: 503442130}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &31153318 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4688717717701082014, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
+  m_PrefabInstance: {fileID: 503442130}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &31153319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31153317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ab236a6b886524ca027250bcd41017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FuneralPortrait
+  spriteAfterInteract: {fileID: -957938479399519346, guid: 84ac53b89ad47404991b6703b9d9312b, type: 3}
+  promptPoint: {fileID: 1783065871}
 --- !u!114 &128078610 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2515151411052967388, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
@@ -306,8 +330,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4688717717701082014, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1783065871}
+    - targetCorrespondingSourceObject: {fileID: 4688717717701082014, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1299137264}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7280438781278633607, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 31153319}
   m_SourcePrefab: {fileID: 100100000, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
 --- !u!1 &519420028
 GameObject:
@@ -695,6 +728,97 @@ Transform:
   - {fileID: 193638122}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1299137263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299137264}
+  - component: {fileID: 1299137266}
+  - component: {fileID: 1299137265}
+  m_Layer: 0
+  m_Name: Recover Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1299137264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299137263}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 31153318}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1299137265
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299137263}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -15.977232, y: -0.40576553}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 5.056141, y: 3.9964294}
+  m_EdgeRadius: 0
+--- !u!114 &1299137266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299137263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c3a5c2f74b3b14185151588e4e3652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FuneralPortraitTrigger
 --- !u!1 &1556696452
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +940,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 825eecfcfddeaa64abbb663fe64a2639, type: 3}
+--- !u!1 &1783065870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1783065871}
+  m_Layer: 0
+  m_Name: Prompt Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1783065871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783065870}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 31153318}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1968982403 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2901580473760850270, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
