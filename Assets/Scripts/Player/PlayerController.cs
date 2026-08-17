@@ -31,9 +31,16 @@ public class PlayerController : MonoBehaviour
         
         if (interaction != null)
         {
-            if (input.IsInteractPressed) interaction.CurrentTarget?.OnInteractPressed();
-            if (input.IsInteractHeld) interaction.CurrentTarget?.OnInteractHeld();
-            if (input.IsInteractReleased) interaction.CurrentTarget?.OnInteractReleased();    
+            if (!movement.IsCrouching)
+            {
+                if (input.IsInteractPressed) interaction.CurrentTarget?.OnInteractPressed();
+                if (input.IsInteractHeld) interaction.CurrentTarget?.OnInteractHeld();
+                if (input.IsInteractReleased) interaction.CurrentTarget?.OnInteractReleased();  
+            }
+            else
+            {
+                interaction.CurrentTarget?.OnInteractReleased();
+            }  
         }
 
         if (anim != null)
