@@ -14,6 +14,7 @@ public enum ECharacterState
 
 public class KuneKune : MonoBehaviour
 {
+    private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private Collider2D _collider;
     private PlayerController _player;
@@ -32,7 +33,8 @@ public class KuneKune : MonoBehaviour
         }
     }
 
-    private float _speed = 10f;
+    private Vector3 _direction;
+    private float _speed = 5f;
 
     private string _spawnAnimationName = "";
 
@@ -52,6 +54,7 @@ public class KuneKune : MonoBehaviour
 
     private void Init()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider2D>();
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -111,6 +114,9 @@ public class KuneKune : MonoBehaviour
         //transform.position = new Vector3(closest.transform.position.x, floorY + offset, closest.transform.position.z);
 
         transform.position = closest.transform.position;
+        _direction = (_player.transform.position - transform.position).normalized;
+        _spriteRenderer.flipX = _direction.x < 0;
+
         gameObject.SetActive(true);
         closest.SetActive(false);   // 쿠네쿠네가 활성화되면 사물은 비활성화
 
@@ -174,9 +180,10 @@ public class KuneKune : MonoBehaviour
             return;
         }
 
-        Vector3 direction = (_player.transform.position - transform.position).normalized;
-        direction = (direction.x > 0) ? Vector3.right : Vector3.left;
-        transform.position += direction * _speed * Time.fixedDeltaTime;
+        _direction = (_player.transform.position - transform.position).normalized;
+        _direction = (_direction.x > 0) ? Vector3.right : Vector3.left;
+        _spriteRenderer.flipX = _direction.x < 0;
+        transform.position += _direction * _speed * Time.fixedDeltaTime;
     }
 
 #if UNITY_EDITOR
