@@ -50,9 +50,54 @@ public class KuneKune : MonoBehaviour
         int playerLayerMask = LayerMask.GetMask("Player");
         _collider.excludeLayers = playerLayerMask;
 
-        State = ECharacterState.Run;
-
         Show();
+    }
+
+    private void Show()
+    {
+        // 플레이어랑 가까운 사물 찾기
+        // TODO: 플레이어가 위치한 맵에서만 사물 찾기
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("KunekuneProp");
+
+        GameObject closest = null;
+        float closestDistance = Mathf.Infinity;
+        
+        foreach (GameObject obj in objects)
+        {
+            float distance = Vector3.Distance(_player.transform.position, obj.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closest = obj;
+            }
+        }
+
+        // 플레이어와 가까운 사물이 없다면 쿠네쿠네를 활성화하지 않음
+        if (closest == null)
+        {
+            Debug.LogError("쿠네쿠네가 플레이어와 가까운 사물을 못 찾았습니다.");
+            return;
+        }
+
+        // 쿠네쿠네 위치를 사물이 놓인 바닥 높이에 맞도록 올린다
+        // 일일이, 사물의 피벗을 가운데 바닥으로 조정하기 귀찮다
+        SpriteRenderer closestRenderer = closest.GetComponent<SpriteRenderer>();
+        float floorY = closestRenderer != null ? closestRenderer.bounds.min.y : closest.transform.position.y;
+        float offset = transform.position.y - _collider.bounds.min.y;
+        transform.position = new Vector3(closest.transform.position.x, floorY + offset, closest.transform.position.z);
+
+        gameObject.SetActive(true);
+        closest.SetActive(false);   // 쿠네쿠네가 활성화되면 사물은 비활성화
+
+        _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity));  // 0(정상 화면) ~ 1(글리치 강도 최대)
+        
+        State = ECharacterState.Run;
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+        _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    // 0(정상 화면)
     }
 
     private void UpdateAnimation()
@@ -60,7 +105,7 @@ public class KuneKune : MonoBehaviour
         switch (_state)
         {
             case ECharacterState.Idle:
-                _animator.Play("Run");
+                _animator.Play("Idle");
                 break;
             case ECharacterState.Run:
                 _animator.Play("Run");
@@ -78,20 +123,6 @@ public class KuneKune : MonoBehaviour
                 ChasePlayer();
                 break;
         }
-    }
-
-    private void Show()
-    {
-        gameObject.SetActive(true);
-        _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity));  // 0(정상 화면) ~ 1(글리치 강도 최대)
-
-
-    }
-
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-        _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    // 0(정상 화면)
     }
 
     /// <summary>
