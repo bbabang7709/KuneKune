@@ -47,7 +47,8 @@ public class MapManager : MonoBehaviour
     public void ChangeMap(MapArea targetMap, EntryPoint targetEntryPoint)
     {
         if (targetMap == null || targetEntryPoint == null) return;
-
+        
+        SetCurrentMap(targetMap);
         player.transform.position = targetEntryPoint.SpawnPoint.position;
         CameraManager.Instance.SetCamera(targetEntryPoint.MapCamera);
     }

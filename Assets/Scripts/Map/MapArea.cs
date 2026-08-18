@@ -24,11 +24,11 @@ public class MapArea : MonoBehaviour
     /// <summary> 맵 종류 Enum (Outside, School, House) </summary>
     public EMapType MapType => _mapType;
     
-    // 맵 콜라이더에 들어가면 현재 위치한 맵 정보 갱신
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("Player")) return;
+    // // 맵 콜라이더에 들어가면 현재 위치한 맵 정보 갱신
+    // private void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (!collision.CompareTag("Player")) return;
 
-        MapManager.Instance.SetCurrentMap(this);
-    }
+    //     MapManager.Instance.SetCurrentMap(this);
+    // }
 }
