@@ -14,10 +14,27 @@ public class Door : MonoBehaviour, IInteractable
     
     private GameObject user;
 
+    [SerializeField] private bool isLocked = false;
+    [SerializeField] private string requiredKeyID;
+
     public void OnInteractPressed()
     {
         if (user == null) return;
         if (targetSpawnPoint == null) return;
+
+        if (isLocked)
+        {
+            if (InventoryManager.Instance.HasKey(requiredKeyID))
+            {
+                isLocked = false;
+                Debug.Log($"{name}: 잠금 해제");
+            }
+            else
+            {
+                Debug.Log($"{name}: {requiredKeyID} 필요.");
+                return;
+            }
+        }
 
         user.transform.position = targetSpawnPoint.position;
         ChangeCamera();
@@ -44,5 +61,15 @@ public class Door : MonoBehaviour, IInteractable
     private void ChangeCamera()
     {
         CameraManager.Instance?.SetCamera(targetCamera);
+    }
+
+    private bool CheckCanOpen()
+    {
+        if (InventoryManager.Instance.HasKey(requiredKeyID))
+        {
+            return true;
+        }
+
+        return false;   
     }
 }
