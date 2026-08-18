@@ -1,4 +1,3 @@
-using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -16,6 +15,7 @@ public class KuneKune : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
+    private Rigidbody2D _rigidbody;
     private Collider2D _collider;
     private PlayerController _player;
 
@@ -56,8 +56,12 @@ public class KuneKune : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        _rigidbody.gravityScale = 0f;
+        _rigidbody.freezeRotation = true;   // z축 고정
 
         // 플레이어와 충돌 방지
         int playerLayerMask = LayerMask.GetMask("Player");
@@ -105,25 +109,39 @@ public class KuneKune : MonoBehaviour
             Debug.LogError("쿠네쿠네가 플레이어와 가까운 사물을 못 찾았습니다.");
             return;
         }
-        #endregion
 
         // 쿠네쿠네 위치를 사물이 놓인 바닥 높이에 맞도록 올린다
         //SpriteRenderer closestRenderer = closest.GetComponent<SpriteRenderer>();
         //float floorY = closestRenderer != null ? closestRenderer.bounds.min.y : closest.transform.position.y;
         //float offset = transform.position.y - _collider.bounds.min.y;
         //transform.position = new Vector3(closest.transform.position.x, floorY + offset, closest.transform.position.z);
-
-        transform.position = closest.transform.position;
-        _direction = (_player.transform.position - transform.position).normalized;
-        _spriteRenderer.flipX = _direction.x < 0;
-
-        gameObject.SetActive(true);
-        closest.SetActive(false);   // 쿠네쿠네가 활성화되면 사물은 비활성화
-
-        _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity));  // 0(정상 화면) ~ 1(글리치 강도 최대)
+        #endregion
 
         _spawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
         State = ECharacterState.Spawning;
+
+        closest.SetActive(false);   // 쿠네쿠네가 소환되면 사물은 비활성화. TODO: 맵 나갔다 오면 다시 사물 활성화
+        Spawn(closest.transform.position);
+    }
+
+    /// <summary>
+    /// 원하는 위치에 쿠네쿠네를 소환합니다. 이미 소환된 상태라면 위치만 이동합니다.
+    /// </summary>
+    /// <param name="position"></param>
+    public void Spawn(Vector3 position)
+    {
+        // 이미 소환된 상태라면 바로 달리기 시작
+        if (State != ECharacterState.Spawning)
+            State = ECharacterState.Run;
+
+        transform.position = position;
+        _direction = (_player.transform.position - position).normalized;
+        _spriteRenderer.flipX = _direction.x < 0;
+        
+        gameObject.SetActive(true);
+        
+        _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity));  // 0(정상 화면) ~ 1(글리치 강도 최대)
+        
     }
 
     /// <summary>
@@ -174,8 +192,9 @@ public class KuneKune : MonoBehaviour
     {
         // 플레이어를 잡았는 지 확인
         float distance = Mathf.Abs(_player.transform.position.x - transform.position.x);
-        if (distance < 1.2f)
+        if (distance < 1.1f)
         {
+            Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 쿠네쿠네 멈춤");
             State = ECharacterState.Idle;
             return;
         }
