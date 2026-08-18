@@ -13,6 +13,12 @@ public enum ECharacterState
 
 public class KuneKune : MonoBehaviour
 {
+    /// <summary>
+    /// 하나의 씬에서 하나의 쿠네쿠네만 사용하기 위해, (1:1 대응)
+    /// 중복 인스턴스화를 방지합니다.
+    /// </summary>
+    public static bool IsInstantiated { get; private set; } = false;
+
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private Rigidbody2D _rigidbody;
@@ -78,8 +84,13 @@ public class KuneKune : MonoBehaviour
     /// <returns></returns>
     public static KuneKune Instantiate()
     {
+        if (IsInstantiated) // 중복 방지
+            return null;
+
         GameObject prefab = Resources.Load<GameObject>("Prefabs/Character/KuneKune");
-        return Instantiate(prefab).GetComponent<KuneKune>();
+        KuneKune kuneKune = Instantiate(prefab).GetComponent<KuneKune>();
+        IsInstantiated = true;
+        return kuneKune;
     }
 
     /// <summary>
@@ -92,13 +103,27 @@ public class KuneKune : MonoBehaviour
         
         GameObject closest = null;
         float closestDistance = Mathf.Infinity;
-        
+        float closestRightValue = Mathf.NegativeInfinity;
+
         foreach (Transform child in children)
         {
-            float distance = Vector3.Distance(_player.transform.position, child.transform.position);
-            if (child.CompareTag("KunekuneProp") && distance < closestDistance)
+            if (child.CompareTag("KunekuneProp") == false)
+                continue;
+
+            Vector3 direction = child.position - _player.transform.position;
+            float distance = direction.magnitude;
+            float rightValue = Vector3.Dot(direction, _player.transform.right); // 플레이어 기준 오른쪽으로 얼마나 있는지
+
+            if (distance < closestDistance)
             {
                 closestDistance = distance;
+                closestRightValue = rightValue;
+                closest = child.gameObject;
+            }
+            // 거리가 거의 같으면 플레이어 기준 오른쪽을 선택
+            else if (Mathf.Abs(distance - closestDistance) <= 0.01f && rightValue > closestRightValue)
+            {
+                closestRightValue = rightValue;
                 closest = child.gameObject;
             }
         }
@@ -203,6 +228,11 @@ public class KuneKune : MonoBehaviour
         _direction = (_direction.x > 0) ? Vector3.right : Vector3.left;
         _spriteRenderer.flipX = _direction.x < 0;
         transform.position += _direction * _speed * Time.fixedDeltaTime;
+    }
+
+    private void OnDestroy()
+    {
+        IsInstantiated = false;
     }
 
 #if UNITY_EDITOR
