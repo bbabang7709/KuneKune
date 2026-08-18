@@ -1955,6 +1955,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   canEnter: 1
   targetPoint: {fileID: 6475011485655027410}
   targetCamera: {fileID: 6383799715123314797}
@@ -5567,6 +5569,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   canEnter: 1
   targetPoint: {fileID: 7024703533391337787}
   targetCamera: {fileID: 2515151411052967388}
@@ -11345,8 +11349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  targetSpawnPoint: {fileID: 0}
-  targetCamera: {fileID: 0}
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   promptPoint: {fileID: 9165601073369267316}
 --- !u!1 &2951078515183906593
 GameObject:
@@ -12384,6 +12388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   canEnter: 1
   targetPoint: {fileID: 3897650659734375015}
   targetCamera: {fileID: 2515151411052967388}
@@ -18343,6 +18349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   canEnter: 1
   targetPoint: {fileID: 5398471013969128097}
   targetCamera: {fileID: 6253224109278570089}
@@ -26320,6 +26328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OutsideBorder
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   canEnter: 0
   targetPoint: {fileID: 0}
   targetCamera: {fileID: 0}
@@ -26807,8 +26817,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2938648101419535958}
   - {fileID: 220476837120554174}
+  - {fileID: 2938648101419535958}
   - {fileID: 4747154328157599275}
   - {fileID: 9065013509348146735}
   - {fileID: 5056254767015798427}
@@ -28470,6 +28480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   canEnter: 1
   targetPoint: {fileID: 8483038228944577129}
   targetCamera: {fileID: 6383799715123314797}
@@ -28564,6 +28576,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   canEnter: 1
   targetPoint: {fileID: 9046332089048379232}
   targetCamera: {fileID: 3758623065150220490}
@@ -30051,8 +30065,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  targetSpawnPoint: {fileID: 0}
-  targetCamera: {fileID: 0}
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   promptPoint: {fileID: 7197552113102970828}
 --- !u!1 &7776669071452415500
 GameObject:
@@ -32172,6 +32186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OutsideBorder
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   canEnter: 0
   targetPoint: {fileID: 0}
   targetCamera: {fileID: 0}
