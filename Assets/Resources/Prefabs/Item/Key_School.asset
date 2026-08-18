@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Key_School
   m_EditorClassIdentifier: Assembly-CSharp::KeyItemData
   itemID: item_key
-  itemName: "\uC548\uBC29 \uC5F4\uC1E0"
-  icon: {fileID: 1095141833252711340, guid: 456a4ad8fa872bc40be5931fcd7fe7d9, type: 3}
-  keyID: key_bedroom
+  itemName: "\uC778\uD615"
+  icon: {fileID: 1511849832365779204, guid: a1f925be982e7a6448369cde0a0997f0, type: 3}
+  keyID: key_doll
