@@ -1298,8 +1298,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 968997828079742362}
-  - component: {fileID: 2631035543838967154}
   - component: {fileID: 4326431035450365372}
+  - component: {fileID: 4380277246935592360}
   m_Layer: 0
   m_Name: Doll
   m_TagString: Untagged
@@ -1324,21 +1324,6 @@ Transform:
   - {fileID: 5863614248790272717}
   m_Father: {fileID: 7393794653200165201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2631035543838967154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6827203507443982816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ef0a4a09f0b31145a4c6bd793429191, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemName: "\uC778\uD615"
-  holdThreshold: 3
-  promptPoint: {fileID: 5863614248790272717}
 --- !u!61 &4326431035450365372
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1385,6 +1370,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4380277246935592360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6827203507443982816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  promptPoint: {fileID: 5863614248790272717}
+  itemData: {fileID: 11400000, guid: ba34ad59990e8df469a7881da4327839, type: 2}
+  acquireDialog: {fileID: 0}
+  holdDuration: 3
 --- !u!1001 &350558871427067342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1620,4 +1621,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   promptPoint: {fileID: 5962637014261831847}
   itemData: {fileID: 11400000, guid: 45cbaab58808233498d85d091f53adbf, type: 2}
+  acquireDialog: {fileID: 11400000, guid: a5f9e026f27180245a626f3aeeaf8da6, type: 2}
   holdDuration: 3

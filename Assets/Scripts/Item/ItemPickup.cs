@@ -8,6 +8,7 @@ public class ItemPickup : MonoBehaviour, IInteractable, IHoldInteractable
 
     [Header("Item Data")]
     [SerializeField] private ItemData itemData;
+    [SerializeField] private DialogData acquireDialog;
 
     [Header("Hold Interaction Settings")]
     [SerializeField] private float holdDuration = 3f;
@@ -62,6 +63,7 @@ public class ItemPickup : MonoBehaviour, IInteractable, IHoldInteractable
         Debug.Log($"{name} 아이템 획득");
 
         InventoryManager.Instance?.AddItem(itemData);
+        UIManager.Instance?.PlayAcquireDialog(itemData.Icon, acquireDialog, null);
 
         anim?.SetTrigger("Collect");
         gameObject.SetActive(false);
