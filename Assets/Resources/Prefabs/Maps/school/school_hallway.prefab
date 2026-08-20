@@ -773,6 +773,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2771871008552667714}
   - component: {fileID: 3020144054469998081}
+  - component: {fileID: 5648486478133869011}
   m_Layer: 3
   m_Name: school_hallway
   m_TagString: Untagged
@@ -857,6 +858,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5648486478133869011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4971069574568425214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapArea
+  _mapID: school_hallway
+  _mapType: 2
+  _kuneKune_ables: {fileID: 7161161047940947596}
 --- !u!1 &5216357079362591212
 GameObject:
   m_ObjectHideFlags: 0

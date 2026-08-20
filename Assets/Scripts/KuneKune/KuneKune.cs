@@ -44,10 +44,6 @@ public class KuneKune : MonoBehaviour
 
     private string _spawnAnimationName = "";
 
-    // TODO: 맵 전환 시 업데이트하도록 구현 필요
-    // 원래 여기 말고 맵 관련 코드에 있어야 하지만.. 일단 임시로 둠
-    public Transform KuneKune_ables;    // ex. house_bedroom의 KuneKune_ables
-
     [Header("FullScreenGlitch")]
     [SerializeField] Material _fullScreenGlitchMaterial;
     [SerializeField, Range(0f, 1f)] float intensity = 0.3f; // 0(정상 화면) ~ 1(글리치 강도 최대)
@@ -98,14 +94,25 @@ public class KuneKune : MonoBehaviour
     /// </summary>
     public void Spawn()
     {
+        if (MapManager.Instance.KunekuneSpawnPoints.Count == 0)
+        {
+            Debug.Log("현재 맵에서 쿠네쿠네가 소환될 수 있는 사물이 없네요.");
+            //return;
+            // TODO: TEST용 삭제 필요
+            {
+                Transform tr = GameObject.Find("KuneKune_ables").transform;
+                Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
+                foreach (Transform sp in spawnPoints)
+                    MapManager.Instance.KunekuneSpawnPoints.Add(sp);
+            }
+        }
+
         #region 플레이어랑 가까운 사물 찾기
-        Transform[] children = KuneKune_ables.GetComponentsInChildren<Transform>();
-        
         GameObject closest = null;
         float closestDistance = Mathf.Infinity;
         float closestRightValue = Mathf.NegativeInfinity;
 
-        foreach (Transform child in children)
+        foreach (Transform child in MapManager.Instance.KunekuneSpawnPoints)
         {
             if (child.CompareTag("KunekuneProp") == false)
                 continue;

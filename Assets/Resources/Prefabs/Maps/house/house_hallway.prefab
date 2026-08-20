@@ -306,9 +306,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  targetSpawnPoint: {fileID: 0}
-  targetCamera: {fileID: 0}
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   promptPoint: {fileID: 2575031083098396516}
+  isLocked: 0
 --- !u!1 &3818960832155882380
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,6 +411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7780097411156191184}
   - component: {fileID: 4979972260004779034}
+  - component: {fileID: 8359812695565852832}
   m_Layer: 3
   m_Name: house_hallway
   m_TagString: Untagged
@@ -496,6 +498,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8359812695565852832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4306111999791391082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapArea
+  _mapID: school_hallway
+  _mapType: 2
+  _kuneKune_ables: {fileID: 7488979690699951305}
 --- !u!1 &4532892658873910093
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,9 +876,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  targetSpawnPoint: {fileID: 0}
-  targetCamera: {fileID: 0}
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   promptPoint: {fileID: 7094433545343641817}
+  isLocked: 0
 --- !u!1 &6810776350720250306
 GameObject:
   m_ObjectHideFlags: 0

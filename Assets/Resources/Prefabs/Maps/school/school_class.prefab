@@ -1042,7 +1042,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1.3125, y: 2.6875}
     newSize: {x: 1.3125, y: 2.6875}
     adaptiveTilingThreshold: 0.5
@@ -1299,6 +1299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4027323244535980723}
   - component: {fileID: 7289433475598535627}
+  - component: {fileID: 3193541740352379876}
   m_Layer: 0
   m_Name: school_class
   m_TagString: Untagged
@@ -1390,6 +1391,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3193541740352379876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544783973798341813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapArea
+  _mapID: school_classroom
+  _mapType: 2
+  _kuneKune_ables: {fileID: 911898887415234780}
 --- !u!1 &8564574682163050096
 GameObject:
   m_ObjectHideFlags: 0

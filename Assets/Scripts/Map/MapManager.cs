@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,6 +9,7 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance { get; private set; }
 
     public MapArea CurrentMap { get; private set; } // 현재 Map 정보
+    public HashSet<Transform> KunekuneSpawnPoints { get; private set; } = new();
 
     private GameObject player;
     
@@ -33,10 +35,19 @@ public class MapManager : MonoBehaviour
     {
         if (map == null) return;
         CurrentMap = map;
+        KunekuneSpawnPoints.Clear();
+
         Debug.Log(
                 $"현재 Map: {CurrentMap.MapType} " +
                 $"Map ID: {CurrentMap.MapID}"
             );
+
+        if (map.KuneKune_ables == null)
+            return;
+
+        Transform[] spawnPoints = map.KuneKune_ables.GetComponentsInChildren<Transform>();
+        foreach (Transform sp in spawnPoints)
+            KunekuneSpawnPoints.Add(sp);
     }
 
     /// <summary>
