@@ -13,6 +13,7 @@ public class MapManager : MonoBehaviour
 
     private GameObject player;
     
+    public KuneKune KuneKune { get; private set; }
 
     void Awake()
     {

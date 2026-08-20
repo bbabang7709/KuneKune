@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   staminaGuage: {fileID: 1525356568697929963}
+  heatGuage: {fileID: 2925690415183064649}
   playerMovement: {fileID: 0}
 --- !u!1 &2174722543100522503
 GameObject:

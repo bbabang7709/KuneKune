@@ -30,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float staminaRecoveryDelay = 1f;   // Sprint 멈춤 후 회복 대기 시간
     public float CurrentStamina { get; private set; }
 
+    [Header("Heat Settings")]
+    [SerializeField] private float maxHeat = 100f;
+    [SerializeField] private float heatDecreaseRate = 20f;
+    [SerializeField] private float heatIncreaseRate = 30f;
+    public float CurrentHeat { get; private set; } = 0f;
+
     [Header("Exhaustion Settings")]
     [SerializeField] private float exhaustionDuration = 2f;
     public bool IsExhausted { get; private set; } = false; 
@@ -42,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
 
     public event Action<float, float> OnStaminaChanged; // Invoke(currentStamina, maxStamina);
+    public event Action<float, float> OnHeatChanged;    // Invoke(CurrentHeat, maxHeat);
     public event Action<bool> OnCrouchStateChanged;
 
     void Awake()
@@ -57,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateCrawlingState();
         UpdateSprintingState();
         UpdateStamina();
+        UpdateHeat();
 
         if (rb.linearVelocity != Vector2.zero)
         {
@@ -170,6 +178,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void UpdateHeat()
+    {
+
+    }
+
     // --- Public API --- //
 
     public void SetMoveDirection(float input)
@@ -216,6 +229,26 @@ public class PlayerMovement : MonoBehaviour
         {
             TriggerExhaution();
         }
+    }
+
+    private void IncreaseHeat()
+    {
+        CurrentHeat = Mathf.Min(maxHeat, CurrentHeat + heatIncreaseRate * Time.deltaTime);
+        OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
+
+        // 더위 게이지 100 달성하면 쿠네쿠네가 등장한다
+        if (CurrentHeat >= maxHeat)
+        {
+            if (KuneKune.IsInstantiated)
+                KuneKune.Instantiate();
+            MapManager.Instance.KuneKune.Spawn();
+        }
+    }
+
+    private void DecreaseHeat()
+    {
+        CurrentHeat = Mathf.Max(0f, CurrentHeat - heatDecreaseRate * Time.deltaTime);
+        OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
     }
 
     private void TriggerExhaution()

@@ -98,6 +98,7 @@ public class KuneKune : MonoBehaviour
         {
             Debug.Log("현재 맵에서 쿠네쿠네가 소환될 수 있는 사물이 없네요.");
             //return;
+
             // TODO: TEST용 삭제 필요
             {
                 Transform tr = GameObject.Find("KuneKune_ables").transform;
@@ -114,9 +115,6 @@ public class KuneKune : MonoBehaviour
 
         foreach (Transform child in MapManager.Instance.KunekuneSpawnPoints)
         {
-            if (child.CompareTag("KunekuneProp") == false)
-                continue;
-
             Vector3 direction = child.position - _player.transform.position;
             float distance = direction.magnitude;
             float rightValue = Vector3.Dot(direction, _player.transform.right); // 플레이어 기준 오른쪽으로 얼마나 있는지
