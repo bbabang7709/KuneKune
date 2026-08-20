@@ -12,7 +12,7 @@ public class MapManager : MonoBehaviour
     public HashSet<Transform> KunekuneSpawnPoints { get; private set; } = new();
 
     private GameObject player;
-    
+
     public KuneKune KuneKune { get; private set; }
 
     void Awake()
@@ -26,6 +26,7 @@ public class MapManager : MonoBehaviour
         Instance = this;
 
         player = GameObject.FindGameObjectWithTag("Player");
+        KuneKune = KuneKune.Instantiate();
     }
 
     /// <summary>

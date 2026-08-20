@@ -33,8 +33,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Heat Settings")]
     [SerializeField] private float maxHeat = 100f;
     [SerializeField] private float heatDecreaseRate = 20f;
-    [SerializeField] private float heatIncreaseRate = 30f;
+    [SerializeField] private float adultHeatIncreaseRate = 10f;
+    [SerializeField] private float studentHeatIncreaseRate = 20f;
+    [SerializeField] private float childHeatIncreaseRate = 25f;
     public float CurrentHeat { get; private set; } = 0f;
+    public bool IsExposedToSunlight { get; set; } = false;
 
     [Header("Exhaustion Settings")]
     [SerializeField] private float exhaustionDuration = 2f;
@@ -46,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     private float recoveryDelayTimer;
     private float exhaustionTimer;
     private Rigidbody2D rb;
+    private PlayerAppearance appearance;
 
     public event Action<float, float> OnStaminaChanged; // Invoke(currentStamina, maxStamina);
     public event Action<float, float> OnHeatChanged;    // Invoke(CurrentHeat, maxHeat);
@@ -54,7 +58,9 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        appearance = GetComponent<PlayerAppearance>();
         CurrentStamina = maxStamina;
+        IsExposedToSunlight = false;
     }
 
     void Update()
@@ -180,7 +186,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateHeat()
     {
+        if (MapManager.Instance.CurrentMap == null)
+            return;
 
+        // 아이템 사용(부채, 시원한 물) or 화장실(세이프 존)
+        //if (MapManager.Instance.CurrentMap.MapType == EMapType.Toilet)
+        //    DecreaseHeat();
+        // 햇빛 노출
+        //else if (IsExposedToSunlight)
+        //    IncreaseHeat();
+        if (IsExposedToSunlight) IncreaseHeat();
+        else DecreaseHeat();
     }
 
     // --- Public API --- //
@@ -233,22 +249,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void IncreaseHeat()
     {
+        float heatIncreaseRate = appearance.CurrentAge switch
+        {
+            EPlayerAge.Adult => adultHeatIncreaseRate,
+            EPlayerAge.Student => studentHeatIncreaseRate,
+            EPlayerAge.Child => childHeatIncreaseRate,
+            _ => 0f
+        };
+
         CurrentHeat = Mathf.Min(maxHeat, CurrentHeat + heatIncreaseRate * Time.deltaTime);
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
 
-        // 더위 게이지 100 달성하면 쿠네쿠네가 등장한다
-        if (CurrentHeat >= maxHeat)
-        {
-            if (KuneKune.IsInstantiated)
-                KuneKune.Instantiate();
+        // 쿠네쿠네가 아직 소환되지 않은 상태
+        if (MapManager.Instance.KuneKune.State == ECharacterState.Unspawned && CurrentHeat >= maxHeat)
+            // 더위 게이지 100 달성하면 쿠네쿠네가 등장한다
             MapManager.Instance.KuneKune.Spawn();
-        }
     }
 
     private void DecreaseHeat()
     {
+        // 더위 게이지가 바로 감소되나? 아니면 더위 게이지가 천천히 내려가나?
         CurrentHeat = Mathf.Max(0f, CurrentHeat - heatDecreaseRate * Time.deltaTime);
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
+
+        if (MapManager.Instance.KuneKune.State != ECharacterState.Unspawned)
+            MapManager.Instance.KuneKune.Despawn();
     }
 
     private void TriggerExhaution()

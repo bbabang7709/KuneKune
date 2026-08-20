@@ -6,6 +6,7 @@ using UnityEngine;
 
 public enum ECharacterState
 {
+    Unspawned,  // 아직 소환되지 않은 상태
     Spawning,   // 쿠네쿠네가 사물에서 나타나는 상태
     Idle,
     Run,
@@ -13,19 +14,13 @@ public enum ECharacterState
 
 public class KuneKune : MonoBehaviour
 {
-    /// <summary>
-    /// 하나의 씬에서 하나의 쿠네쿠네만 사용하기 위해, (1:1 대응)
-    /// 중복 인스턴스화를 방지합니다.
-    /// </summary>
-    public static bool IsInstantiated { get; private set; } = false;
-
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
     private PlayerController _player;
 
-    private ECharacterState _state = ECharacterState.Idle;
+    private ECharacterState _state;
     public ECharacterState State
     {
         get => _state;
@@ -68,9 +63,9 @@ public class KuneKune : MonoBehaviour
         // 플레이어와 충돌 방지
         int playerLayerMask = LayerMask.GetMask("Player");
         _collider.excludeLayers = playerLayerMask;
-        
-        _state = ECharacterState.Idle;
-        Spawn();    // TODO: test용이다. 제거 필요.
+
+        Despawn();
+        //Spawn();    // TODO: test용이다. 제거 필요.
     }
 
     /// <summary>
@@ -80,12 +75,8 @@ public class KuneKune : MonoBehaviour
     /// <returns></returns>
     public static KuneKune Instantiate()
     {
-        if (IsInstantiated) // 중복 방지
-            return null;
-
         GameObject prefab = Resources.Load<GameObject>("Prefabs/Character/KuneKune");
         KuneKune kuneKune = Instantiate(prefab).GetComponent<KuneKune>();
-        IsInstantiated = true;
         return kuneKune;
     }
 
@@ -94,6 +85,10 @@ public class KuneKune : MonoBehaviour
     /// </summary>
     public void Spawn()
     {
+        // 중복 방지
+        if (State != ECharacterState.Unspawned)
+            return;
+
         if (MapManager.Instance.KunekuneSpawnPoints.Count == 0)
         {
             Debug.Log("현재 맵에서 쿠네쿠네가 소환될 수 있는 사물이 없네요.");
@@ -148,8 +143,6 @@ public class KuneKune : MonoBehaviour
         #endregion
 
         _spawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
-        State = ECharacterState.Spawning;
-
         closest.SetActive(false);   // 쿠네쿠네가 소환되면 사물은 비활성화. TODO: 맵 나갔다 오면 다시 사물 활성화
         Spawn(closest.transform.position);
     }
@@ -160,15 +153,14 @@ public class KuneKune : MonoBehaviour
     /// <param name="position"></param>
     public void Spawn(Vector3 position)
     {
-        // 이미 소환된 상태라면 바로 달리기 시작
-        if (State != ECharacterState.Spawning)
-            State = ECharacterState.Run;
+        gameObject.SetActive(true);
+
+        // 쿠네쿠네가 사물에서 나타나는 상태가 아니라면 바로 달리기 시작
+        State = State == ECharacterState.Unspawned ? ECharacterState.Spawning : ECharacterState.Run;
 
         transform.position = position;
         _direction = (_player.transform.position - position).normalized;
         _spriteRenderer.flipX = _direction.x < 0;
-        
-        gameObject.SetActive(true);
         
         _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity));  // 0(정상 화면) ~ 1(글리치 강도 최대)
         
@@ -181,6 +173,7 @@ public class KuneKune : MonoBehaviour
     {
         gameObject.SetActive(false);
         _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    // 0(정상 화면)
+        State = ECharacterState.Unspawned;
     }
 
     private void UpdateAnimation()
@@ -203,9 +196,7 @@ public class KuneKune : MonoBehaviour
             case ECharacterState.Spawning:
                 // 스폰 애니메이션이 끝나면 Run 상태로 전환
                 if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
-                {
                     State = ECharacterState.Run;
-                }
                 break;
             case ECharacterState.Idle:
                 break;
@@ -233,11 +224,6 @@ public class KuneKune : MonoBehaviour
         _direction = (_direction.x > 0) ? Vector3.right : Vector3.left;
         _spriteRenderer.flipX = _direction.x < 0;
         transform.position += _direction * _speed * Time.fixedDeltaTime;
-    }
-
-    private void OnDestroy()
-    {
-        IsInstantiated = false;
     }
 
 #if UNITY_EDITOR
