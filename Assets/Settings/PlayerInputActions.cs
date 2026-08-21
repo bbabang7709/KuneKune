@@ -127,6 +127,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DialogAdvance"",
+                    ""type"": ""Button"",
+                    ""id"": ""74ed76b6-e249-4951-a823-36f683d45386"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -195,6 +204,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Crawl"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1cbc54b9-a6e7-46af-9ebb-38617900317f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DialogAdvance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""195a8e42-28b6-4851-a2ad-6605d8621a3f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DialogAdvance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3520c510-a344-461f-974d-800a0d475c29"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DialogAdvance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -207,6 +249,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Crawl = m_Player.FindAction("Crawl", throwIfNotFound: true);
+        m_Player_DialogAdvance = m_Player.FindAction("DialogAdvance", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -291,6 +334,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Crawl;
+    private readonly InputAction m_Player_DialogAdvance;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -318,6 +362,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Crawl".
         /// </summary>
         public InputAction @Crawl => m_Wrapper.m_Player_Crawl;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/DialogAdvance".
+        /// </summary>
+        public InputAction @DialogAdvance => m_Wrapper.m_Player_DialogAdvance;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -356,6 +404,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Crawl.started += instance.OnCrawl;
             @Crawl.performed += instance.OnCrawl;
             @Crawl.canceled += instance.OnCrawl;
+            @DialogAdvance.started += instance.OnDialogAdvance;
+            @DialogAdvance.performed += instance.OnDialogAdvance;
+            @DialogAdvance.canceled += instance.OnDialogAdvance;
         }
 
         /// <summary>
@@ -379,6 +430,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Crawl.started -= instance.OnCrawl;
             @Crawl.performed -= instance.OnCrawl;
             @Crawl.canceled -= instance.OnCrawl;
+            @DialogAdvance.started -= instance.OnDialogAdvance;
+            @DialogAdvance.performed -= instance.OnDialogAdvance;
+            @DialogAdvance.canceled -= instance.OnDialogAdvance;
         }
 
         /// <summary>
@@ -447,5 +501,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCrawl(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DialogAdvance" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDialogAdvance(InputAction.CallbackContext context);
     }
 }

@@ -31,9 +31,37 @@ public class PlayerController : MonoBehaviour
         
         if (interaction != null)
         {
-            if (input.IsInteractPressed) interaction.CurrentTarget?.OnInteractPressed();
-            if (input.IsInteractHeld) interaction.CurrentTarget?.OnInteractHeld();
-            if (input.IsInteractReleased) interaction.CurrentTarget?.OnInteractReleased();    
+            // Hold 중에는 플레이어가 이동하지 못하도록 합니다.
+            bool interactionBlockingMovement = interaction.IsHolding;
+
+            if (!interactionBlockingMovement)
+            {
+                movement.SetMoveDirection(input.MoveInput);
+                movement.SetSprintState(input.IsSprintPressed);
+                movement.SetCrouchState(input.IsCrouchPressed);
+            }
+
+            if (!movement.IsCrouching)
+            {
+                if (input.IsInteractPressed)
+                {
+                    interaction.StartInteraction();
+                }
+
+                if (input.IsInteractHeld)
+                {
+                    interaction.UpdateHoldInteraction();
+                }
+
+                if (input.IsInteractReleased)
+                {
+                    interaction.ReleaseInteraction();
+                }
+            }
+            else
+            {
+                interaction.CancelInteraction();
+            }
         }
 
         if (anim != null)
