@@ -83,21 +83,48 @@ public class PlayerInteraction : MonoBehaviour
 
         Vector2 playerPosition = transform.position;
 
-        foreach (var interactable in nearbyInteractables)
+        // foreach (var interactable in nearbyInteractables)
+        // {
+        //     if (interactable is not MonoBehaviour mono)
+        //         continue;
+
+        //     if (mono == null)
+        //         continue;
+
+        //     if (!mono.gameObject.activeInHierarchy)
+        //         continue;
+
+        //     float distance = Vector2.Distance(
+        //         playerPosition,
+        //         mono.transform.position
+        //     );
+
+        //     if (distance < closestDistance)
+        //     {
+        //         closestDistance = distance;
+        //         closest = interactable;
+        //     }
+        // }
+
+        // currentTarget = closest;
+
+        for (int i = nearbyInteractables.Count - 1; i >= 0; i--)
         {
-            if (interactable is not MonoBehaviour mono)
-                continue;
+            var interactable = nearbyInteractables[i];
 
-            if (mono == null)
+            if (interactable is not MonoBehaviour mono || mono == null)
+            {
+                nearbyInteractables.RemoveAt(i);
                 continue;
+            }
 
-            if (!mono.gameObject.activeInHierarchy)
+            if (!mono.gameObject.activeInHierarchy || !mono.enabled)
+            {
+                nearbyInteractables.RemoveAt(i);
                 continue;
+            }
 
-            float distance = Vector2.Distance(
-                playerPosition,
-                mono.transform.position
-            );
+            float distance = Vector2.Distance(playerPosition, mono.transform.position);
 
             if (distance < closestDistance)
             {

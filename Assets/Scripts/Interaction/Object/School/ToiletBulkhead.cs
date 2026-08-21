@@ -4,9 +4,6 @@ public class ToiletBulkhead : MonoBehaviour, IInteractable
 {
     [Header("Door Sprite")]
     [SerializeField] private Sprite openedSprite;
-    [Header("Prompt Settings")]
-    [SerializeField] private Transform promptPoint;
-    public Transform PromptPoint => promptPoint;
 
     [Header("Toilet Bowl")]
     public ToiletBowl innerToiletBowl;
@@ -35,6 +32,13 @@ public class ToiletBulkhead : MonoBehaviour, IInteractable
         sr.sprite = openedSprite;
 
         if (innerBowlCollider != null) innerBowlCollider.enabled = true;
+
+        if (TryGetComponent<Collider2D>(out var doorCollider))
+        {
+            doorCollider.enabled = false;
+        }
+
+        enabled = false;
     }
 
     public void OnInteractHeld() {}
