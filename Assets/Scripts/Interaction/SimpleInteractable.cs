@@ -1,20 +1,13 @@
 using UnityEngine;
 
-public class SimpleInteractable : MonoBehaviour, IInteractable
+public class SimpleInteractable : InteractableBase
 {
-    [Header("Prompt")]
-    [SerializeField] private Transform promptPoint;
-    public Transform PromptPoint => promptPoint;
-
     [Header("Dialog")]
     [SerializeField] private DialogData dialog;
-    public void OnInteractPressed()
+
+    public override void OnInteractPressed()
     {
         if (dialog == null) return;
-
-        UIManager.Instance?.PlayDialog(dialog);
+        DialogSystem.Instance?.PlayDialog(dialog);
     }
-
-    public void OnInteractHeld() {}
-    public void OnInteractReleased() {}
 }

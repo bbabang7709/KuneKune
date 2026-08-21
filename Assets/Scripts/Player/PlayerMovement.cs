@@ -1,56 +1,134 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// 플레이어의 이동, Sprint, Crouch 및 Stamina 상태를 관리한다.
+/// Rigidbody2D를 이용하여 실제 플레이어 이동을 처리한다.
+/// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
+    // =========================================================
+    // Movement Settings
+    // =========================================================
+
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 4f;
+
     private Vector2 moveDirection;
-    public float CurrentFacingDirection { get; private set; } = 1f; // 1f : right / -1f : left
-    public bool IsMoving { get; private set; } = false;
+
+    /// <summary>
+    /// 현재 플레이어가 바라보는 방향을 반환한다.
+    /// 1은 오른쪽, -1은 왼쪽을 의미한다.
+    /// </summary>
+    public float CurrentFacingDirection { get; private set; } = 1f;
+
+    /// <summary>
+    /// 플레이어가 현재 이동 중인지 반환한다.
+    /// </summary>
+    public bool IsMoving { get; private set; }
+
+    /// <summary>
+    /// 플레이어의 이동이 잠겨 있는지 반환한다.
+    /// </summary>
+    public bool IsMovementLocked { get; private set; }
+
+    // =========================================================
+    // Sprint Settings
+    // =========================================================
 
     [Header("Sprint Settings")]
     [SerializeField] private float sprintSpeed = 6f;
-    [SerializeField] private float minStaminaToSprint = 20f;    // 탈진 후 Sprint에 필요한 최소 스테미너
-    private bool isSprintPressed = false;   
-    private bool isSprintLocked = false;    // 탈진 시 Sprint를 강제로 막는 플래그
-    private bool isSprintMode = false;      // Sprint 권한/모드 유지 플래그
-    public bool IsSprinting { get; private set; } = false;       // 실제 Sprint 속도 적용 플래그
+
+    [SerializeField] private float minStaminaToSprint = 20f;
+
+    private bool isSprintPressed;
+    private bool isSprintLocked;
+    private bool isSprintMode;
+
+    /// <summary>
+    /// 실제 Sprint 속도가 적용되고 있는지 반환한다.
+    /// </summary>
+    public bool IsSprinting { get; private set; }
+
+    // =========================================================
+    // Crouch Settings
+    // =========================================================
 
     [Header("Crouch Settings")]
     [SerializeField] private float crouchSpeed = 1.5f;
-    private bool isCrouchPressed = false;
-    public bool IsCrouching { get; private set; } = false;
+
+    private bool isCrouchPressed;
+
+    /// <summary>
+    /// 현재 Crouch 상태인지 반환한다.
+    /// </summary>
+    public bool IsCrouching { get; private set; }
+
+    // =========================================================
+    // Stamina Settings
+    // =========================================================
 
     [Header("Stamina Settings")]
     [SerializeField] private float maxStamina = 100f;
+
     [SerializeField] private float staminaConsumeRate = 20f;
+
     [SerializeField] private float staminaRecoveryRate = 30f;
-    [SerializeField] private float staminaRecoveryDelay = 1f;   // Sprint 멈춤 후 회복 대기 시간
+
+    [SerializeField] private float staminaRecoveryDelay = 1f;
+
+    /// <summary>
+    /// 현재 Stamina 값을 반환한다.
+    /// </summary>
     public float CurrentStamina { get; private set; }
+
+    // =========================================================
+    // Exhaustion Settings
+    // =========================================================
 
     [Header("Exhaustion Settings")]
     [SerializeField] private float exhaustionDuration = 2f;
-    public bool IsExhausted { get; private set; } = false; 
 
-    // TODO: 추후 Interact 구현 시 필요한 외부 참조용 프로퍼티 
-    //public bool CanInteract => !IsCrawling && !IsExhausted;
+    /// <summary>
+    /// 현재 탈진 상태인지 반환한다.
+    /// </summary>
+    public bool IsExhausted { get; private set; }
 
     private float recoveryDelayTimer;
     private float exhaustionTimer;
+
     private Rigidbody2D rb;
 
-    public event Action<float, float> OnStaminaChanged; // Invoke(currentStamina, maxStamina);
+    /// <summary>
+    /// Stamina가 변경될 때 호출되는 이벤트.
+    /// currentStamina, maxStamina 순서로 전달된다.
+    /// </summary>
+    public event Action<float, float> OnStaminaChanged;
+
+    /// <summary>
+    /// Crouch 상태가 변경될 때 호출되는 이벤트.
+    /// 변경된 Crouch 상태를 전달한다.
+    /// </summary>
     public event Action<bool> OnCrouchStateChanged;
 
-    void Awake()
+    // =========================================================
+    // Unity Lifecycle
+    // =========================================================
+
+    /// <summary>
+    /// Rigidbody2D를 가져오고 Stamina를 최대값으로 초기화한다.
+    /// </summary>
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         CurrentStamina = maxStamina;
     }
 
-    void Update()
+    /// <summary>
+    /// 플레이어의 상태를 매 프레임 갱신한다.
+    /// </summary>
+    private void Update()
     {
         UpdateFacingDirection();
         UpdateExhaustion();
@@ -58,35 +136,86 @@ public class PlayerMovement : MonoBehaviour
         UpdateSprintingState();
         UpdateStamina();
 
-        if (rb.linearVelocity != Vector2.zero)
-        {
-            IsMoving = true;
-        } else
-        {
-            IsMoving = false;
-        }
+        IsMoving = rb.linearVelocity != Vector2.zero;
     }
 
-    void FixedUpdate()
+    /// <summary>
+    /// Rigidbody2D를 이용한 실제 이동을 처리한다.
+    /// </summary>
+    private void FixedUpdate()
     {
-        if (IsExhausted)
+        // 이동 잠금 또는 탈진 상태에서는 이동하지 않는다.
+        if (IsMovementLocked || IsExhausted)
         {
             rb.linearVelocity = Vector2.zero;
+            IsMoving = false;
             return;
         }
 
-        float speed = IsCrouching ? crouchSpeed
-                    : IsSprinting ? sprintSpeed 
-                    : moveSpeed;
+        float speed = IsCrouching
+            ? crouchSpeed
+            : IsSprinting
+                ? sprintSpeed
+                : moveSpeed;
 
         rb.linearVelocity = moveDirection * speed;
     }
 
-    // --- State & Logic Handlers --- //
-    
+    // =========================================================
+    // Movement Control
+    // =========================================================
 
     /// <summary>
-    /// 현재 바라보는 방향으로 오브젝트의 localScale를 조정하는 메서드
+    /// 플레이어의 이동을 잠그거나 해제한다.
+    /// 이동이 잠기는 순간 현재 이동 방향과 Rigidbody 속도를 초기화한다.
+    /// </summary>
+    /// <param name="locked">true면 이동을 잠그고 false면 이동을 허용한다.</param>
+    public void SetMovementLocked(bool locked)
+    {
+        IsMovementLocked = locked;
+
+        if (locked)
+        {
+            moveDirection = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
+            IsMoving = false;
+
+            IsSprinting = false;
+            isSprintMode = false;
+        }
+    }
+
+    /// <summary>
+    /// 현재 이동 입력을 기반으로 이동 방향과 바라보는 방향을 설정한다.
+    /// </summary>
+    /// <param name="input">이동 입력값.</param>
+    public void SetMoveDirection(float input)
+    {
+        // 이동 잠금 상태에서는 입력을 받지 않는다.
+        if (IsMovementLocked)
+        {
+            moveDirection = Vector2.zero;
+            return;
+        }
+
+        if (input != 0f)
+        {
+            CurrentFacingDirection = input;
+        }
+
+        moveDirection = input > 0f
+            ? Vector2.right
+            : input < 0f
+                ? Vector2.left
+                : Vector2.zero;
+    }
+
+    // =========================================================
+    // State & Logic
+    // =========================================================
+
+    /// <summary>
+    /// 현재 바라보는 방향에 따라 플레이어 오브젝트의 localScale을 조정한다.
     /// </summary>
     private void UpdateFacingDirection()
     {
@@ -98,52 +227,73 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Exhaustion 상태를 갱신하는 메서드
+    /// 탈진 상태를 갱신한다.
     /// </summary>
     private void UpdateExhaustion()
     {
-        if (!IsExhausted) return;
+        if (!IsExhausted)
+            return;
 
         exhaustionTimer -= Time.deltaTime;
+
         if (exhaustionTimer <= 0f)
         {
             IsExhausted = false;
         }
     }
 
+    /// <summary>
+    /// Crouch 상태를 갱신한다.
+    /// </summary>
     private void UpdateCrawlingState()
     {
-        bool shouldCrawl = isCrouchPressed && !IsExhausted;
+        bool shouldCrouch =
+            isCrouchPressed &&
+            !IsExhausted &&
+            !IsMovementLocked;
 
-        if (IsCrouching != shouldCrawl)
+        if (IsCrouching != shouldCrouch)
         {
-            IsCrouching = shouldCrawl;
+            IsCrouching = shouldCrouch;
             OnCrouchStateChanged?.Invoke(IsCrouching);
         }
     }
 
     /// <summary>
-    /// Sprint 조건을 체크하며 isSprinting 변수 갱신
+    /// Sprint 조건을 검사하고 Sprint 상태를 갱신한다.
     /// </summary>
     private void UpdateSprintingState()
-    {   
-        // Sprint 모드 해제 조건 (Shift 뗌 / 잠금 / 탈진 / 스테미너 고갈)
-        if (!isSprintPressed || isSprintLocked || IsExhausted || IsCrouching || CurrentStamina <= 0f)
+    {
+        if (IsMovementLocked)
+        {
+            isSprintMode = false;
+            IsSprinting = false;
+            return;
+        }
+
+        // Sprint 모드 해제 조건.
+        if (!isSprintPressed ||
+            isSprintLocked ||
+            IsExhausted ||
+            IsCrouching ||
+            CurrentStamina <= 0f)
         {
             isSprintMode = false;
         }
-        // 새 Sprint 모드 진입 조건 (모드가 꺼져있을 때에만 minStaminaToSprint 검사)
-        else if (!isSprintMode && CurrentStamina >= minStaminaToSprint)
+        // 새로운 Sprint 모드 진입 조건.
+        else if (!isSprintMode &&
+                 CurrentStamina >= minStaminaToSprint)
         {
             isSprintMode = true;
         }
-        
-        // Sprint 모드 유지 + 실제 이동 키가 눌려있을 때에만 isSprinting 활성화
-        IsSprinting = isSprintMode && (moveDirection != Vector2.zero);
+
+        IsSprinting =
+            isSprintMode &&
+            moveDirection != Vector2.zero;
     }
 
     /// <summary>
-    /// Sprint 등 조건을 체크하여 Stamina 소모 또는 회복
+    /// Sprint 상태에 따라 Stamina를 소모하거나 회복한다.
     /// </summary>
     private void UpdateStamina()
     {
@@ -158,6 +308,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Stamina 회복 대기 시간과 실제 회복을 처리한다.
+    /// </summary>
     private void HandleStaminaRecovery()
     {
         if (recoveryDelayTimer > 0f)
@@ -170,60 +323,87 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // --- Public API --- //
+    // =========================================================
+    // Input State
+    // =========================================================
 
-    public void SetMoveDirection(float input)
-    {
-        // 현재 바라보는 방향 설정
-        if (input != 0f) CurrentFacingDirection = input;
-
-        // 이동 방향 설정
-        moveDirection = input > 0 ? Vector2.right 
-                      : input < 0 ? Vector2.left
-                      : Vector2.zero;
-    }
-
+    /// <summary>
+    /// Sprint 입력 상태를 설정한다.
+    /// </summary>
+    /// <param name="state">Sprint 입력 상태.</param>
     public void SetSprintState(bool state)
     {
-        if (isSprintPressed != state) isSprintPressed = state;
+        isSprintPressed = state;
 
-        // L-Shift 키를 떼는 순간 Sprint 다시 가능하도록 잠금 해제
+        // Sprint 키를 놓으면 잠금을 해제한다.
         if (!state)
         {
             isSprintLocked = false;
         }
     }
 
+    /// <summary>
+    /// Crouch 입력 상태를 설정한다.
+    /// </summary>
+    /// <param name="state">Crouch 입력 상태.</param>
     public void SetCrouchState(bool state)
     {
-        if (isCrouchPressed != state) isCrouchPressed = state;
+        isCrouchPressed = state;
     }
 
-    // --- Private Utilities --- //
+    // =========================================================
+    // Stamina
+    // =========================================================
 
+    /// <summary>
+    /// Stamina를 회복한다.
+    /// </summary>
     private void RecoverStamina()
     {
-        CurrentStamina = Mathf.Min(maxStamina, CurrentStamina + staminaRecoveryRate * Time.deltaTime);
-        OnStaminaChanged?.Invoke(CurrentStamina, maxStamina);
+        CurrentStamina = Mathf.Min(
+            maxStamina,
+            CurrentStamina +
+            staminaRecoveryRate * Time.deltaTime
+        );
+
+        OnStaminaChanged?.Invoke(
+            CurrentStamina,
+            maxStamina
+        );
     }
 
+    /// <summary>
+    /// Sprint 중 Stamina를 소모한다.
+    /// </summary>
     private void ConsumeStamina()
     {
-        CurrentStamina = Mathf.Max(0f, CurrentStamina - staminaConsumeRate * Time.deltaTime); 
-        OnStaminaChanged?.Invoke(CurrentStamina, maxStamina);
-        
+        CurrentStamina = Mathf.Max(
+            0f,
+            CurrentStamina -
+            staminaConsumeRate * Time.deltaTime
+        );
+
+        OnStaminaChanged?.Invoke(
+            CurrentStamina,
+            maxStamina
+        );
+
         if (CurrentStamina <= 0f)
         {
-            TriggerExhaution();
+            TriggerExhaustion();
         }
     }
 
-    private void TriggerExhaution()
+    /// <summary>
+    /// 플레이어를 탈진 상태로 전환한다.
+    /// </summary>
+    private void TriggerExhaustion()
     {
         IsExhausted = true;
         isSprintLocked = true;
         IsSprinting = false;
+
         exhaustionTimer = exhaustionDuration;
-        recoveryDelayTimer = staminaRecoveryDelay;  // 회복 대기 카운트 시작
+        recoveryDelayTimer = staminaRecoveryDelay;
     }
 }
