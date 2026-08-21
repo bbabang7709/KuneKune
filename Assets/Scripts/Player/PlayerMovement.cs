@@ -86,6 +86,14 @@ public class PlayerMovement : MonoBehaviour
     // =========================================================
     // Exhaustion Settings
     // =========================================================
+    [Header("Heat Settings")]
+    [SerializeField] private float maxHeat = 100f;
+    [SerializeField] private float heatDecreaseRate = 20f;
+    [SerializeField] private float adultHeatIncreaseRate = 10f;
+    [SerializeField] private float studentHeatIncreaseRate = 20f;
+    [SerializeField] private float childHeatIncreaseRate = 25f;
+    public float CurrentHeat { get; private set; } = 0f;
+    public bool IsExposedToSunlight { get; set; } = false;
 
     [Header("Exhaustion Settings")]
     [SerializeField] private float exhaustionDuration = 2f;
@@ -99,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
     private float exhaustionTimer;
 
     private Rigidbody2D rb;
+    private PlayerAppearance appearance;
 
     /// <summary>
     /// Stamina가 변경될 때 호출되는 이벤트.
@@ -110,6 +119,8 @@ public class PlayerMovement : MonoBehaviour
     /// Crouch 상태가 변경될 때 호출되는 이벤트.
     /// 변경된 Crouch 상태를 전달한다.
     /// </summary>
+    public event Action<float, float> OnStaminaChanged; // Invoke(currentStamina, maxStamina);
+    public event Action<float, float> OnHeatChanged;    // Invoke(CurrentHeat, maxHeat);
     public event Action<bool> OnCrouchStateChanged;
 
     // =========================================================
@@ -122,7 +133,9 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        appearance = GetComponent<PlayerAppearance>();
         CurrentStamina = maxStamina;
+        IsExposedToSunlight = false;
     }
 
     /// <summary>
@@ -135,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateCrawlingState();
         UpdateSprintingState();
         UpdateStamina();
+        UpdateHeat();
 
         IsMoving = rb.linearVelocity != Vector2.zero;
     }
@@ -326,6 +340,33 @@ public class PlayerMovement : MonoBehaviour
     // =========================================================
     // Input State
     // =========================================================
+    private void UpdateHeat()
+    {
+        if (MapManager.Instance.CurrentMap == null)
+            return;
+
+        // 아이템 사용(부채, 시원한 물) or 화장실(세이프 존)
+        //if (MapManager.Instance.CurrentMap.MapType == EMapType.Toilet)
+        //    DecreaseHeat();
+        // 햇빛 노출
+        //else if (IsExposedToSunlight)
+        //    IncreaseHeat();
+        if (IsExposedToSunlight) IncreaseHeat();
+        else DecreaseHeat();
+    }
+
+    // --- Public API --- //
+
+    public void SetMoveDirection(float input)
+    {
+        // 현재 바라보는 방향 설정
+        if (input != 0f) CurrentFacingDirection = input;
+
+        // 이동 방향 설정
+        moveDirection = input > 0 ? Vector2.right 
+                      : input < 0 ? Vector2.left
+                      : Vector2.zero;
+    }
 
     /// <summary>
     /// Sprint 입력 상태를 설정한다.
@@ -405,5 +446,34 @@ public class PlayerMovement : MonoBehaviour
 
         exhaustionTimer = exhaustionDuration;
         recoveryDelayTimer = staminaRecoveryDelay;
+    }
+    
+    private void IncreaseHeat()
+    {
+        float heatIncreaseRate = appearance.CurrentAge switch
+        {
+            EPlayerAge.Adult => adultHeatIncreaseRate,
+            EPlayerAge.Student => studentHeatIncreaseRate,
+            EPlayerAge.Child => childHeatIncreaseRate,
+            _ => 0f
+        };
+
+        CurrentHeat = Mathf.Min(maxHeat, CurrentHeat + heatIncreaseRate * Time.deltaTime);
+        OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
+
+        // 쿠네쿠네가 아직 소환되지 않은 상태
+        if (MapManager.Instance.KuneKune.State == ECharacterState.Unspawned && CurrentHeat >= maxHeat)
+            // 더위 게이지 100 달성하면 쿠네쿠네가 등장한다
+            MapManager.Instance.KuneKune.Spawn();
+    }
+
+    private void DecreaseHeat()
+    {
+        // 더위 게이지가 바로 감소되나? 아니면 더위 게이지가 천천히 내려가나?
+        CurrentHeat = Mathf.Max(0f, CurrentHeat - heatDecreaseRate * Time.deltaTime);
+        OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
+
+        if (MapManager.Instance.KuneKune.State != ECharacterState.Unspawned)
+            MapManager.Instance.KuneKune.Despawn();
     }
 }

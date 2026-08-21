@@ -163,6 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1260642175535023539}
   - component: {fileID: 1623505296979972451}
+  - component: {fileID: 6594346221554076468}
   m_Layer: 3
   m_Name: house_bedroom
   m_TagString: Untagged
@@ -247,6 +248,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6594346221554076468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969490001858386542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapArea
+  _mapID: house_bedroom
+  _mapType: 0
+  _kuneKune_ables: {fileID: 0}
 --- !u!1 &3534024971580705717
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,9 +448,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  targetSpawnPoint: {fileID: 0}
-  targetCamera: {fileID: 0}
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   promptPoint: {fileID: 8756368734275027197}
+  isLocked: 0
 --- !u!1 &7049328655420527433
 GameObject:
   m_ObjectHideFlags: 0

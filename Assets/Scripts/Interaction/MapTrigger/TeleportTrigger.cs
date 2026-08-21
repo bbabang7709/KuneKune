@@ -1,25 +1,24 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class TeleportTrigger : MonoBehaviour
+/// <summary>
+/// 특별한 조작 없이 닿기만 하면 맵 전환이 일어나는 Object
+/// </summary>
+public class TeleportTrigger : MapTransition
 {
     [Header("Lock Enter")]
-    [SerializeField] private bool canEnter = true;
-
-    [Header("Link Settings")]
-    [SerializeField] private Transform targetPoint = null;
-    [SerializeField] private CinemachineCamera targetCamera;
+    [SerializeField] private bool canEnter = true;  // 지나갈 수 있는지 여부
     private BoxCollider2D boxCollider;
 
     void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
 
-        if (canEnter)
+        if (canEnter) // 지나갈 수 있으면 Trigger Collider (텔레포트)
         {
             boxCollider.isTrigger = true;
         }
-        else
+        else    // 지나갈 수 없으면 일반 Collider (가로막기)
         {
             boxCollider.isTrigger = false;
         }
@@ -35,14 +34,10 @@ public class TeleportTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (targetPoint == null) return;
-
         if (collision.CompareTag("Player"))
         {
             // TODO: 화면 페이드 인/아웃 연출 구현
-            collision.transform.position = targetPoint.transform.position;
-
-            if (targetCamera != null) CameraManager.Instance?.SetCamera(targetCamera);
+            ExecuteTransition();
         }
     }
 }

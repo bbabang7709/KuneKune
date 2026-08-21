@@ -28,6 +28,8 @@ public class PlayerAppearance : MonoBehaviour
     private PlayerMovement movement;
     private PlayerAgeProfile currentProfile;
 
+    public EPlayerAge CurrentAge { get; private set; } = EPlayerAge.Adult;
+
     void Awake()
     {
         if (anim == null) 
@@ -74,6 +76,7 @@ public class PlayerAppearance : MonoBehaviour
             return;
         }
 
+        CurrentAge = age;
         ApplyAnimationProfile();
     }
 

@@ -646,8 +646,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2901580473760850270}
+  - component: {fileID: 1082219033863481899}
   m_Layer: 0
-  m_Name: Spawn Point
+  m_Name: Entry Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -668,6 +669,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3981669933911096632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1082219033863481899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78694555508235492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
+  spawnPoint: {fileID: 2901580473760850270}
+  mapCamera: {fileID: 6253224109278570089}
 --- !u!1 &89413874868951025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1955,9 +1970,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 1443330780589993381}
+  targetEntryPoint: {fileID: 108889716909803844}
   canEnter: 1
-  targetPoint: {fileID: 6475011485655027410}
-  targetCamera: {fileID: 6383799715123314797}
 --- !u!1 &368012356347241926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,6 +2346,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2938648101419535958}
+  - component: {fileID: 5491580764903108423}
+  - component: {fileID: 9101890806357910356}
   m_Layer: 0
   m_Name: BusStation
   m_TagString: Untagged
@@ -2360,6 +2377,66 @@ Transform:
   - {fileID: 4424273711090074538}
   m_Father: {fileID: 6216366239217735608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &5491580764903108423
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421780012756896327}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 4.926956, y: -3.2110996}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 60.3686, y: 9.18708}
+  m_EdgeRadius: 0
+--- !u!114 &9101890806357910356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421780012756896327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapArea
+  _mapID: outside_busstop
+  _mapType: 0
 --- !u!1 &427578425737473020
 GameObject:
   m_ObjectHideFlags: 0
@@ -5567,9 +5644,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 3960359206242196450}
+  targetEntryPoint: {fileID: 3049095470924191152}
   canEnter: 1
-  targetPoint: {fileID: 7024703533391337787}
-  targetCamera: {fileID: 2515151411052967388}
 --- !u!1 &1217041367792783597
 GameObject:
   m_ObjectHideFlags: 0
@@ -8898,8 +8975,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6915602303733948738}
+  - component: {fileID: 3963164224253373803}
   m_Layer: 0
-  m_Name: Spawn Point
+  m_Name: Entry Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8920,6 +8998,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3908214038709973592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3963164224253373803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2215910559983308136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
+  spawnPoint: {fileID: 6915602303733948738}
+  mapCamera: {fileID: 2515151411052967388}
 --- !u!1 &2250025962066385524
 GameObject:
   m_ObjectHideFlags: 0
@@ -10246,6 +10338,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5398471013969128097}
+  - component: {fileID: 1014462953646018138}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -10268,6 +10361,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1785144848220956924}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1014462953646018138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642672565475833600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
+  spawnPoint: {fileID: 5398471013969128097}
+  mapCamera: {fileID: 6253224109278570089}
 --- !u!1 &2691005901885218794
 GameObject:
   m_ObjectHideFlags: 0
@@ -12417,9 +12524,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 3960359206242196450}
+  targetEntryPoint: {fileID: 5143209385821730781}
   canEnter: 1
-  targetPoint: {fileID: 3897650659734375015}
-  targetCamera: {fileID: 2515151411052967388}
 --- !u!1 &3211557697980267186
 GameObject:
   m_ObjectHideFlags: 0
@@ -12656,6 +12763,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3897650659734375015}
+  - component: {fileID: 5143209385821730781}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -12678,6 +12786,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8542763997703459387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5143209385821730781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254249029692406271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
+  spawnPoint: {fileID: 3897650659734375015}
+  mapCamera: {fileID: 2515151411052967388}
 --- !u!1 &3263604463557594169
 GameObject:
   m_ObjectHideFlags: 0
@@ -12732,6 +12854,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8483038228944577129}
+  - component: {fileID: 108889716909803844}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -12754,6 +12877,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4179507935328038404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &108889716909803844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3289943505392118389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
+  spawnPoint: {fileID: 8483038228944577129}
+  mapCamera: {fileID: 6383799715123314797}
 --- !u!1 &3302348532410534030
 GameObject:
   m_ObjectHideFlags: 0
@@ -14970,6 +15107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7024703533391337787}
+  - component: {fileID: 3049095470924191152}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -14992,6 +15130,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8542763997703459387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3049095470924191152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676857448986872336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
+  spawnPoint: {fileID: 7024703533391337787}
+  mapCamera: {fileID: 2515151411052967388}
 --- !u!1 &3692557516565690806
 GameObject:
   m_ObjectHideFlags: 0
@@ -17172,7 +17324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9077543865394623623}
   m_Layer: 0
-  m_Name: Spawn Point
+  m_Name: Entry Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17203,6 +17355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6475011485655027410}
+  - component: {fileID: 1542617399649789015}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -17225,6 +17378,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4179507935328038404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1542617399649789015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4317024750819285533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
+  spawnPoint: {fileID: 6475011485655027410}
+  mapCamera: {fileID: 6383799715123314797}
 --- !u!1 &4321149901031390802
 GameObject:
   m_ObjectHideFlags: 0
@@ -18376,9 +18543,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 1235334177247003554}
+  targetEntryPoint: {fileID: 1014462953646018138}
   canEnter: 1
-  targetPoint: {fileID: 5398471013969128097}
-  targetCamera: {fileID: 6253224109278570089}
 --- !u!1 &4574633225593236653
 GameObject:
   m_ObjectHideFlags: 0
@@ -18752,6 +18919,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9065013509348146735}
+  - component: {fileID: 3960359206242196450}
+  - component: {fileID: 18829919117286611}
   m_Layer: 0
   m_Name: School
   m_TagString: Untagged
@@ -18783,6 +18952,66 @@ Transform:
   - {fileID: 3150272144052242762}
   m_Father: {fileID: 6216366239217735608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3960359206242196450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4636156939394456699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapArea
+  _mapID: outside_school
+  _mapType: 0
+--- !u!61 &18829919117286611
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4636156939394456699}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 4.723116, y: -28.698484}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 60.33421, y: 10.888828}
+  m_EdgeRadius: 0
 --- !u!1 &4727889121228446945
 GameObject:
   m_ObjectHideFlags: 0
@@ -20843,7 +21072,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8542763997703459387}
   m_Layer: 0
-  m_Name: Spawn Point
+  m_Name: Entry Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26353,9 +26582,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OutsideBorder
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   canEnter: 0
-  targetPoint: {fileID: 0}
-  targetCamera: {fileID: 0}
 --- !u!1 &6814317628275143071
 GameObject:
   m_ObjectHideFlags: 0
@@ -26935,8 +27164,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2938648101419535958}
   - {fileID: 220476837120554174}
+  - {fileID: 2938648101419535958}
   - {fileID: 4747154328157599275}
   - {fileID: 9065013509348146735}
   - {fileID: 5056254767015798427}
@@ -28171,6 +28400,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4747154328157599275}
+  - component: {fileID: 1443330780589993381}
+  - component: {fileID: 6789664469961910848}
   m_Layer: 0
   m_Name: Ricefield
   m_TagString: Untagged
@@ -28201,6 +28432,66 @@ Transform:
   - {fileID: 1823699057346521625}
   m_Father: {fileID: 6216366239217735608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1443330780589993381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7128592626119463731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapArea
+  _mapID: outside_ricefield
+  _mapType: 0
+--- !u!61 &6789664469961910848
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7128592626119463731}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 13.76791, y: -16.748596}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 90.761116, y: 6.9045887}
+  m_EdgeRadius: 0
 --- !u!1 &7128984923881769294
 GameObject:
   m_ObjectHideFlags: 0
@@ -28302,7 +28593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4179507935328038404}
   m_Layer: 0
-  m_Name: Spawn Point
+  m_Name: Entry Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28598,9 +28889,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 1443330780589993381}
+  targetEntryPoint: {fileID: 108889716909803844}
   canEnter: 1
-  targetPoint: {fileID: 8483038228944577129}
-  targetCamera: {fileID: 6383799715123314797}
 --- !u!1 &7374611165830413670
 GameObject:
   m_ObjectHideFlags: 0
@@ -28692,9 +28983,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportTrigger
+  targetMap: {fileID: 9101890806357910356}
+  targetEntryPoint: {fileID: 1553098658916954657}
   canEnter: 1
-  targetPoint: {fileID: 9046332089048379232}
-  targetCamera: {fileID: 3758623065150220490}
 --- !u!1 &7382079891361041762
 GameObject:
   m_ObjectHideFlags: 0
@@ -28796,7 +29087,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1785144848220956924}
   m_Layer: 0
-  m_Name: Spawn Point
+  m_Name: Entry Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32302,9 +32593,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d19f558befd1ac41a7fc5e50652f11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OutsideBorder
+  targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   canEnter: 0
-  targetPoint: {fileID: 0}
-  targetCamera: {fileID: 0}
 --- !u!1 &8256529190600523888
 GameObject:
   m_ObjectHideFlags: 0
@@ -33721,6 +34012,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5056254767015798427}
+  - component: {fileID: 1235334177247003554}
+  - component: {fileID: 6403446431374929219}
   m_Layer: 0
   m_Name: House
   m_TagString: Untagged
@@ -33753,6 +34046,66 @@ Transform:
   - {fileID: 473986732720593021}
   m_Father: {fileID: 6216366239217735608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1235334177247003554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486901266646107969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapArea
+  _mapID: outside_house
+  _mapType: 0
+--- !u!61 &6403446431374929219
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486901266646107969}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 4.568655, y: -42.030502}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 60.187748, y: 9.245743}
+  m_EdgeRadius: 0
 --- !u!1 &8541566484318841758
 GameObject:
   m_ObjectHideFlags: 0
@@ -34794,6 +35147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9046332089048379232}
+  - component: {fileID: 1553098658916954657}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -34816,6 +35170,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9077543865394623623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1553098658916954657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8749495851745820030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
+  spawnPoint: {fileID: 9046332089048379232}
+  mapCamera: {fileID: 3758623065150220490}
 --- !u!1 &8760110449098114322
 GameObject:
   m_ObjectHideFlags: 0

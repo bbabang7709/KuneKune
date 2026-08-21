@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     /// 플레이어 스태미나 게이지 이미지.
     /// </summary>
     [SerializeField] private Image staminaGuage;
+    [SerializeField] private Image heatGuage;
 
     [Header("References")]
 
@@ -89,6 +90,7 @@ public class UIManager : MonoBehaviour
         if (playerMovement != null)
         {
             playerMovement.OnStaminaChanged += UpdateStaminaUI;
+            playerMovement.OnHeatChanged += UpdateHeatUI;
         }
     }
 
@@ -100,6 +102,7 @@ public class UIManager : MonoBehaviour
         if (playerMovement != null)
         {
             playerMovement.OnStaminaChanged -= UpdateStaminaUI;
+            playerMovement.OnHeatChanged -= UpdateHeatUI;
         }
     }
 
@@ -181,4 +184,10 @@ public class UIManager : MonoBehaviour
 
         illustrationImage.sprite = null;
     }
+
+    public void UpdateHeatUI(float current, float max)
+    {
+        float ratio = current / max;
+        heatGuage.fillAmount = ratio;
+    }    
 }

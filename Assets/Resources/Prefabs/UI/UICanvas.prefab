@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   staminaGuage: {fileID: 1525356568697929963}
+  heatGuage: {fileID: 2925690415183064649}
   playerMovement: {fileID: 0}
   playerInput: {fileID: 0}
   dialogTextSystem: {fileID: 740537433241435756}
