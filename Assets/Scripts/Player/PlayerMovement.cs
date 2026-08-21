@@ -119,7 +119,6 @@ public class PlayerMovement : MonoBehaviour
     /// Crouch 상태가 변경될 때 호출되는 이벤트.
     /// 변경된 Crouch 상태를 전달한다.
     /// </summary>
-    public event Action<float, float> OnStaminaChanged; // Invoke(currentStamina, maxStamina);
     public event Action<float, float> OnHeatChanged;    // Invoke(CurrentHeat, maxHeat);
     public event Action<bool> OnCrouchStateChanged;
 
@@ -356,17 +355,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // --- Public API --- //
-
-    public void SetMoveDirection(float input)
-    {
-        // 현재 바라보는 방향 설정
-        if (input != 0f) CurrentFacingDirection = input;
-
-        // 이동 방향 설정
-        moveDirection = input > 0 ? Vector2.right 
-                      : input < 0 ? Vector2.left
-                      : Vector2.zero;
-    }
 
     /// <summary>
     /// Sprint 입력 상태를 설정한다.

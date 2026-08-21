@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Cinemachine;
 
 /// <summary>
 /// 플레이어가 상호작용하여 다른 위치로 이동할 수 있는 문입니다.
