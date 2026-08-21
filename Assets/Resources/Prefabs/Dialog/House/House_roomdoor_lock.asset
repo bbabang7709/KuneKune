@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
-  m_Name: outside_busstop
+  m_Name: House_roomdoor_lock
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "\uCCAB\uCC28 07:00\n\uB9C9\uCC28 22:00"
+  - "\uC5F4\uC1E0\uAC00 \uD544\uC694\uD558\uB2E4."

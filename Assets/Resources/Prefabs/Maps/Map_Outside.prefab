@@ -11378,9 +11378,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Door
   targetSpawnPoint: {fileID: 0}
   targetCamera: {fileID: 0}
-  promptPoint: {fileID: 9165601073369267316}
   isLocked: 0
   requiredKeyID: 
+  dialogWhenLocked: {fileID: 0}
 --- !u!1 &2951078515183906593
 GameObject:
   m_ObjectHideFlags: 0
@@ -26881,7 +26881,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 2.0259192, y: -3.0469182}
+  m_Offset: {x: 3.0461185, y: -3.6157722}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -26891,7 +26891,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5.984404, y: 4.874972}
+  m_Size: {x: 3.9440055, y: 3.7372637}
   m_EdgeRadius: 0
 --- !u!114 &4335482588772889522
 MonoBehaviour:
@@ -26905,7 +26905,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eceb4f65b58666478876b38b1db8ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleInteractable
-  promptPoint: {fileID: 7676005520775640556}
   dialog: {fileID: 11400000, guid: aaefa8487f26b5146a5959d223cba5c9, type: 2}
 --- !u!1 &6907990569651170965
 GameObject:
@@ -30182,9 +30181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Door
   targetSpawnPoint: {fileID: 0}
   targetCamera: {fileID: 0}
-  promptPoint: {fileID: 7197552113102970828}
   isLocked: 1
   requiredKeyID: key_doll
+  dialogWhenLocked: {fileID: 11400000, guid: df52a763497918d499b67cbd54f7857a, type: 2}
 --- !u!1 &7776669071452415500
 GameObject:
   m_ObjectHideFlags: 0
