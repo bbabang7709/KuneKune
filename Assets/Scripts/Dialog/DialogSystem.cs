@@ -61,9 +61,7 @@ public class DialogSystem : MonoBehaviour
         if (IsDialogPlaying)
             return;
 
-        StartCoroutine(
-            PlayDialogRoutine(dialog)
-        );
+        StartCoroutine(PlayDialogRoutine(dialog));
     }
 
     /// <summary>
@@ -75,8 +73,7 @@ public class DialogSystem : MonoBehaviour
     {
         IsDialogPlaying = true;
 
-        // 현재 상호작용을 발생시킨 입력이 해제될 때까지 기다린다.
-        yield return WaitForInputRelease();
+        yield return null;
 
         // 플레이어 이동을 정지한다.
         playerMovement.SetMovementLocked(true);
@@ -90,9 +87,7 @@ public class DialogSystem : MonoBehaviour
                 continue;
 
             // 한 줄의 텍스트를 타이핑한다.
-            yield return StartCoroutine(
-                textSystem.TypeText(line)
-            );
+            yield return StartCoroutine(textSystem.TypeText(line));
 
             // 다음 대사를 기다린다.
             yield return WaitForAdvanceInput();
@@ -106,9 +101,7 @@ public class DialogSystem : MonoBehaviour
     /// </summary>
     private IEnumerator WaitForAdvanceInput()
     {
-        yield return new WaitUntil(
-            () => playerInput.IsDialogAdvancePressed
-        );
+        yield return new WaitUntil(() => playerInput.IsDialogAdvancePressed);
 
         yield return WaitForInputRelease();
     }
@@ -118,9 +111,7 @@ public class DialogSystem : MonoBehaviour
     /// </summary>
     private IEnumerator WaitForInputRelease()
     {
-        yield return new WaitUntil(
-            () => !playerInput.IsDialogAdvanceHeld
-        );
+        yield return new WaitUntil(() => !playerInput.IsDialogAdvanceHeld);
     }
 
     /// <summary>
@@ -145,21 +136,12 @@ public class DialogSystem : MonoBehaviour
     /// <param name="image">표시할 이미지.</param>
     /// <param name="dialog">출력할 대화 데이터.</param>
     /// <param name="onFinished">연출 종료 후 호출할 콜백.</param>
-    public void PlayIllustrationDialog(
-        Sprite image,
-        DialogData dialog,
-        System.Action onFinished)
+    public void PlayIllustrationDialog(Sprite image, DialogData dialog, System.Action onFinished)
     {
         if (IsDialogPlaying)
             return;
 
-        StartCoroutine(
-            PlayIllustrationDialogRoutine(
-                image,
-                dialog,
-                onFinished
-            )
-        );
+        StartCoroutine(PlayIllustrationDialogRoutine(image, dialog, onFinished));
     }
 
     /// <summary>
@@ -169,15 +151,11 @@ public class DialogSystem : MonoBehaviour
     /// <param name="dialog">출력할 대화 데이터.</param>
     /// <param name="onFinished">연출 종료 후 호출할 콜백.</param>
     /// <returns>코루틴 Enumerator.</returns>
-    private IEnumerator PlayIllustrationDialogRoutine(
-        Sprite image,
-        DialogData dialog,
-        System.Action onFinished)
+    private IEnumerator PlayIllustrationDialogRoutine(Sprite image, DialogData dialog, System.Action onFinished)
     {
         IsDialogPlaying = true;
 
-        // 상호작용을 발생시킨 입력이 해제될 때까지 기다린다.
-        yield return WaitForInputRelease();
+        yield return null;
 
         // 플레이어 이동을 정지한다.
         playerMovement.SetMovementLocked(true);
@@ -185,9 +163,7 @@ public class DialogSystem : MonoBehaviour
         // 이미지가 있다면 표시한다.
         UIManager.Instance.OpenIllustration(image);
 
-        if (dialog != null &&
-            dialog.lines != null &&
-            dialog.lines.Length > 0)
+        if (dialog != null && dialog.lines != null && dialog.lines.Length > 0)
         {
             foreach (string line in dialog.lines)
             {

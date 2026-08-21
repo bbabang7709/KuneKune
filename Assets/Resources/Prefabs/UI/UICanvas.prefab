@@ -269,10 +269,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   staminaGuage: {fileID: 1525356568697929963}
   playerMovement: {fileID: 0}
-  dialogRoot: {fileID: 6624205895344313459}
+  playerInput: {fileID: 0}
+  dialogTextSystem: {fileID: 740537433241435756}
+  dialogRoot: {fileID: 4351861328380234081}
   dialogText: {fileID: 9013718403688353104}
-  fullScreenImageRoot: {fileID: 3188749620117990474}
-  fullScreenImage: {fileID: 3185792848356609459}
+  illustrationRoot: {fileID: 3188749620117990474}
+  illustrationImage: {fileID: 3185792848356609459}
 --- !u!1 &2174722543100522503
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,13 +587,14 @@ GameObject:
   - component: {fileID: 1239008841217627143}
   - component: {fileID: 7309627398769772714}
   - component: {fileID: 4590044640353685205}
+  - component: {fileID: 740537433241435756}
   m_Layer: 5
   m_Name: Text Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1239008841217627143
 RectTransform:
   m_ObjectHideFlags: 0
@@ -650,6 +653,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &740537433241435756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4351861328380234081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2776c59675ab7434b821cb7537d9a36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogTextSystem
+  dialogText: {fileID: 9013718403688353104}
+  playerInput: {fileID: 0}
+  textSpeed: 0.03
+  commaDelay: 0.08
+  punctuationDelay: 0.2
+  ellipsisDelay: 0.3
 --- !u!1 &5268963028594686897
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,13 +855,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5912605810512162639}
+  - component: {fileID: 6841379985772397422}
   m_Layer: 5
   m_Name: Text UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5912605810512162639
 RectTransform:
   m_ObjectHideFlags: 0
@@ -861,6 +883,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -375.79657}
   m_SizeDelta: {x: 0, y: -751.5931}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6841379985772397422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624205895344313459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31a2868cebc2004c8ac52b3611ce8db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogSystem
+  playerInput: {fileID: 0}
+  playerMovement: {fileID: 0}
+  textSystem: {fileID: 740537433241435756}
 --- !u!1 &7947851737009501862
 GameObject:
   m_ObjectHideFlags: 0
