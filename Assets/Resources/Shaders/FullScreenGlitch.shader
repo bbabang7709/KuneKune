@@ -121,13 +121,6 @@ Shader "FullScreenGlitch"
                 noise *= 2.0;
                 color.rgb += noise * _NoiseStrength * _Intensity;
 
-                // 순간적으로 나타나는 밝은 가로 간섭선: 14fps 주기로 랜덤한 세로 위치(stripeY)에 얇은 밝은 줄을 띄운다.
-                float stripeSeed = floor(time * 14.0);
-                float stripeY = Hash11(stripeSeed);
-                float stripeDistance = abs(uv.y - stripeY);
-                float stripe = 1.0 - smoothstep(0.0, 0.03, stripeDistance);
-                color.rgb += stripe * 0.12 * _Intensity * burst;
-
                 color.rgb = saturate(color.rgb);
 
                 return color;
