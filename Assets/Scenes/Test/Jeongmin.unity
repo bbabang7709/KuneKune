@@ -1220,8 +1220,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2948278598789739297, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
+      propertyPath: _test
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948278598789739297, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
       propertyPath: moveSpeed
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3022991992757690216, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
       propertyPath: promptUI

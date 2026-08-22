@@ -87,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
     // Exhaustion Settings
     // =========================================================
     [Header("Heat Settings")]
+    [SerializeField] private bool _test = false;
     [SerializeField] private float maxHeat = 100f;
     [SerializeField] private float heatDecreaseRate = 20f;
     // 연령에 따라 다른 더위 게이지 증가량
@@ -94,6 +95,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float studentHeatIncreaseRate = 20f;
     [SerializeField] private float childHeatIncreaseRate = 25f;
     public float CurrentHeat { get; private set; } = 0f;
+
+    /// <summary>
+    /// 현재 더위 게이지를 0부터 1 사이의 비율로 반환합니다.
+    /// </summary>
+    public float HeatRatio => maxHeat > 0f ? CurrentHeat / maxHeat : 0f;
+
     /// <summary>
     /// 햇빛에 노출되어 있는가?
     /// </summary>
@@ -345,6 +352,13 @@ public class PlayerMovement : MonoBehaviour
     // =========================================================
     private void UpdateHeat()
     {
+        // 테스트 중에는 현재 맵과 햇빛 노출 상태에 관계없이 더위를 올린다.
+        if (_test)
+        {
+            IncreaseHeat();
+            return;
+        }
+
         if (MapManager.Instance.CurrentMap == null)
             return;
 
@@ -453,9 +467,10 @@ public class PlayerMovement : MonoBehaviour
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
 
         // 쿠네쿠네가 아직 소환되지 않은 상태
-        if (MapManager.Instance.KuneKune.State == ECharacterState.Unspawned && CurrentHeat >= maxHeat)
+        KuneKune kuneKune = MapManager.Instance != null ? MapManager.Instance.KuneKune : null;
+        if (kuneKune != null && kuneKune.State == ECharacterState.Unspawned && CurrentHeat >= maxHeat)
             // 더위 게이지 100 달성하면 쿠네쿠네가 등장한다
-            MapManager.Instance.KuneKune.Spawn();
+            kuneKune.Spawn();
     }
 
     private void DecreaseHeat()

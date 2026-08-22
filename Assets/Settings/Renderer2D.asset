@@ -25,8 +25,9 @@ MonoBehaviour:
     probeSamplingDebugTexture: {fileID: 2800000, guid: 24ec0e140fb444a44ab96ee80844e18e, type: 3}
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
+  - {fileID: 8317654762193012457}
   - {fileID: 5028409714065419508}
-  m_RendererFeatureMap: f42cfe47fe7fc845
+  m_RendererFeatureMap: e9c6d9f8ef3e6e73f42cfe47fe7fc845
   m_UseNativeRenderPass: 0
   m_LayerMask:
     serializedVersion: 2
@@ -74,6 +75,26 @@ MonoBehaviour:
   fetchColorBuffer: 1
   requirements: 4
   passMaterial: {fileID: 2100000, guid: 2edce572c476884488c98e3b3cb3463d, type: 2}
+  passIndex: 0
+  bindDepthStencilAttachment: 0
+  m_Version: 1
+--- !u!114 &8317654762193012457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b00045f12942b46c698459096c89274e, type: 3}
+  m_Name: HeatHazeRendererFeature
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.FullScreenPassRendererFeature
+  m_Active: 1
+  injectionPoint: 600
+  fetchColorBuffer: 1
+  requirements: 4
+  passMaterial: {fileID: 2100000, guid: 0d7d73f881fa45fbad84707333ea6816, type: 2}
   passIndex: 0
   bindDepthStencilAttachment: 0
   m_Version: 1

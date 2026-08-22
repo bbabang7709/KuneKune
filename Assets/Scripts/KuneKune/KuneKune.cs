@@ -65,7 +65,7 @@ public class KuneKune : MonoBehaviour
         _collider.excludeLayers = playerLayerMask;
 
         Despawn();
-        Spawn(Vector3.zero);    // TODO: test용이다. 제거 필요.
+        //Spawn(Vector3.zero);    // TODO: test용이다. 제거 필요.
     }
 
     /// <summary>
