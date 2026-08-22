@@ -1,6 +1,7 @@
 using TMPro;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -9,6 +10,8 @@ using UnityEngine.UI;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    private const string UIGlitchSceneName = "Jeongmin";
+
     /// <summary>
     /// UIManager의 싱글톤 인스턴스.
     /// </summary>
@@ -21,6 +24,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Image staminaGuage;
     [SerializeField] private Image heatGuage;
+    [SerializeField] private HeatGaugeEffect heatGaugeEffect;
 
     [Header("References")]
 
@@ -76,10 +80,34 @@ public class UIManager : MonoBehaviour
 
         Instance = this;
 
+        ApplyFullScreenGlitchToUI();
+
         dialogRoot.SetActive(false);
         illustrationRoot.SetActive(false);
 
         dialogText.text = string.Empty;
+    }
+
+    /// <summary>
+    /// 정민 씬의 UI를 Main Camera가 함께 그리게 합니다.
+    /// 이렇게 해야 기존 전체 화면 글리치가 UI에도 같은 모양으로 적용됩니다.
+    /// </summary>
+    private void ApplyFullScreenGlitchToUI()
+    {
+        if (SceneManager.GetActiveScene().name != UIGlitchSceneName)
+            return;
+
+        Canvas uiCanvas = GetComponent<Canvas>();
+        Camera mainCamera = Camera.main;
+
+        if (uiCanvas == null || mainCamera == null)
+        {
+            Debug.LogError("정민 씬의 UI 글리치에 필요한 Canvas 또는 Main Camera를 찾지 못했습니다.", this);
+            return;
+        }
+
+        uiCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+        uiCanvas.worldCamera = mainCamera;
     }
 
     /// <summary>
@@ -187,7 +215,11 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHeatUI(float current, float max)
     {
-        float ratio = current / max;
+        if (heatGuage == null || max <= 0f)
+            return;
+
+        float ratio = Mathf.Clamp01(current / max);
         heatGuage.fillAmount = ratio;
+        heatGaugeEffect?.SetHeatRatio(ratio);
     }    
 }

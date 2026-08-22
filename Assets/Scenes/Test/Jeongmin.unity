@@ -1376,6 +1376,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2156444603922970853, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156444603922970853, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 2129922681031526056, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1

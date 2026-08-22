@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: bd2fa4670c7143bea976837e1579a4c8, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -270,6 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   staminaGuage: {fileID: 1525356568697929963}
   heatGuage: {fileID: 2925690415183064649}
+  heatGaugeEffect: {fileID: 664391827540182637}
   playerMovement: {fileID: 0}
   playerInput: {fileID: 0}
   dialogTextSystem: {fileID: 740537433241435756}
@@ -286,6 +287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5410420800154642092}
+  - component: {fileID: 664391827540182637}
   m_Layer: 5
   m_Name: Heat Guage
   m_TagString: Untagged
@@ -315,6 +317,28 @@ RectTransform:
   m_AnchoredPosition: {x: 6, y: -3}
   m_SizeDelta: {x: 94.2133, y: 112.0241}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &664391827540182637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2174722543100522503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a8f9d3e5b847289f6d821a6c7f9472, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::HeatGaugeEffect
+  fillImage: {fileID: 2925690415183064649}
+  outlineImage: {fileID: 1081492133693194}
+  labelText: {fileID: 8066127078006693881}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  warmColor: {r: 1, g: 0.72, b: 0.24, a: 1}
+  hotColor: {r: 1, g: 0.27, b: 0.06, a: 1}
+  dangerColor: {r: 1, g: 0.05, b: 0.02, a: 1}
+  dangerLabelColor: {r: 1, g: 0.55, b: 0.4, a: 1}
+  maxPulseScale: 0.035
+  maxShakeDistance: 2.4
 --- !u!1 &3060514329293597725
 GameObject:
   m_ObjectHideFlags: 0
