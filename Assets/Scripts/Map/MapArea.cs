@@ -7,7 +7,8 @@ public enum EMapType
 {
     Outside,
     House,
-    School
+    School,
+    Toilet
 }
 
 /// <summary>

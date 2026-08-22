@@ -89,10 +89,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("Heat Settings")]
     [SerializeField] private float maxHeat = 100f;
     [SerializeField] private float heatDecreaseRate = 20f;
+    // 연령에 따라 다른 더위 게이지 증가량
     [SerializeField] private float adultHeatIncreaseRate = 10f;
     [SerializeField] private float studentHeatIncreaseRate = 20f;
     [SerializeField] private float childHeatIncreaseRate = 25f;
     public float CurrentHeat { get; private set; } = 0f;
+    /// <summary>
+    /// 햇빛에 노출되어 있는가?
+    /// </summary>
     public bool IsExposedToSunlight { get; set; } = false;
 
     [Header("Exhaustion Settings")]
@@ -344,14 +348,13 @@ public class PlayerMovement : MonoBehaviour
         if (MapManager.Instance.CurrentMap == null)
             return;
 
-        // 아이템 사용(부채, 시원한 물) or 화장실(세이프 존)
-        //if (MapManager.Instance.CurrentMap.MapType == EMapType.Toilet)
-        //    DecreaseHeat();
-        // 햇빛 노출
-        //else if (IsExposedToSunlight)
-        //    IncreaseHeat();
-        if (IsExposedToSunlight) IncreaseHeat();
-        else DecreaseHeat();
+        // 화장실(세이프 존)
+        // TODO: 아이템 사용(부채, 시원한 물) 인식
+        if (MapManager.Instance.CurrentMap.MapType == EMapType.Toilet)
+            DecreaseHeat();
+        // 햇빛 노출될 때 더위 게이지 증가
+        else if (IsExposedToSunlight)
+            IncreaseHeat();
     }
 
     // --- Public API --- //
@@ -457,7 +460,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void DecreaseHeat()
     {
-        // 더위 게이지가 바로 감소되나? 아니면 더위 게이지가 천천히 내려가나?
+        // 더위 게이지가 천천히 내려간다
         CurrentHeat = Mathf.Max(0f, CurrentHeat - heatDecreaseRate * Time.deltaTime);
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
 
