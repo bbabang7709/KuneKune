@@ -1496,7 +1496,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FuneralPortrait
   spriteAfterInteract: {fileID: -957938479399519346, guid: 84ac53b89ad47404991b6703b9d9312b, type: 3}
-  promptPoint: {fileID: 2551977548747168772}
+  dialog: {fileID: 11400000, guid: 9949cb7edebbb33429518470cf658e91, type: 2}
+  illustration: {fileID: 2738851617565552843, guid: ecacfe1c266772f4283531e84faf81cc, type: 3}
 --- !u!4 &7393794653200165201 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7080052787172082847, guid: 5c85cb2b7fdbdb04dba6021eef479763, type: 3}
