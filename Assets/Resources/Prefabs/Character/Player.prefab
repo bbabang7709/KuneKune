@@ -262,6 +262,11 @@ MonoBehaviour:
   staminaConsumeRate: 20
   staminaRecoveryRate: 30
   staminaRecoveryDelay: 1
+  maxHeat: 100
+  heatDecreaseRate: 20
+  adultHeatIncreaseRate: 10
+  studentHeatIncreaseRate: 20
+  childHeatIncreaseRate: 25
   exhaustionDuration: 2
 --- !u!114 &3527205237574185875
 MonoBehaviour:
@@ -305,3 +310,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
   promptUI: {fileID: 0}
+  interactionDistance: 1.5

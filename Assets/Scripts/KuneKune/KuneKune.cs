@@ -95,12 +95,12 @@ public class KuneKune : MonoBehaviour
             //return;
 
             // TODO: TEST용 삭제 필요
-            {
-                Transform tr = GameObject.Find("KuneKune_ables").transform;
-                Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
-                foreach (Transform sp in spawnPoints)
-                    MapManager.Instance.KunekuneSpawnPoints.Add(sp);
-            }
+            // {
+            //     Transform tr = GameObject.Find("KuneKune_ables").transform;
+            //     Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
+            //     foreach (Transform sp in spawnPoints)
+            //         MapManager.Instance.KunekuneSpawnPoints.Add(sp);
+            // }
         }
 
         #region 플레이어랑 가까운 사물 찾기
@@ -110,6 +110,8 @@ public class KuneKune : MonoBehaviour
 
         foreach (Transform child in MapManager.Instance.KunekuneSpawnPoints)
         {
+            if (child.name == "KuneKune_ables") continue;   // 부모 오브젝트는 제외
+
             Vector3 direction = child.position - _player.transform.position;
             float distance = direction.magnitude;
             float rightValue = Vector3.Dot(direction, _player.transform.right); // 플레이어 기준 오른쪽으로 얼마나 있는지
