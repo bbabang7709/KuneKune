@@ -1510,6 +1510,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6810011679965402581}
     m_Modifications:
+    - target: {fileID: 2259912544889945347, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: m_TagString
+      value: KunekuneProp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2915155965487846422, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7803298610261674138, guid: 75697e90600970a4093cf5983e7a9fe6, type: 3}
     - target: {fileID: 3273485573732471438, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: isLocked
       value: 1
@@ -1530,6 +1538,10 @@ PrefabInstance:
       propertyPath: targetSpawnPoint
       value: 
       objectReference: {fileID: 6603403547890126131}
+    - target: {fileID: 3818960832155882380, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: m_TagString
+      value: KunekuneProp
+      objectReference: {fileID: 0}
     - target: {fileID: 4306111999791391082, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: m_Name
       value: house_hallway
@@ -1537,6 +1549,10 @@ PrefabInstance:
     - target: {fileID: 4532892658873910093, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: m_Name
       value: Bedroom Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 4595982062697561323, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.19
       objectReference: {fileID: 0}
     - target: {fileID: 7780097411156191184, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1578,9 +1594,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8654852558771022254, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7803298610261674138, guid: 75697e90600970a4093cf5983e7a9fe6, type: 3}
     - target: {fileID: 8869758308386632253, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: isSceneChanger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8899041472765676528, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.21
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3830642568858414429, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}

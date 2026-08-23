@@ -1258,6 +1258,70 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 979835317059767479}
     m_Modifications:
+    - target: {fileID: 26270456091371401, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 26270456091371401, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 26270456091371401, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6862499536966103185}
+    - target: {fileID: 26270456091371401, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 26270456091371401, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 26270456091371401, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PasswordUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 26270456091371401, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 26270456091371401, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 279568190138651950, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 279568190138651950, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 279568190138651950, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6862499536966103185}
+    - target: {fileID: 279568190138651950, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 279568190138651950, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 279568190138651950, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PasswordUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 279568190138651950, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 279568190138651950, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 842574254374729494, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
       propertyPath: m_Name
       value: Password
@@ -1265,6 +1329,182 @@ PrefabInstance:
     - target: {fileID: 842574254374729494, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 895731262559408322, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 895731262559408322, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 895731262559408322, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6862499536966103185}
+    - target: {fileID: 895731262559408322, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 895731262559408322, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 895731262559408322, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PasswordUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 895731262559408322, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 895731262559408322, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 902594684381484972, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 902594684381484972, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 902594684381484972, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6862499536966103185}
+    - target: {fileID: 902594684381484972, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 902594684381484972, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 902594684381484972, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PasswordUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 902594684381484972, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 902594684381484972, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080721899859797818, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080721899859797818, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080721899859797818, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3751451732097331935}
+    - target: {fileID: 1080721899859797818, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963538860973481720, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963538860973481720, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963538860973481720, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6862499536966103185}
+    - target: {fileID: 1963538860973481720, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963538860973481720, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963538860973481720, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PasswordUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963538860973481720, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1963538860973481720, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224984497268023058, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224984497268023058, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224984497268023058, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6862499536966103185}
+    - target: {fileID: 2224984497268023058, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224984497268023058, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224984497268023058, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PasswordUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224984497268023058, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224984497268023058, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463953658847740769, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463953658847740769, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463953658847740769, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6862499536966103185}
+    - target: {fileID: 2463953658847740769, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463953658847740769, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463953658847740769, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PasswordUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463953658847740769, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463953658847740769, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2885753046934600850, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
       propertyPath: m_Pivot.x
@@ -1346,13 +1586,149 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4907547926632027897, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907547926632027897, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907547926632027897, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3751451732097331935}
+    - target: {fileID: 4907547926632027897, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010894363653102590, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010894363653102590, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010894363653102590, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6862499536966103185}
+    - target: {fileID: 6010894363653102590, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010894363653102590, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010894363653102590, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PasswordUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010894363653102590, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010894363653102590, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878818397320516659, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878818397320516659, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878818397320516659, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6862499536966103185}
+    - target: {fileID: 6878818397320516659, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878818397320516659, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878818397320516659, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PasswordUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878818397320516659, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7759883015562258540, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7759883015562258540, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7759883015562258540, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6862499536966103185}
+    - target: {fileID: 7759883015562258540, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7759883015562258540, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7759883015562258540, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PasswordUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7759883015562258540, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 842574254374729494, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6862499536966103185}
   m_SourcePrefab: {fileID: 100100000, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
 --- !u!224 &1707700659819903323 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2885753046934600850, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
   m_PrefabInstance: {fileID: 4593312803641247177}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1869286916488517678 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2760622061182197223, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+  m_PrefabInstance: {fileID: 4593312803641247177}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &3751451732097331935 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 842574254374729494, guid: 6c1f1c06730936f4098a82cd59fca4ed, type: 3}
+  m_PrefabInstance: {fileID: 4593312803641247177}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6862499536966103185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3751451732097331935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a978c8cb2851cc46bcbb9fba4a40e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PasswordUI
+  displayText: {fileID: 1869286916488517678}
