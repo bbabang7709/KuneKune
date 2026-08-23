@@ -165,6 +165,8 @@ public class DialogSystem : MonoBehaviour
 
         if (dialog != null && dialog.lines != null && dialog.lines.Length > 0)
         {
+            UIManager.Instance?.OpenDialog();
+
             foreach (string line in dialog.lines)
             {
                 if (string.IsNullOrEmpty(line))
@@ -183,7 +185,8 @@ public class DialogSystem : MonoBehaviour
             yield return WaitForAdvanceInput();
         }
 
-        UIManager.Instance.CloseIllustration();
+        UIManager.Instance?.CloseIllustration();
+        UIManager.Instance?.CloseDialog();
 
         playerMovement.SetMovementLocked(false);
 
