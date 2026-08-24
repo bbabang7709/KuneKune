@@ -4210,7 +4210,7 @@ MonoBehaviour:
   defaultDialog: {fileID: 11400000, guid: 2bd0032b38863a34bb27e8e10f7f6572, type: 2}
   acquiredDialog: {fileID: 11400000, guid: 5a48fd0db73f84c4db93a85861f2a565, type: 2}
   passwordUIRoot: {fileID: 0}
-  shovel: {fileID: 0}
+  shovel: {fileID: 1776254094354767016}
 --- !u!1 &2402286556217144999 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4779348661779231992, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}

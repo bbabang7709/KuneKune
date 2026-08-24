@@ -575,10 +575,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1603601638}
     - target: {fileID: 3908814912681346489, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
-      propertyPath: shovel
-      value: 
-      objectReference: {fileID: 709770430}
-    - target: {fileID: 3908814912681346489, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
       propertyPath: passwordUIRoot
       value: 
       objectReference: {fileID: 730555364}
@@ -723,11 +719,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &709770430 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1776254094354767016, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
-  m_PrefabInstance: {fileID: 600629050}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &718277621 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6503646979465969103, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
