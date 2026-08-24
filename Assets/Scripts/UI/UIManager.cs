@@ -10,8 +10,6 @@ using UnityEngine.UI;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
-    private const string UIGlitchSceneName = "Jeongmin";
-
     /// <summary>
     /// UIManager의 싱글톤 인스턴스.
     /// </summary>
@@ -89,25 +87,29 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 정민 씬의 UI를 Main Camera가 함께 그리게 합니다.
-    /// 이렇게 해야 기존 전체 화면 글리치가 UI에도 같은 모양으로 적용됩니다.
+    /// 기존 전체 화면 글리치가 UI에도 같은 모양으로 적용됩니다.
     /// </summary>
     private void ApplyFullScreenGlitchToUI()
     {
-        if (SceneManager.GetActiveScene().name != UIGlitchSceneName)
-            return;
-
         Canvas uiCanvas = GetComponent<Canvas>();
         Camera mainCamera = Camera.main;
 
         if (uiCanvas == null || mainCamera == null)
         {
-            Debug.LogError("정민 씬의 UI 글리치에 필요한 Canvas 또는 Main Camera를 찾지 못했습니다.", this);
+            Debug.LogError("UI 글리치에 필요한 Canvas 또는 Main Camera를 찾지 못했습니다.", this);
             return;
         }
 
         uiCanvas.renderMode = RenderMode.ScreenSpaceCamera;
         uiCanvas.worldCamera = mainCamera;
+
+        // UI를 카메라 바로 앞에 놓아 건물이나 캐릭터가 UI를 가리지 않게 합니다.
+        uiCanvas.planeDistance = 1f;
+
+        // 2D 건물보다 UI를 나중에 그려 항상 화면 앞에 보이게 합니다.
+        uiCanvas.overrideSorting = true;
+        uiCanvas.sortingLayerName = "UI";
+        uiCanvas.sortingOrder = 1;
     }
 
     /// <summary>
