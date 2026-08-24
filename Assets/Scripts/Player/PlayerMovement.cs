@@ -87,12 +87,23 @@ public class PlayerMovement : MonoBehaviour
     // Exhaustion Settings
     // =========================================================
     [Header("Heat Settings")]
+    [SerializeField] private bool _test = false;
     [SerializeField] private float maxHeat = 100f;
     [SerializeField] private float heatDecreaseRate = 20f;
+    // 연령에 따라 다른 더위 게이지 증가량
     [SerializeField] private float adultHeatIncreaseRate = 10f;
     [SerializeField] private float studentHeatIncreaseRate = 20f;
     [SerializeField] private float childHeatIncreaseRate = 25f;
     public float CurrentHeat { get; private set; } = 0f;
+
+    /// <summary>
+    /// 현재 더위 게이지를 0부터 1 사이의 비율로 반환합니다.
+    /// </summary>
+    public float HeatRatio => maxHeat > 0f ? CurrentHeat / maxHeat : 0f;
+
+    /// <summary>
+    /// 햇빛에 노출되어 있는가?
+    /// </summary>
     public bool IsExposedToSunlight { get; set; } = false;
 
     [Header("Exhaustion Settings")]
@@ -341,19 +352,25 @@ public class PlayerMovement : MonoBehaviour
     // =========================================================
     private void UpdateHeat()
     {
+        // 테스트 중에는 현재 맵과 햇빛 노출 상태에 관계없이 더위를 올린다.
+        if (_test)
+        {
+            IncreaseHeat();
+            return;
+        }
+
         if (MapManager.Instance.CurrentMap == null)
             return;
         
         if (DialogSystem.Instance.IsDialogPlaying) return;  // 다이얼로그 연출 중에는 더위 게이지 갱신 중단
 
-        // 아이템 사용(부채, 시원한 물) or 화장실(세이프 존)
-        //if (MapManager.Instance.CurrentMap.MapType == EMapType.Toilet)
-        //    DecreaseHeat();
-        // 햇빛 노출
-        //else if (IsExposedToSunlight)
-        //    IncreaseHeat();
-        if (IsExposedToSunlight) IncreaseHeat();
-        else DecreaseHeat();
+        // 화장실(세이프 존)
+        // TODO: 아이템 사용(부채, 시원한 물) 인식
+        if (MapManager.Instance.CurrentMap.MapType == EMapType.Toilet)
+            DecreaseHeat();
+        // 햇빛 노출될 때 더위 게이지 증가
+        else if (IsExposedToSunlight)
+            IncreaseHeat();
     }
 
     // --- Public API --- //
@@ -452,14 +469,15 @@ public class PlayerMovement : MonoBehaviour
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
 
         // 쿠네쿠네가 아직 소환되지 않은 상태
-        if (MapManager.Instance.KuneKune.State == ECharacterState.Unspawned && CurrentHeat >= maxHeat)
+        KuneKune kuneKune = MapManager.Instance != null ? MapManager.Instance.KuneKune : null;
+        if (kuneKune != null && kuneKune.State == ECharacterState.Unspawned && CurrentHeat >= maxHeat)
             // 더위 게이지 100 달성하면 쿠네쿠네가 등장한다
-            MapManager.Instance.KuneKune.Spawn();
+            kuneKune.Spawn();
     }
 
     private void DecreaseHeat()
     {
-        // 더위 게이지가 바로 감소되나? 아니면 더위 게이지가 천천히 내려가나?
+        // 더위 게이지가 천천히 내려간다
         CurrentHeat = Mathf.Max(0f, CurrentHeat - heatDecreaseRate * Time.deltaTime);
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
 

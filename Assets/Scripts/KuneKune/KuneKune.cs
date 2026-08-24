@@ -65,7 +65,7 @@ public class KuneKune : MonoBehaviour
         _collider.excludeLayers = playerLayerMask;
 
         Despawn();
-        //Spawn();    // TODO: test용이다. 제거 필요.
+        //Spawn(Vector3.zero);    // TODO: test용이다. 제거 필요.
     }
 
     /// <summary>
@@ -95,12 +95,17 @@ public class KuneKune : MonoBehaviour
             //return;
 
             // TODO: TEST용 삭제 필요
-            // {
-            //     Transform tr = GameObject.Find("KuneKune_ables").transform;
-            //     Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
-            //     foreach (Transform sp in spawnPoints)
-            //         MapManager.Instance.KunekuneSpawnPoints.Add(sp);
-            // }
+            {
+                Debug.Log("테스트를 위해 아무 KuneKune_ables에서 소환할게요");
+                Transform tr = GameObject.Find("KuneKune_ables").transform;
+                Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
+                foreach (Transform sp in spawnPoints)
+                {
+                    if (sp == tr)   // 부모 제외
+                        continue;
+                    MapManager.Instance.KunekuneSpawnPoints.Add(sp);
+                }
+            }
         }
 
         #region 플레이어랑 가까운 사물 찾기

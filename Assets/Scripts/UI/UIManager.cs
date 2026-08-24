@@ -1,6 +1,7 @@
 using TMPro;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -21,6 +22,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Image staminaGuage;
     [SerializeField] private Image heatGuage;
+    [SerializeField] private HeatGaugeEffect heatGaugeEffect;
 
     [Header("References")]
 
@@ -76,10 +78,38 @@ public class UIManager : MonoBehaviour
 
         Instance = this;
 
+        ApplyFullScreenGlitchToUI();
+
         dialogRoot.SetActive(false);
         illustrationRoot.SetActive(false);
 
         dialogText.text = string.Empty;
+    }
+
+    /// <summary>
+    /// 기존 전체 화면 글리치가 UI에도 같은 모양으로 적용됩니다.
+    /// </summary>
+    private void ApplyFullScreenGlitchToUI()
+    {
+        Canvas uiCanvas = GetComponent<Canvas>();
+        Camera mainCamera = Camera.main;
+
+        if (uiCanvas == null || mainCamera == null)
+        {
+            Debug.LogError("UI 글리치에 필요한 Canvas 또는 Main Camera를 찾지 못했습니다.", this);
+            return;
+        }
+
+        uiCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+        uiCanvas.worldCamera = mainCamera;
+
+        // UI를 카메라 바로 앞에 놓아 건물이나 캐릭터가 UI를 가리지 않게 합니다.
+        uiCanvas.planeDistance = 1f;
+
+        // 2D 건물보다 UI를 나중에 그려 항상 화면 앞에 보이게 합니다.
+        uiCanvas.overrideSorting = true;
+        uiCanvas.sortingLayerName = "UI";
+        uiCanvas.sortingOrder = 1;
     }
 
     /// <summary>
@@ -182,7 +212,11 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHeatUI(float current, float max)
     {
-        float ratio = current / max;
+        if (heatGuage == null || max <= 0f)
+            return;
+
+        float ratio = Mathf.Clamp01(current / max);
         heatGuage.fillAmount = ratio;
+        heatGaugeEffect?.SetHeatRatio(ratio);
     }    
 }

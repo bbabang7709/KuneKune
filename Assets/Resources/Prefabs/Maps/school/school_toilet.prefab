@@ -1574,7 +1574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   _mapID: school_toilet
-  _mapType: 2
+  _mapType: 3
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &8584313894855488791
 GameObject:
