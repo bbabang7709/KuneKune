@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: School_locker_acquired
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "\uC7A0\uACA8\uC838\uC788\uB2E4."
-  - "\uBE44\uBC00\uBC88\uD638\uB97C \uC785\uB825\uD574 \uC5F4 \uC218 \uC788\uC744
-    \uAC83 \uAC19\uB2E4."
+  - "\uB0B4 \uC0AC\uBB3C\uD568\uC774\uB2E4."
+  - "\uB354 \uC774\uC0C1 \uC870\uC0AC\uD560 \uAC83\uC740 \uC5C6\uB2E4."

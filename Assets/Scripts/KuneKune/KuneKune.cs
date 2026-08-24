@@ -115,6 +115,8 @@ public class KuneKune : MonoBehaviour
 
         foreach (Transform child in MapManager.Instance.KunekuneSpawnPoints)
         {
+            if (child.name == "KuneKune_ables") continue;   // 부모 오브젝트는 제외
+
             Vector3 direction = child.position - _player.transform.position;
             float distance = direction.magnitude;
             float rightValue = Vector3.Dot(direction, _player.transform.right); // 플레이어 기준 오른쪽으로 얼마나 있는지
