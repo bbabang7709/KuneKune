@@ -47,9 +47,14 @@ public class MapManager : MonoBehaviour
         if (map.KuneKune_ables == null)
             return;
 
-        Transform[] spawnPoints = map.KuneKune_ables.GetComponentsInChildren<Transform>();
+        Transform parent = map.KuneKune_ables.transform;
+        Transform[] spawnPoints = parent.GetComponentsInChildren<Transform>();
         foreach (Transform sp in spawnPoints)
+        {
+            if (sp == parent) // 부모 제외
+                continue;
             KunekuneSpawnPoints.Add(sp);
+        }
     }
 
     /// <summary>

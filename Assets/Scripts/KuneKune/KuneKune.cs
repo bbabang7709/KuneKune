@@ -96,10 +96,15 @@ public class KuneKune : MonoBehaviour
 
             // TODO: TEST용 삭제 필요
             {
+                Debug.Log("테스트를 위해 아무 KuneKune_ables에서 소환할게요");
                 Transform tr = GameObject.Find("KuneKune_ables").transform;
                 Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
                 foreach (Transform sp in spawnPoints)
+                {
+                    if (sp == tr)   // 부모 제외
+                        continue;
                     MapManager.Instance.KunekuneSpawnPoints.Add(sp);
+                }
             }
         }
 
