@@ -141,6 +141,7 @@ public class QuestManager : MonoBehaviour
         return true;
     }
 
+    #region Util
     /// <summary>
     /// 퀘스트가 현재 진행 중인지 확인합니다.
     /// </summary>
@@ -213,4 +214,5 @@ public class QuestManager : MonoBehaviour
 
         return _questProgresses.TryGetValue(questID, out progress);
     }
+    #endregion
 }

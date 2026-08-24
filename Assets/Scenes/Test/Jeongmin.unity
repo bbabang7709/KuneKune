@@ -545,7 +545,10 @@ PrefabInstance:
       objectReference: {fileID: -7803298610261674138, guid: 75697e90600970a4093cf5983e7a9fe6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3618183416759387350, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1307978716}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
 --- !u!1 &519420028
@@ -965,6 +968,99 @@ Transform:
   - {fileID: 193638122}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1307978715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1307978716}
+  - component: {fileID: 1307978718}
+  - component: {fileID: 1307978717}
+  m_Layer: 3
+  m_Name: TestQuest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1307978716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307978715}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.47, y: -2.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2107903504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1307978717
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307978715}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
+--- !u!114 &1307978718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307978715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f5208d4e4a7e64aaeac41af178e525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
+  _questData: {fileID: 0}
+  _objectiveID: 
 --- !u!114 &1537847733 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1832780395927970534, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
@@ -1257,6 +1353,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2901580473760850270, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
   m_PrefabInstance: {fileID: 460854959}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2107903504 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3618183416759387350, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
+  m_PrefabInstance: {fileID: 503442130}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2127463082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1267,7 +1368,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2948278598789739297, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
       propertyPath: _test
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2948278598789739297, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
       propertyPath: moveSpeed
