@@ -557,12 +557,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4532892658873910093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ef0a4a09f0b31145a4c6bd793429191, type: 3}
+  m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemName: "\uC548\uBC29 \uC5F4\uC1E0"
-  holdThreshold: 3
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   promptPoint: {fileID: 824617502002494369}
+  itemData: {fileID: 11400000, guid: 45cbaab58808233498d85d091f53adbf, type: 2}
+  acquireDialog: {fileID: 11400000, guid: ec9ff3b5c6bf7c04184316f1ef742c22, type: 2}
+  holdDuration: 3
 --- !u!61 &9031464349918268018
 BoxCollider2D:
   m_ObjectHideFlags: 0

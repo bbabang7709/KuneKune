@@ -118,11 +118,16 @@ public class PlayerInteraction : MonoBehaviour
                 continue;
             }
 
-            if (!mono.gameObject.activeInHierarchy || !mono.enabled)
+            if (!mono.gameObject.activeInHierarchy)
             {
                 nearbyInteractables.RemoveAt(i);
                 continue;
             }
+
+            // 잠겨서 꺼진 상호작용 기능은 범위 목록에 남겨 둡니다.
+            // 같은 자리에 서 있는 동안 잠금이 풀려도 바로 다시 찾을 수 있습니다.
+            if (!mono.enabled)
+                continue;
 
             float distance = Vector2.Distance(playerPosition, mono.transform.position);
 

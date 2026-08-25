@@ -4770,6 +4770,7 @@ GameObject:
   - component: {fileID: 968997828079742362}
   - component: {fileID: 4326431035450365372}
   - component: {fileID: 4380277246935592360}
+  - component: {fileID: 6228173122782561011}
   m_Layer: 0
   m_Name: Key_MyRoom
   m_TagString: Untagged
@@ -4856,6 +4857,24 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: 45cbaab58808233498d85d091f53adbf, type: 2}
   acquireDialog: {fileID: 11400000, guid: ec9ff3b5c6bf7c04184316f1ef742c22, type: 2}
   holdDuration: 3
+--- !u!114 &6228173122782561011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6827203507443982816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3aac32a2d344b5a1b4943a5c4d663e, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::QuestProgressGate
+  _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
+  _requiredObjectiveIDs:
+  - CleaningSpot_01
+  - CleaningSpot_02
+  - CleaningSpot_03
+  _hideVisualsWhileLocked: 1
 --- !u!1 &8095973550052717470
 GameObject:
   m_ObjectHideFlags: 0
