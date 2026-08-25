@@ -1701,6 +1701,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
   _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
   _objectiveID: 
+  _cleaningDuration: 3
+  _shakeDistance: 0.05
+  _shakeSpeed: 12
 --- !u!1 &1813972840155911824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2365,6 +2368,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
   _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
   _objectiveID: 
+  _cleaningDuration: 3
+  _shakeDistance: 0.05
+  _shakeSpeed: 12
 --- !u!1 &3587980989908017536
 GameObject:
   m_ObjectHideFlags: 0
@@ -3785,6 +3791,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
   _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
   _objectiveID: 
+  _cleaningDuration: 3
+  _shakeDistance: 0.05
+  _shakeSpeed: 12
 --- !u!1 &5625798358796738943
 GameObject:
   m_ObjectHideFlags: 0
@@ -4867,7 +4876,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b3aac32a2d344b5a1b4943a5c4d663e, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuestProgressGate
   _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
   _requiredObjectiveIDs:
@@ -5139,7 +5148,7 @@ Transform:
   m_GameObject: {fileID: 8521949796336529044}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.98, y: -2.37, z: 0}
+  m_LocalPosition: {x: -4.25, y: -2.37, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5264,6 +5273,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
   _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
   _objectiveID: 
+  _cleaningDuration: 3
+  _shakeDistance: 0.05
+  _shakeSpeed: 12
 --- !u!1 &8528504960880786559
 GameObject:
   m_ObjectHideFlags: 0
@@ -5338,7 +5350,7 @@ Transform:
   m_GameObject: {fileID: 8693952642320598001}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.25, y: -16.48, z: 0}
+  m_LocalPosition: {x: -13.92, y: -16.48, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5463,6 +5475,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
   _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
   _objectiveID: 
+  _cleaningDuration: 3
+  _shakeDistance: 0.05
+  _shakeSpeed: 12
 --- !u!1 &8727487889549449749
 GameObject:
   m_ObjectHideFlags: 0
