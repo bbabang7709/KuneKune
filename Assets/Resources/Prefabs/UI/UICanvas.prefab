@@ -327,18 +327,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5a8f9d3e5b847289f6d821a6c7f9472, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeatGaugeEffect
   fillImage: {fileID: 2925690415183064649}
   outlineImage: {fileID: 1081492133693194}
   labelText: {fileID: 8066127078006693881}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  warmColor: {r: 1, g: 0.72, b: 0.24, a: 1}
-  hotColor: {r: 1, g: 0.27, b: 0.06, a: 1}
-  dangerColor: {r: 1, g: 0.05, b: 0.02, a: 1}
-  dangerLabelColor: {r: 1, g: 0.55, b: 0.4, a: 1}
-  maxPulseScale: 0.035
-  maxShakeDistance: 2.4
+  _normalColor: {r: 1, g: 1, b: 1, a: 1}
+  _warmColor: {r: 1, g: 0.72, b: 0.24, a: 1}
+  _hotColor: {r: 1, g: 0.27, b: 0.06, a: 1}
+  _dangerColor: {r: 1, g: 0.05, b: 0.02, a: 1}
+  _dangerLabelColor: {r: 1, g: 0.55, b: 0.4, a: 1}
+  _maxPulseScale: 0.035
+  _maxShakeDistance: 2.4
 --- !u!1 &3060514329293597725
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,8 +769,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -354.8, y: -24.331}
-  m_SizeDelta: {x: 57.9772, y: 32.661}
+  m_AnchoredPosition: {x: -360.6, y: -25.4}
+  m_SizeDelta: {x: 76.8776, y: 30.1634}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7742683670011841300
 CanvasRenderer:
@@ -802,8 +802,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: RUN
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba8279dab95793e4ab9b387c49708c6f, type: 2}
+  m_sharedMaterial: {fileID: -7587222974907293546, guid: ba8279dab95793e4ab9b387c49708c6f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -827,8 +827,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1171,8 +1171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -355.8, y: 13.701}
-  m_SizeDelta: {x: 62.7927, y: 27.4016}
+  m_AnchoredPosition: {x: -360.6, y: 13.701}
+  m_SizeDelta: {x: 81.2731, y: 27.4016}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8096501288446548629
 CanvasRenderer:
@@ -1204,8 +1204,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: HEAT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba8279dab95793e4ab9b387c49708c6f, type: 2}
+  m_sharedMaterial: {fileID: -7587222974907293546, guid: ba8279dab95793e4ab9b387c49708c6f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1229,8 +1229,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
