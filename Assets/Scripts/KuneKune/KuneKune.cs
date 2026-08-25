@@ -34,7 +34,7 @@ public class KuneKune : MonoBehaviour
         }
     }
 
-    private Vector3 _direction;
+    private float _direction;
     private float _speed = 5f;
 
     private string _spawnAnimationName = "";
@@ -164,13 +164,14 @@ public class KuneKune : MonoBehaviour
 
         // 쿠네쿠네가 사물에서 나타나는 상태가 아니라면 바로 달리기 시작
         State = State == ECharacterState.Unspawned ? ECharacterState.Spawning : ECharacterState.Run;
-
+        
         transform.position = position;
-        _direction = (_player.transform.position - position).normalized;
-        _spriteRenderer.flipX = _direction.x < 0;
-        
+
+        float xDifference = _player.transform.position.x - position.x;
+        _direction = xDifference > 0f ? 1f : -1f;
+        _spriteRenderer.flipX = _direction < 0f;
+
         _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity));  // 0(정상 화면) ~ 1(글리치 강도 최대)
-        
     }
 
     /// <summary>
@@ -218,8 +219,10 @@ public class KuneKune : MonoBehaviour
     /// </summary>
     private void ChasePlayer()
     {
+        Vector3 playerPosition = _player.transform.position;
+
         // 플레이어를 잡았는 지 확인
-        float distance = Mathf.Abs(_player.transform.position.x - transform.position.x);
+        float distance = Vector3.Distance(playerPosition, transform.position);
         if (distance < 1.1f)
         {
             Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 쿠네쿠네 멈춤");
@@ -227,10 +230,17 @@ public class KuneKune : MonoBehaviour
             return;
         }
 
-        _direction = (_player.transform.position - transform.position).normalized;
-        _direction = (_direction.x > 0) ? Vector3.right : Vector3.left;
-        _spriteRenderer.flipX = _direction.x < 0;
-        transform.position += _direction * _speed * Time.fixedDeltaTime;
+        // x 위치가 거의 같으면 방향을 바꾸거나 움직이지 않는다.
+        float xDifference = playerPosition.x - transform.position.x;
+        if (Mathf.Abs(xDifference) <= 0.01f)
+            return;
+
+        float dir = Mathf.Sign(xDifference);
+        _direction = dir;
+        _spriteRenderer.flipX = dir < 0f;
+
+        Vector3 targetPosition = new Vector3(playerPosition.x, transform.position.y, transform.position.z);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, _speed * Time.fixedDeltaTime);
     }
 
 #if UNITY_EDITOR
