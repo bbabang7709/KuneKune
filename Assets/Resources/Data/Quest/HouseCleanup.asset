@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b94ed2e426b982449176584d888e4f9, type: 3}
-  m_Name: house_cleanup
+  m_Name: HouseCleanup
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
-  questID: house_cleanup
+  questID: HouseCleanup
   objectiveIDs:
-  - clean_spot_01
-  - clean_spot_02
-  - clean_spot_03
-  - clean_spot_04
-  - clean_spot_05
+  - CleaningSpot_01
+  - CleaningSpot_02
+  - CleaningSpot_03
+  - CleaningSpot_04
+  - CleaningSpot_05

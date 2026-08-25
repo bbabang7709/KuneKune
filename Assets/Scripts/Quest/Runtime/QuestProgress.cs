@@ -58,10 +58,16 @@ public sealed class QuestProgress
     public bool TryCompleteObjective(string objectiveID)
     {
         if (Status != EQuestStatus.InProgress)
+        {
+            Debug.LogWarning($"[{nameof(QuestProgress)}] 진행 중이 아닌 퀘스트에는 완료를 기록할 수 없습니다: {_data.QuestID}");
             return false;
+        }
 
         if (_data.ContainsObjective(objectiveID) == false)
+        {
+            Debug.LogWarning($"[{nameof(QuestProgress)}] 퀘스트에 없는 대상 ID입니다: {_data.QuestID} / {objectiveID}");
             return false;
+        }
 
         if (IsObjectiveCompleted(objectiveID))
             return false;

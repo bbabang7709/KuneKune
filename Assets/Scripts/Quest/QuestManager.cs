@@ -104,25 +104,14 @@ public class QuestManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 퀘스트 대상 하나를 완료했다고 보고합니다. (중복 방지)
+    /// 퀘스트 대상 하나를 완료했다고 보고합니다.
+    /// 완료된 대상은 보고를 실패합니다. (중복 방지)
     /// </summary>
     public bool ReportObjectiveCompleted(string questID, string objectiveID)
     {
         if (TryGetQuestProgress(questID, out QuestProgress progress) == false)
         {
             Debug.LogWarning($"[{nameof(QuestManager)}] 등록되지 않은 퀘스트입니다: {questID}", this);
-            return false;
-        }
-
-        if (progress.Status != EQuestStatus.InProgress)
-        {
-            Debug.LogWarning($"[{nameof(QuestManager)}] 진행 중이 아닌 퀘스트에는 완료를 기록할 수 없습니다: {questID}", this);
-            return false;
-        }
-
-        if (progress.Data.ContainsObjective(objectiveID) == false)
-        {
-            Debug.LogWarning($"[{nameof(QuestManager)}] 퀘스트에 없는 대상 ID입니다: {questID} / {objectiveID}", progress.Data);
             return false;
         }
 
