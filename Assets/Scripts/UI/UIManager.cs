@@ -197,8 +197,6 @@ public class UIManager : MonoBehaviour
             illustrationImage.sprite = image;
             illustrationRoot.SetActive(true);
         }
-
-        dialogRoot.SetActive(true);
     }
 
     /// <summary>
@@ -207,9 +205,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void CloseIllustration()
     {
-        dialogTextSystem.ClearText();
-
-        dialogRoot.SetActive(false);
         illustrationRoot.SetActive(false);
 
         illustrationImage.sprite = null;

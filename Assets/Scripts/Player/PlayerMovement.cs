@@ -361,6 +361,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (MapManager.Instance.CurrentMap == null)
             return;
+        
+        if (DialogSystem.Instance.IsDialogPlaying) return;  // 다이얼로그 연출 중에는 더위 게이지 갱신 중단
 
         // 화장실(세이프 존)
         // TODO: 아이템 사용(부채, 시원한 물) 인식
