@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd7e8cf8f341b5046a748074db262f4b, type: 3}
-  m_Name: Key_Bedroom
+  m_Name: Key_MyRoom
   m_EditorClassIdentifier: Assembly-CSharp::KeyItemData
   itemID: item_key
-  itemName: "\uC548\uBC29 \uC5F4\uC1E0"
+  itemName: "\uB0B4 \uBC29 \uC5F4\uC1E0"
   icon: {fileID: 1095141833252711340, guid: 456a4ad8fa872bc40be5931fcd7fe7d9, type: 3}
-  keyID: key_bedroom
+  keyID: key_myroom
