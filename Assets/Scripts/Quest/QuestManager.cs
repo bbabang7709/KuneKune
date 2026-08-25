@@ -46,6 +46,13 @@ public class QuestManager : MonoBehaviour
             Instance = null;
     }
 
+    public static QuestManager Instantiate()
+    {
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Etc/QuestManager");
+        QuestManager q = Instantiate(prefab).GetComponent<QuestManager>();
+        return q;
+    }
+
     /// <summary>
     /// Inspector에 등록한 데이터마다 실행 중 진행 상태를 만듭니다.
     /// </summary>

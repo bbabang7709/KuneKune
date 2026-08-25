@@ -27,6 +27,7 @@ public class MapManager : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         KuneKune = KuneKune.Instantiate();
+        QuestManager.Instantiate();
     }
 
     /// <summary>
