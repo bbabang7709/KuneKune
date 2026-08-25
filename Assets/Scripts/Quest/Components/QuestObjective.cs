@@ -21,7 +21,7 @@ public class QuestObjective : MonoBehaviour
     {
         if (string.IsNullOrWhiteSpace(_objectiveID))
         {
-            Debug.Log($"[{nameof(QuestObjective)}] 대상 ID가 비어 있어서 오브젝트 이름으로 대체했습니다.", this);
+            //Debug.Log($"[{nameof(QuestObjective)}] 대상 ID가 비어 있어서 오브젝트 이름으로 대체했습니다.", this);
             _objectiveID = gameObject.name;
         }
     }
