@@ -359,7 +359,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (MapManager.Instance.CurrentMap == null)
+        if (MapManager.Instance?.CurrentMap == null)
             return;
         
         if (DialogSystem.Instance.IsDialogPlaying) return;  // 다이얼로그 연출 중에는 더위 게이지 갱신 중단
