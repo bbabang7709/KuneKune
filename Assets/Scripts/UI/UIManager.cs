@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 /// <summary>
 /// 게임 내 UI를 관리하는 싱글톤 매니저.
@@ -65,6 +66,9 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Image illustrationImage;
 
+    [Header("Screen Fade")]
+    [SerializeField] private CanvasGroup fadeCanvasGroup;
+
     /// <summary>
     /// 싱글톤 인스턴스와 UI 초기 상태를 설정한다.
     /// </summary>
@@ -80,10 +84,22 @@ public class UIManager : MonoBehaviour
 
         ApplyFullScreenGlitchToUI();
 
-        dialogRoot.SetActive(false);
-        illustrationRoot.SetActive(false);
+        // Dialog 
+        if (dialogRoot != null)
+            dialogRoot.SetActive(false);
+        if (illustrationRoot != null)
+            illustrationRoot.SetActive(false);
 
         dialogText.text = string.Empty;
+
+        // Fade CanvasGroup
+        if (fadeCanvasGroup != null)
+        {
+            fadeCanvasGroup.alpha = 0f;
+            fadeCanvasGroup.blocksRaycasts = false;
+            fadeCanvasGroup.gameObject.SetActive(false);            
+        }
+
     }
 
     /// <summary>
@@ -218,5 +234,44 @@ public class UIManager : MonoBehaviour
         float ratio = Mathf.Clamp01(current / max);
         heatGuage.fillAmount = ratio;
         heatGaugeEffect?.SetHeatRatio(ratio);
-    }    
+    }
+
+    public IEnumerator FadeIn(float duration)
+    {
+        yield return Fade(1f, 0f, duration);
+    }
+
+    public IEnumerator FadeOut(float duration)
+    {
+        yield return Fade(0f, 1f, duration);
+    }
+
+    private IEnumerator Fade(float startAlpha, float endAlpha, float duration)
+    {
+        float elapsed = 0f;
+
+        fadeCanvasGroup.gameObject.SetActive(true);
+        fadeCanvasGroup.blocksRaycasts = true;
+
+        fadeCanvasGroup.alpha = startAlpha;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            fadeCanvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, t);
+
+            yield return null;
+        }
+
+        fadeCanvasGroup.alpha = endAlpha;
+
+        if (Mathf.Approximately(endAlpha, 0f))
+        {
+            fadeCanvasGroup.blocksRaycasts = false;
+            fadeCanvasGroup.gameObject.SetActive(false);
+        }
+    }
 }

@@ -68,6 +68,6 @@ public class MapManager : MonoBehaviour
         
         SetCurrentMap(targetMap);
         player.transform.position = targetEntryPoint.SpawnPoint.position;
-        CameraManager.Instance.SetCamera(targetEntryPoint.MapCamera);
+        CameraManager.Instance.SetFollowCamera(targetEntryPoint.MapCamera);
     }
 }
