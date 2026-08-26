@@ -368,6 +368,7 @@ MonoBehaviour:
   illustrationRoot: {fileID: 3188749620117990474}
   illustrationImage: {fileID: 3185792848356609459}
   fadeCanvasGroup: {fileID: 6677943793316062310}
+  gameplayUICanvasGroup: {fileID: 2726329404606722310}
 --- !u!1 &2174722543100522503
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3048905437761905897}
   - component: {fileID: 6924540201487256058}
+  - component: {fileID: 2726329404606722310}
   - component: {fileID: 5444645411926345939}
   m_Layer: 5
   m_Name: Player Status UI
@@ -446,7 +448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3048905437761905897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -476,6 +478,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3060514329293597725}
   m_CullTransparentMesh: 1
+--- !u!225 &2726329404606722310
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3060514329293597725}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &5444645411926345939
 MonoBehaviour:
   m_ObjectHideFlags: 0

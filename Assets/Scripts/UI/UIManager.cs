@@ -68,6 +68,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Screen Fade")]
     [SerializeField] private CanvasGroup fadeCanvasGroup;
+    [SerializeField] private CanvasGroup gameplayUICanvasGroup;
 
     /// <summary>
     /// 싱글톤 인스턴스와 UI 초기 상태를 설정한다.
@@ -234,6 +235,64 @@ public class UIManager : MonoBehaviour
         float ratio = Mathf.Clamp01(current / max);
         heatGuage.fillAmount = ratio;
         heatGaugeEffect?.SetHeatRatio(ratio);
+    }
+
+    public void SetFadeAlpha(float alpha)
+    {
+        if (fadeCanvasGroup == null) return;
+
+        fadeCanvasGroup.gameObject.SetActive(true);
+        fadeCanvasGroup.alpha = alpha;
+        fadeCanvasGroup.blocksRaycasts = alpha > 0f;
+    }
+
+    public void SetGameplayUIAlpha(float alpha)
+    {
+        if (gameplayUICanvasGroup == null) return;
+
+        gameplayUICanvasGroup.alpha = alpha;
+    }
+
+    public IEnumerator FadeInGameplayUI(float duration)
+    {
+        if (gameplayUICanvasGroup == null) yield break;
+
+        float elapsed = 0f;
+        float startAlpha = gameplayUICanvasGroup.alpha;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            gameplayUICanvasGroup.alpha = Mathf.Lerp(startAlpha, 1f, t);
+
+            yield return null;
+        }
+
+        gameplayUICanvasGroup.alpha = 1f;
+    }
+
+    public IEnumerator FadeOutGameplayUI(float duration)
+    {
+        if (gameplayUICanvasGroup == null) yield break;
+
+        float elapsed = 0f;
+        float startAlpha = gameplayUICanvasGroup.alpha;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            gameplayUICanvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, t);
+
+            yield return null;
+        }
+
+        gameplayUICanvasGroup.alpha = 0f;
     }
 
     public IEnumerator FadeIn(float duration)
