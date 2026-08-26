@@ -18,39 +18,41 @@ public class CameraManager : MonoBehaviour
 
         Instance = this;
 
-        followTarget = GameObject.FindGameObjectWithTag("Player").transform;
+        followTarget = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
-    // public void SetCamera(CinemachineCamera targetCamera)
-    // {
-    //     if (targetCamera == null || currentCamera == targetCamera) return;
-
-    //     if (currentCamera != null) 
-    //     {
-    //         currentCamera.Priority = 0;
-    //         currentCamera.Follow = null;
-    //     }
-
-    //     targetCamera.Follow = followTarget;
-    //     targetCamera.Priority = 10;
-    //     currentCamera = targetCamera;
-    // }
-
-    public void SetCamera(CinemachineCamera targetCamera)
-{
-    if (targetCamera == null || currentCamera == targetCamera)
-        return;
-
-    if (currentCamera != null)
+    public void SetFollowCamera(CinemachineCamera targetCamera)
     {
-        currentCamera.Priority = 0;
-        currentCamera.Follow = null;
+        if (targetCamera == null || currentCamera == targetCamera)
+            return;
+
+        if (currentCamera != null)
+        {
+            currentCamera.Priority = 0;
+            currentCamera.Follow = null;
+        }
+
+        if (followTarget != null) targetCamera.Follow = followTarget;
+        targetCamera.PreviousStateIsValid = false;
+        targetCamera.Priority = 10;
+
+        currentCamera = targetCamera;
     }
 
-    targetCamera.Follow = followTarget;
-    targetCamera.PreviousStateIsValid = false;
-    targetCamera.Priority = 10;
+    public void ChangeCamera(CinemachineCamera targetCamera)
+    {
+        if (targetCamera == null || currentCamera == targetCamera)
+            return;
 
-    currentCamera = targetCamera;
-}
+        if (currentCamera != null)
+        {
+            currentCamera.Priority = 0;
+            currentCamera.Follow = null;
+        }
+
+        targetCamera.PreviousStateIsValid = false;
+        targetCamera.Priority = 10;
+
+        currentCamera = targetCamera;
+    }
 }

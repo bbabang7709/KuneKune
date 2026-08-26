@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -29,6 +30,9 @@ public class DialogSystem : MonoBehaviour
     /// 대화 텍스트 출력 시스템.
     /// </summary>
     [SerializeField] private DialogTextSystem textSystem;
+
+    private Action _onDialogFinished;
+
 
     /// <summary>
     /// 현재 대화가 진행 중인지 여부.
@@ -64,6 +68,15 @@ public class DialogSystem : MonoBehaviour
         StartCoroutine(PlayDialogRoutine(dialog));
     }
 
+    public void PlayDialog(DialogData dialog, Action onFinished)
+    {
+        if (dialog == null) return;
+        if (IsDialogPlaying) return;
+
+        _onDialogFinished = onFinished;
+        StartCoroutine(PlayDialogRoutine(dialog));
+    }
+
     /// <summary>
     /// 일반 대화의 전체 진행을 처리한다.
     /// </summary>
@@ -76,10 +89,10 @@ public class DialogSystem : MonoBehaviour
         yield return null;
 
         // 플레이어 이동을 정지한다.
-        playerMovement.SetMovementLocked(true);
+        if (playerMovement != null) playerMovement.SetMovementLocked(true);
 
         // 대화 UI를 표시한다.
-        UIManager.Instance.OpenDialog();
+        UIManager.Instance?.OpenDialog();
 
         foreach (string line in dialog.lines)
         {
@@ -121,11 +134,16 @@ public class DialogSystem : MonoBehaviour
     {
         StopAllCoroutines();
 
-        UIManager.Instance.CloseDialog();
+        UIManager.Instance?.CloseDialog();
 
-        playerMovement.SetMovementLocked(false);
+        if (playerMovement != null) playerMovement.SetMovementLocked(false);
 
         IsDialogPlaying = false;
+
+        Action callback = _onDialogFinished;
+        _onDialogFinished = null;
+
+        callback?.Invoke();
     }
 
     /// <summary>
