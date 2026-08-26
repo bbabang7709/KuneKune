@@ -129,6 +129,9 @@ public class PlayerInteraction : MonoBehaviour
             if (!mono.enabled)
                 continue;
 
+            if (CanUseInteractable(interactable) == false)
+                continue;
+
             float distance = Vector2.Distance(playerPosition, mono.transform.position);
 
             if (distance < closestDistance)
@@ -175,6 +178,9 @@ public class PlayerInteraction : MonoBehaviour
             return;
 
         if (currentTarget == null)
+            return;
+
+        if (CanUseInteractable(currentTarget) == false)
             return;
 
         // 현재 대상을 고정합니다.
@@ -255,6 +261,12 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        if (CanUseInteractable(currentTarget) == false)
+        {
+            promptUI.Hide();
+            return;
+        }
+
         if (currentTarget is MonoBehaviour mono)
         {
             Transform promptPoint =
@@ -291,6 +303,18 @@ public class PlayerInteraction : MonoBehaviour
         return promptPoint != null
             ? promptPoint
             : interactionTransform;
+    }
+
+    /// <summary>
+    /// 현재 상태에 따라 상호작용 가능 여부가 달라집니다.
+    /// </summary>
+    private bool CanUseInteractable(IInteractable interactable)
+    {
+        // 일단 바닥으로 해둠
+        if (interactable is WeakFloor weakFloor)
+            return weakFloor.CanInteract;
+
+        return true;
     }
 
     /// <summary>

@@ -280,6 +280,7 @@ MonoBehaviour:
   isLocked: 0
   requiredKeyID: 
   dialogWhenLocked: {fileID: 0}
+  _lockDuringHouseChase: 1
 --- !u!1 &3818960832155882380
 GameObject:
   m_ObjectHideFlags: 0

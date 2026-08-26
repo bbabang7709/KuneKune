@@ -24,6 +24,17 @@ public class Door : MonoBehaviour, IInteractable
 
     [SerializeField] private DialogData dialogWhenLocked;
 
+    [Header("추격 잠금 설정")]
+    [Tooltip("집 안 추격이 시작되면 이 문을 열 수 없게 합니다.")]
+    [SerializeField] private bool _lockDuringHouseChase;
+
+    private bool _isLockedByHouseChase;
+
+    /// <summary>
+    /// 집 안 추격 중 잠가야 하는 문인지 알려줍니다.
+    /// </summary>
+    public bool LockDuringHouseChase => _lockDuringHouseChase;
+
     /// <summary>
     /// 상호작용 키를 눌렀을 때 호출됩니다.
     /// 
@@ -35,6 +46,14 @@ public class Door : MonoBehaviour, IInteractable
     /// </summary>
     public void OnInteractPressed()
     {
+        // 추격 잠금은 열쇠 보유 여부와 상관없이 문을 열 수 없습니다.
+        if (_isLockedByHouseChase)
+        {
+            Debug.Log("[Door] 추격 중에는 이 문을 열 수 없습니다.", this);
+            PlayLockedDialog();
+            return;
+        }
+
         if (targetEntryPoint == null)
         {
             Debug.LogWarning(
@@ -60,6 +79,15 @@ public class Door : MonoBehaviour, IInteractable
         MapManager.Instance?.ChangeMap(targetMap, targetEntryPoint);
         // MovePlayer();
         // ChangeCamera();
+    }
+
+    /// <summary>
+    /// 집 안 추격이 시작되거나 끝날 때 문 상태를 바꿉니다.
+    /// 기존 열쇠 잠금 상태는 변경하지 않습니다.
+    /// </summary>
+    public void SetHouseChaseLocked(bool isLocked)
+    {
+        _isLockedByHouseChase = isLocked;
     }
 
     /// <summary>
