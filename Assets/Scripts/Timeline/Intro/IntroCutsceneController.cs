@@ -47,9 +47,7 @@ public class IntroCutsceneController : MonoBehaviour
             guideText.alpha = 0f;
 
             // 로고 페이드 아웃
-            StartCoroutine(FadeInLogo());
-
-            yield return new WaitForSeconds(0.5f);
+            yield return FadeInLogo();
 
             yield return UIManager.Instance?.FadeOut(0.5f);
 
