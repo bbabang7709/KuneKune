@@ -7,7 +7,7 @@ using System.Collections;
 
 /// <summary>
 /// 게임 내 UI를 관리하는 싱글톤 매니저.
-/// 플레이어 상태 UI, 대화 UI, 이미지 연출 UI 등을 관리한다.
+/// 플레이어 상태 UI, 대화 UI, 이미지 연출 UI 및 화면 페이드 효과 등을 관리한다.
 /// </summary>
 public class UIManager : MonoBehaviour
 {
@@ -22,7 +22,15 @@ public class UIManager : MonoBehaviour
     /// 플레이어 스태미나 게이지 이미지.
     /// </summary>
     [SerializeField] private Image staminaGuage;
+
+    /// <summary>
+    /// 플레이어 열기(Heat) 게이지 이미지.
+    /// </summary>
     [SerializeField] private Image heatGuage;
+
+    /// <summary>
+    /// 열기(Heat) 게이지 시각 효과를 제어하는 컴포넌트.
+    /// </summary>
     [SerializeField] private HeatGaugeEffect heatGaugeEffect;
 
     [Header("References")]
@@ -67,7 +75,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image illustrationImage;
 
     [Header("Screen Fade")]
+
+    /// <summary>
+    /// 화면 전체 페이드 효과를 위한 CanvasGroup.
+    /// </summary>
     [SerializeField] private CanvasGroup fadeCanvasGroup;
+
+    /// <summary>
+    /// 게임 플레이 UI 전체의 투명도를 조절하는 CanvasGroup.
+    /// </summary>
     [SerializeField] private CanvasGroup gameplayUICanvasGroup;
 
     /// <summary>
@@ -130,7 +146,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어 스태미나 변경 이벤트를 구독한다.
+    /// 플레이어 상태 변경(스태미나, 열기) 이벤트를 구독한다.
     /// </summary>
     private void OnEnable()
     {
@@ -142,7 +158,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어 스태미나 변경 이벤트 구독을 해제한다.
+    /// 플레이어 상태 변경 이벤트 구독을 해제한다.
     /// </summary>
     private void OnDisable()
     {
@@ -168,6 +184,21 @@ public class UIManager : MonoBehaviour
             return;
 
         staminaGuage.fillAmount = current / max;
+    }
+
+    /// <summary>
+    /// 현재 열기(Heat) 비율에 따라 게이지 UI 및 시각 효과를 갱신한다.
+    /// </summary>
+    /// <param name="current">현재 열기 값.</param>
+    /// <param name="max">최대 열기 값.</param>
+    public void UpdateHeatUI(float current, float max)
+    {
+        if (heatGuage == null || max <= 0f)
+            return;
+
+        float ratio = Mathf.Clamp01(current / max);
+        heatGuage.fillAmount = ratio;
+        heatGaugeEffect?.SetHeatRatio(ratio);
     }
 
     // =========================================================
@@ -227,16 +258,14 @@ public class UIManager : MonoBehaviour
         illustrationImage.sprite = null;
     }
 
-    public void UpdateHeatUI(float current, float max)
-    {
-        if (heatGuage == null || max <= 0f)
-            return;
+    // =========================================================
+    // Fade UI
+    // =========================================================
 
-        float ratio = Mathf.Clamp01(current / max);
-        heatGuage.fillAmount = ratio;
-        heatGaugeEffect?.SetHeatRatio(ratio);
-    }
-
+    /// <summary>
+    /// 전체 화면 페이드 CanvasGroup의 알파(투명도) 값을 직접 설정한다.
+    /// </summary>
+    /// <param name="alpha">설정할 알파 값 (0.0 ~ 1.0).</param>
     public void SetFadeAlpha(float alpha)
     {
         if (fadeCanvasGroup == null) return;
@@ -246,6 +275,10 @@ public class UIManager : MonoBehaviour
         fadeCanvasGroup.blocksRaycasts = alpha > 0f;
     }
 
+    /// <summary>
+    /// 게임 플레이 UI CanvasGroup의 알파(투명도) 값을 직접 설정한다.
+    /// </summary>
+    /// <param name="alpha">설정할 알파 값 (0.0 ~ 1.0).</param>
     public void SetGameplayUIAlpha(float alpha)
     {
         if (gameplayUICanvasGroup == null) return;
@@ -253,6 +286,10 @@ public class UIManager : MonoBehaviour
         gameplayUICanvasGroup.alpha = alpha;
     }
 
+    /// <summary>
+    /// 지정된 시간 동안 게임 플레이 UI를 서서히 나타나게(Fade In) 한다.
+    /// </summary>
+    /// <param name="duration">페이드 인에 걸리는 시간(초).</param>
     public IEnumerator FadeInGameplayUI(float duration)
     {
         if (gameplayUICanvasGroup == null) yield break;
@@ -274,6 +311,10 @@ public class UIManager : MonoBehaviour
         gameplayUICanvasGroup.alpha = 1f;
     }
 
+    /// <summary>
+    /// 지정된 시간 동안 게임 플레이 UI를 서서히 사라지게(Fade Out) 한다.
+    /// </summary>
+    /// <param name="duration">페이드 아웃에 걸리는 시간(초).</param>
     public IEnumerator FadeOutGameplayUI(float duration)
     {
         if (gameplayUICanvasGroup == null) yield break;
@@ -295,16 +336,30 @@ public class UIManager : MonoBehaviour
         gameplayUICanvasGroup.alpha = 0f;
     }
 
+    /// <summary>
+    /// 화면 전체를 지정된 시간 동안 서서히 밝아지게(Fade In) 한다. (검은 화면 -> 게임 화면)
+    /// </summary>
+    /// <param name="duration">페이드 인에 걸리는 시간(초).</param>
     public IEnumerator FadeIn(float duration)
     {
         yield return Fade(1f, 0f, duration);
     }
 
+    /// <summary>
+    /// 화면 전체를 지정된 시간 동안 서서히 어두워지게(Fade Out) 한다. (게임 화면 -> 검은 화면)
+    /// </summary>
+    /// <param name="duration">페이드 아웃에 걸리는 시간(초).</param>
     public IEnumerator FadeOut(float duration)
     {
         yield return Fade(0f, 1f, duration);
     }
 
+    /// <summary>
+    /// 전체 화면 페이드 처리를 수행하는 코루틴.
+    /// </summary>
+    /// <param name="startAlpha">시작 알파 값.</param>
+    /// <param name="endAlpha">목표 알파 값.</param>
+    /// <param name="duration">진행 시간(초).</param>
     private IEnumerator Fade(float startAlpha, float endAlpha, float duration)
     {
         float elapsed = 0f;
