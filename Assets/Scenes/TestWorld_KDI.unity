@@ -1221,6 +1221,14 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 2127463084}
+    - target: {fileID: 3060514329293597725, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3751451732097331935, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6841379985772397422, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
       propertyPath: playerInput
       value: 
