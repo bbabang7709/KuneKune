@@ -20,51 +20,57 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked) return;
+        bool isInputLocked = ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked;
+        bool isMovementLocked = ControlLockManager.Instance != null && ControlLockManager.Instance.IsMovementLocked;
+        bool isInteractionBlocking = interaction != null && interaction.IsHolding;
 
-        if (movement != null && ControlLockManager.Instance != null && !ControlLockManager.Instance.IsMovementLocked)
+        if (movement != null)
         {
-            movement.SetMoveDirection(input.MoveInput);
-            movement.SetSprintState(input.IsSprintPressed);
-            movement.SetCrouchState(input.IsCrouchPressed);
-        }
-        
-        if (interaction != null)
-        {
-            // Hold 중에는 플레이어가 이동하지 못하도록 합니다.
-            bool interactionBlockingMovement = interaction.IsHolding;
-
-            if (!interactionBlockingMovement)
+            if (isInputLocked || isMovementLocked || isInteractionBlocking)
+            {
+                movement.SetMoveDirection(0);
+                movement.SetSprintState(false);
+                movement.SetCrouchState(false);
+            }
+            else
             {
                 movement.SetMoveDirection(input.MoveInput);
                 movement.SetSprintState(input.IsSprintPressed);
                 movement.SetCrouchState(input.IsCrouchPressed);
             }
-
-            if (!movement.IsCrouching)
+        }
+        
+        if (interaction != null)
+        {
+            // 입력이 잠기지 않았을 때만 상호작용
+            if (!isInputLocked)
             {
-                if (input.IsInteractPressed)
+                // 웅크리고 있지 않을 때만 상호작용
+                if (movement != null && !movement.IsCrouching)
                 {
-                    interaction.StartInteraction();
-                }
+                    if (input.IsInteractPressed)
+                    {
+                        interaction.StartInteraction();
+                    }
 
-                if (input.IsInteractHeld)
-                {
-                    interaction.UpdateHoldInteraction();
-                }
+                    if (input.IsInteractHeld)
+                    {
+                        interaction.UpdateHoldInteraction();
+                    }
 
-                if (input.IsInteractReleased)
-                {
-                    interaction.ReleaseInteraction();
+                    if (input.IsInteractReleased)
+                    {
+                        interaction.ReleaseInteraction();
+                    }
                 }
-            }
-            else
-            {
-                interaction.CancelInteraction();
+                else
+                {
+                    interaction.CancelInteraction();
+                }
             }
         }
 
-        if (anim != null)
+        if (anim != null && movement != null)
         {
             anim.UpdateAnimation(
                 movement.IsMoving,

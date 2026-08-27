@@ -4,36 +4,21 @@ using UnityEngine;
 /// 플레이어가 상호작용하여 획득할 수 있는 아이템을 관리한다.
 /// 일정 시간 동안 Interact 버튼을 유지하면 아이템을 획득한다.
 /// </summary>
-public class ItemPickup : MonoBehaviour, IInteractable, IHoldInteractable
+public class ItemPickup : MonoBehaviour, IHoldInteractable
 {
-    [Header("Prompt Settings")]
-
-    /// <summary>
-    /// 상호작용 안내 UI가 표시될 위치.
-    /// </summary>
-    [SerializeField] private Transform promptPoint;
-
-    /// <summary>
-    /// 상호작용 안내 UI가 사용할 위치를 반환한다.
-    /// </summary>
-    public Transform PromptPoint => promptPoint;
-
     [Header("Item Data")]
-
     /// <summary>
     /// 획득할 아이템 데이터.
     /// </summary>
     [SerializeField] private ItemData itemData;
 
     [Header("Acquire Illustration")]
-
     /// <summary>
     /// 아이템 획득 시 표시할 대화 데이터.
     /// </summary>
     [SerializeField] private DialogData acquireDialog;
 
     [Header("Hold Interaction Settings")]
-
     /// <summary>
     /// 아이템 획득에 필요한 상호작용 유지 시간.
     /// </summary>
@@ -132,6 +117,12 @@ public class ItemPickup : MonoBehaviour, IInteractable, IHoldInteractable
 
         isCollected = true;
         holdTimer = 0f;
+
+        Collider2D col2D = GetComponent<Collider2D>();
+        if (col2D != null) col2D.enabled = false;
+
+        Collider col = GetComponent<Collider>();
+        if (col != null) col.enabled = false;
 
         Debug.Log($"{name} 아이템 획득");
 

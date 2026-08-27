@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class QuestUI : UIBase
 {
@@ -42,8 +43,6 @@ public class QuestUI : UIBase
         _currentTrackingQuestID = questID;
         ShowUI();
 
-        // if (_questPanel != null) _questPanel.SetActive(true);
-
         if (_questNameText != null)
         {
             _questNameText.text = $"목표: {questID}";
@@ -65,10 +64,17 @@ public class QuestUI : UIBase
     {
         if (questID != _currentTrackingQuestID) return;
 
+        StartCoroutine(QuestCompleteRoutine());
+    }
+
+    private IEnumerator QuestCompleteRoutine()
+    {
         if (_questNameText != null) _questNameText.text = "목표 달성!";
         if (_progressText != null) _progressText.text = "";
 
-        Invoke(nameof(HideUI), 3f);
+        yield return new WaitForSeconds(3f);
+        HideUI();
+
         _currentTrackingQuestID = null;
     }
 

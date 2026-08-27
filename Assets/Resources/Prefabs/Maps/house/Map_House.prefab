@@ -1186,7 +1186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  targetEntryPoint: {fileID: 4758000658080071323}
+  targetEntryPoint: {fileID: 8020113890304470798}
   targetMap: {fileID: 5204009912357752727}
   isLocked: 1
   requiredKeyID: key_myroom
@@ -4995,7 +4995,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  promptPoint: {fileID: 5863614248790272717}
   itemData: {fileID: 11400000, guid: 45cbaab58808233498d85d091f53adbf, type: 2}
   acquireDialog: {fileID: 11400000, guid: ec9ff3b5c6bf7c04184316f1ef742c22, type: 2}
   holdDuration: 3
