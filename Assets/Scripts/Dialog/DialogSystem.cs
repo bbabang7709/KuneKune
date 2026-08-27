@@ -89,7 +89,9 @@ public class DialogSystem : MonoBehaviour
         yield return null;
 
         // 플레이어 이동을 정지한다.
-        if (playerMovement != null) playerMovement.SetMovementLocked(true);
+        // if (playerMovement != null) playerMovement.SetMovementLocked(true);
+        if (ControlLockManager.Instance != null)
+            ControlLockManager.Instance.AddInputLock(this);
 
         // 대화 UI를 표시한다.
         UIManager.Instance?.OpenDialog();
@@ -136,7 +138,9 @@ public class DialogSystem : MonoBehaviour
 
         UIManager.Instance?.CloseDialog();
 
-        if (playerMovement != null) playerMovement.SetMovementLocked(false);
+        // if (playerMovement != null) playerMovement.SetMovementLocked(false);
+        if (ControlLockManager.Instance != null)
+            ControlLockManager.Instance.RemoveInputLock(this);
 
         IsDialogPlaying = false;
 
@@ -176,7 +180,9 @@ public class DialogSystem : MonoBehaviour
         yield return null;
 
         // 플레이어 이동을 정지한다.
-        playerMovement.SetMovementLocked(true);
+        // playerMovement.SetMovementLocked(true);
+        if (ControlLockManager.Instance != null)
+            ControlLockManager.Instance.AddInputLock(this);
 
         // 이미지가 있다면 표시한다.
         UIManager.Instance.OpenIllustration(image);
@@ -206,7 +212,9 @@ public class DialogSystem : MonoBehaviour
         UIManager.Instance?.CloseIllustration();
         UIManager.Instance?.CloseDialog();
 
-        playerMovement.SetMovementLocked(false);
+        // playerMovement.SetMovementLocked(false);
+        if (ControlLockManager.Instance != null)
+            ControlLockManager.Instance.RemoveInputLock(this);
 
         IsDialogPlaying = false;
 

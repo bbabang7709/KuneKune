@@ -20,7 +20,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (movement != null)
+        if (ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked) return;
+
+        if (movement != null && ControlLockManager.Instance != null && !ControlLockManager.Instance.IsMovementLocked)
         {
             movement.SetMoveDirection(input.MoveInput);
             movement.SetSprintState(input.IsSprintPressed);

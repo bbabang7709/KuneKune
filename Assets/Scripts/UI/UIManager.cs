@@ -1,7 +1,5 @@
 using TMPro;
-using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -86,6 +84,14 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private CanvasGroup gameplayUICanvasGroup;
 
+    [Header("Letter Box")]
+    [SerializeField] private RectTransform letterboxTop;
+    [SerializeField] private RectTransform letterboxBottom;
+
+    [SerializeField] private float letterboxHeight = 100f;
+    
+    private Coroutine letterboxCoroutine;
+
     /// <summary>
     /// 싱글톤 인스턴스와 UI 초기 상태를 설정한다.
     /// </summary>
@@ -116,6 +122,8 @@ public class UIManager : MonoBehaviour
             fadeCanvasGroup.blocksRaycasts = false;
             fadeCanvasGroup.gameObject.SetActive(false);            
         }
+
+        InitializeLetterbox();
 
     }
 
@@ -387,5 +395,68 @@ public class UIManager : MonoBehaviour
             fadeCanvasGroup.blocksRaycasts = false;
             fadeCanvasGroup.gameObject.SetActive(false);
         }
+    }
+
+    private void InitializeLetterbox()
+    {
+        if (letterboxTop == null || letterboxBottom == null) return;
+
+        letterboxTop.anchoredPosition = new Vector2(0f, letterboxHeight);
+        letterboxBottom.anchoredPosition = new Vector2(0f, -letterboxHeight);
+    }
+
+    public Coroutine ShowLetterbox(float duration)
+    {
+        if (letterboxCoroutine != null)
+        {
+            StopCoroutine(letterboxCoroutine);
+        }
+
+        letterboxCoroutine = StartCoroutine(LetterboxRoutine(true, duration));
+
+        return letterboxCoroutine;
+    }
+
+
+    public Coroutine HideLetterbox(float duration)
+    {
+        if (letterboxCoroutine != null)
+        {
+            StopCoroutine(letterboxCoroutine);
+        }
+
+        letterboxCoroutine = StartCoroutine(LetterboxRoutine(false, duration));
+
+        return letterboxCoroutine;
+    }
+
+    private IEnumerator LetterboxRoutine(bool show, float duration)
+    {
+        float elapsed = 0f;
+
+        Vector2 topStart = letterboxTop.anchoredPosition;
+        Vector2 bottomStart = letterboxBottom.anchoredPosition;
+
+        Vector2 topTarget = show ? new Vector2(0f, 0f) : new Vector2(0f, letterboxHeight);
+        Vector2 bottomTarget = show ? new Vector2(0f, 0f) : new Vector2(0f, -letterboxHeight);
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            t = Mathf.SmoothStep(0f, 1f, t);
+
+            letterboxTop.anchoredPosition = Vector2.Lerp(topStart, topTarget, t);
+            letterboxBottom.anchoredPosition = Vector2.Lerp(bottomStart, bottomTarget, t);
+
+            yield return null;
+        }
+
+        letterboxTop.anchoredPosition = topTarget;
+        letterboxBottom.anchoredPosition = bottomTarget;
+
+        letterboxCoroutine = null;
     }
 }
