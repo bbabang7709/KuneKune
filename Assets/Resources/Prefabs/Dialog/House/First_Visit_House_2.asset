@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
-  m_Name: First_Visit_House
+  m_Name: First_Visit_House_2
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "\uB354 \uC774\uC0C1 \uC544\uBB34\uB3C4 \uC0B4\uC9C0 \uC54A\uB294 \uC9D1\uC774\uB2E4."
+  - "\uBA3C\uC9C0\uAC00..."
+  - "\uC544\uBB34\uB798\uB3C4 \uCCAD\uC18C\uBD80\uD130 \uD558\uB294 \uAC8C \uC88B\uC744
+    \uAC83 \uAC19\uB2E4."

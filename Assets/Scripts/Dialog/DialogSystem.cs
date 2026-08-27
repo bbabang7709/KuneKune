@@ -9,39 +9,21 @@ using UnityEngine;
 /// </summary>
 public class DialogSystem : MonoBehaviour
 {
-    /// <summary>
-    /// DialogSystem의 싱글톤 인스턴스.
-    /// </summary>
     public static DialogSystem Instance { get; private set; }
 
     [Header("References")]
-
-    /// <summary>
-    /// 플레이어 입력을 관리하는 컴포넌트.
-    /// </summary>
     [SerializeField] private PlayerInputHandler playerInput;
-
-    /// <summary>
-    /// 플레이어 이동을 관리하는 컴포넌트.
-    /// </summary>
-    [SerializeField] private PlayerMovement playerMovement;
-
-    /// <summary>
-    /// 대화 텍스트 출력 시스템.
-    /// </summary>
     [SerializeField] private DialogTextSystem textSystem;
 
     private Action _onDialogFinished;
 
+    private Coroutine _activeDialogRoutine;
 
     /// <summary>
     /// 현재 대화가 진행 중인지 여부.
     /// </summary>
     public bool IsDialogPlaying { get; private set; }
 
-    /// <summary>
-    /// 싱글톤 인스턴스를 초기화한다.
-    /// </summary>
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -59,22 +41,17 @@ public class DialogSystem : MonoBehaviour
     /// <param name="dialog">출력할 대화 데이터.</param>
     public void PlayDialog(DialogData dialog)
     {
-        if (dialog == null)
-            return;
+        if (dialog == null || IsDialogPlaying) return;
 
-        if (IsDialogPlaying)
-            return;
-
-        StartCoroutine(PlayDialogRoutine(dialog));
+        _activeDialogRoutine = StartCoroutine(PlayDialogRoutine(dialog));
     }
 
     public void PlayDialog(DialogData dialog, Action onFinished)
     {
-        if (dialog == null) return;
-        if (IsDialogPlaying) return;
+        if (dialog == null || IsDialogPlaying) return;
 
         _onDialogFinished = onFinished;
-        StartCoroutine(PlayDialogRoutine(dialog));
+        _activeDialogRoutine = StartCoroutine(PlayDialogRoutine(dialog));
     }
 
     /// <summary>
@@ -85,11 +62,15 @@ public class DialogSystem : MonoBehaviour
     private IEnumerator PlayDialogRoutine(DialogData dialog)
     {
         IsDialogPlaying = true;
-
         yield return null;
 
         // 플레이어 이동을 정지한다.
-        if (playerMovement != null) playerMovement.SetMovementLocked(true);
+        // if (playerMovement != null) playerMovement.SetMovementLocked(true);
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.AddMovementLock(this);
+            ControlLockManager.Instance.AddInputLock(this);
+        }
 
         // 대화 UI를 표시한다.
         UIManager.Instance?.OpenDialog();
@@ -115,7 +96,6 @@ public class DialogSystem : MonoBehaviour
     private IEnumerator WaitForAdvanceInput()
     {
         yield return new WaitUntil(() => playerInput.IsDialogAdvancePressed);
-
         yield return WaitForInputRelease();
     }
 
@@ -132,17 +112,24 @@ public class DialogSystem : MonoBehaviour
     /// </summary>
     public void EndDialog()
     {
-        StopAllCoroutines();
+        if (_activeDialogRoutine != null)
+        {
+            StopCoroutine(_activeDialogRoutine);
+            _activeDialogRoutine = null;
+        }
 
         UIManager.Instance?.CloseDialog();
 
-        if (playerMovement != null) playerMovement.SetMovementLocked(false);
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.RemoveMovementLock(this);
+            ControlLockManager.Instance.RemoveInputLock(this);
+        }
 
         IsDialogPlaying = false;
 
         Action callback = _onDialogFinished;
         _onDialogFinished = null;
-
         callback?.Invoke();
     }
 
@@ -156,10 +143,8 @@ public class DialogSystem : MonoBehaviour
     /// <param name="onFinished">연출 종료 후 호출할 콜백.</param>
     public void PlayIllustrationDialog(Sprite image, DialogData dialog, System.Action onFinished)
     {
-        if (IsDialogPlaying)
-            return;
-
-        StartCoroutine(PlayIllustrationDialogRoutine(image, dialog, onFinished));
+        if (IsDialogPlaying) return;
+        _activeDialogRoutine = StartCoroutine(PlayIllustrationDialogRoutine(image, dialog, onFinished));
     }
 
     /// <summary>
@@ -172,11 +157,13 @@ public class DialogSystem : MonoBehaviour
     private IEnumerator PlayIllustrationDialogRoutine(Sprite image, DialogData dialog, System.Action onFinished)
     {
         IsDialogPlaying = true;
-
         yield return null;
 
-        // 플레이어 이동을 정지한다.
-        playerMovement.SetMovementLocked(true);
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.AddMovementLock(this);
+            ControlLockManager.Instance.AddInputLock(this);
+        }
 
         // 이미지가 있다면 표시한다.
         UIManager.Instance.OpenIllustration(image);
@@ -187,13 +174,9 @@ public class DialogSystem : MonoBehaviour
 
             foreach (string line in dialog.lines)
             {
-                if (string.IsNullOrEmpty(line))
-                    continue;
+                if (string.IsNullOrEmpty(line)) continue;
 
-                yield return StartCoroutine(
-                    textSystem.TypeText(line)
-                );
-
+                yield return StartCoroutine(textSystem.TypeText(line));
                 yield return WaitForAdvanceInput();
             }
         }
@@ -206,10 +189,13 @@ public class DialogSystem : MonoBehaviour
         UIManager.Instance?.CloseIllustration();
         UIManager.Instance?.CloseDialog();
 
-        playerMovement.SetMovementLocked(false);
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.RemoveMovementLock(this);
+            ControlLockManager.Instance.RemoveInputLock(this);
+        }
 
         IsDialogPlaying = false;
-
         onFinished?.Invoke();
     }
 }

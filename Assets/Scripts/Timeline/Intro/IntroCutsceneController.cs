@@ -4,7 +4,6 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class IntroCutsceneController : MonoBehaviour
 {

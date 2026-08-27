@@ -255,6 +255,12 @@ public class PlayerInteraction : MonoBehaviour
         if (promptUI == null)
             return;
 
+        if (ControlLockManager.Instance.IsInputLocked)
+        {
+            promptUI.Hide();
+            return;
+        }
+        
         if (currentTarget == null)
         {
             promptUI.Hide();

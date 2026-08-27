@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class CleaningSpot : QuestObjective, IInteractable, IHoldInteractable
+public class CleaningSpot : QuestObjective, IHoldInteractable
 {
     [Header("청소 상호작용")]
     [Tooltip("청소를 끝내기 위해 F 키를 누르고 있어야 하는 시간입니다.")]
@@ -53,7 +53,7 @@ public class CleaningSpot : QuestObjective, IInteractable, IHoldInteractable
         LayerMask playerMask = LayerMask.GetMask("Player");
         _collider.excludeLayers = ~playerMask; // 플레이어만 감지합니다.
         
-        QuestManager.Instance.StartQuest(QuestData.QuestID);
+        // QuestManager.Instance.StartQuest(QuestData.QuestID);
     }
 
     public void OnInteractPressed()
