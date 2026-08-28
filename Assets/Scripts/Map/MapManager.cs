@@ -48,6 +48,10 @@ public class MapManager : MonoBehaviour
         if (map.KuneKune_ables == null)
             return;
 
+        // 비활성화된 사물 활성화
+        if (KuneKune.SpawnObject != null)
+            KuneKune.SpawnObject.gameObject.SetActive(true);
+
         Transform parent = map.KuneKune_ables.transform;
         Transform[] spawnPoints = parent.GetComponentsInChildren<Transform>();
         foreach (Transform sp in spawnPoints)

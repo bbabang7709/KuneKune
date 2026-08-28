@@ -44,6 +44,8 @@ public class KuneKune : MonoBehaviour
     [SerializeField, Range(0f, 1f)] float intensity = 0.3f; // 0(정상 화면) ~ 1(글리치 강도 최대)
     readonly int IntensityId = Shader.PropertyToID("_Intensity");
 
+    public GameObject SpawnObject { get; private set; }
+
     private void Awake()
     {
         Init();
@@ -60,9 +62,8 @@ public class KuneKune : MonoBehaviour
         _rigidbody.gravityScale = 0f;
         _rigidbody.freezeRotation = true;   // z축 고정
 
-        // 플레이어와 충돌 방지
-        int playerLayerMask = LayerMask.GetMask("Player");
-        _collider.excludeLayers = playerLayerMask;
+        int allowedLayerMask = LayerMask.GetMask("Player");
+        _collider.excludeLayers = ~allowedLayerMask;
 
         Despawn();
         //Spawn(Vector3.zero);    // TODO: test용이다. 제거 필요.
@@ -103,6 +104,8 @@ public class KuneKune : MonoBehaviour
                 {
                     if (sp == tr)   // 부모 제외
                         continue;
+
+                    SpawnObject = sp.gameObject;
                     MapManager.Instance.KunekuneSpawnPoints.Add(sp);
                 }
             }
@@ -115,8 +118,6 @@ public class KuneKune : MonoBehaviour
 
         foreach (Transform child in MapManager.Instance.KunekuneSpawnPoints)
         {
-            if (child.name == "KuneKune_ables") continue;   // 부모 오브젝트는 제외
-
             Vector3 direction = child.position - _player.transform.position;
             float distance = direction.magnitude;
             float rightValue = Vector3.Dot(direction, _player.transform.right); // 플레이어 기준 오른쪽으로 얼마나 있는지
@@ -150,6 +151,7 @@ public class KuneKune : MonoBehaviour
         #endregion
 
         _spawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
+        SpawnObject = closest;
         closest.SetActive(false);   // 쿠네쿠네가 소환되면 사물은 비활성화. TODO: 맵 나갔다 오면 다시 사물 활성화
         Spawn(closest.transform.position);
     }
@@ -221,15 +223,6 @@ public class KuneKune : MonoBehaviour
     {
         Vector3 playerPosition = _player.transform.position;
 
-        // 플레이어를 잡았는 지 확인
-        float distance = Vector3.Distance(playerPosition, transform.position);
-        if (distance < 1.1f)
-        {
-            Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 쿠네쿠네 멈춤");
-            State = ECharacterState.Idle;
-            return;
-        }
-
         // x 위치가 거의 같으면 방향을 바꾸거나 움직이지 않는다.
         float xDifference = playerPosition.x - transform.position.x;
         if (Mathf.Abs(xDifference) <= 0.01f)
@@ -241,6 +234,19 @@ public class KuneKune : MonoBehaviour
 
         Vector3 targetPosition = new Vector3(playerPosition.x, transform.position.y, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, _speed * Time.fixedDeltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (State != ECharacterState.Run)
+            return;
+
+        // 플레이어를 잡았는 지 확인
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 쿠네쿠네 멈춤");
+            State = ECharacterState.Idle;
+        }
     }
 
 #if UNITY_EDITOR
