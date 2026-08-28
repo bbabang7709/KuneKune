@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6178369245619842382}
   - component: {fileID: 2443569295963840861}
+  - component: {fileID: 2054260359336093859}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -91,6 +92,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2054260359336093859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9623572866587735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &18109532142876135
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,6 +570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8573088545881478994}
   - component: {fileID: 3349763207069162387}
+  - component: {fileID: 8728772179594722601}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -637,6 +652,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8728772179594722601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50221476919268236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &78694555508235492
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,6 +721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7312370507794399756}
   - component: {fileID: 1962042919761358506}
+  - component: {fileID: 3993832316727040967}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -774,6 +803,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3993832316727040967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89413874868951025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &132608316800823867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,6 +1046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2604964516569869960}
   - component: {fileID: 6741121091109754923}
+  - component: {fileID: 772694608894187657}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -1085,6 +1128,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &772694608894187657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178212681014971548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &188590019336597300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,6 +1312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4128696581188360465}
   - component: {fileID: 6829341757179814898}
+  - component: {fileID: 722820243917737437}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -1337,6 +1394,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &722820243917737437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222308622347943202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &242669155540103505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,6 +1550,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1454177433633806377}
   - component: {fileID: 7991607997293973429}
+  - component: {fileID: 4515385077319960481}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -1561,6 +1632,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4515385077319960481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280949817377359936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &287281075696201215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1571,6 +1655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5194680303854915651}
   - component: {fileID: 6801340926474864175}
+  - component: {fileID: 6299030407090144005}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -1652,6 +1737,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6299030407090144005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287281075696201215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &338028022459416652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1753,6 +1851,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8879572162326416809}
   - component: {fileID: 8956298898588259999}
+  - component: {fileID: 5135223406078975714}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -1834,6 +1933,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5135223406078975714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338473770455873380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &342939078296333678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,6 +2095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5565549107315467766}
   - component: {fileID: 3407065159856977292}
+  - component: {fileID: 1360141587847489938}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -2064,6 +2177,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1360141587847489938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368012356347241926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &377498591101500345
 GameObject:
   m_ObjectHideFlags: 0
@@ -2698,6 +2824,7 @@ GameObject:
   m_Component:
   - component: {fileID: 18119571367227424}
   - component: {fileID: 8109206015363632943}
+  - component: {fileID: 8974382084638812935}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -2779,6 +2906,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8974382084638812935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427971291323807328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &486949994794881166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2789,6 +2929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 51001491023093096}
   - component: {fileID: 8271157621417722943}
+  - component: {fileID: 3338976565045321429}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -2870,6 +3011,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3338976565045321429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486949994794881166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &491277290653878544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2880,6 +3034,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7283934895391692603}
   - component: {fileID: 741141301987009734}
+  - component: {fileID: 6125140157896962265}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -2961,6 +3116,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6125140157896962265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491277290653878544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &518701872635156464
 GameObject:
   m_ObjectHideFlags: 0
@@ -3062,6 +3230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1726821722148147540}
   - component: {fileID: 3898556270362401703}
+  - component: {fileID: 3704887155536985887}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -3143,6 +3312,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3704887155536985887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533494178752098329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &567276766654823736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3153,6 +3335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2870534086618463833}
   - component: {fileID: 8777787328733242926}
+  - component: {fileID: 815475390244192228}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -3234,6 +3417,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &815475390244192228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567276766654823736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &585058045356697489
 GameObject:
   m_ObjectHideFlags: 0
@@ -3244,6 +3440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3116588848524433402}
   - component: {fileID: 7423410682810660657}
+  - component: {fileID: 4662677018631361230}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -3325,6 +3522,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4662677018631361230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585058045356697489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &603256017962924288
 GameObject:
   m_ObjectHideFlags: 0
@@ -3335,6 +3545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2008837921783577438}
   - component: {fileID: 2450447604755911588}
+  - component: {fileID: 3684305982004342820}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -3416,6 +3627,110 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3684305982004342820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603256017962924288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
+--- !u!1 &622951956091687414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8596889832762965083}
+  - component: {fileID: 1069652260270456412}
+  m_Layer: 0
+  m_Name: ShadowArea (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8596889832762965083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622951956091687414}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.45, y: -32.4029, z: 0}
+  m_LocalScale: {x: 4.5864577, y: 0.101139896, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6216366239217735608}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!331 &1069652260270456412
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622951956091687414}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: -278262451
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 7111810508140216828, guid: 55fe05bf5009eca45b2da1d45ca33b73, type: 3}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: -278262451
+  m_BackSortingLayerID: -278262451
+  m_FrontSortingLayer: 2
+  m_BackSortingLayer: 2
+  m_FrontSortingOrder: 1
+  m_BackSortingOrder: -2
+  m_IsCustomRangeActive: 1
+  m_SpriteSortPoint: 0
+  m_MaskSource: 0
 --- !u!1 &624726787339373227
 GameObject:
   m_ObjectHideFlags: 0
@@ -3777,6 +4092,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8522758924744100126}
   - component: {fileID: 5170466606675211691}
+  - component: {fileID: 7369927280212400348}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -3858,6 +4174,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7369927280212400348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728812095411367131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &740920406624547788
 GameObject:
   m_ObjectHideFlags: 0
@@ -3913,6 +4242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8724524967802608717}
   - component: {fileID: 8510992978026277976}
+  - component: {fileID: 6129491014132994791}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -3994,6 +4324,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6129491014132994791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803293794736851700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &804318661036815068
 GameObject:
   m_ObjectHideFlags: 0
@@ -4004,6 +4347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6199622520973488883}
   - component: {fileID: 4562185471220982119}
+  - component: {fileID: 2221812953269492427}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -4085,6 +4429,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2221812953269492427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804318661036815068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &830041208534575586
 GameObject:
   m_ObjectHideFlags: 0
@@ -4641,6 +4998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3359610373675882686}
   - component: {fileID: 6820648806540287723}
+  - component: {fileID: 7412022592424392006}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -4722,6 +5080,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7412022592424392006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949459834167207610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1025845791496419084
 GameObject:
   m_ObjectHideFlags: 0
@@ -4868,6 +5239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2424244697056321429}
   - component: {fileID: 6739549349893454487}
+  - component: {fileID: 5594122462539411672}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -4949,6 +5321,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5594122462539411672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084322444903261342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1085596235696259563
 GameObject:
   m_ObjectHideFlags: 0
@@ -4959,6 +5344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1068648282605863292}
   - component: {fileID: 8328491393619237707}
+  - component: {fileID: 2614786962175141074}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -5040,6 +5426,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2614786962175141074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085596235696259563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1121403226132818895
 GameObject:
   m_ObjectHideFlags: 0
@@ -5050,8 +5449,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3617448316066996982}
   - component: {fileID: 6858926135078339843}
+  - component: {fileID: 7559809348329135133}
   m_Layer: 0
-  m_Name: street_lamp_0 (1)
+  m_Name: street_lamp_kunekune_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5131,6 +5531,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7559809348329135133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121403226132818895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1132927053892101909
 GameObject:
   m_ObjectHideFlags: 0
@@ -5583,6 +5996,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1306257190308701335}
   - component: {fileID: 6027613190698760359}
+  - component: {fileID: 8847094588935675332}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -5664,6 +6078,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8847094588935675332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194813298971263001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1200434290370594333
 GameObject:
   m_ObjectHideFlags: 0
@@ -5858,6 +6285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2141342464868327986}
   - component: {fileID: 5199862471890075816}
+  - component: {fileID: 4983595410436077116}
   m_Layer: 0
   m_Name: street_lamp_0
   m_TagString: Untagged
@@ -5939,6 +6367,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4983595410436077116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231504899998373581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1254091502352256415
 GameObject:
   m_ObjectHideFlags: 0
@@ -5949,6 +6390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3174180058953399507}
   - component: {fileID: 1849366276437935179}
+  - component: {fileID: 1661733165635615495}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -6030,6 +6472,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1661733165635615495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254091502352256415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1276449182971662115
 GameObject:
   m_ObjectHideFlags: 0
@@ -6040,6 +6495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4077988395693979635}
   - component: {fileID: 6687488916718490385}
+  - component: {fileID: 8379226643761111867}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -6121,6 +6577,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8379226643761111867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276449182971662115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1288733155260216153
 GameObject:
   m_ObjectHideFlags: 0
@@ -6462,6 +6931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2038492107156581915}
   - component: {fileID: 3517050389296562339}
+  - component: {fileID: 8152941793442236500}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -6543,6 +7013,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8152941793442236500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389618117366024172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1406825443842050137
 GameObject:
   m_ObjectHideFlags: 0
@@ -7177,6 +7660,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7419965097843785350}
   - component: {fileID: 1230843264071653900}
+  - component: {fileID: 8780263830326128506}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -7258,6 +7742,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8780263830326128506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581702272246398350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1588107560415995896
 GameObject:
   m_ObjectHideFlags: 0
@@ -7268,6 +7765,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5079551898437599966}
   - component: {fileID: 4251173171948378425}
+  - component: {fileID: 7447101059638320152}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -7349,6 +7847,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7447101059638320152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588107560415995896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1589799734674529954
 GameObject:
   m_ObjectHideFlags: 0
@@ -7450,6 +7961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1352784051399087264}
   - component: {fileID: 8796927201999752271}
+  - component: {fileID: 4210058285461885260}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -7531,6 +8043,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4210058285461885260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626006710313471756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1642563185910863140
 GameObject:
   m_ObjectHideFlags: 0
@@ -7586,6 +8111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607175357112128978}
   - component: {fileID: 2509035837932605262}
+  - component: {fileID: 4683256746324086118}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -7667,6 +8193,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4683256746324086118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648358711571151081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1677260097614682189
 GameObject:
   m_ObjectHideFlags: 0
@@ -7677,6 +8216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5760339103754039633}
   - component: {fileID: 1185392211651279196}
+  - component: {fileID: 898052755519417982}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -7758,6 +8298,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &898052755519417982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677260097614682189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1695498224861596286
 GameObject:
   m_ObjectHideFlags: 0
@@ -7768,6 +8321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6793319681263789224}
   - component: {fileID: 4916854670580904454}
+  - component: {fileID: 7687432052956999587}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -7849,6 +8403,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7687432052956999587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695498224861596286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1696447250166316783
 GameObject:
   m_ObjectHideFlags: 0
@@ -7859,6 +8426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2188550483027607646}
   - component: {fileID: 7023932175920996703}
+  - component: {fileID: 4771650441341528088}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -7940,6 +8508,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4771650441341528088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696447250166316783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1702113395938129517
 GameObject:
   m_ObjectHideFlags: 0
@@ -8041,6 +8622,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2101096354637215532}
   - component: {fileID: 5055564312838426429}
+  - component: {fileID: 7673855861131288974}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -8122,6 +8704,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7673855861131288974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715326824853134416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1753386747904470268
 GameObject:
   m_ObjectHideFlags: 0
@@ -8177,6 +8772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8099781755711529906}
   - component: {fileID: 7694482637828871285}
+  - component: {fileID: 8920454450952944839}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -8258,6 +8854,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8920454450952944839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840298182079051048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1843763089516310301
 GameObject:
   m_ObjectHideFlags: 0
@@ -8528,6 +9137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 707061064064206165}
   - component: {fileID: 1980979494745419347}
+  - component: {fileID: 8266263482524448491}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -8609,6 +9219,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8266263482524448491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955931453830451334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &1972820733987670149
 GameObject:
   m_ObjectHideFlags: 0
@@ -8892,6 +9515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 385987588238048361}
   - component: {fileID: 8779899263007049852}
+  - component: {fileID: 1114984526288103364}
   m_Layer: 0
   m_Name: street_lamp_0 (1)
   m_TagString: Untagged
@@ -8973,6 +9597,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1114984526288103364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084953489738101178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2154057167284728436
 GameObject:
   m_ObjectHideFlags: 0
@@ -9074,6 +9711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5887905446215897119}
   - component: {fileID: 151320487515073997}
+  - component: {fileID: 2995721077830088102}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -9155,6 +9793,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2995721077830088102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2182444240106505613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2215123339516217955
 GameObject:
   m_ObjectHideFlags: 0
@@ -9382,6 +10033,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7411963395522337644}
   - component: {fileID: 7123402755046166825}
+  - component: {fileID: 1222529162299645940}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -9463,6 +10115,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1222529162299645940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2264308601147597705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2280059975096321562
 GameObject:
   m_ObjectHideFlags: 0
@@ -9642,6 +10307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9042193105676722451}
   - component: {fileID: 2410291991199520349}
+  - component: {fileID: 837164573221508839}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -9723,6 +10389,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &837164573221508839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2286997549978068405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2306872232475409311
 GameObject:
   m_ObjectHideFlags: 0
@@ -9768,6 +10447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6062092175866325545}
   - component: {fileID: 8417317060171412887}
+  - component: {fileID: 5897372366216712549}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -9849,6 +10529,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5897372366216712549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386033330790740408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2442115088508439739
 GameObject:
   m_ObjectHideFlags: 0
@@ -9892,6 +10585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6277482580877601768}
   - component: {fileID: 110228271935431198}
+  - component: {fileID: 8201336241243431445}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -9973,6 +10667,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8201336241243431445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490198832407583339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2492761211666470265
 GameObject:
   m_ObjectHideFlags: 0
@@ -9983,6 +10690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8107611100202971885}
   - component: {fileID: 1616305845910565235}
+  - component: {fileID: 2322747691437015777}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -10064,6 +10772,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2322747691437015777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2492761211666470265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2508594843301356677
 GameObject:
   m_ObjectHideFlags: 0
@@ -10166,7 +10887,7 @@ GameObject:
   - component: {fileID: 2201110200211870267}
   - component: {fileID: 2875808623962308695}
   m_Layer: 0
-  m_Name: scarecrow_0 (2)
+  m_Name: scarecrow_kunekune_0
   m_TagString: KunekuneProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10347,6 +11068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9025047425405444608}
   - component: {fileID: 1714318567590702028}
+  - component: {fileID: 9087015397996731235}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -10428,6 +11150,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &9087015397996731235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2550337159451745025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2564624102940211206
 GameObject:
   m_ObjectHideFlags: 0
@@ -10519,6 +11254,97 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &2565017726605644828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2266286248075663049}
+  - component: {fileID: 3650768635311446214}
+  m_Layer: 0
+  m_Name: ShadowArea (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2266286248075663049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565017726605644828}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.45, y: -45.0604, z: 0}
+  m_LocalScale: {x: 4.5864577, y: 0.10655089, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6216366239217735608}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!331 &3650768635311446214
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565017726605644828}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: -278262451
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 7111810508140216828, guid: 55fe05bf5009eca45b2da1d45ca33b73, type: 3}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: -278262451
+  m_BackSortingLayerID: -278262451
+  m_FrontSortingLayer: 2
+  m_BackSortingLayer: 2
+  m_FrontSortingOrder: 1
+  m_BackSortingOrder: -2
+  m_IsCustomRangeActive: 1
+  m_SpriteSortPoint: 0
+  m_MaskSource: 0
 --- !u!1 &2616908150802619944
 GameObject:
   m_ObjectHideFlags: 0
@@ -10529,6 +11355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2523332771584313139}
   - component: {fileID: 8151010984777481755}
+  - component: {fileID: 5852813244927093831}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -10610,6 +11437,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5852813244927093831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616908150802619944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2641109637764481680
 GameObject:
   m_ObjectHideFlags: 0
@@ -10697,6 +11537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8196601692879817568}
   - component: {fileID: 735368692315743502}
+  - component: {fileID: 7504040165909651182}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -10778,6 +11619,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7504040165909651182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2691005901885218794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2699996248068680302
 GameObject:
   m_ObjectHideFlags: 0
@@ -10879,6 +11733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 204073445863417096}
   - component: {fileID: 2952135311087195501}
+  - component: {fileID: 4098136224727803009}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -10960,6 +11815,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4098136224727803009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2700389296272029718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2708584356328269714
 GameObject:
   m_ObjectHideFlags: 0
@@ -10970,6 +11838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9020109771249825903}
   - component: {fileID: 5583626362334344285}
+  - component: {fileID: 9080743119330882204}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -11051,6 +11920,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &9080743119330882204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708584356328269714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2720885548412969301
 GameObject:
   m_ObjectHideFlags: 0
@@ -11288,6 +12170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8642838529556813913}
   - component: {fileID: 4246297731304410660}
+  - component: {fileID: 3697692553318908840}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -11369,6 +12252,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3697692553318908840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2799323703954106705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2799422961189965609
 GameObject:
   m_ObjectHideFlags: 0
@@ -11379,6 +12275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4072285790803573209}
   - component: {fileID: 4208152959732447536}
+  - component: {fileID: 5674808151815401256}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -11460,6 +12357,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5674808151815401256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2799422961189965609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2817656975577570615
 GameObject:
   m_ObjectHideFlags: 0
@@ -11470,6 +12380,7 @@ GameObject:
   m_Component:
   - component: {fileID: 425899755974336867}
   - component: {fileID: 2668942982596871795}
+  - component: {fileID: 937655052547114646}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -11551,6 +12462,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &937655052547114646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2817656975577570615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2882112012129664384
 GameObject:
   m_ObjectHideFlags: 0
@@ -11654,6 +12578,7 @@ GameObject:
   - component: {fileID: 7072904107310525236}
   - component: {fileID: 3326554991664760705}
   - component: {fileID: 3337323123780392075}
+  - component: {fileID: 1309039669908890}
   m_Layer: 0
   m_Name: house_0
   m_TagString: Untagged
@@ -11723,9 +12648,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 109198015
-  m_SortingLayer: 1
-  m_SortingOrder: 5
+  m_SortingLayerID: -278262451
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1923994175756728024, guid: 575cbcaee54593f48bb499b5c5d516ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -11800,6 +12725,20 @@ MonoBehaviour:
   isLocked: 0
   requiredKeyID: 
   dialogWhenLocked: {fileID: 0}
+  _lockDuringHouseChase: 0
+--- !u!114 &1309039669908890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948071580666746408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2951078515183906593
 GameObject:
   m_ObjectHideFlags: 0
@@ -11901,6 +12840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2316373182291955265}
   - component: {fileID: 5773011678265699734}
+  - component: {fileID: 5334940129793163832}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -11982,6 +12922,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5334940129793163832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2972382967311051526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2992065669566582341
 GameObject:
   m_ObjectHideFlags: 0
@@ -12083,6 +13036,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5441632016166464158}
   - component: {fileID: 7293575645491199754}
+  - component: {fileID: 1867855848151676181}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -12164,6 +13118,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1867855848151676181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3022672849213057019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3045275053342895971
 GameObject:
   m_ObjectHideFlags: 0
@@ -12174,6 +13141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 994864454134501425}
   - component: {fileID: 669617912902710284}
+  - component: {fileID: 5319175437294448366}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -12255,6 +13223,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5319175437294448366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3045275053342895971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3069068789981885257
 GameObject:
   m_ObjectHideFlags: 0
@@ -12265,6 +13246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3750430262953572442}
   - component: {fileID: 871357732056318989}
+  - component: {fileID: 7406602751498972204}
   m_Layer: 0
   m_Name: Busstop_1
   m_TagString: Untagged
@@ -12346,6 +13328,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7406602751498972204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069068789981885257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3087744142989741202
 GameObject:
   m_ObjectHideFlags: 0
@@ -12538,6 +13533,7 @@ GameObject:
   m_Component:
   - component: {fileID: 254864840633471082}
   - component: {fileID: 3440368369944529926}
+  - component: {fileID: 998400504529082843}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -12619,6 +13615,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &998400504529082843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3142663694293256163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3180457063280979964
 GameObject:
   m_ObjectHideFlags: 0
@@ -12950,6 +13959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7488433819401323799}
   - component: {fileID: 8170287231982301049}
+  - component: {fileID: 9149985411418039707}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -13031,6 +14041,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &9149985411418039707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3251523861286519629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3254249029692406271
 GameObject:
   m_ObjectHideFlags: 0
@@ -13476,8 +14499,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1193449549082413434}
   - component: {fileID: 1669145700673921382}
+  - component: {fileID: 1176475476303008037}
   m_Layer: 0
-  m_Name: scarecrow_0
+  m_Name: scarecrow_kunekune_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13557,6 +14581,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1176475476303008037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3342483770176149255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3371110229570177141
 GameObject:
   m_ObjectHideFlags: 0
@@ -13658,6 +14695,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5874422637685462711}
   - component: {fileID: 4047357484418539351}
+  - component: {fileID: 2665168209298487875}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -13739,6 +14777,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2665168209298487875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402635719022453019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3439606251552501993
 GameObject:
   m_ObjectHideFlags: 0
@@ -13964,6 +15015,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3688617350409315675}
   - component: {fileID: 4411507662894358415}
+  - component: {fileID: 5150554695969155898}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -14045,6 +15097,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5150554695969155898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3467156935251306086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3481756614757839063
 GameObject:
   m_ObjectHideFlags: 0
@@ -14306,6 +15371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4225751562522151444}
   - component: {fileID: 3490196582471040483}
+  - component: {fileID: 7175303470798698002}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -14387,6 +15453,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7175303470798698002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510344605803372060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3513689423463339623
 GameObject:
   m_ObjectHideFlags: 0
@@ -14397,6 +15476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2644747837668763512}
   - component: {fileID: 8169267992027879126}
+  - component: {fileID: 8809544155195122062}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -14478,6 +15558,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8809544155195122062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3513689423463339623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3521233292370754799
 GameObject:
   m_ObjectHideFlags: 0
@@ -14489,7 +15582,7 @@ GameObject:
   - component: {fileID: 820887095247297717}
   - component: {fileID: 2238471989961990051}
   m_Layer: 0
-  m_Name: scarecrow_0 (4)
+  m_Name: scarecrow_kunekune_0
   m_TagString: KunekuneProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14670,6 +15763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7158306872465638695}
   - component: {fileID: 4088216650549847305}
+  - component: {fileID: 2777561011138663943}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -14751,6 +15845,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2777561011138663943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3567963194415728049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3588159714226348593
 GameObject:
   m_ObjectHideFlags: 0
@@ -15021,6 +16128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3055494603639841038}
   - component: {fileID: 5396417151819560287}
+  - component: {fileID: 9024075941973779568}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -15102,6 +16210,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &9024075941973779568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3618897032366687297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3629070658163282541
 GameObject:
   m_ObjectHideFlags: 0
@@ -15112,6 +16233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2441781921670560641}
   - component: {fileID: 2794353588008216967}
+  - component: {fileID: 5626458392638835448}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -15193,6 +16315,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5626458392638835448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3629070658163282541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3641260673021850241
 GameObject:
   m_ObjectHideFlags: 0
@@ -15203,6 +16338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4101139444044021412}
   - component: {fileID: 591212862082303562}
+  - component: {fileID: 7491080096187273552}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -15284,6 +16420,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7491080096187273552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3641260673021850241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3653821659795826143
 GameObject:
   m_ObjectHideFlags: 0
@@ -15466,6 +16615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5254831404654382990}
   - component: {fileID: 8885421813372293081}
+  - component: {fileID: 1402861639374543738}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -15547,6 +16697,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1402861639374543738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3692557516565690806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3708747183431334252
 GameObject:
   m_ObjectHideFlags: 0
@@ -15557,6 +16720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 352959352521503375}
   - component: {fileID: 5248654363074350074}
+  - component: {fileID: 7117699112877885680}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -15638,6 +16802,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7117699112877885680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3708747183431334252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3710433446547886809
 GameObject:
   m_ObjectHideFlags: 0
@@ -15739,6 +16916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6019040087206157493}
   - component: {fileID: 1150331701234496213}
+  - component: {fileID: 2449375008168399677}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -15820,6 +16998,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2449375008168399677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3734127216351794401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3738714443238343166
 GameObject:
   m_ObjectHideFlags: 0
@@ -16032,6 +17223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1204667926412300441}
   - component: {fileID: 2024701007402203911}
+  - component: {fileID: 1219308194005697724}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -16113,6 +17305,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1219308194005697724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3851557412229133398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3873034427304404343
 GameObject:
   m_ObjectHideFlags: 0
@@ -16383,6 +17588,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3293534370609348643}
   - component: {fileID: 390788208085080485}
+  - component: {fileID: 3879220338718939596}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -16464,6 +17670,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3879220338718939596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3898591395570461754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3925873526186231286
 GameObject:
   m_ObjectHideFlags: 0
@@ -16565,6 +17784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6437734554124608252}
   - component: {fileID: 3778885010136055245}
+  - component: {fileID: 5794932484089307120}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -16646,6 +17866,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5794932484089307120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3939887994338849794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3975515009572962350
 GameObject:
   m_ObjectHideFlags: 0
@@ -17235,7 +18468,7 @@ GameObject:
   - component: {fileID: 886409607873444137}
   - component: {fileID: 7344970362447935762}
   m_Layer: 0
-  m_Name: scarecrow_0 (1)
+  m_Name: scarecrow_kunekune_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17597,6 +18830,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7662007162726520713}
   - component: {fileID: 8579708076886141055}
+  - component: {fileID: 96912818874443854}
   m_Layer: 0
   m_Name: Busstop_0
   m_TagString: Untagged
@@ -17678,6 +18912,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &96912818874443854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4198958387399125333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4215471759087352276
 GameObject:
   m_ObjectHideFlags: 0
@@ -18117,6 +19364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3333623313980314062}
   - component: {fileID: 5930738334907718765}
+  - component: {fileID: 3737358620242002510}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -18198,6 +19446,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3737358620242002510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4332835588643181042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4340142452439036189
 GameObject:
   m_ObjectHideFlags: 0
@@ -18814,7 +20075,7 @@ GameObject:
   - component: {fileID: 4859291228751450535}
   - component: {fileID: 6926497136540536547}
   m_Layer: 0
-  m_Name: street_lamp_0 (4)
+  m_Name: street_lamp_kunekune_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18904,6 +20165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 91379136372262900}
   - component: {fileID: 3831731354885356345}
+  - component: {fileID: 1018577867943512788}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -18985,6 +20247,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1018577867943512788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4446577753703941823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4490021244794712925
 GameObject:
   m_ObjectHideFlags: 0
@@ -18995,6 +20270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5168409031581383011}
   - component: {fileID: 4418013383992237036}
+  - component: {fileID: 3653023651524029423}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -19076,6 +20352,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3653023651524029423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4490021244794712925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4509722037800874016
 GameObject:
   m_ObjectHideFlags: 0
@@ -19180,6 +20469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1421478451584978374}
   - component: {fileID: 1143036994185260293}
+  - component: {fileID: 292248638122931485}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -19261,6 +20551,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &292248638122931485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4574633225593236653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4584341720339623329
 GameObject:
   m_ObjectHideFlags: 0
@@ -19362,6 +20665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5429339438924624847}
   - component: {fileID: 3434645396661322856}
+  - component: {fileID: 6836205992483043063}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -19443,6 +20747,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6836205992483043063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4600387755268897740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4610639494238282705
 GameObject:
   m_ObjectHideFlags: 0
@@ -19453,6 +20770,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6148179769529659854}
   - component: {fileID: 6336157301873952633}
+  - component: {fileID: 3981579701651856836}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -19534,6 +20852,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3981579701651856836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610639494238282705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4636156939394456699
 GameObject:
   m_ObjectHideFlags: 0
@@ -19736,6 +21067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8821958916927491704}
   - component: {fileID: 4601724411386928753}
+  - component: {fileID: 7432374169285140093}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -19817,6 +21149,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7432374169285140093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765622993668063723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4776421797040790275
 GameObject:
   m_ObjectHideFlags: 0
@@ -19827,6 +21172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2761570878927117971}
   - component: {fileID: 3805551134295087490}
+  - component: {fileID: 407241875470389603}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -19908,6 +21254,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &407241875470389603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4776421797040790275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4854670026283453621
 GameObject:
   m_ObjectHideFlags: 0
@@ -20009,6 +21368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7754551760529261608}
   - component: {fileID: 2752008968168509762}
+  - component: {fileID: 1984651340814256849}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -20090,6 +21450,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1984651340814256849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870768816331360949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4936595403191148458
 GameObject:
   m_ObjectHideFlags: 0
@@ -20100,6 +21473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7059580949089780353}
   - component: {fileID: 1959862745242185099}
+  - component: {fileID: 1447219975489812267}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -20181,6 +21555,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1447219975489812267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936595403191148458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &4972939305128828806
 GameObject:
   m_ObjectHideFlags: 0
@@ -20464,6 +21851,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3282139079461408779}
   - component: {fileID: 9015266207444502915}
+  - component: {fileID: 9167465151140126000}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -20545,6 +21933,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &9167465151140126000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5056050919890105772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5067539861111685973
 GameObject:
   m_ObjectHideFlags: 0
@@ -20555,6 +21956,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7076036300134128784}
   - component: {fileID: 2121017728974233072}
+  - component: {fileID: 3884531339744798530}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -20636,6 +22038,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3884531339744798530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5067539861111685973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5104892537805928640
 GameObject:
   m_ObjectHideFlags: 0
@@ -20694,6 +22109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8012412174749149657}
   - component: {fileID: 8044267924794393780}
+  - component: {fileID: 7590035845314299953}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -20775,6 +22191,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7590035845314299953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5129223669949237366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5132867356010702162
 GameObject:
   m_ObjectHideFlags: 0
@@ -20785,6 +22214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4858835690907209484}
   - component: {fileID: 5295855194877348277}
+  - component: {fileID: 4616563336612956685}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -20866,6 +22296,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4616563336612956685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5132867356010702162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5149608958334355135
 GameObject:
   m_ObjectHideFlags: 0
@@ -20967,6 +22410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8007396065195246616}
   - component: {fileID: 7456325883207519907}
+  - component: {fileID: 6636032965248323952}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -21048,6 +22492,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6636032965248323952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5160897821620915085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5169204067769683278
 GameObject:
   m_ObjectHideFlags: 0
@@ -21149,6 +22606,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6736075495584863584}
   - component: {fileID: 8132456665877607235}
+  - component: {fileID: 302757728238192843}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -21230,6 +22688,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &302757728238192843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5182573702410356583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5187406026281391677
 GameObject:
   m_ObjectHideFlags: 0
@@ -21240,6 +22711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3249837863595480002}
   - component: {fileID: 2313455102538901992}
+  - component: {fileID: 373114553658178105}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -21321,6 +22793,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &373114553658178105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5187406026281391677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5212963633268205751
 GameObject:
   m_ObjectHideFlags: 0
@@ -21331,6 +22816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 713937954543793954}
   - component: {fileID: 8486800668671286433}
+  - component: {fileID: 3655748918801947494}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -21412,6 +22898,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3655748918801947494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5212963633268205751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5218571718059316550
 GameObject:
   m_ObjectHideFlags: 0
@@ -21422,6 +22921,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7809586354455683769}
   - component: {fileID: 4354930093414271606}
+  - component: {fileID: 7057942547324406179}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -21503,6 +23003,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7057942547324406179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218571718059316550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5238915293706793693
 GameObject:
   m_ObjectHideFlags: 0
@@ -21728,6 +23241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5081681344037915853}
   - component: {fileID: 3201634631310608032}
+  - component: {fileID: 468444724707993218}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -21809,6 +23323,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &468444724707993218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280777679749944466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5285126857816721260
 GameObject:
   m_ObjectHideFlags: 0
@@ -22046,6 +23573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1716002226308789704}
   - component: {fileID: 6844025962161142456}
+  - component: {fileID: 8422367764490160230}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -22127,6 +23655,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8422367764490160230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393352395844327144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5402752460452886505
 GameObject:
   m_ObjectHideFlags: 0
@@ -22137,6 +23678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2773154386329925443}
   - component: {fileID: 2419806709554334853}
+  - component: {fileID: 6152916280928833805}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -22218,6 +23760,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6152916280928833805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5402752460452886505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5417545337164922998
 GameObject:
   m_ObjectHideFlags: 0
@@ -22319,6 +23874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 721841191248318358}
   - component: {fileID: 652060203479559275}
+  - component: {fileID: 2576793758223886245}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -22400,6 +23956,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2576793758223886245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5426239031980645514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5428321076933708402
 GameObject:
   m_ObjectHideFlags: 0
@@ -22410,6 +23979,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9058565687608026083}
   - component: {fileID: 4716709143216384639}
+  - component: {fileID: 2429305881110592924}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -22491,6 +24061,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2429305881110592924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5428321076933708402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5468903094724013346
 GameObject:
   m_ObjectHideFlags: 0
@@ -22637,6 +24220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9107125856304852342}
   - component: {fileID: 4528656154454665516}
+  - component: {fileID: 8639094600232990914}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -22718,6 +24302,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8639094600232990914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598218692397869329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5640370559578201487
 GameObject:
   m_ObjectHideFlags: 0
@@ -22910,6 +24507,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4736267370582313614}
   - component: {fileID: 5276389555207105423}
+  - component: {fileID: 2212325658618921278}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -22991,6 +24589,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2212325658618921278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5664958810703628047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5674452509067005574
 GameObject:
   m_ObjectHideFlags: 0
@@ -23001,6 +24612,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3796459269825393219}
   - component: {fileID: 6125219558685795812}
+  - component: {fileID: 8565452079022235118}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -23082,6 +24694,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8565452079022235118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5674452509067005574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5756925981649189971
 GameObject:
   m_ObjectHideFlags: 0
@@ -23092,6 +24717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7581018952616186075}
   - component: {fileID: 2347094405724845448}
+  - component: {fileID: 1863872183491752297}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -23173,6 +24799,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1863872183491752297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5756925981649189971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5776823654504331071
 GameObject:
   m_ObjectHideFlags: 0
@@ -23183,6 +24822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2948020933376302006}
   - component: {fileID: 7483618981320867867}
+  - component: {fileID: 836644148949246885}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -23264,6 +24904,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &836644148949246885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776823654504331071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5800209460070643693
 GameObject:
   m_ObjectHideFlags: 0
@@ -23410,6 +25063,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2927071280729164277}
   - component: {fileID: 4061741426379293126}
+  - component: {fileID: 6709349225815598110}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -23491,6 +25145,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6709349225815598110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5874723224774037292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5876494998939107705
 GameObject:
   m_ObjectHideFlags: 0
@@ -23501,6 +25168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7510421807568054560}
   - component: {fileID: 3190931272976011311}
+  - component: {fileID: 2153387567237129207}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -23582,6 +25250,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2153387567237129207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5876494998939107705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5884590379192015710
 GameObject:
   m_ObjectHideFlags: 0
@@ -23592,6 +25273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8035516280213047135}
   - component: {fileID: 2251882755427123954}
+  - component: {fileID: 703124795821721200}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -23673,6 +25355,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &703124795821721200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5884590379192015710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5898242502348188533
 GameObject:
   m_ObjectHideFlags: 0
@@ -23865,6 +25560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 715116473508118421}
   - component: {fileID: 1321706332569481973}
+  - component: {fileID: 1865407132909891937}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -23946,6 +25642,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1865407132909891937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5931812033502606084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &5975754163904115267
 GameObject:
   m_ObjectHideFlags: 0
@@ -24183,6 +25892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5559387258765773919}
   - component: {fileID: 3379574588112573351}
+  - component: {fileID: 8799742554561184595}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -24264,6 +25974,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8799742554561184595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6054987583130741873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6059174443293919903
 GameObject:
   m_ObjectHideFlags: 0
@@ -24365,6 +26088,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1540321605661344945}
   - component: {fileID: 2756669750974412635}
+  - component: {fileID: 110313657515708290}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -24446,6 +26170,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &110313657515708290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6076027884334419238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6157287230486393073
 GameObject:
   m_ObjectHideFlags: 0
@@ -24456,6 +26193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5423310196023516508}
   - component: {fileID: 6999270202803877063}
+  - component: {fileID: 8224316634724980802}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -24537,6 +26275,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8224316634724980802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6157287230486393073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6161747795411893418
 GameObject:
   m_ObjectHideFlags: 0
@@ -24547,6 +26298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5234327232145030922}
   - component: {fileID: 5480791767174774037}
+  - component: {fileID: 2917546991287646008}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -24628,6 +26380,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2917546991287646008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6161747795411893418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6176391846625020540
 GameObject:
   m_ObjectHideFlags: 0
@@ -24775,7 +26540,7 @@ GameObject:
   - component: {fileID: 962259430860770046}
   - component: {fileID: 9211364332573152033}
   m_Layer: 0
-  m_Name: scarecrow_0 (3)
+  m_Name: scarecrow_kunekune_0
   m_TagString: KunekuneProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24841,8 +26606,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 109198015
-  m_SortingLayer: 1
+  m_SortingLayerID: -278262451
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1743003091680136991, guid: 6456e355b121f3f49b569bb4ffd965b7, type: 3}
@@ -24956,6 +26721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6307668890764694278}
   - component: {fileID: 4772597536781063286}
+  - component: {fileID: 7737617732759881567}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -25037,6 +26803,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7737617732759881567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6227302809710696410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6229544386722496073
 GameObject:
   m_ObjectHideFlags: 0
@@ -25138,6 +26917,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8255516751548405138}
   - component: {fileID: 7511652293193910537}
+  - component: {fileID: 4115568347173721052}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -25219,6 +26999,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4115568347173721052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6244640888678019859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6287727846775502312
 GameObject:
   m_ObjectHideFlags: 0
@@ -25229,6 +27022,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8167621559065956155}
   - component: {fileID: 8290376889377911719}
+  - component: {fileID: 2061910818653242904}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -25310,6 +27104,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2061910818653242904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6287727846775502312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6299278703372582046
 GameObject:
   m_ObjectHideFlags: 0
@@ -25320,6 +27127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 365410201644489859}
   - component: {fileID: 8752373153491894014}
+  - component: {fileID: 3427481627291871544}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -25401,6 +27209,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3427481627291871544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299278703372582046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6314242952894268592
 GameObject:
   m_ObjectHideFlags: 0
@@ -25502,6 +27323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7675872804788052747}
   - component: {fileID: 8627785337372060487}
+  - component: {fileID: 6832560739031395575}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -25583,6 +27405,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6832560739031395575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315126382448855508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6333730869963411816
 GameObject:
   m_ObjectHideFlags: 0
@@ -25684,6 +27519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2248679969286517987}
   - component: {fileID: 159948386232462513}
+  - component: {fileID: 1668337352305722226}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -25765,6 +27601,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1668337352305722226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339222014733597098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6409888770041627901
 GameObject:
   m_ObjectHideFlags: 0
@@ -26308,6 +28157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1044257458538362595}
   - component: {fileID: 4641038570529707896}
+  - component: {fileID: 7953777142132168806}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -26389,6 +28239,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7953777142132168806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6554296612914038526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6578688642817839850
 GameObject:
   m_ObjectHideFlags: 0
@@ -26399,6 +28262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2176270596693382601}
   - component: {fileID: 8172935276709220112}
+  - component: {fileID: 406188239297887065}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -26480,6 +28344,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &406188239297887065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6578688642817839850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6583125928105699506
 GameObject:
   m_ObjectHideFlags: 0
@@ -26490,6 +28367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6133785290302481052}
   - component: {fileID: 2923051570294754482}
+  - component: {fileID: 7013876519518681609}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -26571,6 +28449,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7013876519518681609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6583125928105699506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6648630365604642881
 GameObject:
   m_ObjectHideFlags: 0
@@ -26763,6 +28654,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2436642244365820866}
   - component: {fileID: 6961245461032073400}
+  - component: {fileID: 4333559593718793202}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -26844,6 +28736,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4333559593718793202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6725037740200746728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6783112817459714244
 GameObject:
   m_ObjectHideFlags: 0
@@ -27218,6 +29123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 965003495511644450}
   - component: {fileID: 7819488874594079466}
+  - component: {fileID: 2722981072821887463}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -27299,6 +29205,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2722981072821887463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6816706837393111842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6839176590338020536
 GameObject:
   m_ObjectHideFlags: 0
@@ -27309,6 +29228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4331167032673753128}
   - component: {fileID: 7965286649135730044}
+  - component: {fileID: 1018571017881162535}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -27390,6 +29310,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1018571017881162535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6839176590338020536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6871001094181980892
 GameObject:
   m_ObjectHideFlags: 0
@@ -27703,6 +29636,10 @@ Transform:
   - {fileID: 5056254767015798427}
   - {fileID: 4032130041207804064}
   - {fileID: 694396297703062962}
+  - {fileID: 7671216268256537339}
+  - {fileID: 4494759202936802972}
+  - {fileID: 8596889832762965083}
+  - {fileID: 2266286248075663049}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6908188062709067654
@@ -27715,6 +29652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4192146659430833068}
   - component: {fileID: 2937225139446556210}
+  - component: {fileID: 7882143619584483507}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -27796,6 +29734,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7882143619584483507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6908188062709067654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6909313330289469645
 GameObject:
   m_ObjectHideFlags: 0
@@ -27806,6 +29757,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2765751096379773075}
   - component: {fileID: 4397965088915333790}
+  - component: {fileID: 3874875136717101380}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -27887,6 +29839,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3874875136717101380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6909313330289469645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6928997336821528377
 GameObject:
   m_ObjectHideFlags: 0
@@ -27988,6 +29953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3809882976535888498}
   - component: {fileID: 6442258811481860025}
+  - component: {fileID: 7965829778602808240}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -28069,6 +30035,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7965829778602808240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6958808319003806446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6978615513950730355
 GameObject:
   m_ObjectHideFlags: 0
@@ -28079,6 +30058,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7316133456613763374}
   - component: {fileID: 7678403220333417870}
+  - component: {fileID: 6561776823266338876}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -28160,6 +30140,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6561776823266338876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6978615513950730355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6978827280150955288
 GameObject:
   m_ObjectHideFlags: 0
@@ -28170,6 +30163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4064335715363207171}
   - component: {fileID: 931251816027828439}
+  - component: {fileID: 2470899864565690215}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -28251,6 +30245,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2470899864565690215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6978827280150955288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6999378815201562258
 GameObject:
   m_ObjectHideFlags: 0
@@ -28261,6 +30268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4995075038330736654}
   - component: {fileID: 3532489407039585162}
+  - component: {fileID: 3387960623637288710}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -28342,6 +30350,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3387960623637288710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999378815201562258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7004396494593037206
 GameObject:
   m_ObjectHideFlags: 0
@@ -28444,7 +30465,7 @@ GameObject:
   - component: {fileID: 130303523147605946}
   - component: {fileID: 6237963789910584639}
   m_Layer: 0
-  m_Name: street_lamp_0 (3)
+  m_Name: street_lamp_kunekune_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28569,6 +30590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5237735963180162989}
   - component: {fileID: 8187285537680384855}
+  - component: {fileID: 7271152330121534931}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -28650,6 +30672,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7271152330121534931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7025925904184351383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7040912492328162775
 GameObject:
   m_ObjectHideFlags: 0
@@ -28842,6 +30877,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5100380671311108255}
   - component: {fileID: 8782846265606027206}
+  - component: {fileID: 7208230877232432369}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -28923,6 +30959,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7208230877232432369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098211032239624702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7122219410172315346
 GameObject:
   m_ObjectHideFlags: 0
@@ -29071,8 +31120,9 @@ GameObject:
   m_Component:
   - component: {fileID: 931383100882107758}
   - component: {fileID: 5072504297931967155}
+  - component: {fileID: 5889094315902095107}
   m_Layer: 0
-  m_Name: street_lamp_0 (5)
+  m_Name: street_lamp_kunekune_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29152,6 +31202,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5889094315902095107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7128984923881769294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7186828656614174955
 GameObject:
   m_ObjectHideFlags: 0
@@ -29195,6 +31258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4286882841516817992}
   - component: {fileID: 2548014647275688154}
+  - component: {fileID: 43484395698278795}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -29276,6 +31340,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &43484395698278795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241979335358318532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7266265027019871615
 GameObject:
   m_ObjectHideFlags: 0
@@ -29286,6 +31363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 197750192792435217}
   - component: {fileID: 8647395355873029328}
+  - component: {fileID: 8510108212399405148}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -29367,6 +31445,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8510108212399405148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266265027019871615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7288082058445935123
 GameObject:
   m_ObjectHideFlags: 0
@@ -29565,6 +31656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8728524937573777373}
   - component: {fileID: 2912167582825204366}
+  - component: {fileID: 2915571106521607060}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -29646,6 +31738,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2915571106521607060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7382079891361041762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7424371239753843405
 GameObject:
   m_ObjectHideFlags: 0
@@ -29961,6 +32066,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4033847906392382528}
   - component: {fileID: 3951832440450685142}
+  - component: {fileID: 725356603424447944}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -30042,6 +32148,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &725356603424447944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7490739514180186278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7491014599077028029
 GameObject:
   m_ObjectHideFlags: 0
@@ -30325,8 +32444,9 @@ GameObject:
   m_Component:
   - component: {fileID: 898461032028526074}
   - component: {fileID: 4266883541643151917}
+  - component: {fileID: 7137129992452023906}
   m_Layer: 0
-  m_Name: scarecrow_0 (1)
+  m_Name: scarecrow_kunekune_0
   m_TagString: KunekuneProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30392,8 +32512,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 109198015
-  m_SortingLayer: 1
+  m_SortingLayerID: -278262451
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1743003091680136991, guid: 6456e355b121f3f49b569bb4ffd965b7, type: 3}
@@ -30406,6 +32526,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7137129992452023906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7522757344124755596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7547034044366937319
 GameObject:
   m_ObjectHideFlags: 0
@@ -30610,6 +32743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4304739779111671537}
   - component: {fileID: 1711461640717141906}
+  - component: {fileID: 817019050163280012}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -30691,6 +32825,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &817019050163280012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7552250738605188452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7587280003359566453
 GameObject:
   m_ObjectHideFlags: 0
@@ -30883,6 +33030,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6228755017198379768}
   - component: {fileID: 7790203945769789704}
+  - component: {fileID: 4393511631722906991}
   m_Layer: 0
   m_Name: rice (10)
   m_TagString: Untagged
@@ -30964,6 +33112,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4393511631722906991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7717698758801151731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7741821941220720984
 GameObject:
   m_ObjectHideFlags: 0
@@ -30976,6 +33137,7 @@ GameObject:
   - component: {fileID: 4884194560120553395}
   - component: {fileID: 152303045527381077}
   - component: {fileID: 4522344949655620911}
+  - component: {fileID: 3878709646593910491}
   m_Layer: 0
   m_Name: school_0
   m_TagString: Untagged
@@ -31045,9 +33207,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 109198015
-  m_SortingLayer: 1
-  m_SortingOrder: 5
+  m_SortingLayerID: -278262451
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -91903354144237191, guid: 20f795f6367800645af258938761fec6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -31122,6 +33284,20 @@ MonoBehaviour:
   isLocked: 1
   requiredKeyID: key_doll
   dialogWhenLocked: {fileID: 11400000, guid: df52a763497918d499b67cbd54f7857a, type: 2}
+  _lockDuringHouseChase: 0
+--- !u!114 &3878709646593910491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7741821941220720984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7747883727173651288
 GameObject:
   m_ObjectHideFlags: 0
@@ -31423,6 +33599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8052506545547920310}
   - component: {fileID: 5315802936111008608}
+  - component: {fileID: 8486801957925014230}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -31504,6 +33681,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8486801957925014230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7833021281510008333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7931497042871639424
 GameObject:
   m_ObjectHideFlags: 0
@@ -31605,6 +33795,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2824965938556796722}
   - component: {fileID: 1027976735615620558}
+  - component: {fileID: 5654023881361336176}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -31686,6 +33877,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5654023881361336176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7981716842993496729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &7989971970212558520
 GameObject:
   m_ObjectHideFlags: 0
@@ -31819,6 +34023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8950949322206868586}
   - component: {fileID: 3799912658238972536}
+  - component: {fileID: 8249788032938110599}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -31900,6 +34105,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8249788032938110599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8001618101011521390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8034396565689601119
 GameObject:
   m_ObjectHideFlags: 0
@@ -32001,6 +34219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5407976912423224596}
   - component: {fileID: 5234004812055971495}
+  - component: {fileID: 3101357467799383720}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -32082,6 +34301,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3101357467799383720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8041372896631568663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8045860573661114169
 GameObject:
   m_ObjectHideFlags: 0
@@ -32092,6 +34324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3809592778476760931}
   - component: {fileID: 440980373615105869}
+  - component: {fileID: 3296678846880167205}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -32173,6 +34406,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3296678846880167205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8045860573661114169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8081262799831847757
 GameObject:
   m_ObjectHideFlags: 0
@@ -32434,6 +34680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6940674327788341472}
   - component: {fileID: 3524207139670188214}
+  - component: {fileID: 1330118405812813055}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -32515,6 +34762,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1330118405812813055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8082876396782843039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8087584773992913866
 GameObject:
   m_ObjectHideFlags: 0
@@ -32616,6 +34876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6139035743370283829}
   - component: {fileID: 1629557991138680969}
+  - component: {fileID: 7239406368614010886}
   m_Layer: 0
   m_Name: rice (1)
   m_TagString: Untagged
@@ -32697,6 +34958,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7239406368614010886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132845399947487592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8169423590323985791
 GameObject:
   m_ObjectHideFlags: 0
@@ -32707,6 +34981,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5318515004699479266}
   - component: {fileID: 6781134282296233450}
+  - component: {fileID: 6145121500472476522}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -32788,6 +35063,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6145121500472476522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169423590323985791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8173019092051988005
 GameObject:
   m_ObjectHideFlags: 0
@@ -32876,6 +35164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 287909964554185979}
   - component: {fileID: 2322546364674589388}
+  - component: {fileID: 2709709854098397528}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -32957,6 +35246,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2709709854098397528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8219591915846160145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8220391335210260371
 GameObject:
   m_ObjectHideFlags: 0
@@ -32967,6 +35269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5626078452162618276}
   - component: {fileID: 1472738478965780037}
+  - component: {fileID: 6918333918983598458}
   m_Layer: 0
   m_Name: rice (13)
   m_TagString: Untagged
@@ -33048,6 +35351,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6918333918983598458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8220391335210260371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8228413817971609533
 GameObject:
   m_ObjectHideFlags: 0
@@ -33058,6 +35374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7929183547283684774}
   - component: {fileID: 967041019870578776}
+  - component: {fileID: 7036201692999261958}
   m_Layer: 0
   m_Name: rice (12)
   m_TagString: Untagged
@@ -33139,6 +35456,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7036201692999261958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8228413817971609533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8230031607959392677
 GameObject:
   m_ObjectHideFlags: 0
@@ -33774,6 +36104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 415560003099499995}
   - component: {fileID: 5568444313170109549}
+  - component: {fileID: 2895358880773997586}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -33855,6 +36186,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2895358880773997586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8320438569811137463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8351246862727143190
 GameObject:
   m_ObjectHideFlags: 0
@@ -33865,6 +36209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6515338741527260732}
   - component: {fileID: 1125408832124233044}
+  - component: {fileID: 1159428015766733950}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -33946,6 +36291,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1159428015766733950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351246862727143190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8356005152605060875
 GameObject:
   m_ObjectHideFlags: 0
@@ -34047,6 +36405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2859966838519439593}
   - component: {fileID: 1011619766109465712}
+  - component: {fileID: 3563728681263813464}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -34128,6 +36487,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3563728681263813464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387318370010844549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8395762238938396819
 GameObject:
   m_ObjectHideFlags: 0
@@ -34138,8 +36510,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3171642399404887498}
   - component: {fileID: 2456819572114722706}
+  - component: {fileID: 1669554988473996949}
   m_Layer: 0
-  m_Name: street_lamp_0 (6)
+  m_Name: street_lamp_kunekune_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34219,6 +36592,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1669554988473996949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8395762238938396819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8401488944617118750
 GameObject:
   m_ObjectHideFlags: 0
@@ -34230,7 +36616,7 @@ GameObject:
   - component: {fileID: 5724766415674460918}
   - component: {fileID: 6979894110780491295}
   m_Layer: 0
-  m_Name: street_lamp_0 (7)
+  m_Name: street_lamp_kunekune_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34593,6 +36979,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4590292928653823627}
   - component: {fileID: 3571013673167299348}
+  - component: {fileID: 3177220392045232802}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -34674,6 +37061,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3177220392045232802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8461404817745206855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8476535563836761492
 GameObject:
   m_ObjectHideFlags: 0
@@ -34684,6 +37084,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3605576498385058711}
   - component: {fileID: 4386277215452161513}
+  - component: {fileID: 6006249226449930406}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -34765,6 +37166,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6006249226449930406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8476535563836761492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8486901266646107969
 GameObject:
   m_ObjectHideFlags: 0
@@ -34966,6 +37380,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5437537199113488874}
   - component: {fileID: 8484277072171331975}
+  - component: {fileID: 1664177211611706972}
   m_Layer: 0
   m_Name: rice (9)
   m_TagString: Untagged
@@ -35047,6 +37462,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1664177211611706972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551955653056007247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8602063220986162033
 GameObject:
   m_ObjectHideFlags: 0
@@ -35057,6 +37485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4938872924656275152}
   - component: {fileID: 768827919537721452}
+  - component: {fileID: 5879178534488460610}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -35138,6 +37567,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5879178534488460610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8602063220986162033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8626075578419751604
 GameObject:
   m_ObjectHideFlags: 0
@@ -35148,6 +37590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4734805657602649081}
   - component: {fileID: 961420660172626411}
+  - component: {fileID: 2003243119394422586}
   m_Layer: 0
   m_Name: rice (8)
   m_TagString: Untagged
@@ -35229,6 +37672,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2003243119394422586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8626075578419751604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8626537210529639484
 GameObject:
   m_ObjectHideFlags: 0
@@ -35330,6 +37786,7 @@ GameObject:
   m_Component:
   - component: {fileID: 113877345751658130}
   - component: {fileID: 6603870031767631640}
+  - component: {fileID: 7574206709011350705}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -35411,6 +37868,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7574206709011350705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8665715773578224585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8678763051739537894
 GameObject:
   m_ObjectHideFlags: 0
@@ -35634,6 +38104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1544762643001600049}
   - component: {fileID: 4367109245411846574}
+  - component: {fileID: 8557497996403366406}
   m_Layer: 0
   m_Name: rice (2)
   m_TagString: Untagged
@@ -35715,6 +38186,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8557497996403366406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8702746697314722774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8703524775827873765
 GameObject:
   m_ObjectHideFlags: 0
@@ -35725,6 +38209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3486420545835528382}
   - component: {fileID: 960351839024913296}
+  - component: {fileID: 8590266379620357286}
   m_Layer: 0
   m_Name: rice (11)
   m_TagString: Untagged
@@ -35806,6 +38291,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8590266379620357286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8703524775827873765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8726477614516270202
 GameObject:
   m_ObjectHideFlags: 0
@@ -35953,8 +38451,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6182336497374655396}
   - component: {fileID: 2294677650003395862}
+  - component: {fileID: 7707111417634591933}
   m_Layer: 0
-  m_Name: street_lamp_0
+  m_Name: street_lamp_kunekune_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36034,6 +38533,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7707111417634591933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8760110449098114322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8856460351716978580
 GameObject:
   m_ObjectHideFlags: 0
@@ -36317,6 +38829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6532294601549843748}
   - component: {fileID: 8220262219867285528}
+  - component: {fileID: 6457086328475999480}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -36398,6 +38911,110 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6457086328475999480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8935825230523968366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
+--- !u!1 &8992742679085395406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4494759202936802972}
+  - component: {fileID: 5781678830311046871}
+  m_Layer: 0
+  m_Name: ShadowArea (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4494759202936802972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8992742679085395406}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.45, y: -18.5647, z: 0}
+  m_LocalScale: {x: 4.5864577, y: 0.105960466, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6216366239217735608}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!331 &5781678830311046871
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8992742679085395406}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: -278262451
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 7111810508140216828, guid: 55fe05bf5009eca45b2da1d45ca33b73, type: 3}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: -278262451
+  m_BackSortingLayerID: -278262451
+  m_FrontSortingLayer: 2
+  m_BackSortingLayer: 2
+  m_FrontSortingOrder: 1
+  m_BackSortingOrder: -2
+  m_IsCustomRangeActive: 1
+  m_SpriteSortPoint: 0
+  m_MaskSource: 0
 --- !u!1 &8998734560596787775
 GameObject:
   m_ObjectHideFlags: 0
@@ -36544,6 +39161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2581786479886984983}
   - component: {fileID: 3787399541343864691}
+  - component: {fileID: 7339891976971958310}
   m_Layer: 0
   m_Name: rice (5)
   m_TagString: Untagged
@@ -36625,6 +39243,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7339891976971958310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044733887968909928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &9053250426281993122
 GameObject:
   m_ObjectHideFlags: 0
@@ -36635,6 +39266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4541241038514038465}
   - component: {fileID: 2132036370734686187}
+  - component: {fileID: 4950219699068359713}
   m_Layer: 0
   m_Name: rice (7)
   m_TagString: Untagged
@@ -36716,6 +39348,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4950219699068359713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9053250426281993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &9061105382465933578
 GameObject:
   m_ObjectHideFlags: 0
@@ -36726,6 +39371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7653473365447085616}
   - component: {fileID: 6649428481094320698}
+  - component: {fileID: 6700997310854998763}
   m_Layer: 0
   m_Name: rice
   m_TagString: Untagged
@@ -36807,6 +39453,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6700997310854998763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9061105382465933578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &9068812884466670774
 GameObject:
   m_ObjectHideFlags: 0
@@ -36817,6 +39476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6415030559054789826}
   - component: {fileID: 3883865109729444379}
+  - component: {fileID: 8463498848980705226}
   m_Layer: 0
   m_Name: rice (6)
   m_TagString: Untagged
@@ -36898,6 +39558,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8463498848980705226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068812884466670774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &9070262084860749433
 GameObject:
   m_ObjectHideFlags: 0
@@ -37090,8 +39763,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3760259552706968605}
   - component: {fileID: 2707032390755336019}
+  - component: {fileID: 5434175258851258650}
   m_Layer: 0
-  m_Name: scarecrow_0 (2)
+  m_Name: scarecrow_kunekune_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37171,6 +39845,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5434175258851258650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9085345096551750816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &9100499359839696104
 GameObject:
   m_ObjectHideFlags: 0
@@ -37304,6 +39991,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6139657366093926892}
   - component: {fileID: 3528411381188572498}
+  - component: {fileID: 2157102977548984744}
   m_Layer: 0
   m_Name: rice (4)
   m_TagString: Untagged
@@ -37385,6 +40073,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2157102977548984744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9120428344250334838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &9141582610920513118
 GameObject:
   m_ObjectHideFlags: 0
@@ -37554,6 +40255,97 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 87.35171, y: 2.7293606}
   m_EdgeRadius: 0
+--- !u!1 &9161603020125047483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7671216268256537339}
+  - component: {fileID: 266947449696376661}
+  m_Layer: 0
+  m_Name: ShadowArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7671216268256537339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9161603020125047483}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.7054, y: -5.9922, z: 0}
+  m_LocalScale: {x: 3.0485077, y: 0.089117296, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6216366239217735608}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!331 &266947449696376661
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9161603020125047483}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: -278262451
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 7111810508140216828, guid: 55fe05bf5009eca45b2da1d45ca33b73, type: 3}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: -278262451
+  m_BackSortingLayerID: -278262451
+  m_FrontSortingLayer: 2
+  m_BackSortingLayer: 2
+  m_FrontSortingOrder: 1
+  m_BackSortingOrder: -2
+  m_IsCustomRangeActive: 1
+  m_SpriteSortPoint: 0
+  m_MaskSource: 0
 --- !u!1 &9194313470818835900
 GameObject:
   m_ObjectHideFlags: 0
@@ -37564,6 +40356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8647980474564500061}
   - component: {fileID: 816282623477050195}
+  - component: {fileID: 318587377460305477}
   m_Layer: 0
   m_Name: rice (3)
   m_TagString: Untagged
@@ -37645,6 +40438,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &318587377460305477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9194313470818835900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &9219954246587928383
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7080052787172082847}
   - component: {fileID: 7737379883777508072}
+  - component: {fileID: 570107164462604449}
   m_Layer: 0
   m_Name: house_room_drawer_0
   m_TagString: Untagged
@@ -91,6 +92,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &570107164462604449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873063492603709879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &970819207389676264
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,6 +201,7 @@ Transform:
   - {fileID: 7080052787172082847}
   - {fileID: 5029610953803732560}
   - {fileID: 4221396224860704003}
+  - {fileID: 786348528811746758}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1623505296979972451
@@ -306,6 +321,7 @@ GameObject:
   - component: {fileID: 7160566240691666739}
   - component: {fileID: 4405322754543633218}
   - component: {fileID: 6410949912496771700}
+  - component: {fileID: 2979438621655688181}
   - component: {fileID: 2434534642896409659}
   m_Layer: 0
   m_Name: house_hallway_room_door_close_0 (1)
@@ -436,6 +452,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.6875, y: 3.75}
   m_EdgeRadius: 0
+--- !u!114 &2979438621655688181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5519660113366343589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!114 &2434534642896409659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,10 +477,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  targetMap: {fileID: 0}
   targetEntryPoint: {fileID: 0}
-  promptPoint: {fileID: 8756368734275027197}
+  targetMap: {fileID: 0}
   isLocked: 0
+  requiredKeyID: 
+  dialogWhenLocked: {fileID: 0}
+  _lockDuringHouseChase: 0
+--- !u!1 &5880253089208140421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 786348528811746758}
+  - component: {fileID: 2178624075063009125}
+  m_Layer: 0
+  m_Name: ShadowArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &786348528811746758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5880253089208140421}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0037, y: -3.9265, z: 0}
+  m_LocalScale: {x: 1.0000818, y: 0.08863383, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1260642175535023539}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!331 &2178624075063009125
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5880253089208140421}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: -278262451
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 7111810508140216828, guid: 55fe05bf5009eca45b2da1d45ca33b73, type: 3}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: -278262451
+  m_BackSortingLayerID: -278262451
+  m_FrontSortingLayer: 2
+  m_BackSortingLayer: 2
+  m_FrontSortingOrder: 1
+  m_BackSortingOrder: -2
+  m_IsCustomRangeActive: 1
+  m_SpriteSortPoint: 0
+  m_MaskSource: 0
 --- !u!1 &7049328655420527433
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,6 +585,7 @@ GameObject:
   - component: {fileID: 5029610953803732560}
   - component: {fileID: 8326614215707663968}
   - component: {fileID: 8012505860515653632}
+  - component: {fileID: 4972681860196105867}
   m_Layer: 0
   m_Name: house_room_funeral_1
   m_TagString: Untagged
@@ -590,3 +713,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.8125, y: 4.9375}
   m_EdgeRadius: 0
+--- !u!114 &4972681860196105867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7049328655420527433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
