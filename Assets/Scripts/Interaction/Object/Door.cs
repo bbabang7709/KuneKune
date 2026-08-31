@@ -11,7 +11,7 @@ using Unity.VisualScripting;
 /// 문이 정상적으로 열리면 플레이어를 지정된 Spawn Point로 이동시키고
 /// 연결된 Cinemachine Camera로 카메라를 전환합니다.
 /// </summary>
-public class Door : MonoBehaviour, IInteractable
+public class Door : MonoBehaviour, IInteractable, IKuneKuneMapRoute
 {
     [Header("Link Settings")]
     [SerializeField] private EntryPoint targetEntryPoint;
@@ -29,6 +29,13 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField] private bool _lockDuringHouseChase;
 
     private bool _isLockedByHouseChase;
+
+    public MapArea SourceMap => GetComponentInParent<MapArea>();
+    public MapArea TargetMap => targetMap;
+    public EntryPoint TargetEntryPoint => targetEntryPoint;
+    public Transform TransitionPoint => transform;
+    public Collider2D TransitionArea => GetComponent<Collider2D>();
+    public bool CanKuneKuneUse => true;
 
     /// <summary>
     /// 집 안 추격 중 잠가야 하는 문인지 알려줍니다.

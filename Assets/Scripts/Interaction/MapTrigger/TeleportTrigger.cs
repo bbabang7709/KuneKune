@@ -10,6 +10,8 @@ public class TeleportTrigger : MapTransition
     [SerializeField] private bool canEnter = true;  // 지나갈 수 있는지 여부
     private BoxCollider2D boxCollider;
 
+    public override bool CanKuneKuneUse => canEnter;
+
     void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
