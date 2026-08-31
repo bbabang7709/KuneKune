@@ -9,16 +9,14 @@ public class MapManager : MonoBehaviour
     private class RouteSearchNode
     {
         public IKuneKuneMapRoute Route { get; }
-        public IKuneKuneMapRoute FirstRoute { get; }
         /// <summary>
         /// 쿠네쿠네의 현재 위치에서 여러 문을 거쳐 플레이어가 있는 맵에 들어가기까지의 거리
         /// </summary>
         public float Distance { get; }
 
-        public RouteSearchNode(IKuneKuneMapRoute route, IKuneKuneMapRoute firstRoute, float distance)
+        public RouteSearchNode(IKuneKuneMapRoute route, float distance)
         {
             Route = route;
-            FirstRoute = firstRoute;
             Distance = distance;
         }
     }
@@ -94,29 +92,32 @@ public class MapManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 쿠네쿠네의 현재 위치에서 플레이어까지 이어지는 문 경로 중 이동 거리가 가장 최단 경로를 찾습니다. (다익스트라)
+    /// 쿠네쿠네의 현재 위치에서 플레이어까지 이어지는 문 경로 중 이동 거리가 가장 짧은 경로를 찾습니다. (다익스트라)
     /// </summary>
     /// <param name="startMap">쿠네쿠네의 현재 맵</param>
     /// <param name="startPosition">쿠네쿠네 현재 위치</param>
     /// <param name="targetMap">플레이어가 있는 맵</param>
     /// <param name="targetPosition">플레이어 위치</param>
     /// <returns></returns>
-    public IKuneKuneMapRoute FindRoute(MapArea startMap, Vector3 startPosition, MapArea targetMap, Vector3 targetPosition)
+    public Queue<IKuneKuneMapRoute> FindRoute(MapArea startMap, Vector3 startPosition, MapArea targetMap, Vector3 targetPosition)
     {
+        Queue<IKuneKuneMapRoute> emptyRoute = new();
         if (startMap == null || targetMap == null || startMap == targetMap)
-            return null;
+            return emptyRoute;
 
         List<RouteSearchNode> remainingNodes = new();
         Dictionary<IKuneKuneMapRoute, float> minDistances = new();
+        Dictionary<IKuneKuneMapRoute, IKuneKuneMapRoute> previousRoutes = new();
 
         foreach (IKuneKuneMapRoute route in GetRoutesFromMap(startMap))
         {
             float distance = Mathf.Abs(startPosition.x - route.TransitionPoint.position.x);
             minDistances[route] = distance;
-            remainingNodes.Add(new RouteSearchNode(route, route, distance));
+            previousRoutes[route] = null;
+            remainingNodes.Add(new RouteSearchNode(route, distance));
         }
 
-        IKuneKuneMapRoute minRoute = null;
+        IKuneKuneMapRoute lastRoute = null;
         float minTotalDistance = Mathf.Infinity;
 
         while (remainingNodes.Count > 0)
@@ -145,7 +146,7 @@ public class MapManager : MonoBehaviour
                 if (totalDistance < minTotalDistance)
                 {
                     minTotalDistance = totalDistance;
-                    minRoute = currentNode.FirstRoute;
+                    lastRoute = currentNode.Route;
                 }
 
                 continue;
@@ -160,11 +161,33 @@ public class MapManager : MonoBehaviour
                     continue;
 
                 minDistances[nextRoute] = nextDistance;
-                remainingNodes.Add(new RouteSearchNode(nextRoute, currentNode.FirstRoute, nextDistance));
+                previousRoutes[nextRoute] = currentNode.Route;
+                remainingNodes.Add(new RouteSearchNode(nextRoute, nextDistance));
             }
         }
 
-        return minRoute;
+        return ReverseRouteQueue(lastRoute, previousRoutes);
+    }
+
+    /// <summary>
+    /// 마지막 문부터 이전 문을 거꾸로 따라간 뒤, 실제 이동 순서로 정렬하여 반환합니다.
+    /// </summary>
+    private Queue<IKuneKuneMapRoute> ReverseRouteQueue(IKuneKuneMapRoute lastRoute, Dictionary<IKuneKuneMapRoute, IKuneKuneMapRoute> previousRoutes)
+    {
+        List<IKuneKuneMapRoute> routes = new();
+        IKuneKuneMapRoute route = lastRoute;
+
+        while (route != null)
+        {
+            routes.Add(route);
+            if (previousRoutes.TryGetValue(route, out IKuneKuneMapRoute previousRoute) == false)
+                break;
+
+            route = previousRoute;
+        }
+
+        routes.Reverse();
+        return new Queue<IKuneKuneMapRoute>(routes);
     }
 
     /// <summary>

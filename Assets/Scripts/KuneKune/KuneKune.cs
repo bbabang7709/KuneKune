@@ -37,7 +37,7 @@ public class KuneKune : MonoBehaviour
     private float _direction;
     private float _speed = 5f;
 
-    private IKuneKuneMapRoute _currentMapRoute;
+    private Queue<IKuneKuneMapRoute> _mapRoutes = new();
     private MapArea _currentMap;
     private MapArea _lastPlayerMap;
 
@@ -176,7 +176,7 @@ public class KuneKune : MonoBehaviour
         {
             _currentMap = MapManager.Instance?.CurrentMap;
             _lastPlayerMap = _currentMap;
-            _currentMapRoute = null;
+            _mapRoutes.Clear();
         }
         
         transform.position = position;
@@ -193,7 +193,7 @@ public class KuneKune : MonoBehaviour
     /// </summary>
     public void Despawn()
     {
-        _currentMapRoute = null;
+        _mapRoutes.Clear();
         _currentMap = null;
         _lastPlayerMap = null;
         gameObject.SetActive(false);
@@ -247,7 +247,7 @@ public class KuneKune : MonoBehaviour
         // 플레이어와 쿠네쿠네의 맵이 같다
         if (_currentMap == playerMap)
         {
-            _currentMapRoute = null;
+            _mapRoutes.Clear();
             _lastPlayerMap = playerMap;
             MoveHorizontallyTowards(_player.transform.position.x);
             return;
@@ -257,13 +257,10 @@ public class KuneKune : MonoBehaviour
         if (_lastPlayerMap != playerMap)
         {
             _lastPlayerMap = playerMap;
-            _currentMapRoute = null;
+            _mapRoutes = MapManager.Instance.FindRoute(_currentMap, transform.position, playerMap, _player.transform.position);
         }
 
-        if (_currentMapRoute == null)
-            _currentMapRoute = MapManager.Instance.FindRoute(_currentMap, transform.position, playerMap, _player.transform.position);
-
-        if (_currentMapRoute != null)
+        if (_mapRoutes.Count > 0)
             ChaseMapTransition();
     }
 
@@ -272,17 +269,19 @@ public class KuneKune : MonoBehaviour
     /// </summary>
     private void ChaseMapTransition()
     {
-        if (_currentMapRoute.TransitionPoint == null)
+        IKuneKuneMapRoute currentRoute = _mapRoutes.Peek();
+        if (currentRoute.TransitionPoint == null)
         {
-            _currentMapRoute = null;
+            Debug.LogWarning("쿠네쿠네가 이동할 문 위치가 사라졌습니다.", this);
+            _mapRoutes.Clear();
             return;
         }
 
-        Collider2D transitionArea = _currentMapRoute.TransitionArea;
+        Collider2D transitionArea = currentRoute.TransitionArea;
         bool hasTransitionArea = transitionArea != null;
         bool reachedTransition = hasTransitionArea && _collider.bounds.Intersects(transitionArea.bounds);
 
-        float targetX = _currentMapRoute.TransitionPoint.position.x;
+        float targetX = currentRoute.TransitionPoint.position.x;
         bool reachedPositionWithoutArea = hasTransitionArea == false && Mathf.Abs(targetX - transform.position.x) <= 0.01f;
 
         if (reachedTransition || reachedPositionWithoutArea)
@@ -299,19 +298,20 @@ public class KuneKune : MonoBehaviour
     /// </summary>
     private void MoveThroughMapTransition()
     {
-        MapArea targetMap = _currentMapRoute.TargetMap;
-        EntryPoint targetEntryPoint = _currentMapRoute.TargetEntryPoint;
+        IKuneKuneMapRoute currentRoute = _mapRoutes.Peek();
+        MapArea targetMap = currentRoute.TargetMap;
+        EntryPoint targetEntryPoint = currentRoute.TargetEntryPoint;
 
         if (targetMap == null || targetEntryPoint == null || targetEntryPoint.SpawnPoint == null)
         {
             Debug.LogWarning("쿠네쿠네가 이동할 문 건너편 위치가 설정되지 않았습니다.", this);
-            _currentMapRoute = null;
+            _mapRoutes.Clear();
             return;
         }
 
         Spawn(targetEntryPoint.SpawnPoint.position);
         _currentMap = targetMap;
-        _currentMapRoute = null;
+        _mapRoutes.Dequeue();
     }
 
     /// <summary>
