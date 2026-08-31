@@ -19,6 +19,7 @@ public class KuneKune : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
     private PlayerController _player;
+    private Collider2D _playerCollider;
 
     private ECharacterState _state;
     public ECharacterState State
@@ -62,6 +63,7 @@ public class KuneKune : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        _playerCollider = _player.GetComponent<Collider2D>();
 
         _rigidbody.gravityScale = 0f;
         _rigidbody.freezeRotation = true;   // z축 고정
@@ -145,12 +147,6 @@ public class KuneKune : MonoBehaviour
             Debug.LogError("쿠네쿠네가 플레이어와 가까운 사물을 못 찾았습니다.");
             return;
         }
-
-        // 쿠네쿠네 위치를 사물이 놓인 바닥 높이에 맞도록 올린다
-        //SpriteRenderer closestRenderer = closest.GetComponent<SpriteRenderer>();
-        //float floorY = closestRenderer != null ? closestRenderer.bounds.min.y : closest.transform.position.y;
-        //float offset = transform.position.y - _collider.bounds.min.y;
-        //transform.position = new Vector3(closest.transform.position.x, floorY + offset, closest.transform.position.z);
         #endregion
 
         _spawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
@@ -160,9 +156,9 @@ public class KuneKune : MonoBehaviour
     }
 
     /// <summary>
-    /// 원하는 위치에 쿠네쿠네를 소환합니다. 이미 소환된 상태라면 위치만 이동합니다.
+    /// 지정한 바닥 위치에 쿠네쿠네를 소환합니다. 이미 소환된 상태라면 위치만 이동합니다.
     /// </summary>
-    /// <param name="position"></param>
+    /// <param name="position">쿠네쿠네를 소환할 바닥 위치입니다.</param>
     public void Spawn(Vector3 position)
     {
         gameObject.SetActive(true);
@@ -171,7 +167,6 @@ public class KuneKune : MonoBehaviour
 
         // 쿠네쿠네가 사물에서 나타나는 상태가 아니라면 바로 달리기 시작
         State = isFirstSpawn ? ECharacterState.Spawning : ECharacterState.Run;
-
         if (isFirstSpawn)
         {
             _currentMap = MapManager.Instance?.CurrentMap;
@@ -179,13 +174,36 @@ public class KuneKune : MonoBehaviour
             _mapRoutes.Clear();
         }
         
-        transform.position = position;
+        transform.position = GetFloorAlignedPosition(position);
 
         float xDifference = _player.transform.position.x - position.x;
         _direction = xDifference > 0f ? 1f : -1f;
         _spriteRenderer.flipX = _direction < 0f;
 
         _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity));  // 0(정상 화면) ~ 1(글리치 강도 최대)
+    }
+
+    /// <summary>
+    /// 쿠네쿠네 콜라이더의 맨 아래가 지정한 바닥 높이에 닿도록 위치를 올립니다.
+    /// </summary>
+    private Vector3 GetFloorAlignedPosition(Vector3 floorPosition)
+    {
+        // 쿠네쿠네 피벗에서 콜라이더 맨 아래까지의 거리를 계산합니다.
+        float bottomOffset = transform.position.y - _collider.bounds.min.y;
+        floorPosition.y += bottomOffset;
+        return floorPosition;
+    }
+
+    /// <summary>
+    /// 문에 저장된 플레이어 도착 위치를 실제 바닥 위치로 바꿉니다.
+    /// </summary>
+    private Vector3 GetFloorPositionFromDoorSpawnPoint(Vector3 spawnPosition)
+    {
+        // 문의 Spawn Point는 플레이어 피벗을 놓을 위치이므로,
+        // 플레이어 피벗에서 콜라이더 맨 아래까지의 거리만큼 내려 바닥을 찾습니다.
+        float playerBottomOffset = _player.transform.position.y - _playerCollider.bounds.min.y;
+        spawnPosition.y -= playerBottomOffset;
+        return spawnPosition;
     }
 
     /// <summary>
@@ -309,8 +327,10 @@ public class KuneKune : MonoBehaviour
             return;
         }
 
-        Spawn(targetEntryPoint.SpawnPoint.position);
+        Vector3 floorPosition = GetFloorPositionFromDoorSpawnPoint(targetEntryPoint.SpawnPoint.position);
+
         _currentMap = targetMap;
+        Spawn(floorPosition);
         _mapRoutes.Dequeue();
     }
 
