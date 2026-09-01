@@ -19,6 +19,7 @@ public class KuneKune : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
     private PlayerController _player;
+    private Collider2D _playerCollider;
 
     private ECharacterState _state;
     public ECharacterState State
@@ -36,6 +37,10 @@ public class KuneKune : MonoBehaviour
 
     private float _direction;
     private float _speed = 5f;
+
+    private Queue<IKuneKuneMapRoute> _mapRoutes = new();
+    private MapArea _currentMap;
+    private MapArea _lastPlayerMap;
 
     private string _spawnAnimationName = "";
 
@@ -58,6 +63,7 @@ public class KuneKune : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        _playerCollider = _player.GetComponent<Collider2D>();
 
         _rigidbody.gravityScale = 0f;
         _rigidbody.freezeRotation = true;   // z축 고정
@@ -66,7 +72,6 @@ public class KuneKune : MonoBehaviour
         _collider.excludeLayers = ~allowedLayerMask;
 
         Despawn();
-        //Spawn(Vector3.zero);    // TODO: test용이다. 제거 필요.
     }
 
     /// <summary>
@@ -90,6 +95,7 @@ public class KuneKune : MonoBehaviour
         if (State != ECharacterState.Unspawned)
             return;
 
+        #region 플레이어랑 가까운 사물 찾기
         if (MapManager.Instance.KunekuneSpawnPoints.Count == 0)
         {
             Debug.Log("현재 맵에서 쿠네쿠네가 소환될 수 있는 사물이 없네요.");
@@ -110,8 +116,7 @@ public class KuneKune : MonoBehaviour
                 }
             }
         }
-
-        #region 플레이어랑 가까운 사물 찾기
+        
         GameObject closest = null;
         float closestDistance = Mathf.Infinity;
         float closestRightValue = Mathf.NegativeInfinity;
@@ -142,12 +147,6 @@ public class KuneKune : MonoBehaviour
             Debug.LogError("쿠네쿠네가 플레이어와 가까운 사물을 못 찾았습니다.");
             return;
         }
-
-        // 쿠네쿠네 위치를 사물이 놓인 바닥 높이에 맞도록 올린다
-        //SpriteRenderer closestRenderer = closest.GetComponent<SpriteRenderer>();
-        //float floorY = closestRenderer != null ? closestRenderer.bounds.min.y : closest.transform.position.y;
-        //float offset = transform.position.y - _collider.bounds.min.y;
-        //transform.position = new Vector3(closest.transform.position.x, floorY + offset, closest.transform.position.z);
         #endregion
 
         _spawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
@@ -157,17 +156,25 @@ public class KuneKune : MonoBehaviour
     }
 
     /// <summary>
-    /// 원하는 위치에 쿠네쿠네를 소환합니다. 이미 소환된 상태라면 위치만 이동합니다.
+    /// 지정한 바닥 위치에 쿠네쿠네를 소환합니다. 이미 소환된 상태라면 위치만 이동합니다.
     /// </summary>
-    /// <param name="position"></param>
+    /// <param name="position">쿠네쿠네를 소환할 바닥 위치입니다.</param>
     public void Spawn(Vector3 position)
     {
         gameObject.SetActive(true);
 
+        bool isFirstSpawn = State == ECharacterState.Unspawned;
+
         // 쿠네쿠네가 사물에서 나타나는 상태가 아니라면 바로 달리기 시작
-        State = State == ECharacterState.Unspawned ? ECharacterState.Spawning : ECharacterState.Run;
+        State = isFirstSpawn ? ECharacterState.Spawning : ECharacterState.Run;
+        if (isFirstSpawn)
+        {
+            _currentMap = MapManager.Instance?.CurrentMap;
+            _lastPlayerMap = _currentMap;
+            _mapRoutes.Clear();
+        }
         
-        transform.position = position;
+        transform.position = GetFloorAlignedPosition(position);
 
         float xDifference = _player.transform.position.x - position.x;
         _direction = xDifference > 0f ? 1f : -1f;
@@ -177,10 +184,36 @@ public class KuneKune : MonoBehaviour
     }
 
     /// <summary>
+    /// 쿠네쿠네 콜라이더의 맨 아래가 지정한 바닥 높이에 닿도록 위치를 올립니다.
+    /// </summary>
+    private Vector3 GetFloorAlignedPosition(Vector3 floorPosition)
+    {
+        // 쿠네쿠네 피벗에서 콜라이더 맨 아래까지의 거리를 계산합니다.
+        float bottomOffset = transform.position.y - _collider.bounds.min.y;
+        floorPosition.y += bottomOffset;
+        return floorPosition;
+    }
+
+    /// <summary>
+    /// 문에 저장된 플레이어 도착 위치를 실제 바닥 위치로 바꿉니다.
+    /// </summary>
+    private Vector3 GetFloorPositionFromDoorSpawnPoint(Vector3 spawnPosition)
+    {
+        // 문의 Spawn Point는 플레이어 피벗을 놓을 위치이므로,
+        // 플레이어 피벗에서 콜라이더 맨 아래까지의 거리만큼 내려 바닥을 찾습니다.
+        float playerBottomOffset = _player.transform.position.y - _playerCollider.bounds.min.y;
+        spawnPosition.y -= playerBottomOffset;
+        return spawnPosition;
+    }
+
+    /// <summary>
     /// 소환한 쿠네쿠네를 비활성화하고, 글리치 효과를 끕니다.
     /// </summary>
     public void Despawn()
     {
+        _mapRoutes.Clear();
+        _currentMap = null;
+        _lastPlayerMap = null;
         gameObject.SetActive(false);
         _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    // 0(정상 화면)
         State = ECharacterState.Unspawned;
@@ -211,28 +244,109 @@ public class KuneKune : MonoBehaviour
             case ECharacterState.Idle:
                 break;
             case ECharacterState.Run:
-                ChasePlayer();
+                ChasePlayerAcrossMaps();
                 break;
         }
     }
 
     /// <summary>
-    /// 쿠네쿠네가 플레이어를 쫓아갑니다.
+    /// 플레이어와 같은 맵이면 바로 쫓아가고, 다른 맵이면 가장 짧은 문 경로를 찾습니다.
     /// </summary>
-    private void ChasePlayer()
+    private void ChasePlayerAcrossMaps()
     {
-        Vector3 playerPosition = _player.transform.position;
+        MapArea playerMap = MapManager.Instance.CurrentMap;
 
-        // x 위치가 거의 같으면 방향을 바꾸거나 움직이지 않는다.
-        float xDifference = playerPosition.x - transform.position.x;
+        if (playerMap == null)
+            return;
+
+        if (_currentMap == null)
+            _currentMap = playerMap;
+
+        // 플레이어와 쿠네쿠네의 맵이 같다
+        if (_currentMap == playerMap)
+        {
+            _mapRoutes.Clear();
+            _lastPlayerMap = playerMap;
+            MoveHorizontallyTowards(_player.transform.position.x);
+            return;
+        }
+
+        // 플레이어가 다른 맵으로 또 이동했다면 새 목적지까지의 최단 경로를 다시 찾습니다.
+        if (_lastPlayerMap != playerMap)
+        {
+            _lastPlayerMap = playerMap;
+            _mapRoutes = MapManager.Instance.FindRoute(_currentMap, transform.position, playerMap, _player.transform.position);
+        }
+
+        if (_mapRoutes.Count > 0)
+            ChaseMapTransition();
+    }
+
+    /// <summary>
+    /// 최단 경로에서 선택된 문이나 출구까지 직접 달려갑니다.
+    /// </summary>
+    private void ChaseMapTransition()
+    {
+        IKuneKuneMapRoute currentRoute = _mapRoutes.Peek();
+        if (currentRoute.TransitionPoint == null)
+        {
+            Debug.LogWarning("쿠네쿠네가 이동할 문 위치가 사라졌습니다.", this);
+            _mapRoutes.Clear();
+            return;
+        }
+
+        Collider2D transitionArea = currentRoute.TransitionArea;
+        bool hasTransitionArea = transitionArea != null;
+        bool reachedTransition = hasTransitionArea && _collider.bounds.Intersects(transitionArea.bounds);
+
+        float targetX = currentRoute.TransitionPoint.position.x;
+        bool reachedPositionWithoutArea = hasTransitionArea == false && Mathf.Abs(targetX - transform.position.x) <= 0.01f;
+
+        if (reachedTransition || reachedPositionWithoutArea)
+        {
+            MoveThroughMapTransition();
+            return;
+        }
+
+        MoveHorizontallyTowards(targetX);
+    }
+
+    /// <summary>
+    /// 문이나 출구 영역에 도착한 뒤 연결된 맵으로 이동합니다.
+    /// </summary>
+    private void MoveThroughMapTransition()
+    {
+        IKuneKuneMapRoute currentRoute = _mapRoutes.Peek();
+        MapArea targetMap = currentRoute.TargetMap;
+        EntryPoint targetEntryPoint = currentRoute.TargetEntryPoint;
+
+        if (targetMap == null || targetEntryPoint == null || targetEntryPoint.SpawnPoint == null)
+        {
+            Debug.LogWarning("쿠네쿠네가 이동할 문 건너편 위치가 설정되지 않았습니다.", this);
+            _mapRoutes.Clear();
+            return;
+        }
+
+        Vector3 floorPosition = GetFloorPositionFromDoorSpawnPoint(targetEntryPoint.SpawnPoint.position);
+
+        _currentMap = targetMap;
+        Spawn(floorPosition);
+        _mapRoutes.Dequeue();
+    }
+
+    /// <summary>
+    /// 현재 높이는 유지하고 지정한 가로 위치를 향해 움직입니다.
+    /// </summary>
+    private void MoveHorizontallyTowards(float targetX)
+    {
+        float xDifference = targetX - transform.position.x;
         if (Mathf.Abs(xDifference) <= 0.01f)
             return;
 
-        float dir = Mathf.Sign(xDifference);
-        _direction = dir;
-        _spriteRenderer.flipX = dir < 0f;
+        _direction = Mathf.Sign(xDifference);
+        _spriteRenderer.flipX = _direction < 0f;
 
-        Vector3 targetPosition = new Vector3(playerPosition.x, transform.position.y, transform.position.z);
+        Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, _speed * Time.fixedDeltaTime);
     }
 

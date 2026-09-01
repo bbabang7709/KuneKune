@@ -89,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Heat Settings")]
     [SerializeField] private bool _test = false;
     [SerializeField] private float maxHeat = 100f;
+    [SerializeField] private float minHeat = 20f;   // 화장실
     [SerializeField] private float heatDecreaseRate = 20f;
     // 연령에 따라 다른 더위 게이지 증가량
     [SerializeField] private float adultHeatIncreaseRate = 10f;
@@ -367,7 +368,7 @@ public class PlayerMovement : MonoBehaviour
         // 화장실(세이프 존)
         // TODO: 아이템 사용(부채, 시원한 물) 인식
         if (MapManager.Instance.CurrentMap.MapType == EMapType.Toilet)
-            DecreaseHeat();
+            DecreaseHeat(minHeat);
         // 햇빛 노출될 때 더위 게이지 증가
         else if (IsExposedToSunlight)
             IncreaseHeat();
@@ -475,10 +476,10 @@ public class PlayerMovement : MonoBehaviour
             kuneKune.Spawn();
     }
 
-    private void DecreaseHeat()
+    private void DecreaseHeat(float min = 0f)
     {
         // 더위 게이지가 천천히 내려간다
-        CurrentHeat = Mathf.Max(0f, CurrentHeat - heatDecreaseRate * Time.deltaTime);
+        CurrentHeat = Mathf.Max(min, CurrentHeat - heatDecreaseRate * Time.deltaTime);
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
 
         if (MapManager.Instance.KuneKune.State != ECharacterState.Unspawned)
