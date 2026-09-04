@@ -709,8 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
-  spawnPoint: {fileID: 2901580473760850270}
-  mapCamera: {fileID: 6253224109278570089}
+  EntryID: outside_school_0
 --- !u!1 &89413874868951025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,12 +1167,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188590019336597300}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 51.03, y: -16.2, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 51.03, y: -16.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4032130041207804064}
+  m_Father: {fileID: 2918020264948297284}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6383799715123314797
 MonoBehaviour:
@@ -2085,6 +2084,7 @@ MonoBehaviour:
   targetMap: {fileID: 1443330780589993381}
   targetEntryPoint: {fileID: 1542617399649789015}
   canEnter: 1
+  cantEnterDialog: {fileID: 0}
 --- !u!1 &368012356347241926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2500,6 +2500,7 @@ Transform:
   - {fileID: 9077543865394623623}
   - {fileID: 1046844661645214771}
   - {fileID: 4424273711090074538}
+  - {fileID: 5166766156109449229}
   m_Father: {fileID: 6216366239217735608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &5491580764903108423
@@ -2560,8 +2561,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
-  _mapID: outside_busstop
-  _mapType: 0
+  mapType: 0
+  _areaCamera: {fileID: 3758623065150220490}
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &427578425737473020
 GameObject:
@@ -6230,6 +6231,7 @@ MonoBehaviour:
   targetMap: {fileID: 3960359206242196450}
   targetEntryPoint: {fileID: 3049095470924191152}
   canEnter: 1
+  cantEnterDialog: {fileID: 0}
 --- !u!1 &1217041367792783597
 GameObject:
   m_ObjectHideFlags: 0
@@ -6708,12 +6710,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1294086179641233532}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: -4.459999, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6, y: -4.459999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4032130041207804064}
+  m_Father: {fileID: 5166766156109449229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3758623065150220490
 MonoBehaviour:
@@ -7597,12 +7599,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1550875985495756720}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 694396297703062962}
+  m_Father: {fileID: 4043686530538473998}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &5928312479879452733
 BoxCollider2D:
@@ -9895,8 +9897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
-  spawnPoint: {fileID: 6915602303733948738}
-  mapCamera: {fileID: 2515151411052967388}
+  EntryID: outside_school_1
 --- !u!1 &2250025962066385524
 GameObject:
   m_ObjectHideFlags: 0
@@ -9988,41 +9989,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1 &2253742708028252570
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 694396297703062962}
-  m_Layer: 0
-  m_Name: Screen Border
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &694396297703062962
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2253742708028252570}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2676251514371022825}
-  - {fileID: 7395831465218105997}
-  - {fileID: 313490811683709671}
-  - {fileID: 1570935215716606640}
-  m_Father: {fileID: 6216366239217735608}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2264308601147597705
 GameObject:
   m_ObjectHideFlags: 0
@@ -11525,8 +11491,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
-  spawnPoint: {fileID: 5398471013969128097}
-  mapCamera: {fileID: 6253224109278570089}
+  EntryID: outside_school_1
+--- !u!1 &2650086050274264121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6605383002787455184}
+  - component: {fileID: 981963966425423751}
+  m_Layer: 0
+  m_Name: Game Start Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6605383002787455184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650086050274264121}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6, y: -4.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9077543865394623623}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &981963966425423751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650086050274264121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
+  EntryID: outside_gamestart
 --- !u!1 &2691005901885218794
 GameObject:
   m_ObjectHideFlags: 0
@@ -12720,8 +12730,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  targetEntryPoint: {fileID: 0}
   targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   isLocked: 0
   requiredKeyID: 
   dialogWhenLocked: {fileID: 0}
@@ -13813,6 +13823,7 @@ MonoBehaviour:
   targetMap: {fileID: 3960359206242196450}
   targetEntryPoint: {fileID: 5143209385821730781}
   canEnter: 1
+  cantEnterDialog: {fileID: 0}
 --- !u!1 &3211557697980267186
 GameObject:
   m_ObjectHideFlags: 0
@@ -14098,8 +14109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
-  spawnPoint: {fileID: 3897650659734375015}
-  mapCamera: {fileID: 2515151411052967388}
+  EntryID: outside_school_0
 --- !u!1 &3263604463557594169
 GameObject:
   m_ObjectHideFlags: 0
@@ -14189,8 +14199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
-  spawnPoint: {fileID: 8483038228944577129}
-  mapCamera: {fileID: 6383799715123314797}
+  EntryID: outside_ricefield_1
 --- !u!1 &3302348532410534030
 GameObject:
   m_ObjectHideFlags: 0
@@ -14309,12 +14318,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3312290287325007383}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.12, y: -32.03, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 32.119995, y: -32.03, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4032130041207804064}
+  m_Father: {fileID: 3766086405544748906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2515151411052967388
 MonoBehaviour:
@@ -16065,12 +16074,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3601896379443253421}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 694396297703062962}
+  m_Father: {fileID: 2918020264948297284}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &3701816092698607265
 BoxCollider2D:
@@ -16568,8 +16577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
-  spawnPoint: {fileID: 7024703533391337787}
-  mapCamera: {fileID: 2515151411052967388}
+  EntryID: outside_school_2
 --- !u!1 &3677692266735075505
 GameObject:
   m_ObjectHideFlags: 0
@@ -17879,6 +17887,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shadow
   Alpah: 0.5
+--- !u!1 &3966349113984183576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2918020264948297284}
+  m_Layer: 0
+  m_Name: Camera Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2918020264948297284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3966349113984183576}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3775086092071972396}
+  - {fileID: 7395831465218105997}
+  m_Father: {fileID: 4747154328157599275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3975515009572962350
 GameObject:
   m_ObjectHideFlags: 0
@@ -19137,6 +19178,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9046332089048379232}
+  - {fileID: 6605383002787455184}
   m_Father: {fileID: 2938648101419535958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4301793972492589516
@@ -19261,8 +19303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
-  spawnPoint: {fileID: 6475011485655027410}
-  mapCamera: {fileID: 6383799715123314797}
+  EntryID: outside_ricefield_0
 --- !u!1 &4321149901031390802
 GameObject:
   m_ObjectHideFlags: 0
@@ -20459,6 +20500,7 @@ MonoBehaviour:
   targetMap: {fileID: 1235334177247003554}
   targetEntryPoint: {fileID: 1014462953646018138}
   canEnter: 1
+  cantEnterDialog: {fileID: 0}
 --- !u!1 &4574633225593236653
 GameObject:
   m_ObjectHideFlags: 0
@@ -20903,6 +20945,7 @@ Transform:
   - {fileID: 3150272144052242762}
   - {fileID: 1316715412669498590}
   - {fileID: 1372107560199255691}
+  - {fileID: 3766086405544748906}
   m_Father: {fileID: 6216366239217735608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3960359206242196450
@@ -20917,8 +20960,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
-  _mapID: outside_school
-  _mapType: 0
+  mapType: 2
+  _areaCamera: {fileID: 2515151411052967388}
   _kuneKune_ables: {fileID: 1316715412669498590}
 --- !u!61 &18829919117286611
 BoxCollider2D:
@@ -27614,6 +27657,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shadow
   Alpah: 0.5
+--- !u!1 &6388907709131247027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4043686530538473998}
+  m_Layer: 0
+  m_Name: Camera Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4043686530538473998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6388907709131247027}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 145728813159638358}
+  - {fileID: 1570935215716606640}
+  m_Father: {fileID: 5056254767015798427}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6409888770041627901
 GameObject:
   m_ObjectHideFlags: 0
@@ -27716,7 +27792,7 @@ GameObject:
   - component: {fileID: 2676251514371022825}
   - component: {fileID: 4221942043871638322}
   m_Layer: 0
-  m_Name: Outside_BusStation
+  m_Name: Screen Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27730,12 +27806,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6429189791089246913}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 694396297703062962}
+  m_Father: {fileID: 5166766156109449229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &4221942043871638322
 BoxCollider2D:
@@ -28840,6 +28916,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &6793897638540095141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5166766156109449229}
+  m_Layer: 0
+  m_Name: Camera Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5166766156109449229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793897638540095141}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4156723620431080409}
+  - {fileID: 2676251514371022825}
+  m_Father: {fileID: 2938648101419535958}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6814146455265716994
 GameObject:
   m_ObjectHideFlags: 0
@@ -29022,6 +29131,7 @@ MonoBehaviour:
   targetMap: {fileID: 0}
   targetEntryPoint: {fileID: 0}
   canEnter: 0
+  cantEnterDialog: {fileID: 0}
 --- !u!1 &6814317628275143071
 GameObject:
   m_ObjectHideFlags: 0
@@ -29634,8 +29744,6 @@ Transform:
   - {fileID: 4747154328157599275}
   - {fileID: 9065013509348146735}
   - {fileID: 5056254767015798427}
-  - {fileID: 4032130041207804064}
-  - {fileID: 694396297703062962}
   - {fileID: 7671216268256537339}
   - {fileID: 4494759202936802972}
   - {fileID: 8596889832762965083}
@@ -30972,41 +31080,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shadow
   Alpah: 0.5
---- !u!1 &7122219410172315346
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4032130041207804064}
-  m_Layer: 0
-  m_Name: CM
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4032130041207804064
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7122219410172315346}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4156723620431080409}
-  - {fileID: 3775086092071972396}
-  - {fileID: 4957354764774058190}
-  - {fileID: 145728813159638358}
-  m_Father: {fileID: 6216366239217735608}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7128592626119463731
 GameObject:
   m_ObjectHideFlags: 0
@@ -31047,6 +31120,7 @@ Transform:
   - {fileID: 1823699057346521625}
   - {fileID: 543824450381873531}
   - {fileID: 7723259565508555653}
+  - {fileID: 2918020264948297284}
   m_Father: {fileID: 6216366239217735608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1443330780589993381
@@ -31061,8 +31135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
-  _mapID: outside_ricefield
-  _mapType: 0
+  mapType: 1
+  _areaCamera: {fileID: 6383799715123314797}
   _kuneKune_ables: {fileID: 543824450381873531}
 --- !u!61 &6789664469961910848
 BoxCollider2D:
@@ -31552,6 +31626,7 @@ MonoBehaviour:
   targetMap: {fileID: 1443330780589993381}
   targetEntryPoint: {fileID: 108889716909803844}
   canEnter: 1
+  cantEnterDialog: {fileID: 0}
 --- !u!1 &7374611165830413670
 GameObject:
   m_ObjectHideFlags: 0
@@ -31646,6 +31721,7 @@ MonoBehaviour:
   targetMap: {fileID: 9101890806357910356}
   targetEntryPoint: {fileID: 1553098658916954657}
   canEnter: 1
+  cantEnterDialog: {fileID: 0}
 --- !u!1 &7382079891361041762
 GameObject:
   m_ObjectHideFlags: 0
@@ -32566,12 +32642,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7547034044366937319}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35.6, y: -45.4, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 35.6, y: -45.4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4032130041207804064}
+  m_Father: {fileID: 4043686530538473998}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6253224109278570089
 MonoBehaviour:
@@ -33279,8 +33355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  targetEntryPoint: {fileID: 0}
   targetMap: {fileID: 0}
+  targetEntryPoint: {fileID: 0}
   isLocked: 1
   requiredKeyID: key_doll
   dialogWhenLocked: {fileID: 11400000, guid: df52a763497918d499b67cbd54f7857a, type: 2}
@@ -35101,12 +35177,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8173019092051988005}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 694396297703062962}
+  m_Father: {fileID: 3766086405544748906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &7247401952259347644
 BoxCollider2D:
@@ -35651,6 +35727,7 @@ MonoBehaviour:
   targetMap: {fileID: 0}
   targetEntryPoint: {fileID: 0}
   canEnter: 0
+  cantEnterDialog: {fileID: 0}
 --- !u!1 &8242707504717970610
 GameObject:
   m_ObjectHideFlags: 0
@@ -37216,6 +37293,7 @@ Transform:
   - {fileID: 473986732720593021}
   - {fileID: 490229482649619689}
   - {fileID: 4553863635819374020}
+  - {fileID: 4043686530538473998}
   m_Father: {fileID: 6216366239217735608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1235334177247003554
@@ -37230,8 +37308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
-  _mapID: outside_house
-  _mapType: 0
+  mapType: 3
+  _areaCamera: {fileID: 6253224109278570089}
   _kuneKune_ables: {fileID: 4553863635819374020}
 --- !u!61 &6403446431374929219
 BoxCollider2D:
@@ -38439,8 +38517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
-  spawnPoint: {fileID: 9046332089048379232}
-  mapCamera: {fileID: 3758623065150220490}
+  EntryID: outside_busstop_0
 --- !u!1 &8760110449098114322
 GameObject:
   m_ObjectHideFlags: 0
@@ -39059,6 +39136,39 @@ Transform:
   - {fileID: 7929183547283684774}
   - {fileID: 4072285790803573209}
   m_Father: {fileID: 4540910463754014683}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9035033347914386574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3766086405544748906}
+  m_Layer: 0
+  m_Name: Camera Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3766086405544748906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035033347914386574}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4957354764774058190}
+  - {fileID: 313490811683709671}
+  m_Father: {fileID: 9065013509348146735}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9038517134295058287
 GameObject:

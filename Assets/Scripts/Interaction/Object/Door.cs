@@ -1,27 +1,13 @@
 using UnityEngine;
-using Unity.Cinemachine;
-using Unity.VisualScripting;
 
 /// <summary>
 /// 플레이어가 상호작용하여 다른 위치로 이동할 수 있는 문입니다.
-/// 
-/// 문이 잠겨 있는 경우 필요한 열쇠를 확인하고,
-/// 열쇠가 없다면 지정된 대사를 출력합니다.
-/// 
-/// 문이 정상적으로 열리면 플레이어를 지정된 Spawn Point로 이동시키고
-/// 연결된 Cinemachine Camera로 카메라를 전환합니다.
 /// </summary>
-public class Door : MonoBehaviour, IInteractable, IKuneKuneMapRoute
+public class Door : MapTransition, IInteractable
 {
-    [Header("Link Settings")]
-    [SerializeField] private EntryPoint targetEntryPoint;
-    [SerializeField] private MapArea targetMap;
-
     [Header("Lock Settings")]
     [SerializeField] private bool isLocked;
-
     [SerializeField] private string requiredKeyID;
-
     [SerializeField] private DialogData dialogWhenLocked;
 
     [Header("추격 잠금 설정")]
@@ -30,27 +16,8 @@ public class Door : MonoBehaviour, IInteractable, IKuneKuneMapRoute
 
     private bool _isLockedByHouseChase;
 
-    public MapArea SourceMap => GetComponentInParent<MapArea>();
-    public MapArea TargetMap => targetMap;
-    public EntryPoint TargetEntryPoint => targetEntryPoint;
-    public Transform TransitionPoint => transform;
-    public Collider2D TransitionArea => GetComponent<Collider2D>();
-    public bool CanKuneKuneUse => true;
-
-    /// <summary>
-    /// 집 안 추격 중 잠가야 하는 문인지 알려줍니다.
-    /// </summary>
     public bool LockDuringHouseChase => _lockDuringHouseChase;
 
-    /// <summary>
-    /// 상호작용 키를 눌렀을 때 호출됩니다.
-    /// 
-    /// 문이 잠겨 있다면 필요한 열쇠를 확인하고,
-    /// 열쇠가 없을 경우 잠긴 상태의 대사를 출력합니다.
-    /// 
-    /// 문을 열 수 있는 경우 플레이어를 Target Spawn Point로 이동시키고
-    /// 연결된 카메라로 전환합니다.
-    /// </summary>
     public void OnInteractPressed()
     {
         // 추격 잠금은 열쇠 보유 여부와 상관없이 문을 열 수 없습니다.
@@ -61,13 +28,10 @@ public class Door : MonoBehaviour, IInteractable, IKuneKuneMapRoute
             return;
         }
 
-        if (targetEntryPoint == null)
+        // 부모 클래스(MapTransition)의 프로퍼티를 확인
+        if (TargetEntryPoint == null || TargetMap == null)
         {
-            Debug.LogWarning(
-                $"[{nameof(Door)}] Target Entry Point가 설정되지 않았습니다.",
-                this
-            );
-
+            Debug.LogWarning($"[{nameof(Door)}] Target Map 또는 Entry Point가 설정되지 않았습니다.", this);
             return;
         }
 
@@ -83,28 +47,17 @@ public class Door : MonoBehaviour, IInteractable, IKuneKuneMapRoute
             isLocked = false;
         }
 
-        MapManager.Instance?.ChangeMap(targetMap, targetEntryPoint);
-        // MovePlayer();
-        // ChangeCamera();
+        // 부모에 구현된 ID 기반 이동 메서드 호출 (페이드 연출 자동 수행)
+        ExecuteTransition();
     }
 
-    /// <summary>
-    /// 집 안 추격이 시작되거나 끝날 때 문 상태를 바꿉니다.
-    /// 기존 열쇠 잠금 상태는 변경하지 않습니다.
-    /// </summary>
     public void SetHouseChaseLocked(bool isLocked)
     {
         _isLockedByHouseChase = isLocked;
     }
 
-    /// <summary>
-    /// 현재 플레이어의 인벤토리를 확인하여
-    /// 문을 열 수 있는지 검사합니다.
-    /// </summary>
     private bool CheckCanOpen()
     {
-        // requiredKeyID가 비어 있다면
-        // 별도의 열쇠가 필요하지 않는 것으로 처리합니다.
         if (string.IsNullOrEmpty(requiredKeyID))
         {
             return true;
@@ -114,14 +67,9 @@ public class Door : MonoBehaviour, IInteractable, IKuneKuneMapRoute
                InventoryManager.Instance.HasKey(requiredKeyID);
     }
 
-    /// <summary>
-    /// 문이 잠겨 있을 때 지정된 대사를 재생합니다.
-    /// </summary>
     private void PlayLockedDialog()
     {
-        if (dialogWhenLocked == null)
-            return;
-
+        if (dialogWhenLocked == null) return;
         DialogSystem.Instance?.PlayDialog(dialogWhenLocked);
     }
 }

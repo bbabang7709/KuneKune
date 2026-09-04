@@ -1,8 +1,10 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 현재 Map 정보와 Map 이동을 관리하는 Singlton Class.
+/// 현재 Map 정보와 Map 이동, 쿠네쿠네 경로 탐색을 관리하는 Singleton Class.
 /// </summary>
 public class MapManager : MonoBehaviour
 {
@@ -20,10 +22,18 @@ public class MapManager : MonoBehaviour
             Distance = distance;
         }
     }
-
+    
     public static MapManager Instance { get; private set; }
 
-    public MapArea CurrentMap { get; private set; } // 현재 Map 정보
+    [Header("Map Areas")]
+    [Tooltip("씬에 존재하는 모든 MapArea 객체를 넣어주세요.")]
+    [SerializeField] private List<MapArea> allMapAreas = new List<MapArea>();
+
+    public EMapType CurrentMapType { get; private set; } = EMapType.Outside_Busstop;
+    
+    private MapArea _currentArea;
+    public MapArea CurrentMap => _currentArea; // 쿠네쿠네 및 외부 참조용
+
     public HashSet<Transform> KunekuneSpawnPoints { get; private set; } = new();
 
     private GameObject player;
@@ -46,20 +56,18 @@ public class MapManager : MonoBehaviour
     }
 
     /// <summary>
-    /// CurrentMap을 갱신하는 메서드.
+    /// 맵이 갱신될 때 쿠네쿠네의 스폰 포인트 정보를 업데이트합니다.
+    /// (기존 SetCurrentMap 내부 로직 추출)
     /// </summary>
-    /// <param name="map">Target map to change CurrentMap</param>
-    public void SetCurrentMap(MapArea map)
+    private void UpdateKunekuneSpawns(MapArea map)
     {
         if (map == null) return;
-        CurrentMap = map;
+        
         KunekuneSpawnPoints.Clear();
 
-        Debug.Log(
-                $"현재 Map: {CurrentMap.MapType} " +
-                $"Map ID: {CurrentMap.MapID}"
-            );
+        Debug.Log($"현재 Map: {map.mapType} | Map ID: {map.gameObject.name}");
 
+        // 팀원분 코드: KuneKune_ables가 없으면 리턴
         if (map.KuneKune_ables == null)
             return;
 
@@ -78,27 +86,85 @@ public class MapManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어의 위치를 targetMap의 targetEntryPoint 위치로 이동시키는 메서드.
+    /// 게임 시작 및 세이브 로드 시 화면 연출(페이드) 없이 즉시 맵을 세팅합니다.
     /// </summary>
-    /// <param name="targetMap">이동할 Map</param>
-    /// <param name="targetEntryPoint">이동할 위치</param>
-    public void ChangeMap(MapArea targetMap, EntryPoint targetEntryPoint)
+    public void InitMap(EMapType targetMapType, string entryID)
     {
-        if (targetMap == null || targetEntryPoint == null) return;
-        
-        SetCurrentMap(targetMap);
-        player.transform.position = targetEntryPoint.SpawnPoint.position;
-        CameraManager.Instance.SetFollowCamera(targetEntryPoint.MapCamera);
+        _currentArea = allMapAreas.Find(m => m.mapType == targetMapType);
+
+        if (_currentArea != null)
+        {
+            CurrentMapType = targetMapType;
+            
+            UpdateKunekuneSpawns(_currentArea);
+
+            Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
+            if (spawnPoint != null && player != null)
+            {
+                player.transform.position = spawnPoint.position;
+            }
+
+            CameraManager.Instance?.ChangeCameraWithFollow(_currentArea.AreaCamera);
+        }
+        else
+        {
+            Debug.LogError($"[MapManager] {targetMapType} 맵을 찾을 수 없습니다.");
+        }
     }
 
     /// <summary>
-    /// 쿠네쿠네의 현재 위치에서 플레이어까지 이어지는 문 경로 중 이동 거리가 가장 짧은 경로를 찾습니다. (다익스트라)
+    /// 인게임 텔레포트 시 사용합니다. 페이드 인/아웃 및 조작 잠금을 포함합니다.
     /// </summary>
-    /// <param name="startMap">쿠네쿠네의 현재 맵</param>
-    /// <param name="startPosition">쿠네쿠네 현재 위치</param>
-    /// <param name="targetMap">플레이어가 있는 맵</param>
-    /// <param name="targetPosition">플레이어 위치</param>
-    /// <returns></returns>
+    public void ChangeMap(EMapType targetMapType, string entryID, Action onComplete = null)
+    {
+        StartCoroutine(ChangeMapRoutine(targetMapType, entryID, onComplete));
+    }
+
+    private IEnumerator ChangeMapRoutine(EMapType targetMapType, string entryID, Action onComplete)
+    {
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.AddMovementLock(this);
+            ControlLockManager.Instance.AddInputLock(this);
+        }
+
+        yield return UIManager.Instance?.FadeOut(0.5f);
+
+        _currentArea = allMapAreas.Find(m => m.mapType == targetMapType);
+
+        if (_currentArea != null)
+        {
+            CurrentMapType = targetMapType;
+            
+            UpdateKunekuneSpawns(_currentArea); // 이동한 맵의 쿠네쿠네 스폰 포인트 갱신
+
+            Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
+            if (spawnPoint != null && player != null)
+            {
+                player.transform.position = spawnPoint.position;
+            }
+
+            CameraManager.Instance?.ChangeCameraWithFollow(_currentArea.AreaCamera);
+        }
+        else
+        {
+            Debug.LogError($"[MapManager] {targetMapType} 맵을 찾을 수 없습니다.");
+        }
+
+        yield return UIManager.Instance?.FadeIn(0.5f);
+        
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.RemoveMovementLock(this);
+            ControlLockManager.Instance.RemoveInputLock(this);
+        }
+
+        onComplete?.Invoke();
+    }
+
+    // =========================================================
+    // 쿠네쿠네 경로 탐색 로직 (팀원 원본 알고리즘 보존)
+    // =========================================================
     public Queue<IKuneKuneMapRoute> FindRoute(MapArea startMap, Vector3 startPosition, MapArea targetMap, Vector3 targetPosition)
     {
         Queue<IKuneKuneMapRoute> emptyRoute = new();
@@ -133,15 +199,16 @@ public class MapManager : MonoBehaviour
                 continue;
 
             EntryPoint arrivalEntryPoint = currentNode.Route.TargetEntryPoint;
-            if (arrivalEntryPoint == null || arrivalEntryPoint.SpawnPoint == null)
+            
+            // 💡 주의: EntryPoint 객체 자체의 transform.position을 사용하도록 우회 (구조 변경 호환성)
+            if (arrivalEntryPoint == null)
                 continue;
 
-            Vector3 spawnPosition = arrivalEntryPoint.SpawnPoint.position;
+            Vector3 spawnPosition = arrivalEntryPoint.transform.position;
 
             // 플레이어가 있는 맵 루트를 찾았다
             if (currentNode.Route.TargetMap == targetMap)
             {
-                // 쿠네쿠네의 현재 위치에서 여러 문을 거쳐 플레이어가 있는 맵에 들어가기까지의 거리 + 플레이어와 문 거리
                 float totalDistance = currentNode.Distance + Mathf.Abs(spawnPosition.x - targetPosition.x);
                 if (totalDistance < minTotalDistance)
                 {
@@ -155,7 +222,6 @@ public class MapManager : MonoBehaviour
             // 현재 루트에 있는 다음 문 찾기
             foreach (IKuneKuneMapRoute nextRoute in GetRoutesFromMap(currentNode.Route.TargetMap))
             {
-                // 쿠네쿠네의 현재 위치에서 여러 문을 거쳐 플레이어가 있는 맵에 들어가기까지의 거리 + 다음으로 찾을 문과 현재 열고 들어온 문 거리
                 float nextDistance = currentNode.Distance + Mathf.Abs(spawnPosition.x - nextRoute.TransitionPoint.position.x);
                 if (minDistances.TryGetValue(nextRoute, out float previousDistance) && previousDistance <= nextDistance)
                     continue;
@@ -169,9 +235,6 @@ public class MapManager : MonoBehaviour
         return ReverseRouteQueue(lastRoute, previousRoutes);
     }
 
-    /// <summary>
-    /// 마지막 문부터 이전 문을 거꾸로 따라간 뒤, 실제 이동 순서로 정렬하여 반환합니다.
-    /// </summary>
     private Queue<IKuneKuneMapRoute> ReverseRouteQueue(IKuneKuneMapRoute lastRoute, Dictionary<IKuneKuneMapRoute, IKuneKuneMapRoute> previousRoutes)
     {
         List<IKuneKuneMapRoute> routes = new();
@@ -190,9 +253,6 @@ public class MapManager : MonoBehaviour
         return new Queue<IKuneKuneMapRoute>(routes);
     }
 
-    /// <summary>
-    /// 지정한 맵에서 다른 맵으로 이어지는 문과 출구를 모두 찾습니다.
-    /// </summary>
     private List<IKuneKuneMapRoute> GetRoutesFromMap(MapArea sourceMap)
     {
         List<IKuneKuneMapRoute> routes = new();
@@ -216,9 +276,6 @@ public class MapManager : MonoBehaviour
         return routes;
     }
 
-    /// <summary>
-    /// 아직 확인하지 않은 경로 중 누적 이동 거리가 가장 짧은 경로의 위치를 찾습니다.
-    /// </summary>
     private int FindNearestNodeIndex(List<RouteSearchNode> nodes)
     {
         int nearestIndex = 0;

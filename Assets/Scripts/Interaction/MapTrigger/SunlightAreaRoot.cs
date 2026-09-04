@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CompositeCollider2D))]
 public class SunlightAreaRoot : MonoBehaviour
 {
-    [Header("ÀÎ½ºÆåÅÍ¿¡¼­ Á÷Á¢ ¼³Á¤")]
+    [Header("ï¿½Î½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private string _mapID;
 
     private CompositeCollider2D _collider;
@@ -25,7 +25,7 @@ public class SunlightAreaRoot : MonoBehaviour
             Collider2D co = child.GetComponent<Collider2D>();
             if (co != null)
             {
-                // ÃÊ±âÈ­
+                // ï¿½Ê±ï¿½È­
                 co.enabled = true;
                 co.compositeOperation = Collider2D.CompositeOperation.Merge;
             }
@@ -34,7 +34,7 @@ public class SunlightAreaRoot : MonoBehaviour
         _collider.isTrigger = true;
         _collider.geometryType = CompositeCollider2D.GeometryType.Polygons;
         LayerMask playerMask = LayerMask.GetMask("Player");
-        _collider.excludeLayers = ~playerMask;  // ÇÃ·¹ÀÌ¾î¸¸ ÀÎ½Ä
+        _collider.excludeLayers = ~playerMask;  // ï¿½Ã·ï¿½ï¿½Ì¾î¸¸ ï¿½Î½ï¿½
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -42,11 +42,11 @@ public class SunlightAreaRoot : MonoBehaviour
         if (MapManager.Instance == null || MapManager.Instance.CurrentMap == null)
             return;
 
-        // ÇÃ·¹ÀÌ¾î°¡ ÀÖ´Â ¸ÊÀÎÁö È®ÀÎ
-        if (MapManager.Instance.CurrentMap.MapID != _mapID)
-            return;
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+        // if (MapManager.Instance.CurrentMap.mapType != _mapID)
+        //     return;
 
-        Debug.Log("ÇÃ·¹ÀÌ¾î´Â ±¤ÇÕ¼º Áß~ ¾ßÈ£~~");
+        Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½ï¿½Õ¼ï¿½ ï¿½ï¿½~ ï¿½ï¿½È£~~");
         _player.IsExposedToSunlight = true;
     }
 
@@ -55,11 +55,11 @@ public class SunlightAreaRoot : MonoBehaviour
         if (MapManager.Instance == null || MapManager.Instance.CurrentMap == null)
             return;
 
-        // ÇÃ·¹ÀÌ¾î°¡ ÀÖ´Â ¸ÊÀÎÁö È®ÀÎ
-        if (MapManager.Instance.CurrentMap.MapID != _mapID)
-            return;
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+        // if (MapManager.Instance.CurrentMap.MapID != _mapID)
+        //     return;
 
-        Debug.Log("ºñÅ¸¹Î D°¡ ºÎÁ·ÇÏ³×¿ä! ¿Ö ±¤ÇÕ¼ºÀ» ÇÏ´Ù ¸»¾Æ¿ä?");
+        Debug.Log("ï¿½ï¿½Å¸ï¿½ï¿½ Dï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï³×¿ï¿½! ï¿½ï¿½ ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½?");
         _player.IsExposedToSunlight = false;
     }
 }
