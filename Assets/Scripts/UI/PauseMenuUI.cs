@@ -57,7 +57,13 @@ public class PauseMenuUI : UIBase
     {
         Debug.Log("Save System 호출");
 
-        // TODO: 세이브 로직 연결
+        SaveManager.Instance?.AutoSave();
+    }
+
+    public void OnClickLoadGame()
+    {
+        SaveManager.Instance?.LoadGame();
+        ResumeGame();
     }
 
     public void OnClickGoToTitle()

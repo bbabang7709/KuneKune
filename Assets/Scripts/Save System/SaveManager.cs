@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
@@ -7,7 +7,9 @@ public class SaveManager : MonoBehaviour
     public static SaveManager Instance { get; private set; }
     
     private SaveData _currentSaveData = new SaveData();
-    private List<ISaveable> _saveableObjects = new();
+    private HashSet<ISaveable> _saveableObjects = new HashSet<ISaveable>();
+
+    private string SavePath => Application.persistentDataPath + "/kunekune_save.json";
 
     void Awake()
     {
@@ -26,20 +28,32 @@ public class SaveManager : MonoBehaviour
 
     public void AutoSave()
     {
-        _currentSaveData.currentMapType = (int)MapManager.Instance.CurrentMap.MapType;
-
         foreach (var obj in _saveableObjects)
         {
             obj.SaveState(_currentSaveData);
         }
 
-        string json = JsonUtility.ToJson(_currentSaveData);
-        System.IO.File.WriteAllText(Application.persistentDataPath + "/autosave.json", json);
-        Debug.Log("Auto Saved!");
+        string json = JsonUtility.ToJson(_currentSaveData, true);
+        File.WriteAllText(SavePath, json);
+        Debug.Log($"[SaveManager] 자동 저장 완료: {SavePath}");
     }
 
     public void LoadGame()
     {
-        
+        if (!File.Exists(SavePath))
+        {
+            Debug.LogWarning("[SaveManager] 세이브 파일이 없습니다.");
+            return;
+        }
+
+        string json = File.ReadAllText(SavePath);
+        _currentSaveData = JsonUtility.FromJson<SaveData>(json);
+
+        foreach (var obj in _saveableObjects)
+        {
+            obj.LoadState(_currentSaveData);
+        }
+
+        Debug.Log("[SaveManager] 로드 완료");
     }
 }

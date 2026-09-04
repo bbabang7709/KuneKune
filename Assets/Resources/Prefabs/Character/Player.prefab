@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 1903586609420879912}
   - component: {fileID: 3022991992757690216}
   - component: {fileID: 781236589127463821}
+  - component: {fileID: 1423516372197767047}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -265,6 +266,7 @@ MonoBehaviour:
   staminaRecoveryDelay: 1
   _test: 0
   maxHeat: 100
+  minHeat: 20
   heatDecreaseRate: 20
   adultHeatIncreaseRate: 10
   studentHeatIncreaseRate: 20
@@ -326,3 +328,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeatScreenEffect
   heatHazeMaterial: {fileID: 2100000, guid: 0d7d73f881fa45fbad84707333ea6816, type: 2}
+--- !u!114 &1423516372197767047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4147783366840814454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9f79588f02e2c4289d9b40d339881a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSaveHandler
+  uniqueID: Player_Main
