@@ -24,6 +24,8 @@ public abstract class MapTransition : MonoBehaviour, IKuneKuneMapRoute
 
     public MapArea TargetMap => targetMap;
     public EntryPoint TargetEntryPoint => targetEntryPoint;
+    
+    // 💡 MapArea 객체의 자식으로 존재해야 정상적으로 SourceMap을 찾아냅니다.
     public MapArea SourceMap => GetComponentInParent<MapArea>();
     public Transform TransitionPoint => transform;
     public Collider2D TransitionArea => GetComponent<Collider2D>();
@@ -40,7 +42,8 @@ public abstract class MapTransition : MonoBehaviour, IKuneKuneMapRoute
             return;
         }
 
-        // MapManager 객체를 통한 맵 변경
-        MapManager.Instance?.ChangeMap(targetMap, targetEntryPoint);
+        // 💡 핵심 구조 변경: MapManager에는 객체를 통째로 넘기지 않고,
+        // Enum 타입(mapType)과 문자열(entryId) 정보만 안전하게 분리해서 전달합니다.
+        MapManager.Instance?.ChangeMap(targetMap.mapType, targetEntryPoint.EntryID);
     }
 }

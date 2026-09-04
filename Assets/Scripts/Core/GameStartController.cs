@@ -47,6 +47,7 @@ public class GameStartController : MonoBehaviour
         UIManager.Instance?.SetGameplayUIAlpha(0f);
         UIManager.Instance?.SetFadeAlpha(1f);
 
+        MapManager.Instance?.InitMap(EMapType.Outside_Busstop, "outside_gamestart");
         // 씬 로딩 후 안정적인 시작을 위해 잠시 대기한다.
         yield return new WaitForSeconds(0.5f);
 

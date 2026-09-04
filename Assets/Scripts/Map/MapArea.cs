@@ -1,14 +1,20 @@
 using UnityEngine;
+using Unity.Cinemachine;
+using System.Collections.Generic;
 
-/// <summary>
-/// 맵을 구분짓는 큰 틀(주로 건물 단위)
-/// </summary>
 public enum EMapType
 {
-    Outside,
-    House,
-    School,
-    Toilet
+    Outside_Busstop,
+    Outside_Ricefield,
+    Outside_School,
+    Outside_House,
+    House_Hallway,
+    House_Bedroom,
+    House_2F,
+    House_MyRoom,
+    School_Hallway,
+    School_Classroom,
+    CoolZone
 }
 
 /// <summary>
@@ -17,22 +23,51 @@ public enum EMapType
 public class MapArea : MonoBehaviour
 {
     [Header("Map Info")]
-    [SerializeField] private string _mapID;
-    [SerializeField] private EMapType _mapType;
-    [SerializeField] private Transform _kuneKune_ables;
+    public EMapType mapType;
 
-    /// <summary> 맵 식별 문자열 (ex. school_hallway, school_classroom, ...) </summary>
-    public string MapID => _mapID;
-    /// <summary> 맵 종류 Enum (Outside, School, House) </summary>
-    public EMapType MapType => _mapType;
-    /// <summary> 쿠네쿠네 스폰 지점 </summary>
+    [Header("Camera Setting")]
+    [Tooltip("이 맵 전용 Cinemachine Camera")]
+    [SerializeField] private CinemachineCamera _areaCamera;
+    
+    [Header("KuneKune_ables")]
+    [Tooltip("이 맵에 등록된 kunekune_ables 연결")]
+    [SerializeField] private Transform _kuneKune_ables;
+   
+    public CinemachineCamera AreaCamera => _areaCamera;
     public Transform KuneKune_ables => _kuneKune_ables;
 
-    // // 맵 콜라이더에 들어가면 현재 위치한 맵 정보 갱신
-    // private void OnTriggerEnter2D(Collider2D collision)
-    // {
-    //     if (!collision.CompareTag("Player")) return;
+    private Dictionary<string, Transform> _entryPointDict = new Dictionary<string, Transform>();
 
-    //     MapManager.Instance.SetCurrentMap(this);
-    // }
+    void Awake()
+    {
+        EntryPoint[] points = GetComponentsInChildren<EntryPoint>(true);
+        foreach (var point in points)
+        {
+            if (!string.IsNullOrEmpty(point.EntryID) && !_entryPointDict.ContainsKey(point.EntryID))
+            {
+                _entryPointDict.Add(point.EntryID, point.transform);
+            }
+        }
+    }
+
+    public void ActivateArea()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void DeactivateArea()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public Transform GetEntryPoint(string entryID)
+    {
+        if (_entryPointDict.TryGetValue(entryID, out Transform pointTransform))
+        {
+            return pointTransform;
+        }
+
+        Debug.LogWarning($"[{mapType}] 맵에서 EntryPoint '{entryID}를 찾을 수 없습니다.'");
+        return null;
+    }
 }

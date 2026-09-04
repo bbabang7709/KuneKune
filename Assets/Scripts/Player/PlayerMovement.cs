@@ -367,7 +367,7 @@ public class PlayerMovement : MonoBehaviour
 
         // 화장실(세이프 존)
         // TODO: 아이템 사용(부채, 시원한 물) 인식
-        if (MapManager.Instance.CurrentMap.MapType == EMapType.Toilet)
+        if (MapManager.Instance.CurrentMap.mapType == EMapType.CoolZone)
             DecreaseHeat(minHeat);
         // 햇빛 노출될 때 더위 게이지 증가
         else if (IsExposedToSunlight)

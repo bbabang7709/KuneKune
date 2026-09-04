@@ -34,7 +34,8 @@ public class HouseCutsceneController : MonoBehaviour
         UIManager.Instance.FadeOutGameplayUI(0.5f);
 
         yield return UIManager.Instance?.FadeOut(0.5f);
-        yield return UIManager.Instance?.FadeIn(0.5f);
+
+        yield return UIManager.Instance?.FadeIn(1f);
 
         if (cutscene != null) cutscene.Play();
     }

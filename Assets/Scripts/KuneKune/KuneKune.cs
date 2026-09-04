@@ -62,8 +62,13 @@ public class KuneKune : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        _playerCollider = _player.GetComponent<Collider2D>();
+        
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            _player = playerObj.GetComponent<PlayerController>();
+            _playerCollider = _player.GetComponent<Collider2D>();
+        }
 
         _rigidbody.gravityScale = 0f;
         _rigidbody.freezeRotation = true;   // z축 고정
@@ -74,11 +79,6 @@ public class KuneKune : MonoBehaviour
         Despawn();
     }
 
-    /// <summary>
-    /// 정적 함수입니다. 쿠네쿠네 프리팹을 인스턴스화하고, KuneKune 컴포넌트를 반환합니다.
-    /// 쿠네쿠네를 현재 씬에서 처음 인스턴스화 할 때 사용하세요.
-    /// </summary>
-    /// <returns></returns>
     public static KuneKune Instantiate()
     {
         GameObject prefab = Resources.Load<GameObject>("Prefabs/Character/KuneKune");
@@ -86,12 +86,8 @@ public class KuneKune : MonoBehaviour
         return kuneKune;
     }
 
-    /// <summary>
-    /// 플레이어와 가까운 사물에 쿠네쿠네를 소환합니다.
-    /// </summary>
     public void Spawn()
     {
-        // 중복 방지
         if (State != ECharacterState.Unspawned)
             return;
 
@@ -99,18 +95,16 @@ public class KuneKune : MonoBehaviour
         if (MapManager.Instance.KunekuneSpawnPoints.Count == 0)
         {
             Debug.Log("현재 맵에서 쿠네쿠네가 소환될 수 있는 사물이 없네요.");
-            //return;
-
-            // TODO: TEST용 삭제 필요
+            
+            // TEST용 폴백 로직 유지
+            Transform tr = GameObject.Find("KuneKune_ables")?.transform;
+            if (tr != null)
             {
                 Debug.Log("테스트를 위해 아무 KuneKune_ables에서 소환할게요");
-                Transform tr = GameObject.Find("KuneKune_ables").transform;
                 Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
                 foreach (Transform sp in spawnPoints)
                 {
-                    if (sp == tr)   // 부모 제외
-                        continue;
-
+                    if (sp == tr) continue;
                     SpawnObject = sp.gameObject;
                     MapManager.Instance.KunekuneSpawnPoints.Add(sp);
                 }
@@ -125,7 +119,7 @@ public class KuneKune : MonoBehaviour
         {
             Vector3 direction = child.position - _player.transform.position;
             float distance = direction.magnitude;
-            float rightValue = Vector3.Dot(direction, _player.transform.right); // 플레이어 기준 오른쪽으로 얼마나 있는지
+            float rightValue = Vector3.Dot(direction, _player.transform.right); 
 
             if (distance < closestDistance)
             {
@@ -133,7 +127,6 @@ public class KuneKune : MonoBehaviour
                 closestRightValue = rightValue;
                 closest = child.gameObject;
             }
-            // 거리가 거의 같으면 플레이어 기준 오른쪽을 선택
             else if (Mathf.Abs(distance - closestDistance) <= 0.01f && rightValue > closestRightValue)
             {
                 closestRightValue = rightValue;
@@ -141,7 +134,6 @@ public class KuneKune : MonoBehaviour
             }
         }
 
-        // 플레이어와 가까운 사물이 없다면 쿠네쿠네를 활성화하지 않음
         if (closest == null)
         {
             Debug.LogError("쿠네쿠네가 플레이어와 가까운 사물을 못 찾았습니다.");
@@ -151,21 +143,16 @@ public class KuneKune : MonoBehaviour
 
         _spawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
         SpawnObject = closest;
-        closest.SetActive(false);   // 쿠네쿠네가 소환되면 사물은 비활성화. TODO: 맵 나갔다 오면 다시 사물 활성화
+        closest.SetActive(false);   
         Spawn(closest.transform.position);
     }
 
-    /// <summary>
-    /// 지정한 바닥 위치에 쿠네쿠네를 소환합니다. 이미 소환된 상태라면 위치만 이동합니다.
-    /// </summary>
-    /// <param name="position">쿠네쿠네를 소환할 바닥 위치입니다.</param>
     public void Spawn(Vector3 position)
     {
         gameObject.SetActive(true);
 
         bool isFirstSpawn = State == ECharacterState.Unspawned;
 
-        // 쿠네쿠네가 사물에서 나타나는 상태가 아니라면 바로 달리기 시작
         State = isFirstSpawn ? ECharacterState.Spawning : ECharacterState.Run;
         if (isFirstSpawn)
         {
@@ -180,42 +167,37 @@ public class KuneKune : MonoBehaviour
         _direction = xDifference > 0f ? 1f : -1f;
         _spriteRenderer.flipX = _direction < 0f;
 
-        _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity));  // 0(정상 화면) ~ 1(글리치 강도 최대)
+        if (_fullScreenGlitchMaterial != null)
+        {
+            _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity)); 
+        }
     }
 
-    /// <summary>
-    /// 쿠네쿠네 콜라이더의 맨 아래가 지정한 바닥 높이에 닿도록 위치를 올립니다.
-    /// </summary>
     private Vector3 GetFloorAlignedPosition(Vector3 floorPosition)
     {
-        // 쿠네쿠네 피벗에서 콜라이더 맨 아래까지의 거리를 계산합니다.
         float bottomOffset = transform.position.y - _collider.bounds.min.y;
         floorPosition.y += bottomOffset;
         return floorPosition;
     }
 
-    /// <summary>
-    /// 문에 저장된 플레이어 도착 위치를 실제 바닥 위치로 바꿉니다.
-    /// </summary>
     private Vector3 GetFloorPositionFromDoorSpawnPoint(Vector3 spawnPosition)
     {
-        // 문의 Spawn Point는 플레이어 피벗을 놓을 위치이므로,
-        // 플레이어 피벗에서 콜라이더 맨 아래까지의 거리만큼 내려 바닥을 찾습니다.
         float playerBottomOffset = _player.transform.position.y - _playerCollider.bounds.min.y;
         spawnPosition.y -= playerBottomOffset;
         return spawnPosition;
     }
 
-    /// <summary>
-    /// 소환한 쿠네쿠네를 비활성화하고, 글리치 효과를 끕니다.
-    /// </summary>
     public void Despawn()
     {
         _mapRoutes.Clear();
         _currentMap = null;
         _lastPlayerMap = null;
         gameObject.SetActive(false);
-        _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    // 0(정상 화면)
+        
+        if (_fullScreenGlitchMaterial != null)
+        {
+            _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    
+        }
         State = ECharacterState.Unspawned;
     }
 
@@ -237,7 +219,6 @@ public class KuneKune : MonoBehaviour
         switch (_state)
         {
             case ECharacterState.Spawning:
-                // 스폰 애니메이션이 끝나면 Run 상태로 전환
                 if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
                     State = ECharacterState.Run;
                 break;
@@ -249,9 +230,6 @@ public class KuneKune : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 플레이어와 같은 맵이면 바로 쫓아가고, 다른 맵이면 가장 짧은 문 경로를 찾습니다.
-    /// </summary>
     private void ChasePlayerAcrossMaps()
     {
         MapArea playerMap = MapManager.Instance.CurrentMap;
@@ -262,7 +240,6 @@ public class KuneKune : MonoBehaviour
         if (_currentMap == null)
             _currentMap = playerMap;
 
-        // 플레이어와 쿠네쿠네의 맵이 같다
         if (_currentMap == playerMap)
         {
             _mapRoutes.Clear();
@@ -271,7 +248,6 @@ public class KuneKune : MonoBehaviour
             return;
         }
 
-        // 플레이어가 다른 맵으로 또 이동했다면 새 목적지까지의 최단 경로를 다시 찾습니다.
         if (_lastPlayerMap != playerMap)
         {
             _lastPlayerMap = playerMap;
@@ -282,9 +258,6 @@ public class KuneKune : MonoBehaviour
             ChaseMapTransition();
     }
 
-    /// <summary>
-    /// 최단 경로에서 선택된 문이나 출구까지 직접 달려갑니다.
-    /// </summary>
     private void ChaseMapTransition()
     {
         IKuneKuneMapRoute currentRoute = _mapRoutes.Peek();
@@ -311,32 +284,27 @@ public class KuneKune : MonoBehaviour
         MoveHorizontallyTowards(targetX);
     }
 
-    /// <summary>
-    /// 문이나 출구 영역에 도착한 뒤 연결된 맵으로 이동합니다.
-    /// </summary>
     private void MoveThroughMapTransition()
     {
         IKuneKuneMapRoute currentRoute = _mapRoutes.Peek();
         MapArea targetMap = currentRoute.TargetMap;
         EntryPoint targetEntryPoint = currentRoute.TargetEntryPoint;
 
-        if (targetMap == null || targetEntryPoint == null || targetEntryPoint.SpawnPoint == null)
+        // 💡 핵심 수정: EntryPoint 객체 자체의 transform.position을 참조하여 호환성 문제 해결
+        if (targetMap == null || targetEntryPoint == null)
         {
             Debug.LogWarning("쿠네쿠네가 이동할 문 건너편 위치가 설정되지 않았습니다.", this);
             _mapRoutes.Clear();
             return;
         }
 
-        Vector3 floorPosition = GetFloorPositionFromDoorSpawnPoint(targetEntryPoint.SpawnPoint.position);
+        Vector3 floorPosition = GetFloorPositionFromDoorSpawnPoint(targetEntryPoint.transform.position);
 
         _currentMap = targetMap;
         Spawn(floorPosition);
         _mapRoutes.Dequeue();
     }
 
-    /// <summary>
-    /// 현재 높이는 유지하고 지정한 가로 위치를 향해 움직입니다.
-    /// </summary>
     private void MoveHorizontallyTowards(float targetX)
     {
         float xDifference = targetX - transform.position.x;
@@ -355,7 +323,6 @@ public class KuneKune : MonoBehaviour
         if (State != ECharacterState.Run)
             return;
 
-        // 플레이어를 잡았는 지 확인
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 쿠네쿠네 멈춤");
@@ -374,12 +341,14 @@ public class KuneKune : MonoBehaviour
         EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
     }
 
-    // 에디터에서 플레이 모드가 끝나면 글리치 강도 초기화
     void OnPlayModeStateChanged(PlayModeStateChange state)
     {
         if (state == PlayModeStateChange.ExitingPlayMode)
         {
-            _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    // 0(정상 화면)
+            if (_fullScreenGlitchMaterial != null)
+            {
+                _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    
+            }
         }
     }
 #endif

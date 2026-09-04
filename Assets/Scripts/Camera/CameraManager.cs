@@ -21,7 +21,7 @@ public class CameraManager : MonoBehaviour
         followTarget = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
-    public void SetFollowCamera(CinemachineCamera targetCamera)
+    public void ChangeCameraWithFollow(CinemachineCamera targetCamera)
     {
         if (targetCamera == null || currentCamera == targetCamera)
             return;
