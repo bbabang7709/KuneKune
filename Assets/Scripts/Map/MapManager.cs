@@ -122,6 +122,8 @@ public class MapManager : MonoBehaviour
 
     private IEnumerator ChangeMapRoutine(EMapType targetMapType, string entryID, Action onComplete)
     {
+        Time.timeScale = 0f;
+
         if (ControlLockManager.Instance != null)
         {
             ControlLockManager.Instance.AddMovementLock(this);
@@ -158,6 +160,8 @@ public class MapManager : MonoBehaviour
             ControlLockManager.Instance.RemoveMovementLock(this);
             ControlLockManager.Instance.RemoveInputLock(this);
         }
+
+        Time.timeScale = 1f;
 
         onComplete?.Invoke();
     }

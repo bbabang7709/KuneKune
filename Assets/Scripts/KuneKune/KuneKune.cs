@@ -51,6 +51,8 @@ public class KuneKune : MonoBehaviour
 
     public GameObject SpawnObject { get; private set; }
 
+    private ECharacterState _preCutsceneState;  // 컷신 재생 중 이동을 멈추기 위해, 이전의 행동 상태를 저장해둘 변수
+
     private void Awake()
     {
         Init();
@@ -232,6 +234,8 @@ public class KuneKune : MonoBehaviour
 
     private void ChasePlayerAcrossMaps()
     {
+        if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) return;
+        
         MapArea playerMap = MapManager.Instance.CurrentMap;
 
         if (playerMap == null)
@@ -326,19 +330,51 @@ public class KuneKune : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 쿠네쿠네 멈춤");
-            State = ECharacterState.Idle;
+            Despawn();
+
+            if (SaveManager.Instance != null)
+            {
+                SaveManager.Instance.Load();
+            }
         }
+    }
+
+    private void PauseKunekune()
+    {
+        if (State == ECharacterState.Unspawned) return;
+
+        _preCutsceneState = State;
+        State = ECharacterState.Idle;
+    }
+
+    private void ResumeKunekune()
+    {
+        if (State == ECharacterState.Unspawned) return;
+
+        State = _preCutsceneState;
     }
 
 #if UNITY_EDITOR
     void OnEnable()
     {
         EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+
+        if (CutsceneManager.Instance != null)
+        {
+            CutsceneManager.Instance.OnCutsceneStart += PauseKunekune;
+            CutsceneManager.Instance.OnCutsceneEnd += ResumeKunekune;
+        }
     }
 
     void OnDisable()
     {
         EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+
+        if (CutsceneManager.Instance != null)
+        {
+            CutsceneManager.Instance.OnCutsceneStart -= PauseKunekune;
+            CutsceneManager.Instance.OnCutsceneEnd -= ResumeKunekune;
+        }
     }
 
     void OnPlayModeStateChanged(PlayModeStateChange state)
