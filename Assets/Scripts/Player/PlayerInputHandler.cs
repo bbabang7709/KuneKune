@@ -85,7 +85,12 @@ public class PlayerInputHandler : MonoBehaviour
     /// </summary>
     public bool IsDialogAdvanceReleased =>
         Actions.Player.DialogAdvance.WasReleasedThisFrame();
-
+    
+    // =========================================================
+    // Pause
+    // =========================================================
+    public bool IsPausePressed => 
+        Actions.Player.Pause.WasPressedThisFrame();
     // =========================================================
     // Unity Lifecycle
     // =========================================================

@@ -3,11 +3,13 @@ using UnityEngine;
 public class PlayerSaveHandler : MonoBehaviour, ISaveable
 {
     [SerializeField] private string uniqueID = "Player_Main";
-    private PlayerAppearance _playerAppearance;
+    private PlayerAppearance _appearance;
+    private PlayerMovement _movement;
 
     void Awake()
     {
-        _playerAppearance = GetComponent<PlayerAppearance>();
+        _appearance = GetComponent<PlayerAppearance>();
+        _movement = GetComponent<PlayerMovement>();
     }
 
     void Start()
@@ -24,11 +26,13 @@ public class PlayerSaveHandler : MonoBehaviour, ISaveable
 
     public void SaveState(SaveData data)
     {
-        data.playerAge = _playerAppearance.CurrentAge;
+        data.playerAge = _appearance.CurrentAge;
+        data.currentHeat = _movement.CurrentHeat;
     }
 
     public void LoadState(SaveData data)
     {
-        _playerAppearance?.SetAge(data.playerAge);
+        _appearance?.SetAge(data.playerAge);
+        _movement?.SetCurrentHeat(data.currentHeat);
     }
 }

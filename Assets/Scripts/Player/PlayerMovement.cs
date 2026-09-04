@@ -485,4 +485,13 @@ public class PlayerMovement : MonoBehaviour
         if (MapManager.Instance.KuneKune.State != ECharacterState.Unspawned)
             MapManager.Instance.KuneKune.Despawn();
     }
+
+    // Load시 저장된 Heat 복구용
+    public void SetCurrentHeat(float amount)
+    {
+        if (amount < 0f || amount > maxHeat) return;
+
+        CurrentHeat = amount;
+        OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
+    }
 }

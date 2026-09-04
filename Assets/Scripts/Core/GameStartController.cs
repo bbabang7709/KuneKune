@@ -40,12 +40,13 @@ public class GameStartController : MonoBehaviour
     private IEnumerator StartGameRoutine()
     {
         // 연출이 진행되는 동안 플레이어의 조작을 막는다.
-        // playerMovement.SetMovementLocked(true);
         ControlLockManager.Instance?.AddInputLock(this);
 
         // 초기 상태 설정: 게임 UI는 투명하게, 화면은 완전히 검은색(알파 1)으로 설정한다.
         UIManager.Instance?.SetGameplayUIAlpha(0f);
         UIManager.Instance?.SetFadeAlpha(1f);
+
+        SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter1_Outside);
 
         MapManager.Instance?.InitMap(EMapType.Outside_Busstop, "outside_gamestart");
         // 씬 로딩 후 안정적인 시작을 위해 잠시 대기한다.
@@ -58,7 +59,6 @@ public class GameStartController : MonoBehaviour
         yield return UIManager.Instance?.FadeInGameplayUI(uiFadeDuration);
 
         // 모든 연출이 끝나면 플레이어의 이동 제한을 해제하여 게임을 시작한다.
-        // playerMovement.SetMovementLocked(false);
         ControlLockManager.Instance?.RemoveInputLock(this);
     }
 }

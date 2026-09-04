@@ -23,6 +23,8 @@ public class HouseCutsceneController : MonoBehaviour
 
         hasPlayed = true;
 
+        SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter2_House);
+
         if (ControlLockManager.Instance != null)
             ControlLockManager.Instance.AddInputLock(this);
 

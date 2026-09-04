@@ -4,12 +4,15 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
+    public EChapter currentChapter = EChapter.Chapter1_Outside;
+
     [Header("Checkpoint Info")]
     public EMapType respawnMapType = EMapType.Outside_Busstop;
     public string respawnEntryPointID = "outside_gamestart";
 
     [Header("Player State")]
     public EPlayerAge playerAge;
+    public float currentHeat;
 
     public List<string> eventKeys = new List<string>();
     public List<bool> eventValues = new List<bool>();

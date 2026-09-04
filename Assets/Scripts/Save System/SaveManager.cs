@@ -6,6 +6,9 @@ using UnityEngine;
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
+
+    [Header("Database")]
+    [SerializeField] private ChapterDatabase chapterDatabase;
     
     private SaveData _currentSaveData = new SaveData();
     private HashSet<ISaveable> _saveableObjects = new HashSet<ISaveable>();
@@ -32,13 +35,16 @@ public class SaveManager : MonoBehaviour
         return File.Exists(SavePath);
     }
 
-    public void Save()
+    public void SaveChapterCheckpoint(EChapter newChapter)
     {
-        if (MapManager.Instance != null)
-        {
-            _currentSaveData.respawnMapType = MapManager.Instance.CurrentMapType;
-            _currentSaveData.respawnEntryPointID = "ManualSavePoint";
-        }
+        if (chapterDatabase == null) return;
+
+        ChapterStartInfo info = chapterDatabase.GetChapterInfo(newChapter);
+
+        _currentSaveData.currentChapter = info.chapter;
+        _currentSaveData.respawnMapType = info.startMapType;
+        _currentSaveData.respawnEntryPointID = info.startEntryPointID;
+        _currentSaveData.playerAge = info.playerAge;
 
         foreach (var obj in _saveableObjects)
         {
@@ -47,8 +53,9 @@ public class SaveManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(_currentSaveData, true);
         File.WriteAllText(SavePath, json);
-        Debug.Log($"[SaveManager] 게임 저장 완료: {SavePath}");
+        Debug.Log($"[SaveManager] {newChapter} 체크포인트 저장 완료");
     }
+
 
     public void Load()
     {
@@ -77,9 +84,14 @@ public class SaveManager : MonoBehaviour
         string json = File.ReadAllText(SavePath);
         _currentSaveData = JsonUtility.FromJson<SaveData>(json);
 
-        if (MapManager.Instance != null)
+        if (chapterDatabase != null)
         {
-            MapManager.Instance.InitMap(_currentSaveData.respawnMapType, _currentSaveData.respawnEntryPointID);
+            ChapterStartInfo info = chapterDatabase.GetChapterInfo(_currentSaveData.currentChapter);
+
+            if (MapManager.Instance != null)
+            {
+                MapManager.Instance.InitMap(info.startMapType, info.startEntryPointID);
+            }
         }
 
         foreach (var obj in _saveableObjects)
@@ -99,20 +111,5 @@ public class SaveManager : MonoBehaviour
             ControlLockManager.Instance.RemoveInputLock(this);
             ControlLockManager.Instance.RemoveMovementLock(this);
         }
-    }
-
-    public void AutoSave(EMapType respawnMap, string respawnEntryID)
-    {
-        _currentSaveData.respawnMapType = respawnMap;
-        _currentSaveData.respawnEntryPointID = respawnEntryID;
-
-        foreach (var obj in _saveableObjects)
-        {
-            obj.SaveState(_currentSaveData);
-        }
-
-        string json = JsonUtility.ToJson(_currentSaveData, true);
-        File.WriteAllText(SavePath, json);
-        Debug.Log($"[SaveManager] 챕터 체크포인트 저장 완료: {respawnMap} / {respawnEntryID}");
     }
 }

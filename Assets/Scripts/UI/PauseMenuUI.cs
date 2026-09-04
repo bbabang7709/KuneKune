@@ -13,6 +13,7 @@ public class PauseMenuUI : UIBase
 
     [Header("Settings")]
     [SerializeField] private string titleSceneName = "Scene_Intro";
+    [SerializeField] private PlayerInputHandler playerInput;
 
     private bool _isPaused = false;
 
@@ -24,7 +25,7 @@ public class PauseMenuUI : UIBase
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (playerInput != null && playerInput.IsPausePressed)
         {
             if (_isPaused) ResumeGame();
             else PauseGame();
@@ -58,23 +59,8 @@ public class PauseMenuUI : UIBase
         Time.timeScale = 1f;
     }
 
-    public void OnClickSaveGame()
-    {
-        if (SaveManager.Instance.HasSaveFile())
-        {
-            // TODO : 경고 문구 띄우기
-            SaveManager.Instance.Save();
-        }
-        else
-        {
-            SaveManager.Instance.Save();
-        }
-    }
-
     public void OnClickLoadGame()
     {
-        // TODO:  저장되지 않은 진행 상황은 사라집니다. 불러오시겠습니까? 팝업 띄우기
-        // 팝업창의 확인 버튼에 SaveManager.Instance.Load() 연결
         ResumeGame();
         SaveManager.Instance?.Load();
     }
