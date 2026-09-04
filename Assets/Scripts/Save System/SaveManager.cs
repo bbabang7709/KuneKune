@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -26,8 +27,19 @@ public class SaveManager : MonoBehaviour
     public void Register(ISaveable saveable) => _saveableObjects.Add(saveable);
     public void Unregister(ISaveable saveable) => _saveableObjects.Remove(saveable);
 
-    public void AutoSave()
+    public bool HasSaveFile()
     {
+        return File.Exists(SavePath);
+    }
+
+    public void Save()
+    {
+        if (MapManager.Instance != null)
+        {
+            _currentSaveData.respawnMapType = MapManager.Instance.CurrentMapType;
+            _currentSaveData.respawnEntryPointID = "ManualSavePoint";
+        }
+
         foreach (var obj in _saveableObjects)
         {
             obj.SaveState(_currentSaveData);
@@ -35,25 +47,72 @@ public class SaveManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(_currentSaveData, true);
         File.WriteAllText(SavePath, json);
-        Debug.Log($"[SaveManager] 자동 저장 완료: {SavePath}");
+        Debug.Log($"[SaveManager] 게임 저장 완료: {SavePath}");
     }
 
-    public void LoadGame()
+    public void Load()
     {
-        if (!File.Exists(SavePath))
+        if (!HasSaveFile())
         {
-            Debug.LogWarning("[SaveManager] 세이브 파일이 없습니다.");
+            Debug.LogWarning("[SaveManager] 불러올 세이브 파일이 없습니다.");
             return;
+        }
+
+        StartCoroutine(LoadRoutine());
+    }
+
+    private IEnumerator LoadRoutine()
+    {
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.AddInputLock(this);
+            ControlLockManager.Instance.AddMovementLock(this);
+        }
+
+        if (UIManager.Instance != null)
+        {
+            yield return UIManager.Instance.FadeOut(0.5f);
         }
 
         string json = File.ReadAllText(SavePath);
         _currentSaveData = JsonUtility.FromJson<SaveData>(json);
+
+        if (MapManager.Instance != null)
+        {
+            MapManager.Instance.InitMap(_currentSaveData.respawnMapType, _currentSaveData.respawnEntryPointID);
+        }
 
         foreach (var obj in _saveableObjects)
         {
             obj.LoadState(_currentSaveData);
         }
 
-        Debug.Log("[SaveManager] 로드 완료");
+        Debug.Log("[SaveManager] 데이터 로드 완료");
+
+        if (UIManager.Instance != null)
+        {
+            yield return UIManager.Instance.FadeIn(0.5f);
+        }
+
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.RemoveInputLock(this);
+            ControlLockManager.Instance.RemoveMovementLock(this);
+        }
+    }
+
+    public void AutoSave(EMapType respawnMap, string respawnEntryID)
+    {
+        _currentSaveData.respawnMapType = respawnMap;
+        _currentSaveData.respawnEntryPointID = respawnEntryID;
+
+        foreach (var obj in _saveableObjects)
+        {
+            obj.SaveState(_currentSaveData);
+        }
+
+        string json = JsonUtility.ToJson(_currentSaveData, true);
+        File.WriteAllText(SavePath, json);
+        Debug.Log($"[SaveManager] 챕터 체크포인트 저장 완료: {respawnMap} / {respawnEntryID}");
     }
 }

@@ -3,12 +3,10 @@ using UnityEngine;
 public class PlayerSaveHandler : MonoBehaviour, ISaveable
 {
     [SerializeField] private string uniqueID = "Player_Main";
-    private PlayerController _playerController;
     private PlayerAppearance _playerAppearance;
 
     void Awake()
     {
-        _playerController = GetComponent<PlayerController>();
         _playerAppearance = GetComponent<PlayerAppearance>();
     }
 
@@ -26,13 +24,11 @@ public class PlayerSaveHandler : MonoBehaviour, ISaveable
 
     public void SaveState(SaveData data)
     {
-        data.playerAge = (int)_playerAppearance.CurrentAge;
-        data.playerPosition = transform.position;
+        data.playerAge = _playerAppearance.CurrentAge;
     }
 
     public void LoadState(SaveData data)
     {
-        _playerAppearance.SetAge((EPlayerAge)data.playerAge);
-        transform.position = data.playerPosition;
+        _playerAppearance?.SetAge(data.playerAge);
     }
 }

@@ -8,6 +8,9 @@ public class PauseMenuUI : UIBase
     [Tooltip("ESC를 눌렀을 때 켜질 메뉴 Panel")]
     [SerializeField] private GameObject pauseMenuPanel;
 
+    [Tooltip("로드 시 띄울 경고 메세지 Panel")]
+    [SerializeField] private GameObject loadWarningPanel;
+
     [Header("Settings")]
     [SerializeField] private string titleSceneName = "Scene_Intro";
 
@@ -16,6 +19,7 @@ public class PauseMenuUI : UIBase
     void Start()
     {
         pauseMenuPanel.SetActive(false);
+        loadWarningPanel.SetActive(false);
     }
 
     void Update()
@@ -46,6 +50,7 @@ public class PauseMenuUI : UIBase
     {
         _isPaused = false;
         pauseMenuPanel.SetActive(false);
+        loadWarningPanel.SetActive(false);
 
         ControlLockManager.Instance.RemoveMovementLock(true);
         ControlLockManager.Instance.RemoveInputLock(true);
@@ -55,15 +60,23 @@ public class PauseMenuUI : UIBase
 
     public void OnClickSaveGame()
     {
-        Debug.Log("Save System 호출");
-
-        SaveManager.Instance?.AutoSave();
+        if (SaveManager.Instance.HasSaveFile())
+        {
+            // TODO : 경고 문구 띄우기
+            SaveManager.Instance.Save();
+        }
+        else
+        {
+            SaveManager.Instance.Save();
+        }
     }
 
     public void OnClickLoadGame()
     {
-        SaveManager.Instance?.LoadGame();
+        // TODO:  저장되지 않은 진행 상황은 사라집니다. 불러오시겠습니까? 팝업 띄우기
+        // 팝업창의 확인 버튼에 SaveManager.Instance.Load() 연결
         ResumeGame();
+        SaveManager.Instance?.Load();
     }
 
     public void OnClickGoToTitle()
@@ -80,5 +93,15 @@ public class PauseMenuUI : UIBase
         SceneManager.LoadScene(titleSceneName);
     }
 
+    public void OpenLoadWarning()
+    {
+        pauseMenuPanel.SetActive(false);
+        loadWarningPanel.SetActive(true);
+    }
 
+    public void CloseLoadWarning()
+    {
+        loadWarningPanel.SetActive(false);
+        pauseMenuPanel.SetActive(true);
+    }
 }

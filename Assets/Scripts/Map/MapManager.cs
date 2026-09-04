@@ -53,12 +53,6 @@ public class MapManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         KuneKune = KuneKune.Instantiate();
         QuestManager.Instantiate();
-
-        // 시작 시 모든 맵 비활성화 (카메라 충돌 방지)
-        foreach (var map in allMapAreas)
-        {
-            // map.DeactivateArea();
-        }
     }
 
     /// <summary>
@@ -100,7 +94,6 @@ public class MapManager : MonoBehaviour
 
         if (_currentArea != null)
         {
-            // _currentArea.ActivateArea();
             CurrentMapType = targetMapType;
             
             UpdateKunekuneSpawns(_currentArea);
@@ -116,14 +109,6 @@ public class MapManager : MonoBehaviour
         else
         {
             Debug.LogError($"[MapManager] {targetMapType} 맵을 찾을 수 없습니다.");
-        }
-        
-        foreach (var map in allMapAreas)
-        {
-            if (map != _currentArea)
-            {
-                //map.DeactivateArea();
-            }
         }
     }
 
@@ -145,12 +130,10 @@ public class MapManager : MonoBehaviour
 
         yield return UIManager.Instance?.FadeOut(0.5f);
 
-        MapArea oldArea = _currentArea;
         _currentArea = allMapAreas.Find(m => m.mapType == targetMapType);
 
         if (_currentArea != null)
         {
-            // _currentArea.ActivateArea();
             CurrentMapType = targetMapType;
             
             UpdateKunekuneSpawns(_currentArea); // 이동한 맵의 쿠네쿠네 스폰 포인트 갱신
@@ -168,11 +151,6 @@ public class MapManager : MonoBehaviour
             Debug.LogError($"[MapManager] {targetMapType} 맵을 찾을 수 없습니다.");
         }
 
-        if (oldArea != null && oldArea != _currentArea)
-        {
-            // oldArea.DeactivateArea();
-        }
-
         yield return UIManager.Instance?.FadeIn(0.5f);
         
         if (ControlLockManager.Instance != null)
@@ -187,7 +165,6 @@ public class MapManager : MonoBehaviour
     // =========================================================
     // 쿠네쿠네 경로 탐색 로직 (팀원 원본 알고리즘 보존)
     // =========================================================
-
     public Queue<IKuneKuneMapRoute> FindRoute(MapArea startMap, Vector3 startPosition, MapArea targetMap, Vector3 targetPosition)
     {
         Queue<IKuneKuneMapRoute> emptyRoute = new();
