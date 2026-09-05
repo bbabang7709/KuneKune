@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
@@ -65,6 +66,7 @@ public class SaveManager : MonoBehaviour
             return;
         }
 
+        Time.timeScale = 1f;
         StartCoroutine(LoadRoutine());
     }
 
@@ -80,6 +82,10 @@ public class SaveManager : MonoBehaviour
         {
             yield return UIManager.Instance.FadeOut(0.5f);
         }
+
+        // AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+
+        // --- 여기서부터는 씬이 새로 태어난 직후. (Manager들이 새로 Awake) --- //
 
         string json = File.ReadAllText(SavePath);
         _currentSaveData = JsonUtility.FromJson<SaveData>(json);

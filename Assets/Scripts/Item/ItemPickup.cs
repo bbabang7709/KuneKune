@@ -12,7 +12,7 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
     /// </summary>
     [SerializeField] private ItemData itemData;
 
-    [Header("Acquire Illustration")]
+    [Header("Acquire Dialog")]
     /// <summary>
     /// 아이템 획득 시 표시할 대화 데이터.
     /// </summary>
@@ -131,7 +131,7 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
         anim?.SetTrigger("Collect");
 
         DialogSystem.Instance.PlayIllustrationDialog(
-            itemData.Icon,
+            itemData.Illustration,
             acquireDialog,
             OnIllustrationFinished
         );

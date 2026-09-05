@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd7e8cf8f341b5046a748074db262f4b, type: 3}
   m_Name: Key_MyRoom
   m_EditorClassIdentifier: Assembly-CSharp::KeyItemData
-  itemID: item_key
+  itemType: 1
+  itemID: key_myroom
   itemName: "\uB0B4 \uBC29 \uC5F4\uC1E0"
-  icon: {fileID: 1095141833252711340, guid: 456a4ad8fa872bc40be5931fcd7fe7d9, type: 3}
-  keyID: key_myroom
+  itemCount: 1
+  illustration: {fileID: 1095141833252711340, guid: 456a4ad8fa872bc40be5931fcd7fe7d9, type: 3}
+  icon: {fileID: -3574791145893869807, guid: 4d905306828a28c4b8bf42702672fcd4, type: 3}

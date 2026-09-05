@@ -1,14 +1,7 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Playables;
 
-public class HouseCutsceneController : MonoBehaviour
+public class HouseCutsceneController : CutsceneControllerBase
 {
-    [SerializeField] private PlayerMovement player;
-    [SerializeField] private PlayableDirector cutscene;
-
-    private bool hasPlayed = false;
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -16,43 +9,9 @@ public class HouseCutsceneController : MonoBehaviour
             PlayCutscene();
         }
     }
-
-    private void PlayCutscene()
+    protected override void OnCutsceneEndSetup()
     {
-        if (hasPlayed) return;
-
-        hasPlayed = true;
-
+        QuestManager.Instance?.StartQuest("HouseCleanup");
         SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter2_House);
-
-        if (ControlLockManager.Instance != null)
-            ControlLockManager.Instance.AddInputLock(this);
-
-        StartCoroutine(CutsceneRoutine());
-    }
-
-    private IEnumerator CutsceneRoutine()
-    {
-        UIManager.Instance.FadeOutGameplayUI(0.5f);
-
-        yield return UIManager.Instance?.FadeOut(0.5f);
-
-        yield return UIManager.Instance?.FadeIn(1f);
-
-        if (cutscene != null) cutscene.Play();
-    }
-
-    public void OnEndCutscene()
-    {
-        StartCoroutine(EndCutsceneRoutine());
-    }
-
-    private IEnumerator EndCutsceneRoutine()
-    {
-        yield return UIManager.Instance.FadeInGameplayUI(0.5f);
-
-        if (ControlLockManager.Instance != null)
-            ControlLockManager.Instance.RemoveInputLock(this);
-        QuestManager.Instance.StartQuest("HouseCleanup");
     }
 }

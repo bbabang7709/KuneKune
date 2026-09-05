@@ -14,8 +14,14 @@ public class SaveData
     public EPlayerAge playerAge;
     public float currentHeat;
 
+    [Header("Event Flags (진행도 기억)")]
     public List<string> eventKeys = new List<string>();
     public List<bool> eventValues = new List<bool>();
+
+    [Header("Inventory (인벤토리)")]
+    public List<string> keyItemIDs = new List<string>();        // 중요 아이템(열쇠 등)
+    public List<string> consumableItemIDs = new List<string>(); // 소모품 종류
+    public List<int> consumableItemCounts = new List<int>();    // 소모품 개수
 
     public void SaveEventFlag(string key, bool value)
     {
