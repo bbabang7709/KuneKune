@@ -13,6 +13,8 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, ISubmitHandler, IP
     private bool _isEmpty = true;
     private InventoryUIManager _uiManager;
 
+    private float _lastSelectTime;
+
     public void Setup(string itemID, bool isConsumable, int count, InventoryUIManager uiManager, Sprite icon = null)
     {
         _itemID = itemID;
@@ -20,7 +22,11 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, ISubmitHandler, IP
         _uiManager = uiManager;
         _isEmpty = false;
 
-        iconImage.sprite = icon;
+        ItemData data = _uiManager.GetItemData(itemID);
+        if (data != null && data.Icon != null)
+        {
+            iconImage.sprite = data.Icon;
+        }
         iconImage.gameObject.SetActive(true);
 
         countText.text = count > 1 ? count.ToString() : "";
@@ -37,18 +43,18 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, ISubmitHandler, IP
         countText.gameObject.SetActive(false);
     }
 
-    public void OnSelect(BaseEventData eventData)
+    public void ForceUpdateDescription()
     {
         if (_uiManager == null) return;
 
-        if (_isEmpty)
-        {
-            _uiManager.ClearDescription();
-        }
-        else
-        {
-            _uiManager.UpdateDescriptionPanel(_itemID, _isConsumable);   
-        }
+        if (_isEmpty) _uiManager.ClearDescription();
+        else _uiManager.UpdateDescriptionPanel(_itemID, _isConsumable);
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        _lastSelectTime = Time.unscaledTime;
+        ForceUpdateDescription();
     }
 
     public void OnSubmit(BaseEventData eventData)
@@ -58,6 +64,10 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, ISubmitHandler, IP
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (_isEmpty) return;
+
+        if (Time.unscaledTime - _lastSelectTime < 0.1f) return;
+
         ExecuteSlotAction();
     }
 
@@ -72,10 +82,6 @@ public class InventorySlotUI : MonoBehaviour, ISelectHandler, ISubmitHandler, IP
         if (_isConsumable)
         {
             _uiManager.ShowUseConfirmation(_itemID);
-        }
-        else
-        {
-            Debug.Log($"[Inventory] {_itemID} (중요 아이템)은 여기서 사용할 수 없습니다.");
         }
     }
 }

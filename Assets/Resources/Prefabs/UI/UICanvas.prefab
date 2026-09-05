@@ -805,6 +805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883734828141d254db569b7454c8e443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUIManager
+  itemDatabase: {fileID: 11400000, guid: bae2c9877f6e16b4baeec5a9f83af343, type: 2}
   maxConsumableSlots: 10
   maxKeyItemSlots: 10
   slotPrefab: {fileID: 4750131554947408659, guid: 2e94d1b15cfc53c47bd9784e449adfd9, type: 3}

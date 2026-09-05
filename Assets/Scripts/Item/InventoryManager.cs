@@ -24,7 +24,7 @@ public class InventoryManager : MonoBehaviour, ISaveable
     void Start()
     {
         SaveManager.Instance?.Register(this);
-
+        
         inventoryUIPanel?.SetActive(false);
     }
 

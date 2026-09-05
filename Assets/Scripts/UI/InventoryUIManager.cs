@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public class InventoryUIManager : MonoBehaviour
 {
+    [Header("Database")]
+    [SerializeField] private ItemDatabase itemDatabase;
+
     [Header("Slot Settings")]
     [SerializeField] private int maxConsumableSlots = 10;
     [SerializeField] private int maxKeyItemSlots = 10;
@@ -28,14 +31,27 @@ public class InventoryUIManager : MonoBehaviour
     private InventorySlotUI[] _keyItemSlots;
     private string _pendingConsumableID;
 
+    private GameObject _lastSelectedSlot;
+
     void Start()
     {
         confirmationPopup.SetActive(false);
 
         confirmButton.onClick.AddListener(OnConfirmUseItem);
-        cancelButton.onClick.AddListener(() => confirmationPopup.SetActive(false));
+        cancelButton.onClick.AddListener(CloseConfirmationPopup);
 
         InitializeFixedSlots();
+    }
+
+    void Update()
+    {
+        if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject == null && !confirmationPopup.activeSelf)
+        {
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+            {
+                EventSystem.current.SetSelectedGameObject(_consumableSlots[0].gameObject);
+            }
+        }
     }
 
     private void InitializeFixedSlots()
@@ -88,30 +104,39 @@ public class InventoryUIManager : MonoBehaviour
         }
 
         GameObject targetFocus = firstSlot != null ? firstSlot : _consumableSlots[0].gameObject;
-
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(targetFocus);
+
+        InventorySlotUI targetSlotUI = targetFocus.GetComponent<InventorySlotUI>();
+        if (targetSlotUI != null) targetSlotUI.ForceUpdateDescription();
     }
 
     public void UpdateDescriptionPanel(string itemID, bool isConsumable)
     {
-        // TODO: ItemDatabase에서 itemID로 이름과 설명을 찾아 텍스트에 적용
-        // ItemData data = ItemDatabase.GetItem(itemID);
-        // itemNameText.text = data.ItemName;
-        // itemDescriptionText.text = data.Description;
+        ItemData data = GetItemData(itemID);
 
-        itemNameText.text = itemID;
-        itemDescriptionText.text = isConsumable ? "사용 가능한 아이템입니다." : "중요한 물건입니다.";
+        if (data != null)
+        {
+            itemNameText.text = data.ItemName;
+            itemDescriptionText.text = data.Description;
+        }
+        else
+        {
+            itemNameText.text = "Unknown";
+            itemDescriptionText.text = "데이터를 불러올 수 없습니다.";
+        }
     }
 
     public void ClearDescription()
     {
         itemNameText.text = "";
-        itemDescriptionText.text = "인벤토리가 비어 있습니다.";
+        itemDescriptionText.text = "";
     }
 
     public void ShowUseConfirmation(string itemID)
     {
+        _lastSelectedSlot = EventSystem.current.currentSelectedGameObject;
+
         _pendingConsumableID = itemID;
         confirmationPopup.SetActive(true);
 
@@ -129,5 +154,25 @@ public class InventoryUIManager : MonoBehaviour
         }
 
         confirmationPopup.SetActive(false);
+    }
+
+    private void CloseConfirmationPopup()
+    {
+        confirmationPopup.SetActive(false);
+
+        if (_lastSelectedSlot != null && _lastSelectedSlot.activeInHierarchy)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(_lastSelectedSlot);
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(_consumableSlots[0].gameObject);
+        }
+    }
+
+    public ItemData GetItemData(string itemID)
+    {
+        return itemDatabase != null ? itemDatabase.GetItem(itemID) : null;
     }
 }
