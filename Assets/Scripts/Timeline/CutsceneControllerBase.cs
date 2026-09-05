@@ -32,9 +32,8 @@ public abstract class CutsceneControllerBase : MonoBehaviour
     {
         if (useFadeInOut && UIManager.Instance != null)
         {
-            UIManager.Instance.FadeOutGameplayUI(0.5f);
-            yield return UIManager.Instance.FadeOut(0.5f);
-            yield return UIManager.Instance.FadeIn(0.5f);
+            yield return new WaitForSeconds(0.5f);
+            yield return UIManager.Instance.FadeOutGameplayUI(0.5f);
         }
 
         OnCutsceneStartSetup();
