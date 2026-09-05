@@ -11,8 +11,9 @@ public class InventoryManager : MonoBehaviour, ISaveable
 
     [Header("UI References")]
     [SerializeField] private GameObject inventoryUIPanel;
-    [Tooltip("인벤토리가 열릴 때 키보드 방향키 포커스가 먼저 갈 버튼")]
-    [SerializeField] private GameObject firstSelectedObject;
+
+    [Tooltip("InventoryUIManager 스크립트를 연결해주세요.")]
+    [SerializeField] private InventoryUIManager inventoryUI;
 
     void Awake()
     {
@@ -23,6 +24,8 @@ public class InventoryManager : MonoBehaviour, ISaveable
     void Start()
     {
         SaveManager.Instance?.Register(this);
+
+        inventoryUIPanel?.SetActive(false);
     }
 
     void OnDestroy()
@@ -44,9 +47,8 @@ public class InventoryManager : MonoBehaviour, ISaveable
     public void ToggleInventory()
     {
         if (inventoryUIPanel == null) return;
-        
+
         bool isOpening = !inventoryUIPanel.activeSelf;
-        inventoryUIPanel.SetActive(isOpening);
 
         if (isOpening)
         {
@@ -56,13 +58,15 @@ public class InventoryManager : MonoBehaviour, ISaveable
                 ControlLockManager.Instance.AddInputLock(this);
                 ControlLockManager.Instance.AddMovementLock(this);
             }
-            
-            if (firstSelectedObject != null)
-            {
-                EventSystem.current.SetSelectedGameObject(null);
-                EventSystem.current.SetSelectedGameObject(firstSelectedObject);
-            }
 
+            if (inventoryUI != null)
+            {
+                inventoryUI.RefreshUI(
+                    new List<string>(_consumables.Keys),
+                    new List<int>(_consumables.Values),
+                    new List<string>(_keyItems)
+                );
+            }
         }
         else
         {
@@ -73,6 +77,8 @@ public class InventoryManager : MonoBehaviour, ISaveable
                 ControlLockManager.Instance.RemoveMovementLock(this);
             }
         }
+
+        inventoryUIPanel.SetActive(isOpening);
     }
 
     public void AddItem(ItemData data)

@@ -954,6 +954,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
+--- !u!1 &1203175204 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2810149894643626498, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
+  m_PrefabInstance: {fileID: 323364476395821149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1368412095 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3299500944311534502, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
@@ -1091,6 +1096,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
+--- !u!114 &1687722452 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2914644479621396592, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
+  m_PrefabInstance: {fileID: 323364476395821149}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883734828141d254db569b7454c8e443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryUIManager
 --- !u!4 &1725160955 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6216366239217735608, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
@@ -1250,8 +1266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1807f0b3bba124faf74d7e520760e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
-  inventoryUIPanel: {fileID: 0}
-  firstSelectedObject: {fileID: 0}
+  inventoryUIPanel: {fileID: 1203175204}
+  inventoryUI: {fileID: 1687722452}
 --- !u!4 &1777210874
 Transform:
   m_ObjectHideFlags: 0
