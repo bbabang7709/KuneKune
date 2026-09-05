@@ -74,24 +74,32 @@ public class DialogTextSystem : MonoBehaviour
 
         IsTyping = true;
 
-        foreach (char character in text)
+        dialogText.text = text;
+
+        dialogText.maxVisibleCharacters = 0;
+
+        dialogText.ForceMeshUpdate();
+
+        int totalVisibleCharacters = dialogText.textInfo.characterCount;
+        int currentVisible = 0;
+
+        while (currentVisible < totalVisibleCharacters)
         {
-            // 타이핑 중 Interact를 누르면 즉시 전체 텍스트를 출력한다.
             if (playerInput.IsDialogAdvancePressed)
             {
-                dialogText.text = text;
+                dialogText.maxVisibleCharacters = totalVisibleCharacters;
                 IsTyping = false;
 
                 yield return WaitForInputRelease();
-
                 yield break;
             }
 
-            dialogText.text += character;
+            currentVisible++;
+            dialogText.maxVisibleCharacters = currentVisible;
 
-            yield return new WaitForSeconds(
-                GetCharacterDelay(character)
-            );
+            char lastCharacter = dialogText.textInfo.characterInfo[currentVisible - 1].character;
+
+            yield return new WaitForSeconds(GetCharacterDelay(lastCharacter));
         }
 
         IsTyping = false;
