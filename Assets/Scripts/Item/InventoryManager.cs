@@ -15,6 +15,11 @@ public class InventoryManager : MonoBehaviour, ISaveable
     [Tooltip("InventoryUIManager 스크립트를 연결해주세요.")]
     [SerializeField] private InventoryUIManager inventoryUI;
 
+    [Tooltip("PlayerInputHandler 스크립트를 연결해주세요.")]
+    [SerializeField] private PlayerInputHandler playerInput;
+
+    public bool IsInventoryOpen => inventoryUIPanel != null && inventoryUIPanel.activeSelf;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -38,7 +43,7 @@ public class InventoryManager : MonoBehaviour, ISaveable
     void Update()
     {
         bool isCutscene = CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying;
-        if (Input.GetKeyDown(KeyCode.E) && !isCutscene)
+        if (playerInput != null && playerInput.IsInventoryPressed && !isCutscene)
         {
             ToggleInventory();
         }
@@ -47,6 +52,9 @@ public class InventoryManager : MonoBehaviour, ISaveable
     public void ToggleInventory()
     {
         if (inventoryUIPanel == null) return;
+        if (SaveManager.Instance != null && SaveManager.Instance.IsLoading) return;
+        if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) return;
+        if (PauseMenuUI.Instance != null && PauseMenuUI.Instance.IsPaused) return;
 
         bool isOpening = !inventoryUIPanel.activeSelf;
 

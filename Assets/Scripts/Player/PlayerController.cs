@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
         bool isMovementLocked = ControlLockManager.Instance != null && ControlLockManager.Instance.IsMovementLocked;
         bool isInteractionBlocking = interaction != null && interaction.IsHolding;
 
+        if (input.IsCancelPressed)
+        {
+            UIManager.Instance?.HandleCancelInput();
+        }
+
         // 2. 이동 제어
         if (movement != null)
         {

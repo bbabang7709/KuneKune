@@ -459,4 +459,24 @@ public class UIManager : MonoBehaviour
 
         letterboxCoroutine = null;
     }
+
+    public void HandleCancelInput()
+    {
+        // 컷신이나 대화 중이라면 메뉴 조작 무시
+        if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) return;
+
+        // 인벤토리가 열려있다면 인벤토리 닫기
+        if (InventoryManager.Instance != null && InventoryManager.Instance.IsInventoryOpen)
+        {
+            InventoryManager.Instance.ToggleInventory();
+            return;
+        }
+
+        // 아무런 UI가 열려있지 않거나 이미 Pause 상태라면 Pause 메뉴 토글
+        if (PauseMenuUI.Instance != null)
+        {
+            PauseMenuUI.Instance.TogglePauseMenu();
+        }
+
+    }
 }

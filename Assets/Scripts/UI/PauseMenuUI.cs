@@ -1,9 +1,12 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenuUI : UIBase
 {
+    public static PauseMenuUI Instance { get; private set; }
+
     [Header("UI Panels")]
     [Tooltip("ESC를 눌렀을 때 켜질 메뉴 Panel")]
     [SerializeField] private GameObject pauseMenuPanel;
@@ -13,9 +16,15 @@ public class PauseMenuUI : UIBase
 
     [Header("Settings")]
     [SerializeField] private string titleSceneName = "Scene_Intro";
-    [SerializeField] private PlayerInputHandler playerInput;
 
-    private bool _isPaused = false;
+    public bool IsPaused = false;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        
+        if (Instance == null) Instance = this;
+    }
 
     void Start()
     {
@@ -23,12 +32,21 @@ public class PauseMenuUI : UIBase
         loadWarningPanel.SetActive(false);
     }
 
-    void Update()
+    public void TogglePauseMenu()
     {
-        if (playerInput != null && playerInput.IsPausePressed)
+        if (SaveManager.Instance != null && SaveManager.Instance.IsLoading) return;
+        if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) return;
+
+        bool isOpening = !pauseMenuPanel.activeSelf;
+        pauseMenuPanel.SetActive(isOpening);
+
+        if (isOpening)
         {
-            if (_isPaused) ResumeGame();
-            else PauseGame();
+            PauseGame();
+        }
+        else
+        {
+            ResumeGame();
         }
     }
 
@@ -39,7 +57,7 @@ public class PauseMenuUI : UIBase
         ControlLockManager.Instance?.AddMovementLock(true);
         ControlLockManager.Instance?.AddInputLock(true);
 
-        _isPaused = true;
+        IsPaused = true;
         pauseMenuPanel.SetActive(true);
         Time.timeScale = 0f;
 
@@ -49,7 +67,7 @@ public class PauseMenuUI : UIBase
 
     public void ResumeGame()
     {
-        _isPaused = false;
+        IsPaused = false;
         pauseMenuPanel.SetActive(false);
         loadWarningPanel.SetActive(false);
 
