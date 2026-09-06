@@ -5,18 +5,14 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
 {
     [Header("청소 상호작용")]
     [Tooltip("청소를 끝내기 위해 F 키를 누르고 있어야 하는 시간입니다.")]
-    [Min(0f)]
-    [SerializeField] private float _cleaningDuration = 3f;
+    [Min(0f)] [SerializeField] private float _cleaningDuration = 3f;
 
     [Header("청소 연출")]
     [Tooltip("청소하는 동안 좌우로 움직이는 거리입니다.")]
-    [Min(0f)]
-    [SerializeField] private float _shakeDistance = 0.05f;
+    [Min(0f)] [SerializeField] private float _shakeDistance = 0.05f;
 
     [Tooltip("청소 구간이 좌우로 움직이는 빠르기입니다.")]
-    [Min(0f)]
-    [SerializeField] private float _shakeSpeed = 12f;
-
+    [Min(0f)] [SerializeField] private float _shakeSpeed = 12f;
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _collider;
 

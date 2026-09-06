@@ -11,8 +11,8 @@ public class HouseChase : MonoBehaviour
     private Door[] _houseDoors;
     private PlayerController _player;
 
-    [SerializeField] private Vector3 _playerFallPosition = new Vector3(-124f, -44.00633f);
-    [SerializeField] private Vector3 _kunekuneFallPosition = new Vector3(-115f, -44.85633f);
+    [SerializeField] private Transform _playerFallPosition;
+    [SerializeField] private Transform _kunekuneFallPosition;
 
     public bool IsChaseActive { get; private set; }
 
@@ -38,8 +38,8 @@ public class HouseChase : MonoBehaviour
         IsChaseActive = true;
         SetChaseDoorsLocked(true);
 
-        _player.transform.position = _playerFallPosition;
-        MapManager.Instance.KuneKune.Spawn(_kunekuneFallPosition);
+        _player.transform.position = _playerFallPosition.position;
+        MapManager.Instance.KuneKune.Spawn(_kunekuneFallPosition.position);
 
         Debug.Log("[HouseChaseController] 집 안 추격을 시작했습니다.", this);
     }
