@@ -111,4 +111,16 @@ public class PlayerAppearance : MonoBehaviour
             Debug.Log("Standing Collider 적용 완료");
         }
     }
+
+    /// <summary>
+    /// 콜라이더를 껐다 켜서 OnTriggerEnter2D를 강제 발생시킵니다.
+    /// </summary>
+    public void RefreshCollider()
+    {
+        if (bodyCollider != null)
+        {
+            bodyCollider.enabled = false;
+            bodyCollider.enabled = true;
+        }
+    }
 }

@@ -17,6 +17,19 @@ public class QuestObjective : MonoBehaviour
     /// </summary>
     public bool HasReported => _hasReported;
 
+    protected virtual void Start()
+    {
+        Init();
+
+        // SaveManager의 Global Flag를 통해 이 목표가 이미 달성됐는지 확인
+        string flagKey = $"QuestBoj_{_objectiveID}";
+        if (SaveManager.Instance != null && SaveManager.Instance.GetFlag(flagKey))
+        {
+            _hasReported = true;
+            Destroy(gameObject);    // 이미 완료된 퀘스트 오브젝트는 파괴
+        }
+    }
+
     protected virtual void Init()
     {
         if (string.IsNullOrWhiteSpace(_objectiveID))
@@ -36,6 +49,13 @@ public class QuestObjective : MonoBehaviour
         
         bool reportSucceeded = QuestManager.Instance.ReportObjectiveCompleted(_questData.QuestID, _objectiveID);
         _hasReported = reportSucceeded;
+
+        // 보고 성공 시 플래그에 기록
+        if (reportSucceeded)
+        {
+            SaveManager.Instance?.SetFlag($"QuestObj_{_objectiveID}", true);
+        }
+
         return reportSucceeded;
     }
 }
