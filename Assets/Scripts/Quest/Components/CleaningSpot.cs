@@ -35,10 +35,11 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
     /// </summary>
     public float HoldProgress => _cleaningDuration <= 0f ? 1f : Mathf.Clamp01(_cleaningTimer / _cleaningDuration);
 
-    private void Start()
-    {
-        Init();
-    }
+    // QuestObjective 에서 공통적으로 실행하도록 했음
+    // private void Start()
+    // {
+    //     Init();
+    // }
 
     protected override void Init()
     {

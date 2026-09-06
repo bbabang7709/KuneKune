@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class QuestManager : MonoBehaviour
+public class QuestManager : MonoBehaviour, ISaveable
 {
     public static QuestManager Instance { get; private set; }
 
@@ -40,10 +41,56 @@ public class QuestManager : MonoBehaviour
         CreateQuestProgresses();
     }
 
+    private void Start() => SaveManager.Instance?.Register(this);
+
     private void OnDestroy()
     {
         if (Instance == this)
             Instance = null;
+
+        SaveManager.Instance?.Unregister(this);
+    }
+
+    public string GetUniqueID() => "QuestManager_Main";
+
+    public void SaveState(SaveData data)
+    {
+        data.completedQuestIDs.Clear();
+        data.activeQuestIDs.Clear();
+
+        foreach (var kvp in _questProgresses)
+        {
+            if (kvp.Value.IsCompleted)
+            {
+                data.completedQuestIDs.Add(kvp.Key);
+            }
+            else if (kvp.Value.CompletedCount > 0 || kvp.Value.Status == EQuestStatus.InProgress)
+            {
+                data.activeQuestIDs.Add(kvp.Key);
+            }
+        }
+    }
+
+    public void LoadState(SaveData data)
+    {
+        CreateQuestProgresses();
+
+        foreach (string activeID in data.activeQuestIDs) StartQuest(activeID);
+        foreach (string completedID in data.completedQuestIDs) StartQuest(completedID);
+
+        foreach (var kvp in _questProgresses)
+        {
+            QuestProgress progress = kvp.Value;
+            if (progress.Status == EQuestStatus.NotStarted) continue;
+
+            foreach (string objID in progress.Data.ObjectiveIDs)
+            {
+                if (SaveManager.Instance != null && SaveManager.Instance.GetFlag($"QuestOBj_{objID}"))
+                {
+                    progress.TryCompleteObjective(objID);
+                }
+            }
+        }
     }
 
     public static QuestManager Instantiate()

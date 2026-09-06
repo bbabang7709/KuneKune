@@ -17,7 +17,7 @@ public class PlayerSaveHandler : MonoBehaviour, ISaveable
         SaveManager.Instance?.Register(this);
     }
 
-    private void OnDestory()
+    private void OnDestroy()
     {
         SaveManager.Instance?.Unregister(this);
     }

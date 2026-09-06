@@ -102,6 +102,14 @@ public class MapManager : MonoBehaviour
             if (spawnPoint != null && player != null)
             {
                 player.transform.position = spawnPoint.position;
+
+                Physics2D.SyncTransforms();
+
+                PlayerAppearance playerApp = player.GetComponent<PlayerAppearance>();
+                if (playerApp != null)
+                {
+                    playerApp.RefreshCollider();
+                }
             }
 
             CameraManager.Instance?.ChangeCameraWithFollow(_currentArea.AreaCamera);
@@ -144,6 +152,14 @@ public class MapManager : MonoBehaviour
             if (spawnPoint != null && player != null)
             {
                 player.transform.position = spawnPoint.position;
+
+                Physics2D.SyncTransforms();
+
+                PlayerAppearance playerApp = player.GetComponent<PlayerAppearance>();
+                if (playerApp != null)
+                {
+                    playerApp.RefreshCollider();
+                }
             }
 
             CameraManager.Instance?.ChangeCameraWithFollow(_currentArea.AreaCamera);

@@ -8,6 +8,8 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
 
+    public bool IsLoading { get; private set; }
+
     [Header("Database")]
     [SerializeField] private ChapterDatabase chapterDatabase;
     
@@ -31,10 +33,10 @@ public class SaveManager : MonoBehaviour
     public void Register(ISaveable saveable) => _saveableObjects.Add(saveable);
     public void Unregister(ISaveable saveable) => _saveableObjects.Remove(saveable);
 
-    public bool HasSaveFile()
-    {
-        return File.Exists(SavePath);
-    }
+    public bool HasSaveFile() => File.Exists(SavePath);
+
+    public void SetFlag(string uniqueID, bool isCompleted) => _currentSaveData.SetFlag(uniqueID, isCompleted);
+    public bool GetFlag(string uniqueID, bool defaultValue = false) => _currentSaveData.GetFlag(uniqueID, defaultValue);
 
     public void SaveChapterCheckpoint(EChapter newChapter)
     {
@@ -43,8 +45,6 @@ public class SaveManager : MonoBehaviour
         ChapterStartInfo info = chapterDatabase.GetChapterInfo(newChapter);
 
         _currentSaveData.currentChapter = info.chapter;
-        _currentSaveData.respawnMapType = info.startMapType;
-        _currentSaveData.respawnEntryPointID = info.startEntryPointID;
         _currentSaveData.playerAge = info.playerAge;
 
         foreach (var obj in _saveableObjects)
@@ -72,20 +72,45 @@ public class SaveManager : MonoBehaviour
 
     private IEnumerator LoadRoutine()
     {
+        IsLoading = true;
+
         if (ControlLockManager.Instance != null)
         {
             ControlLockManager.Instance.AddInputLock(this);
             ControlLockManager.Instance.AddMovementLock(this);
         }
 
-        if (UIManager.Instance != null)
+        if (UIManager.Instance != null) yield return UIManager.Instance.FadeOut(1.0f);
+
+        // =====================================================================
+        // 💡 핵심 픽스: 씬이 로드되자마자 첫 프레임이 그려지기 전에 화면을 덮는 이벤트를 예약합니다.
+        UnityEngine.Events.UnityAction<Scene, LoadSceneMode> onSceneLoaded = (scene, mode) => 
         {
-            yield return UIManager.Instance.FadeOut(0.5f);
-        }
+            if (UIManager.Instance != null) 
+            {
+                UIManager.Instance.SetFadeAlpha(1f);
+                UIManager.Instance.SetGameplayUIAlpha(0f);
+            }
 
-        // AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+            if (ControlLockManager.Instance != null)
+            {
+                ControlLockManager.Instance.AddInputLock(this);
+                ControlLockManager.Instance.AddMovementLock(this);
+            }
+        };
+        SceneManager.sceneLoaded += onSceneLoaded;
+        // =====================================================================
 
-        // --- 여기서부터는 씬이 새로 태어난 직후. (Manager들이 새로 Awake) --- //
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        yield return new WaitUntil(() => asyncLoad.isDone);
+
+        // =====================================================================
+        // 💡 화면을 덮었으므로 예약했던 이벤트를 안전하게 해제합니다.
+        SceneManager.sceneLoaded -= onSceneLoaded;
+        // =====================================================================
+
+        yield return null; 
+        _saveableObjects.RemoveWhere(obj => obj == null || (obj as MonoBehaviour) == null);
 
         string json = File.ReadAllText(SavePath);
         _currentSaveData = JsonUtility.FromJson<SaveData>(json);
@@ -93,11 +118,7 @@ public class SaveManager : MonoBehaviour
         if (chapterDatabase != null)
         {
             ChapterStartInfo info = chapterDatabase.GetChapterInfo(_currentSaveData.currentChapter);
-
-            if (MapManager.Instance != null)
-            {
-                MapManager.Instance.InitMap(info.startMapType, info.startEntryPointID);
-            }
+            if (MapManager.Instance != null) MapManager.Instance.InitMap(info.startMapType, info.startEntryPointID);
         }
 
         foreach (var obj in _saveableObjects)
@@ -105,11 +126,13 @@ public class SaveManager : MonoBehaviour
             obj.LoadState(_currentSaveData);
         }
 
-        Debug.Log("[SaveManager] 데이터 로드 완료");
+        yield return new WaitForSeconds(1.0f);
 
-        if (UIManager.Instance != null)
+        if (UIManager.Instance != null) 
         {
-            yield return UIManager.Instance.FadeIn(0.5f);
+            yield return UIManager.Instance.FadeIn(1.0f);
+
+            yield return UIManager.Instance.FadeInGameplayUI(1.0f);
         }
 
         if (ControlLockManager.Instance != null)
@@ -117,5 +140,7 @@ public class SaveManager : MonoBehaviour
             ControlLockManager.Instance.RemoveInputLock(this);
             ControlLockManager.Instance.RemoveMovementLock(this);
         }
+        
+        IsLoading = false;
     }
 }
