@@ -48,8 +48,6 @@ public class WeakFloor : MonoBehaviour, IInteractable
     private Vector3 _initialLocalPosition;
     private Color _initialColor;
 
-    private HouseChase _houseChase;
-
     /// <summary>
     /// 무너진 뒤 컷씬을 기다리거나, 컷씬이 끝난 뒤에만 상호작용할 수 있습니다.
     /// </summary>
@@ -86,8 +84,6 @@ public class WeakFloor : MonoBehaviour, IInteractable
 
         if (_fallCutsceneDirector != null)
             _fallCutsceneDirector.stopped += HandleFallCutsceneStopped;
-
-        _houseChase = transform.parent?.GetComponentInParent<HouseChase>();
     }
 
     private void OnDestroy()
@@ -211,6 +207,6 @@ public class WeakFloor : MonoBehaviour, IInteractable
             return;
 
         _state = EWeakFloorState.End;
-        _houseChase.BeginChase();
+        HouseChase.Instance.BeginChase();
     }
 }
