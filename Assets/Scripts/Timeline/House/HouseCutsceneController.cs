@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class HouseCutsceneController : CutsceneControllerBase
@@ -6,12 +7,22 @@ public class HouseCutsceneController : CutsceneControllerBase
     {
         if (collision.CompareTag("Player"))
         {
-            PlayCutscene();
+            StartCoroutine(WaitAndPlayCutscene());
         }
     }
     protected override void OnCutsceneEndSetup()
     {
-        QuestManager.Instance?.StartQuest("HouseCleanup");
         SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter2_House);
+        QuestManager.Instance?.StartQuest("HouseCleanup");
+    }
+
+    private IEnumerator WaitAndPlayCutscene()
+    {
+        if (SaveManager.Instance != null)
+        {
+            yield return new WaitUntil(() => SaveManager.Instance.IsLoading == false);
+        }
+
+        PlayCutscene();
     }
 }

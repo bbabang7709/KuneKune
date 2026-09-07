@@ -7,60 +7,38 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour, IHoldInteractable
 {
     [Header("Item Data")]
-    /// <summary>
-    /// 획득할 아이템 데이터.
-    /// </summary>
     [SerializeField] private ItemData itemData;
 
+    // 맵마다 배치된 아이템을 식별하기 위한 고유 ID (인스펙터에서 겹치지 않게 작성)
+    // 예: "School_Key_1층화장실", "House_Water_거실"
+    [SerializeField] private string uniquePickupID;
+
     [Header("Acquire Dialog")]
-    /// <summary>
-    /// 아이템 획득 시 표시할 대화 데이터.
-    /// </summary>
     [SerializeField] private DialogData acquireDialog;
 
     [Header("Hold Interaction Settings")]
-    /// <summary>
-    /// 아이템 획득에 필요한 상호작용 유지 시간.
-    /// </summary>
     [SerializeField] private float holdDuration = 3f;
 
-    /// <summary>
-    /// 아이템 획득에 필요한 상호작용 유지 시간.
-    /// </summary>
     public float HoldDuration => holdDuration;
-
-    /// <summary>
-    /// 현재 아이템 획득 진행률.
-    /// </summary>
     public float HoldProgress =>
         holdDuration <= 0f
             ? 1f
             : Mathf.Clamp01(holdTimer / holdDuration);
 
-    /// <summary>
-    /// 현재 상호작용 유지 시간.
-    /// </summary>
     private float holdTimer;
-
-    /// <summary>
-    /// 아이템이 이미 획득되었는지 여부.
-    /// </summary>
     private bool isCollected;
-
-    /// <summary>
-    /// 아이템 애니메이터.
-    /// </summary>
     private Animator anim;
 
-    /// <summary>
-    /// 필요한 컴포넌트를 초기화한다.
-    /// </summary>
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+    }
 
-        if (isCollected)
+    private void Start()
+    {
+        if (SaveManager.Instance != null && SaveManager.Instance.GetFlag(uniquePickupID))
         {
+            isCollected = true;
             gameObject.SetActive(false);
         }
     }
@@ -112,8 +90,7 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
     /// </summary>
     private void Collect()
     {
-        if (isCollected || itemData == null)
-            return;
+        if (isCollected || itemData == null) return;
 
         isCollected = true;
         holdTimer = 0f;
@@ -127,6 +104,11 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
         Debug.Log($"{name} 아이템 획득");
 
         InventoryManager.Instance?.AddItem(itemData);
+
+        if (SaveManager.Instance != null && !string.IsNullOrWhiteSpace(uniquePickupID))
+        {
+            SaveManager.Instance.SetFlag(uniquePickupID, true);
+        }
 
         anim?.SetTrigger("Collect");
 
