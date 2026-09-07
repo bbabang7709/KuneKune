@@ -91,6 +91,12 @@ public class PlayerInputHandler : MonoBehaviour
     // =========================================================
     public bool IsPausePressed => 
         Actions.Player.Pause.WasPressedThisFrame();
+
+    public bool IsInventoryPressed =>
+        Actions.Player.Inventory.WasPressedThisFrame();
+
+    public bool IsCancelPressed =>
+        Actions.Player.Cancel.WasPressedThisFrame();
     // =========================================================
     // Unity Lifecycle
     // =========================================================

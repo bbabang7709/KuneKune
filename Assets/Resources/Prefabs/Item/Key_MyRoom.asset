@@ -15,6 +15,7 @@ MonoBehaviour:
   itemType: 1
   itemID: key_myroom
   itemName: "\uB0B4 \uBC29 \uC5F4\uC1E0"
+  description: "\uBC29\uC758 \uBB38\uC744 \uC5F4 \uC218 \uC788\uB294 \uC5F4\uC1E0\uC774\uB2E4."
   itemCount: 1
   illustration: {fileID: 1095141833252711340, guid: 456a4ad8fa872bc40be5931fcd7fe7d9, type: 3}
   icon: {fileID: -3574791145893869807, guid: 4d905306828a28c4b8bf42702672fcd4, type: 3}

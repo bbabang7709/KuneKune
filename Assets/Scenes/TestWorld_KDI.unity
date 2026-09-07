@@ -1413,6 +1413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   inventoryUIPanel: {fileID: 1203175204}
   inventoryUI: {fileID: 1687722452}
+  playerInput: {fileID: 2127463083}
 --- !u!4 &1777210874
 Transform:
   m_ObjectHideFlags: 0
@@ -1514,7 +1515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   itemData: {fileID: 11400000, guid: 61b2777b54d8cb944a0d0fea9002e7d2, type: 2}
-  uniquePickupID: 
+  uniquePickupID: test_water-bottle
   acquireDialog: {fileID: 11400000, guid: e4c1b8e950e7bd84d9f2d023d7dcb2c7, type: 2}
   holdDuration: 2
 --- !u!61 &1973524053
@@ -1841,10 +1842,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1893621909440751955, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
-      propertyPath: playerInput
-      value: 
-      objectReference: {fileID: 2127463083}
     - target: {fileID: 2817053990864687043, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
       propertyPath: playerInput
       value: 

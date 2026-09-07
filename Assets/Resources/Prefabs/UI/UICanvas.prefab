@@ -3402,7 +3402,7 @@ MonoBehaviour:
   pauseMenuPanel: {fileID: 9209975667539864352}
   loadWarningPanel: {fileID: 2055698821122192756}
   titleSceneName: Scene_Intro
-  playerInput: {fileID: 0}
+  IsPaused: 0
 --- !u!1 &6473476428946262858
 GameObject:
   m_ObjectHideFlags: 0
