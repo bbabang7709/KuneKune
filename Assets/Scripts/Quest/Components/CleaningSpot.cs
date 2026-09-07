@@ -31,12 +31,6 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
     /// </summary>
     public float HoldProgress => _cleaningDuration <= 0f ? 1f : Mathf.Clamp01(_cleaningTimer / _cleaningDuration);
 
-    // QuestObjective 에서 공통적으로 실행하도록 했음
-    // private void Start()
-    // {
-    //     Init();
-    // }
-
     protected override void Init()
     {
         base.Init();
@@ -49,8 +43,30 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
         _collider.isTrigger = true;
         LayerMask playerMask = LayerMask.GetMask("Player");
         _collider.excludeLayers = ~playerMask; // 플레이어만 감지합니다.
-        
-        // QuestManager.Instance.StartQuest(QuestData.QuestID);
+
+        QuestManager.Instance.OnQuestCompleted += HandleQuestCompleted;
+
+        // 이미 끝난 퀘스트의 청소 지점은 처음부터 상호작용을 막습니다.
+        if (QuestManager.Instance.IsQuestCompleted(QuestData.QuestID))
+            HandleQuestCompleted(QuestData.QuestID);
+    }
+
+    private void OnDestroy()
+    {
+        if (QuestManager.Instance != null)
+            QuestManager.Instance.OnQuestCompleted -= HandleQuestCompleted;
+    }
+
+    private void HandleQuestCompleted(string questID)
+    {
+        if (QuestData == null || questID != QuestData.QuestID)
+            return;
+
+        // 남은 청소 지점의 모습은 유지하고 상호작용만 끕니다.
+        _isCleaned = true;
+        ResetShakePosition();
+        _collider.enabled = false;
+        enabled = false;
     }
 
     public void OnInteractPressed()

@@ -128,6 +128,9 @@ public class WeakFloor : MonoBehaviour, IInteractable
         // 상호작용용 트리거는 유지하고, 이동을 막는 충돌만 추가로 켭니다.
         _collapsedBarrier.enabled = true;
 
+        // 바닥이 무너지면 남은 청소 지점도 모두 완료한 것으로 처리합니다.
+        QuestManager.Instance?.CompleteQuest("HouseCleanup");
+
         Debug.Log("[WeakFloor] 바닥이 무너졌습니다. 이제 상호작용할 수 있습니다.", this);
     }
 

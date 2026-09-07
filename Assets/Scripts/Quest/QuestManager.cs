@@ -76,7 +76,6 @@ public class QuestManager : MonoBehaviour, ISaveable
         CreateQuestProgresses();
 
         foreach (string activeID in data.activeQuestIDs) StartQuest(activeID);
-        foreach (string completedID in data.completedQuestIDs) StartQuest(completedID);
 
         foreach (var kvp in _questProgresses)
         {
@@ -85,12 +84,15 @@ public class QuestManager : MonoBehaviour, ISaveable
 
             foreach (string objID in progress.Data.ObjectiveIDs)
             {
-                if (SaveManager.Instance != null && SaveManager.Instance.GetFlag($"QuestOBj_{objID}"))
+                if (SaveManager.Instance != null && SaveManager.Instance.GetFlag($"QuestObj_{objID}"))
                 {
                     progress.TryCompleteObjective(objID);
                 }
             }
         }
+
+        // 일괄 완료한 퀘스트도 저장된 완료 목록을 기준으로 복원합니다.
+        foreach (string completedID in data.completedQuestIDs) CompleteQuest(completedID);
     }
 
     public static QuestManager Instantiate()
@@ -185,6 +187,35 @@ public class QuestManager : MonoBehaviour, ISaveable
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// 남은 대상을 모두 완료하고 진행 변경과 완료 이벤트를 알립니다.
+    /// 이미 완료된 퀘스트는 다시 알리지 않습니다.
+    /// </summary>
+    public bool CompleteQuest(string questID)
+    {
+        if (TryGetQuestProgress(questID, out QuestProgress progress) == false)
+        {
+            Debug.LogWarning($"[{nameof(QuestManager)}] 등록되지 않은 퀘스트입니다: {questID}", this);
+            return false;
+        }
+
+        if (progress.IsCompleted)
+            return false;
+
+        if (progress.Status == EQuestStatus.NotStarted && StartQuest(questID) == false)
+            return false;
+
+        foreach (string objectiveID in progress.Data.ObjectiveIDs)
+        {
+            SaveManager.Instance?.SetFlag($"QuestObj_{objectiveID}", true);
+
+            if (progress.IsObjectiveCompleted(objectiveID) == false)
+                ReportObjectiveCompleted(questID, objectiveID);
+        }
+
+        return progress.IsCompleted;
     }
 
     #region Util
