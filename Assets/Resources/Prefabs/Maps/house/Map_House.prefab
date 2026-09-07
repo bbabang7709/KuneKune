@@ -371,6 +371,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &318476187770845194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5138382438146145339}
+  m_Layer: 0
+  m_Name: KunekuneFallPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5138382438146145339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318476187770845194}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.352188, y: -2.5984, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6810011679965402581}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &390517634561214090
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,6 +965,8 @@ Transform:
   - {fileID: 8569731912106579526}
   - {fileID: 8909020421710677137}
   - {fileID: 6169304492127296682}
+  - {fileID: 2718355801861289645}
+  - {fileID: 5138382438146145339}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7120034587123456789
@@ -948,8 +981,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7d3b96c72d4a9487a1c3e5b20f619d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HouseChase
-  _playerFallPosition: {x: -124, y: -44.00633, z: 0}
-  _kunekuneFallPosition: {x: -115, y: -44.85633, z: 0}
+  _playerFallPosition: {fileID: 2718355801861289645}
+  _kunekuneFallPosition: {fileID: 5138382438146145339}
 --- !u!1 &926126086623366996
 GameObject:
   m_ObjectHideFlags: 0
@@ -2009,6 +2042,37 @@ Transform:
   - {fileID: 5225116757092993133}
   - {fileID: 1379291862976380209}
   m_Father: {fileID: 3110205821414863376}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2186558944404956100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2718355801861289645}
+  m_Layer: 0
+  m_Name: PlayerFallPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2718355801861289645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2186558944404956100}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -12.35219, y: -1.748402, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6810011679965402581}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2365898620899033685
 GameObject:
@@ -4107,8 +4171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e23f039897142d438c1d5b1c418d1fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HouseCutsceneController
-  player: {fileID: 0}
-  cutscene: {fileID: 2922339636927789213}
+  playOnlyOnce: 1
+  useFadeInOut: 1
 --- !u!114 &6987869896456726437
 MonoBehaviour:
   m_ObjectHideFlags: 0

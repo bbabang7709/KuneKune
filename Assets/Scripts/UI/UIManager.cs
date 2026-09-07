@@ -33,6 +33,9 @@ public class UIManager : MonoBehaviour
 
     [Header("References")]
 
+    [Tooltip("HUD와 메뉴처럼 전체 화면 글리치를 적용할 UI의 Canvas입니다.")]
+    [SerializeField] private Canvas glitchUICanvas;
+
     /// <summary>
     /// 플레이어 이동 컴포넌트.
     /// </summary>
@@ -128,11 +131,25 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 기존 전체 화면 글리치가 UI에도 같은 모양으로 적용됩니다.
+    /// 지정한 Canvas에만 전체 화면 글리치를 적용한다.
+    /// 나레이션과 인벤토리는 별도의 Overlay Canvas에서 그린다.
     /// </summary>
     private void ApplyFullScreenGlitchToUI()
     {
-        Canvas uiCanvas = GetComponent<Canvas>();
+        // HUD와 메뉴가 없는 인트로 씬은 기존 Overlay Canvas를 유지한다.
+        if (glitchUICanvas == null) return;
+
+        // 기존 Canvas가 남긴 배율 0을 지워 자식 UI가 함께 사라지지 않게 한다.
+        transform.localScale = Vector3.one;
+
+        // 부모 배율이 0일 때 계산된 Canvas 배율도 함께 복구한다.
+        foreach (Canvas canvas in GetComponentsInChildren<Canvas>(true))
+        {
+            if (canvas.isRootCanvas)
+                canvas.transform.localScale = Vector3.one * canvas.scaleFactor;
+        }
+
+        Canvas uiCanvas = glitchUICanvas;
         Camera mainCamera = Camera.main;
 
         if (uiCanvas == null || mainCamera == null)

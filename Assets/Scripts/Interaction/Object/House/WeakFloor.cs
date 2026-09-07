@@ -48,8 +48,6 @@ public class WeakFloor : MonoBehaviour, IInteractable
     private Vector3 _initialLocalPosition;
     private Color _initialColor;
 
-    private HouseChase _houseChase;
-
     /// <summary>
     /// 무너진 뒤 컷씬을 기다리거나, 컷씬이 끝난 뒤에만 상호작용할 수 있습니다.
     /// </summary>
@@ -86,8 +84,6 @@ public class WeakFloor : MonoBehaviour, IInteractable
 
         if (_fallCutsceneDirector != null)
             _fallCutsceneDirector.stopped += HandleFallCutsceneStopped;
-
-        _houseChase = transform.parent?.GetComponentInParent<HouseChase>();
     }
 
     private void OnDestroy()
@@ -131,6 +127,9 @@ public class WeakFloor : MonoBehaviour, IInteractable
 
         // 상호작용용 트리거는 유지하고, 이동을 막는 충돌만 추가로 켭니다.
         _collapsedBarrier.enabled = true;
+
+        // 바닥이 무너지면 남은 청소 지점도 모두 완료한 것으로 처리합니다.
+        QuestManager.Instance?.CompleteQuest("HouseCleanup");
 
         Debug.Log("[WeakFloor] 바닥이 무너졌습니다. 이제 상호작용할 수 있습니다.", this);
     }
@@ -211,6 +210,6 @@ public class WeakFloor : MonoBehaviour, IInteractable
             return;
 
         _state = EWeakFloorState.End;
-        _houseChase.BeginChase();
+        HouseChase.Instance.BeginChase();
     }
 }
