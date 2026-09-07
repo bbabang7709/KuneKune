@@ -11,9 +11,10 @@ public class HouseChase : MonoBehaviour
     private Door[] _houseDoors;
     private PlayerController _player;
 
-    [SerializeField] private Vector3 _playerFallPosition = new Vector3(-124f, -44.00633f);
-    [SerializeField] private Vector3 _kunekuneFallPosition = new Vector3(-115f, -44.85633f);
+    [SerializeField] private Transform _playerFallPosition;
+    [SerializeField] private Transform _kunekuneFallPosition;
 
+    public static HouseChase Instance { get; private set; }
     public bool IsChaseActive { get; private set; }
 
     private void Awake()
@@ -23,8 +24,15 @@ public class HouseChase : MonoBehaviour
 
     private void Init()
     {
+        Instance = this;
         _houseDoors = GetComponentsInChildren<Door>(true);
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     /// <summary>
@@ -38,23 +46,25 @@ public class HouseChase : MonoBehaviour
         IsChaseActive = true;
         SetChaseDoorsLocked(true);
 
-        _player.transform.position = _playerFallPosition;
-        MapManager.Instance.KuneKune.Spawn(_kunekuneFallPosition);
+        _player.transform.position = _playerFallPosition.position;
+        MapManager.Instance.KuneKune.Spawn(_kunekuneFallPosition.position);
 
         Debug.Log("[HouseChaseController] 집 안 추격을 시작했습니다.", this);
     }
 
     /// <summary>
-    /// 플레이어가 잡히는 연출이 끝났을 때 호출합니다.
+    /// 플레이어가 잡히면 쿠네쿠네를 사라지게 하고 추격을 끝냅니다.
     /// </summary>
     public void EndChase()
     {
-        if (IsChaseActive == false)
+        if (Instance != this)
             return;
 
         IsChaseActive = false;
         SetChaseDoorsLocked(false);
         MapManager.Instance.KuneKune.Despawn();
+
+        // TODO: 플레이어 학교 1층으로 이동
 
         Debug.Log("[HouseChaseController] 집 안 추격을 끝냈습니다.", this);
     }

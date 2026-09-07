@@ -8,6 +8,9 @@ public class QuestData : ScriptableObject
     [Tooltip("퀘스트를 구분하는 고유한 ID입니다.")]
     [SerializeField] private string questID;
 
+    [Tooltip("플레이어에게 보여줄 퀘스트 이름입니다.")]
+    [SerializeField] private string questName;
+
     [Header("Completion Objectives")]
     [Tooltip("이 퀘스트를 완료하기 위해 끝내야 하는 대상의 ID 목록입니다.")]
     [SerializeField] private List<string> objectiveIDs = new();
@@ -17,6 +20,12 @@ public class QuestData : ScriptableObject
     /// 예: house_cleanup
     /// </summary>
     public string QuestID => questID;
+
+    /// <summary>
+    /// 플레이어에게 보여줄 퀘스트 이름입니다.
+    /// 이름이 비어 있으면 퀘스트 ID를 대신 반환합니다.
+    /// </summary>
+    public string QuestName => string.IsNullOrWhiteSpace(questName) ? questID : questName;
 
     /// <summary>
     /// 퀘스트를 완료하기 위해 끝내야 하는 대상의 ID 목록입니다.

@@ -330,7 +330,10 @@ public class KuneKune : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 쿠네쿠네 멈춤");
-            Despawn();
+            if (HouseChase.Instance.IsChaseActive)
+            {
+                HouseChase.Instance.EndChase();
+            }
 
             if (SaveManager.Instance != null)
             {

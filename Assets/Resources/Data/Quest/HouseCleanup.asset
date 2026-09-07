@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HouseCleanup
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   questID: HouseCleanup
+  questName: "\uC9D1 \uCCAD\uC18C\uD558\uAE30"
   objectiveIDs:
   - CleaningSpot_01
   - CleaningSpot_02
