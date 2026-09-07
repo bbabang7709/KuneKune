@@ -15,7 +15,7 @@ public class HouseChase : MonoBehaviour
     [SerializeField] private Transform _kunekuneFallPosition;
 
     public static HouseChase Instance { get; private set; }
-    public static bool IsChaseActive { get; private set; }
+    public bool IsChaseActive { get; private set; }
 
     private void Awake()
     {

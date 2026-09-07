@@ -95,6 +95,9 @@ public class QuestManager : MonoBehaviour, ISaveable
 
     public static QuestManager Instantiate()
     {
+        if (Instance != null)
+            return Instance;
+
         GameObject prefab = Resources.Load<GameObject>("Prefabs/Etc/QuestManager");
         QuestManager q = Instantiate(prefab).GetComponent<QuestManager>();
         return q;
@@ -245,6 +248,17 @@ public class QuestManager : MonoBehaviour, ISaveable
     public int GetObjectiveCount(string questID)
     {
         return TryGetQuestProgress(questID, out QuestProgress progress) ? progress.ObjectiveCount : 0;
+    }
+
+    /// <summary>
+    /// 플레이어에게 보여줄 퀘스트 이름을 반환합니다.
+    /// 등록되지 않은 퀘스트라면 전달받은 ID를 그대로 반환합니다.
+    /// </summary>
+    public string GetQuestName(string questID)
+    {
+        return TryGetQuestProgress(questID, out QuestProgress progress)
+            ? progress.Data.QuestName
+            : questID;
     }
 
     private bool TryGetQuestProgress(string questID, out QuestProgress progress)

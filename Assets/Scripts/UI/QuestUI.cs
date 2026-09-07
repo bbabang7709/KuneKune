@@ -43,9 +43,10 @@ public class QuestUI : UIBase
         _currentTrackingQuestID = questID;
         ShowUI();
 
+        string questName = QuestManager.Instance.GetQuestName(questID);
         if (_questNameText != null)
         {
-            _questNameText.text = $"목표: {questID}";
+            _questNameText.text = $"목표: {questName}";
         }
 
         int completed = QuestManager.Instance.GetCompletedCount(questID);
