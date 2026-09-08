@@ -43,6 +43,19 @@ public class QuestManager : MonoBehaviour, ISaveable
 
     private void Start() => SaveManager.Instance?.Register(this);
 
+#if UNITY_EDITOR
+    private void Update()
+    {
+        // 에디터에서 R 키를 누르면 집 청소를 모두 완료하고 내 방 열쇠를 지급합니다.
+        var keyboard = UnityEngine.InputSystem.Keyboard.current;
+        if (keyboard != null && keyboard.rKey.wasPressedThisFrame)
+        {
+            CompleteQuest("HouseCleanup");
+            InventoryManager.Instance?.AddKeyItem("key_myroom");
+        }
+    }
+#endif
+
     private void OnDestroy()
     {
         if (Instance == this)
