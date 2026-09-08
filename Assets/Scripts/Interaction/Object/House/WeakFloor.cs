@@ -71,12 +71,13 @@ public class WeakFloor : MonoBehaviour, IInteractable
         _trigger.isTrigger = true;
         LayerMask playerMask = LayerMask.GetMask("Player");
         _trigger.excludeLayers = ~playerMask;
+        _trigger.enabled = true;
 
         // 이동 차단 영역
         _collapsedBarrier.enabled = false;
         _collapsedBarrier.isTrigger = false;
-        _collapsedBarrier.size = new Vector2(1f, 1f);
-        _collapsedBarrier.offset = _trigger.offset;
+        _collapsedBarrier.size = new Vector2(1f, 7.5f);
+        _collapsedBarrier.offset = new Vector2(0f, 3f);
         _collapsedBarrier.excludeLayers = ~playerMask;
 
         if (_kunekuneEncounterCutsceneDirector != null)

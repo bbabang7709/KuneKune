@@ -220,7 +220,6 @@ public class MapManager : MonoBehaviour
 
             EntryPoint arrivalEntryPoint = currentNode.Route.TargetEntryPoint;
             
-            // 💡 주의: EntryPoint 객체 자체의 transform.position을 사용하도록 우회 (구조 변경 호환성)
             if (arrivalEntryPoint == null)
                 continue;
 
