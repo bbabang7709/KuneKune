@@ -46,10 +46,18 @@ public class HouseChase : MonoBehaviour
         IsChaseActive = true;
         SetChaseDoorsLocked(true);
 
-        _player.transform.position = _playerFallPosition.position;
-        MapManager.Instance.KuneKune.Spawn(_kunekuneFallPosition.position);
+        // 맵 전환이 끝난 뒤 배치해야 쿠네쿠네도 도착한 맵에서 추적을 시작합니다.
+        MapManager.Instance.ChangeMap(EMapType.House_Hallway, "houseChase_playerFallPosition", onComplete: () =>
+        {
+            // 전환을 기다리는 동안 추격이 끝났다면 다시 소환하지 않습니다.
+            if (this == null || IsChaseActive == false)
+                return;
 
-        Debug.Log("[HouseChaseController] 집 안 추격을 시작했습니다.", this);
+            Physics2D.SyncTransforms();
+            MapManager.Instance.KuneKune.Spawn(_kunekuneFallPosition.position, true);
+
+            Debug.Log("[HouseChaseController] 집 안 추격을 시작했습니다.", this);
+        });
     }
 
     /// <summary>
@@ -65,6 +73,7 @@ public class HouseChase : MonoBehaviour
         MapManager.Instance.KuneKune.Despawn();
 
         // TODO: 플레이어 학교 1층으로 이동
+        MapManager.Instance.ChangeMap(EMapType.School_Hallway, "school_hallway_0");
 
         Debug.Log("[HouseChaseController] 집 안 추격을 끝냈습니다.", this);
     }

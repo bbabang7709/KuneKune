@@ -149,30 +149,32 @@ public class KuneKune : MonoBehaviour
         Spawn(closest.transform.position);
     }
 
-    public void Spawn(Vector3 position)
+    public void Spawn(Vector3 position, bool runImmediately = false)
     {
         gameObject.SetActive(true);
 
-        bool isFirstSpawn = State == ECharacterState.Unspawned;
+        _currentMap = MapManager.Instance?.CurrentMap;
+        _lastPlayerMap = _currentMap;
+        _mapRoutes.Clear();
 
-        State = isFirstSpawn ? ECharacterState.Spawning : ECharacterState.Run;
-        if (isFirstSpawn)
-        {
-            _currentMap = MapManager.Instance?.CurrentMap;
-            _lastPlayerMap = _currentMap;
-            _mapRoutes.Clear();
-        }
+        State = runImmediately ? ECharacterState.Run : ECharacterState.Spawning;
         
-        transform.position = GetFloorAlignedPosition(position);
-
-        float xDifference = _player.transform.position.x - position.x;
-        _direction = xDifference > 0f ? 1f : -1f;
-        _spriteRenderer.flipX = _direction < 0f;
+        SetPositionAndDirection(position);
 
         if (_fullScreenGlitchMaterial != null)
         {
             _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity)); 
         }
+    }
+
+    // 발을 바닥 높이에 맞춰 배치하고 플레이어 쪽을 바라봅니다.
+    private void SetPositionAndDirection(Vector3 floorPosition)
+    {
+        transform.position = GetFloorAlignedPosition(floorPosition);
+
+        float xDifference = _player.transform.position.x - floorPosition.x;
+        _direction = xDifference > 0f ? 1f : -1f;
+        _spriteRenderer.flipX = _direction < 0f;
     }
 
     private Vector3 GetFloorAlignedPosition(Vector3 floorPosition)
@@ -294,7 +296,6 @@ public class KuneKune : MonoBehaviour
         MapArea targetMap = currentRoute.TargetMap;
         EntryPoint targetEntryPoint = currentRoute.TargetEntryPoint;
 
-        // 💡 핵심 수정: EntryPoint 객체 자체의 transform.position을 참조하여 호환성 문제 해결
         if (targetMap == null || targetEntryPoint == null)
         {
             Debug.LogWarning("쿠네쿠네가 이동할 문 건너편 위치가 설정되지 않았습니다.", this);
@@ -305,7 +306,7 @@ public class KuneKune : MonoBehaviour
         Vector3 floorPosition = GetFloorPositionFromDoorSpawnPoint(targetEntryPoint.transform.position);
 
         _currentMap = targetMap;
-        Spawn(floorPosition);
+        SetPositionAndDirection(floorPosition);
         _mapRoutes.Dequeue();
     }
 
@@ -333,6 +334,7 @@ public class KuneKune : MonoBehaviour
             if (HouseChase.Instance.IsChaseActive)
             {
                 HouseChase.Instance.EndChase();
+                return;
             }
 
             if (SaveManager.Instance != null)
