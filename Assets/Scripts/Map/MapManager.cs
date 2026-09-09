@@ -98,6 +98,10 @@ public class MapManager : MonoBehaviour
         {
             CurrentMapType = targetMapType;
             
+            SoundManager.Instance?.PlayBGM(_currentArea.bgmID);
+            if (_currentArea.isInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
+            else SoundManager.Instance?.FadeBGMVolume(1f);
+
             UpdateKunekuneSpawns(_currentArea);
 
             Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
@@ -148,6 +152,10 @@ public class MapManager : MonoBehaviour
         {
             CurrentMapType = targetMapType;
             
+            SoundManager.Instance?.PlayBGM(_currentArea.bgmID);
+            if (_currentArea.isInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
+            else SoundManager.Instance?.FadeBGMVolume(1f);
+
             UpdateKunekuneSpawns(_currentArea); // 이동한 맵의 쿠네쿠네 스폰 포인트 갱신
 
             Transform spawnPoint = _currentArea.GetEntryPoint(entryID);

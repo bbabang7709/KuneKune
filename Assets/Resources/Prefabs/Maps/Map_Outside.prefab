@@ -2563,6 +2563,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   mapType: 0
   _areaCamera: {fileID: 3758623065150220490}
+  bgmID: bgm_outside
+  isInside: 0
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &427578425737473020
 GameObject:
@@ -20962,6 +20964,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   mapType: 2
   _areaCamera: {fileID: 2515151411052967388}
+  bgmID: bgm_outside
+  isInside: 0
   _kuneKune_ables: {fileID: 1316715412669498590}
 --- !u!61 &18829919117286611
 BoxCollider2D:
@@ -31137,6 +31141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   mapType: 1
   _areaCamera: {fileID: 6383799715123314797}
+  bgmID: bgm_outside
+  isInside: 0
   _kuneKune_ables: {fileID: 543824450381873531}
 --- !u!61 &6789664469961910848
 BoxCollider2D:
@@ -37310,6 +37316,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   mapType: 3
   _areaCamera: {fileID: 6253224109278570089}
+  bgmID: bgm_outside
+  isInside: 0
   _kuneKune_ables: {fileID: 4553863635819374020}
 --- !u!61 &6403446431374929219
 BoxCollider2D:

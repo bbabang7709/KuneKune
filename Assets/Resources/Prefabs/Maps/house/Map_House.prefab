@@ -575,6 +575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   mapType: 7
   _areaCamera: {fileID: 1646976808136538739}
+  bgmID: bgm_inside
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &767992257147036718
 GameObject:
@@ -2718,6 +2719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   mapType: 8
   _areaCamera: {fileID: 7415935193810636898}
+  bgmID: bgm_inside
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &3624046579135415152
 GameObject:
@@ -4323,6 +4325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   mapType: 6
   _areaCamera: {fileID: 8043860890850777598}
+  bgmID: bgm_inside
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &5997068263106245592
 GameObject:
@@ -6267,6 +6270,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2522660556648772334}
     - target: {fileID: 6594346221554076468, guid: 5c85cb2b7fdbdb04dba6021eef479763, type: 3}
+      propertyPath: bgmID
+      value: bgm_inside
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594346221554076468, guid: 5c85cb2b7fdbdb04dba6021eef479763, type: 3}
       propertyPath: mapType
       value: 5
       objectReference: {fileID: 0}
@@ -6601,6 +6608,10 @@ PrefabInstance:
     - target: {fileID: 7780097411156191184, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8359812695565852832, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: bgmID
+      value: bgm_inside
       objectReference: {fileID: 0}
     - target: {fileID: 8359812695565852832, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: _mapID
