@@ -28,6 +28,8 @@ public class MapManager : MonoBehaviour
     [Header("Map Areas")]
     [Tooltip("씬에 존재하는 모든 MapArea 객체를 넣어주세요.")]
     [SerializeField] private List<MapArea> allMapAreas = new List<MapArea>();
+    [Tooltip("CoolZone으로 설정할 MapArea 객체를 넣어주세요.")]
+    [SerializeField] private List<MapArea> allCoolZones = new List<MapArea>();
 
     public EMapType CurrentMapType { get; private set; } = EMapType.Outside_Busstop;
     
@@ -180,6 +182,11 @@ public class MapManager : MonoBehaviour
         Time.timeScale = 1f;
 
         onComplete?.Invoke();
+    }
+
+    public bool IsCoolZone(EMapType current)
+    {
+        return allCoolZones.Find(m => m.mapType == current) != null ? true : false;
     }
 
     // =========================================================

@@ -10,11 +10,12 @@ public enum EMapType
     Outside_House,
     House_Hallway,
     House_Bedroom,
+    House_Toilet,
     House_2F,
     House_MyRoom,
     School_Hallway,
     School_Classroom,
-    CoolZone
+    School_Toilet
 }
 
 /// <summary>

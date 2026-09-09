@@ -505,6 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   itemData: {fileID: 11400000, guid: a6b88f8c475e811488eb73028a02ecbd, type: 2}
+  uniquePickupID: 
   acquireDialog: {fileID: 11400000, guid: 2ce79c033ff39c340b3b9b6846aa8608, type: 2}
   holdDuration: 3
 --- !u!1 &2116262845679537401
@@ -2914,6 +2915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   itemData: {fileID: 11400000, guid: 0222b2bdb1ee40245a4f910da704ead5, type: 2}
+  uniquePickupID: 
   acquireDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
   holdDuration: 3
 --- !u!1 &8995174687720840131
@@ -3203,7 +3205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8901414458246833804, guid: ec3c2ade22b66954f97b1ecb1286af56, type: 3}
       propertyPath: mapType
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8901414458246833804, guid: ec3c2ade22b66954f97b1ecb1286af56, type: 3}
       propertyPath: areaCamera
@@ -3605,7 +3607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3193541740352379876, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       propertyPath: mapType
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3193541740352379876, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       propertyPath: areaCamera
@@ -4049,7 +4051,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5648486478133869011, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
       propertyPath: mapType
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5648486478133869011, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
       propertyPath: areaCamera

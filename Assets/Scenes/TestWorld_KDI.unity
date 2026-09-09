@@ -507,10 +507,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_House
       objectReference: {fileID: 0}
-    - target: {fileID: 1799299738596060422, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2127463084}
     - target: {fileID: 2511211809067094331, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
       propertyPath: targetMap
       value: 
@@ -1298,6 +1294,9 @@ MonoBehaviour:
   - {fileID: 626453355}
   - {fileID: 720479572}
   - {fileID: 1507683616}
+  - {fileID: 264926723}
+  allCoolZones:
+  - {fileID: 507732703}
   - {fileID: 264926723}
 --- !u!4 &1757445437
 Transform:

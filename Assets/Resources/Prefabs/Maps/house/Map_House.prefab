@@ -573,7 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
-  mapType: 6
+  mapType: 7
   _areaCamera: {fileID: 1646976808136538739}
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &767992257147036718
@@ -2716,7 +2716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
-  mapType: 7
+  mapType: 8
   _areaCamera: {fileID: 7415935193810636898}
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &3624046579135415152
@@ -4321,7 +4321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
-  mapType: 10
+  mapType: 6
   _areaCamera: {fileID: 8043860890850777598}
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &5997068263106245592
