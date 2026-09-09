@@ -575,7 +575,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   mapType: 7
   _areaCamera: {fileID: 1646976808136538739}
-  bgmID: bgm_inside
+  bgmID: BGM_Cicada
+  isInside: 1
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &767992257147036718
 GameObject:
@@ -928,6 +929,10 @@ MonoBehaviour:
   requiredKeyID: 
   dialogWhenLocked: {fileID: 0}
   _lockDuringHouseChase: 1
+  openSprite: {fileID: 8896562225081582818, guid: e65d2966277fcfa41a996846394c1af5, type: 3}
+  openSoundID: DoorOpen_Sliding
+  transitionDelay: 0.2
+  resetDelay: 0.1
 --- !u!1 &858661966914861707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,6 +1262,10 @@ MonoBehaviour:
   requiredKeyID: key_myroom
   dialogWhenLocked: {fileID: 11400000, guid: 77565bfc21f6e9544b19c823649487e2, type: 2}
   _lockDuringHouseChase: 0
+  openSprite: {fileID: 287366276412487149, guid: e8ad7697c82d3b64b8620d05b94ba408, type: 3}
+  openSoundID: DoorOpen_Sliding
+  transitionDelay: 0.2
+  resetDelay: 0.1
 --- !u!1 &1325446102511662537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2407,6 +2416,10 @@ MonoBehaviour:
   requiredKeyID: key_myroom
   dialogWhenLocked: {fileID: 11400000, guid: 77565bfc21f6e9544b19c823649487e2, type: 2}
   _lockDuringHouseChase: 0
+  openSprite: {fileID: 287366276412487149, guid: e8ad7697c82d3b64b8620d05b94ba408, type: 3}
+  openSoundID: DoorOpen_Sliding
+  transitionDelay: 0.2
+  resetDelay: 0.1
 --- !u!1 &2916191259674500493
 GameObject:
   m_ObjectHideFlags: 0
@@ -2719,7 +2732,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   mapType: 8
   _areaCamera: {fileID: 7415935193810636898}
-  bgmID: bgm_inside
+  bgmID: BGM_Cicada
+  isInside: 1
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &3624046579135415152
 GameObject:
@@ -4325,7 +4339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
   mapType: 6
   _areaCamera: {fileID: 8043860890850777598}
-  bgmID: bgm_inside
+  bgmID: BGM_Cicada
+  isInside: 1
   _kuneKune_ables: {fileID: 0}
 --- !u!1 &5997068263106245592
 GameObject:
@@ -4576,6 +4591,10 @@ MonoBehaviour:
   requiredKeyID: 
   dialogWhenLocked: {fileID: 0}
   _lockDuringHouseChase: 0
+  openSprite: {fileID: 0}
+  openSoundID: DoorOpen
+  transitionDelay: 0.2
+  resetDelay: 0.1
 --- !u!1 &6238551400788596873
 GameObject:
   m_ObjectHideFlags: 0
@@ -5500,6 +5519,10 @@ MonoBehaviour:
   requiredKeyID: 
   dialogWhenLocked: {fileID: 0}
   _lockDuringHouseChase: 0
+  openSprite: {fileID: 0}
+  openSoundID: DoorOpen
+  transitionDelay: 0.2
+  resetDelay: 0.1
 --- !u!1 &8283853505860660643
 GameObject:
   m_ObjectHideFlags: 0
@@ -6201,6 +6224,10 @@ MonoBehaviour:
   requiredKeyID: 
   dialogWhenLocked: {fileID: 0}
   _lockDuringHouseChase: 1
+  openSprite: {fileID: 8896562225081582818, guid: e65d2966277fcfa41a996846394c1af5, type: 3}
+  openSoundID: DoorOpen_Sliding
+  transitionDelay: 0.2
+  resetDelay: 0.1
 --- !u!1001 &350558871427067342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6262,6 +6289,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3299500944311534502}
     - target: {fileID: 2434534642896409659, guid: 5c85cb2b7fdbdb04dba6021eef479763, type: 3}
+      propertyPath: openSprite
+      value: 
+      objectReference: {fileID: 287366276412487149, guid: e8ad7697c82d3b64b8620d05b94ba408, type: 3}
+    - target: {fileID: 2434534642896409659, guid: 5c85cb2b7fdbdb04dba6021eef479763, type: 3}
+      propertyPath: resetDelay
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2434534642896409659, guid: 5c85cb2b7fdbdb04dba6021eef479763, type: 3}
+      propertyPath: openSoundID
+      value: DoorOpen_Sliding
+      objectReference: {fileID: 0}
+    - target: {fileID: 2434534642896409659, guid: 5c85cb2b7fdbdb04dba6021eef479763, type: 3}
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 1074962587988072666}
@@ -6271,7 +6310,7 @@ PrefabInstance:
       objectReference: {fileID: 2522660556648772334}
     - target: {fileID: 6594346221554076468, guid: 5c85cb2b7fdbdb04dba6021eef479763, type: 3}
       propertyPath: bgmID
-      value: bgm_inside
+      value: BGM_Cicada
       objectReference: {fileID: 0}
     - target: {fileID: 6594346221554076468, guid: 5c85cb2b7fdbdb04dba6021eef479763, type: 3}
       propertyPath: mapType
@@ -6530,6 +6569,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6872138561574807290}
     - target: {fileID: 3273485573732471438, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: openSprite
+      value: 
+      objectReference: {fileID: 287366276412487149, guid: e8ad7697c82d3b64b8620d05b94ba408, type: 3}
+    - target: {fileID: 3273485573732471438, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: resetDelay
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273485573732471438, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: openSoundID
+      value: DoorOpen_Sliding
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273485573732471438, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 6956644834389112188}
@@ -6611,7 +6662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8359812695565852832, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: bgmID
-      value: bgm_inside
+      value: BGM_Cicada
       objectReference: {fileID: 0}
     - target: {fileID: 8359812695565852832, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: _mapID
@@ -6640,6 +6691,18 @@ PrefabInstance:
     - target: {fileID: 8685838966921187462, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869758308386632253, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: openSprite
+      value: 
+      objectReference: {fileID: 8896562225081582818, guid: e65d2966277fcfa41a996846394c1af5, type: 3}
+    - target: {fileID: 8869758308386632253, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: resetDelay
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869758308386632253, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+      propertyPath: openSoundID
+      value: DoorOpen_Sliding
       objectReference: {fileID: 0}
     - target: {fileID: 8869758308386632253, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
       propertyPath: isSceneChanger

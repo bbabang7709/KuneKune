@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: SoundDatabase
   m_EditorClassIdentifier: Assembly-CSharp::SoundDatabase
   bgmList:
-  - soundID: bgm_outside
+  - soundID: BGM_Cicada
     clip: {fileID: 8300000, guid: 062818626028b6c4eb706e9a4920b26e, type: 3}
     volume: 1
-  - soundID: bgm_inside
-    clip: {fileID: 8300000, guid: 062818626028b6c4eb706e9a4920b26e, type: 3}
+  sfxList:
+  - soundID: DoorOpen_Sliding
+    clip: {fileID: 8300000, guid: c9acd8ec190d9b8439cd9f3bab5a60f0, type: 3}
     volume: 0.5
-  sfxList: []
+  - soundID: DoorOpen_Hinged
+    clip: {fileID: 8300000, guid: 49dacb6b1940bd04f88979301a0219d7, type: 3}
+    volume: 1
