@@ -98,9 +98,12 @@ public class MapManager : MonoBehaviour
         {
             CurrentMapType = targetMapType;
             
-            SoundManager.Instance?.PlayBGM(_currentArea.bgmID);
-            if (_currentArea.isInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
-            else SoundManager.Instance?.FadeBGMVolume(1f);
+            if (!KuneKune.gameObject.activeInHierarchy)
+            {
+                SoundManager.Instance?.PlayBGM(_currentArea.BgmID);
+                if (_currentArea.IsInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
+                else SoundManager.Instance?.FadeBGMVolume(1f);
+            } 
 
             UpdateKunekuneSpawns(_currentArea);
 
@@ -152,9 +155,12 @@ public class MapManager : MonoBehaviour
         {
             CurrentMapType = targetMapType;
             
-            SoundManager.Instance?.PlayBGM(_currentArea.bgmID);
-            if (_currentArea.isInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
-            else SoundManager.Instance?.FadeBGMVolume(1f);
+            if (!KuneKune.gameObject.activeInHierarchy)
+            {
+                SoundManager.Instance?.PlayBGM(_currentArea.BgmID);
+                if (_currentArea.IsInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
+                else SoundManager.Instance?.FadeBGMVolume(1f);
+            } 
 
             UpdateKunekuneSpawns(_currentArea); // 이동한 맵의 쿠네쿠네 스폰 포인트 갱신
 

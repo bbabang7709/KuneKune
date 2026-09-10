@@ -32,8 +32,8 @@ public class MapArea : MonoBehaviour
 
     [Header("BGM ID")]
     [Tooltip("이 맵에서 재생할 BGM ID 입력")]
-    public string bgmID;
-    public bool isInside = true;
+    public string BgmID;
+    public bool IsInside = true;
     
     [Header("KuneKune_ables")]
     [Tooltip("이 맵에 등록된 kunekune_ables 연결")]

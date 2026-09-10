@@ -23,5 +23,5 @@ MonoBehaviour:
     startEntryPointID: house_hallway_0
   - chapter: 3
     playerAge: 1
-    startMapType: 8
+    startMapType: 9
     startEntryPointID: school_hallway_0

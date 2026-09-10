@@ -152,6 +152,7 @@ public class KuneKune : MonoBehaviour
     public void Spawn(Vector3 position, bool runImmediately = false)
     {
         gameObject.SetActive(true);
+        SoundManager.Instance?.PlayBGM("BGM_KuneKune", 0.01f);
 
         _currentMap = MapManager.Instance?.CurrentMap;
         _lastPlayerMap = _currentMap;
@@ -203,6 +204,14 @@ public class KuneKune : MonoBehaviour
             _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    
         }
         State = ECharacterState.Unspawned;
+
+        var currentArea = MapManager.Instance?.CurrentMap;
+        if (currentArea != null)
+        {
+            SoundManager.Instance?.PlayBGM(currentArea.BgmID);
+            if (currentArea.IsInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
+            else SoundManager.Instance?.FadeBGMVolume(1f);
+        }
     }
 
     private void UpdateAnimation()
@@ -324,6 +333,27 @@ public class KuneKune : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (State != ECharacterState.Run)
+            return;
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 쿠네쿠네 멈춤");
+            if (HouseChase.Instance.IsChaseActive)
+            {
+                HouseChase.Instance.EndChase();
+                return;
+            }
+
+            if (SaveManager.Instance != null)
+            {
+                SaveManager.Instance.Load();
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (State != ECharacterState.Run)
             return;

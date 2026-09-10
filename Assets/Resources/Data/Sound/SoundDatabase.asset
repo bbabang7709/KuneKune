@@ -16,6 +16,9 @@ MonoBehaviour:
   - soundID: BGM_Cicada
     clip: {fileID: 8300000, guid: 062818626028b6c4eb706e9a4920b26e, type: 3}
     volume: 1
+  - soundID: BGM_KuneKune
+    clip: {fileID: 8300000, guid: 4048d6c03a0ad6f4aae4c214ab46f7db, type: 3}
+    volume: 1
   sfxList:
   - soundID: DoorOpen_Sliding
     clip: {fileID: 8300000, guid: c9acd8ec190d9b8439cd9f3bab5a60f0, type: 3}
