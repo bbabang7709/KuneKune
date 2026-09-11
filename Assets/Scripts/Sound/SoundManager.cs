@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource _bgmSource;
     private AudioSource _sfxSource;
+    private AudioSource _footstepSource;
 
     private SoundData _currentBGMData;
     private Coroutine _volumeCoroutine;
@@ -47,6 +48,12 @@ public class SoundManager : MonoBehaviour
         _sfxSource.outputAudioMixerGroup = sfxMixerGroup;
         _sfxSource.loop = false;
         _sfxSource.playOnAwake = false;
+
+        // 발걸음 전용 AudioSource 세팅
+        _footstepSource = gameObject.AddComponent<AudioSource>();
+        _footstepSource.outputAudioMixerGroup = sfxMixerGroup;
+        _footstepSource.loop = false;
+        _footstepSource.playOnAwake = false;
     }
 
     public void PlaySFX(string sfxID)
@@ -59,6 +66,20 @@ public class SoundManager : MonoBehaviour
         else
         {
             Debug.LogWarning($"[SoundManager] SFX '{sfxID}'를 찾을 수 없습니다.");
+        }
+    }
+
+    public void PlayFootstepSFX(string sfxID)
+    {
+        SoundData data = soundDatabase?.GetSFX(sfxID);
+        if (data != null && data.clip != null)
+        {
+            _footstepSource.clip = data.clip;
+            _footstepSource.volume = data.volume;
+
+            _footstepSource.pitch = Random.Range(0.85f, 1.15f);
+
+            _footstepSource.Play();
         }
     }
 

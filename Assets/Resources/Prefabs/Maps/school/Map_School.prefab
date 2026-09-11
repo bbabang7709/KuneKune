@@ -3735,7 +3735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   targetMap: {fileID: 3271440899608296332}
-  targetEntryPoint: {fileID: 2446929807339398415}
+  targetEntryPoint: {fileID: 4760505123710044773}
   isLocked: 0
   requiredKeyID: 
   dialogWhenLocked: {fileID: 0}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4607062122960827346}
   - component: {fileID: 4096566272975348903}
+  - component: {fileID: 4303575022242972502}
   - component: {fileID: 6355412964870483100}
   m_Layer: 6
   m_Name: Visual
@@ -92,6 +93,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4303575022242972502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4075234686455430864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4077dfaab9a6564429a0184a954ae201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimation
+  outsideFootstepID: Footstep_Outside
+  insideFootstepID: Footstep_Inside
+  footstepCooldown: 0.2
 --- !u!95 &6355412964870483100
 Animator:
   serializedVersion: 7
@@ -128,7 +144,6 @@ GameObject:
   - component: {fileID: 3921403447839443732}
   - component: {fileID: 1832780395927970534}
   - component: {fileID: 2948278598789739297}
-  - component: {fileID: 3527205237574185875}
   - component: {fileID: 1903586609420879912}
   - component: {fileID: 3022991992757690216}
   - component: {fileID: 781236589127463821}
@@ -272,18 +287,6 @@ MonoBehaviour:
   studentHeatIncreaseRate: 20
   childHeatIncreaseRate: 25
   exhaustionDuration: 2
---- !u!114 &3527205237574185875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4147783366840814454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4077dfaab9a6564429a0184a954ae201, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimation
 --- !u!114 &1903586609420879912
 MonoBehaviour:
   m_ObjectHideFlags: 0
