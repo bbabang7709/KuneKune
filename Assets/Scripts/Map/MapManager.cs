@@ -28,6 +28,8 @@ public class MapManager : MonoBehaviour
     [Header("Map Areas")]
     [Tooltip("씬에 존재하는 모든 MapArea 객체를 넣어주세요.")]
     [SerializeField] private List<MapArea> allMapAreas = new List<MapArea>();
+    [Tooltip("CoolZone으로 설정할 MapArea 객체를 넣어주세요.")]
+    [SerializeField] private List<MapArea> allCoolZones = new List<MapArea>();
 
     public EMapType CurrentMapType { get; private set; } = EMapType.Outside_Busstop;
     
@@ -96,6 +98,13 @@ public class MapManager : MonoBehaviour
         {
             CurrentMapType = targetMapType;
             
+            if (!KuneKune.gameObject.activeInHierarchy)
+            {
+                SoundManager.Instance?.PlayBGM(_currentArea.BgmID);
+                if (_currentArea.IsInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
+                else SoundManager.Instance?.FadeBGMVolume(1f);
+            } 
+
             UpdateKunekuneSpawns(_currentArea);
 
             Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
@@ -146,6 +155,13 @@ public class MapManager : MonoBehaviour
         {
             CurrentMapType = targetMapType;
             
+            if (!KuneKune.gameObject.activeInHierarchy)
+            {
+                SoundManager.Instance?.PlayBGM(_currentArea.BgmID);
+                if (_currentArea.IsInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
+                else SoundManager.Instance?.FadeBGMVolume(1f);
+            } 
+
             UpdateKunekuneSpawns(_currentArea); // 이동한 맵의 쿠네쿠네 스폰 포인트 갱신
 
             Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
@@ -180,6 +196,11 @@ public class MapManager : MonoBehaviour
         Time.timeScale = 1f;
 
         onComplete?.Invoke();
+    }
+
+    public bool IsCoolZone(EMapType current)
+    {
+        return allCoolZones.Find(m => m.mapType == current) != null ? true : false;
     }
 
     // =========================================================

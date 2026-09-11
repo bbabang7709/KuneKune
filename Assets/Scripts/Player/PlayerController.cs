@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     {
         input = GetComponent<PlayerInputHandler>();
         movement = GetComponent<PlayerMovement>();
-        anim = GetComponent<PlayerAnimation>();
+        anim = GetComponentInChildren<PlayerAnimation>();
         appearance = GetComponent<PlayerAppearance>();
         interaction = GetComponent<PlayerInteraction>();
     }

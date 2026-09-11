@@ -10,11 +10,12 @@ public enum EMapType
     Outside_House,
     House_Hallway,
     House_Bedroom,
+    House_Toilet,
     House_2F,
     House_MyRoom,
     School_Hallway,
     School_Classroom,
-    CoolZone
+    School_Toilet
 }
 
 /// <summary>
@@ -28,6 +29,11 @@ public class MapArea : MonoBehaviour
     [Header("Camera Setting")]
     [Tooltip("이 맵 전용 Cinemachine Camera")]
     [SerializeField] private CinemachineCamera _areaCamera;
+
+    [Header("BGM ID")]
+    [Tooltip("이 맵에서 재생할 BGM ID 입력")]
+    public string BgmID;
+    public bool IsInside = true;
     
     [Header("KuneKune_ables")]
     [Tooltip("이 맵에 등록된 kunekune_ables 연결")]

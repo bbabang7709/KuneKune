@@ -95,6 +95,10 @@ public class UIManager : MonoBehaviour
     
     private Coroutine letterboxCoroutine;
 
+    [Header("KuneKune Jumpscare Settings")]
+    [Tooltip("공포 이미지가 들어있는 RectTransform")]
+    [SerializeField] private RectTransform jumpscareRect;
+
     /// <summary>
     /// 싱글톤 인스턴스와 UI 초기 상태를 설정한다.
     /// </summary>
@@ -128,6 +132,11 @@ public class UIManager : MonoBehaviour
 
         InitializeLetterbox();
 
+    }
+
+    private void Start()
+    {
+        if (jumpscareRect != null) jumpscareRect.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -494,6 +503,23 @@ public class UIManager : MonoBehaviour
         {
             PauseMenuUI.Instance.TogglePauseMenu();
         }
+    }
 
+    public IEnumerator ShowJumpscareRoutine(float duration = 0.15f)
+    {
+        if (jumpscareRect == null) yield break;
+
+        jumpscareRect.gameObject.SetActive(true);
+        jumpscareRect.anchoredPosition = Vector2.zero;
+
+        float time = 0;
+        while (time < duration)
+        {
+            time += Time.unscaledDeltaTime;
+            float scale = Mathf.Lerp(0f, 1f, time / duration);
+            jumpscareRect.localScale = new Vector3(scale, scale, 1f);
+            yield return null;
+        }
+        jumpscareRect.localScale = Vector3.one;
     }
 }

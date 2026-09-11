@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 096911594f0145040bf033d5079cc323, type: 3}
+  m_Name: SoundDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::SoundDatabase
+  bgmList:
+  - soundID: BGM_Cicada
+    clip: {fileID: 8300000, guid: 062818626028b6c4eb706e9a4920b26e, type: 3}
+    volume: 1
+  - soundID: BGM_KuneKune
+    clip: {fileID: 8300000, guid: 4048d6c03a0ad6f4aae4c214ab46f7db, type: 3}
+    volume: 1
+  sfxList:
+  - soundID: DoorOpen_Sliding
+    clip: {fileID: 8300000, guid: c9acd8ec190d9b8439cd9f3bab5a60f0, type: 3}
+    volume: 0.5
+  - soundID: DoorOpen_Hinged
+    clip: {fileID: 8300000, guid: 49dacb6b1940bd04f88979301a0219d7, type: 3}
+    volume: 1
+  - soundID: Footstep_Outside
+    clip: {fileID: 8300000, guid: c00e0f38c65c5ed4cb1c25d534d1a9c8, type: 3}
+    volume: 0.7
+  - soundID: Footstep_Inside
+    clip: {fileID: 8300000, guid: 5f2dcee8f3e740045a16eaab40f0b245, type: 3}
+    volume: 0.7
+  - soundID: Item_Get
+    clip: {fileID: 8300000, guid: 12428166a0621684faefbfd8a068396a, type: 3}
+    volume: 1
+  - soundID: KuneKune_Jumpscare
+    clip: {fileID: 8300000, guid: 6d4653711c6238441b5359c431a398af, type: 3}
+    volume: 0.7

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +10,7 @@ using UnityEngine;
 public class HouseChase : MonoBehaviour
 {
     private Door[] _houseDoors;
-    private PlayerController _player;
+    private PlayerAppearance _player;
 
     [SerializeField] private Transform _playerFallPosition;
     [SerializeField] private Transform _kunekuneFallPosition;
@@ -26,7 +27,7 @@ public class HouseChase : MonoBehaviour
     {
         Instance = this;
         _houseDoors = GetComponentsInChildren<Door>(true);
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAppearance>();
     }
 
     private void OnDestroy()
@@ -68,14 +69,38 @@ public class HouseChase : MonoBehaviour
         if (Instance != this)
             return;
 
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.AddInputLock(this);
+            ControlLockManager.Instance.AddMovementLock(this);
+        }
+
         IsChaseActive = false;
         SetChaseDoorsLocked(false);
         MapManager.Instance.KuneKune.Despawn();
 
         // TODO: 플레이어 학교 1층으로 이동
-        MapManager.Instance.ChangeMap(EMapType.School_Hallway, "school_hallway_0");
+        // MapManager.Instance.ChangeMap(EMapType.School_Hallway, "school_hallway_0", () => _player.SetAge(EPlayerAge.Student));
+        StartCoroutine(ChangeChapterRoutine());
 
         Debug.Log("[HouseChaseController] 집 안 추격을 끝냈습니다.", this);
+    }
+
+    private IEnumerator ChangeChapterRoutine()
+    {
+        yield return UIManager.Instance?.FadeOut(1.5f);
+
+        MapManager.Instance?.InitMap(EMapType.School_Hallway, "school_hallway_0");
+        _player.SetAge(EPlayerAge.Student);
+
+        yield return UIManager.Instance?.FadeIn(1.5f);
+        
+        SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter3_School);
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.RemoveInputLock(this);
+            ControlLockManager.Instance.RemoveMovementLock(this);
+        }
     }
 
     private void SetChaseDoorsLocked(bool isLocked)

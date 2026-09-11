@@ -53,6 +53,8 @@ public class KuneKune : MonoBehaviour
 
     private ECharacterState _preCutsceneState;  // 컷신 재생 중 이동을 멈추기 위해, 이전의 행동 상태를 저장해둘 변수
 
+    private bool _isCatchingPlayer = false; // 공포 연출 중복 실행 방지용 플래그
+
     private void Awake()
     {
         Init();
@@ -152,6 +154,7 @@ public class KuneKune : MonoBehaviour
     public void Spawn(Vector3 position, bool runImmediately = false)
     {
         gameObject.SetActive(true);
+        SoundManager.Instance?.PlayBGM("BGM_KuneKune", 0.01f);
 
         _currentMap = MapManager.Instance?.CurrentMap;
         _lastPlayerMap = _currentMap;
@@ -203,6 +206,14 @@ public class KuneKune : MonoBehaviour
             _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    
         }
         State = ECharacterState.Unspawned;
+
+        var currentArea = MapManager.Instance?.CurrentMap;
+        if (currentArea != null)
+        {
+            SoundManager.Instance?.PlayBGM(currentArea.BgmID);
+            if (currentArea.IsInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
+            else SoundManager.Instance?.FadeBGMVolume(1f);
+        }
     }
 
     private void UpdateAnimation()
@@ -328,19 +339,35 @@ public class KuneKune : MonoBehaviour
         if (State != ECharacterState.Run)
             return;
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !_isCatchingPlayer)
         {
-            Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 쿠네쿠네 멈춤");
-            if (HouseChase.Instance.IsChaseActive)
+            _isCatchingPlayer = true;
+            if (HouseChase.Instance != null && HouseChase.Instance.IsChaseActive)
+            {
+                HouseChase.Instance.EndChase();
+                _isCatchingPlayer = false;
+                return;
+            }
+
+            StartCoroutine(CatchPlayerSequence());
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (State != ECharacterState.Run)
+            return;
+
+        if (collision.gameObject.CompareTag("Player") && !_isCatchingPlayer)
+        {
+            _isCatchingPlayer = true;
+            if (HouseChase.Instance != null && HouseChase.Instance.IsChaseActive)
             {
                 HouseChase.Instance.EndChase();
                 return;
             }
 
-            if (SaveManager.Instance != null)
-            {
-                SaveManager.Instance.Load();
-            }
+            StartCoroutine(CatchPlayerSequence());
         }
     }
 
@@ -357,6 +384,44 @@ public class KuneKune : MonoBehaviour
         if (State == ECharacterState.Unspawned) return;
 
         State = _preCutsceneState;
+    }
+
+    private IEnumerator CatchPlayerSequence()
+    {
+        Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 데스씬 연출 시작");
+
+        State = ECharacterState.Idle;
+
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.AddInputLock(this);
+            ControlLockManager.Instance.AddMovementLock(this);
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetBGMVolume(0f);
+            SoundManager.Instance.PlaySFX("KuneKune_Jumpscare");    // 4초 지속
+        }
+
+        if (UIManager.Instance != null)
+        {
+            yield return StartCoroutine(UIManager.Instance.ShowJumpscareRoutine(0.05f)); // 0.1초 경과
+        }
+
+        yield return new WaitForSecondsRealtime(1.5f);    // 1.1초 경과
+
+        if (UIManager.Instance != null)
+        {
+            yield return UIManager.Instance.FadeOut(0.2f);  // 1.3초 경과
+        }
+
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.Load(true);
+        }
     }
 
 #if UNITY_EDITOR
