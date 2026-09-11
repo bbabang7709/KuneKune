@@ -69,6 +69,12 @@ public class HouseChase : MonoBehaviour
         if (Instance != this)
             return;
 
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.AddInputLock(this);
+            ControlLockManager.Instance.AddMovementLock(this);
+        }
+
         IsChaseActive = false;
         SetChaseDoorsLocked(false);
         MapManager.Instance.KuneKune.Despawn();
@@ -90,6 +96,11 @@ public class HouseChase : MonoBehaviour
         yield return UIManager.Instance?.FadeIn(1.5f);
         
         SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter3_School);
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.RemoveInputLock(this);
+            ControlLockManager.Instance.RemoveMovementLock(this);
+        }
     }
 
     private void SetChaseDoorsLocked(bool isLocked)

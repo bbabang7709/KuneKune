@@ -426,6 +426,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1035407304}
     m_Modifications:
+    - target: {fileID: 1234354793356659536, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
+      propertyPath: targetMap
+      value: 
+      objectReference: {fileID: 1368412095}
+    - target: {fileID: 1234354793356659536, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
+      propertyPath: targetEntryPoint
+      value: 
+      objectReference: {fileID: 718277621}
     - target: {fileID: 3337323123780392075, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
       propertyPath: targetMap
       value: 
@@ -514,7 +522,7 @@ PrefabInstance:
     - target: {fileID: 2511211809067094331, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
       propertyPath: targetEntryPoint
       value: 
-      objectReference: {fileID: 1968982404}
+      objectReference: {fileID: 1330212987}
     - target: {fileID: 6810011679965402581, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
       propertyPath: m_LocalPosition.x
       value: -36
@@ -1116,6 +1124,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2810149894643626498, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
   m_PrefabInstance: {fileID: 323364476395821149}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1330212987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8513174775057939252, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
+  m_PrefabInstance: {fileID: 460854959}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
 --- !u!114 &1368412095 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3299500944311534502, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
@@ -1519,17 +1538,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ed3bb930249214e8d6b9949c97e5ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutsceneManager
---- !u!114 &1968982404 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1082219033863481899, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
-  m_PrefabInstance: {fileID: 460854959}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
 --- !u!1 &1973524051
 GameObject:
   m_ObjectHideFlags: 0

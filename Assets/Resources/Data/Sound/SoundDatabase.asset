@@ -35,3 +35,6 @@ MonoBehaviour:
   - soundID: Item_Get
     clip: {fileID: 8300000, guid: 12428166a0621684faefbfd8a068396a, type: 3}
     volume: 1
+  - soundID: KuneKune_Jumpscare
+    clip: {fileID: 8300000, guid: 6d4653711c6238441b5359c431a398af, type: 3}
+    volume: 0.7

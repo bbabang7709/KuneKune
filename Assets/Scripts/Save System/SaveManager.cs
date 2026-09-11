@@ -58,7 +58,7 @@ public class SaveManager : MonoBehaviour
     }
 
 
-    public void Load()
+    public void Load(bool skipFadeOut = false)
     {
         if (!HasSaveFile())
         {
@@ -67,10 +67,10 @@ public class SaveManager : MonoBehaviour
         }
 
         Time.timeScale = 1f;
-        StartCoroutine(LoadRoutine());
+        StartCoroutine(LoadRoutine(skipFadeOut));
     }
 
-    private IEnumerator LoadRoutine()
+    private IEnumerator LoadRoutine(bool skipFadeOut)
     {
         IsLoading = true;
 
@@ -80,7 +80,7 @@ public class SaveManager : MonoBehaviour
             ControlLockManager.Instance.AddMovementLock(this);
         }
 
-        if (UIManager.Instance != null) yield return UIManager.Instance.FadeOut(1.0f);
+        if (!skipFadeOut && UIManager.Instance != null) yield return UIManager.Instance.FadeOut(1.0f);
 
         // =====================================================================
         // 💡 핵심 픽스: 씬이 로드되자마자 첫 프레임이 그려지기 전에 화면을 덮는 이벤트를 예약합니다.
