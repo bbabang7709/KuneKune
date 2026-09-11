@@ -19,6 +19,9 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
     [Header("Hold Interaction Settings")]
     [SerializeField] private float holdDuration = 3f;
 
+    [Header("Collect Sound ID")]
+    [SerializeField] private string collectSoundID = "Item_Get";
+
     public float HoldDuration => holdDuration;
     public float HoldProgress =>
         holdDuration <= 0f
@@ -93,6 +96,7 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
         if (isCollected || itemData == null) return;
 
         isCollected = true;
+        SoundManager.Instance?.PlaySFX(collectSoundID);
         holdTimer = 0f;
 
         Collider2D col2D = GetComponent<Collider2D>();

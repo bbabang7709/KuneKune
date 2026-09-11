@@ -1564,6 +1564,7 @@ MonoBehaviour:
   uniquePickupID: test_water-bottle
   acquireDialog: {fileID: 11400000, guid: e4c1b8e950e7bd84d9f2d023d7dcb2c7, type: 2}
   holdDuration: 2
+  collectSoundID: Item_Get
 --- !u!61 &1973524053
 BoxCollider2D:
   m_ObjectHideFlags: 0
