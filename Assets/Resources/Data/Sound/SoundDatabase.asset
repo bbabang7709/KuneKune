@@ -46,7 +46,7 @@ MonoBehaviour:
     volume: 0.2
   - soundID: Heat_Breath_Danger
     clip: {fileID: 8300000, guid: 6442ba7f9e665e642b4b520acb3789e4, type: 3}
-    volume: 0.2
+    volume: 0.07
   - soundID: Heat_Heartbeat
     clip: {fileID: 8300000, guid: fc1968ea4cf6a404d9a450b844ffdb56, type: 3}
     volume: 1
