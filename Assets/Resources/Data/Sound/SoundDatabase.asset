@@ -38,3 +38,15 @@ MonoBehaviour:
   - soundID: KuneKune_Jumpscare
     clip: {fileID: 8300000, guid: 6d4653711c6238441b5359c431a398af, type: 3}
     volume: 0.7
+  - soundID: Heat_Breath_Warm
+    clip: {fileID: 8300000, guid: 3a876ddf09b5847438ef550d41ab471f, type: 3}
+    volume: 0.4
+  - soundID: Heat_Breath_Hot
+    clip: {fileID: 8300000, guid: d0f99f59148c95b4083b1c1848ca0f9a, type: 3}
+    volume: 0.2
+  - soundID: Heat_Breath_Danger
+    clip: {fileID: 8300000, guid: 6442ba7f9e665e642b4b520acb3789e4, type: 3}
+    volume: 0.07
+  - soundID: Heat_Heartbeat
+    clip: {fileID: 8300000, guid: fc1968ea4cf6a404d9a450b844ffdb56, type: 3}
+    volume: 1

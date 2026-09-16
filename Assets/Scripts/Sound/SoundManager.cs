@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -19,6 +20,20 @@ public class SoundManager : MonoBehaviour
 
     private SoundData _currentBGMData;
     private Coroutine _volumeCoroutine;
+
+    private sealed class LoopSFX
+    {
+        public SoundData data;
+        public float volume;
+        public float pitch = 1f;
+    }
+
+    private readonly Dictionary<AudioSource, LoopSFX> _loopSFX = new();
+    private bool _loopsPaused;
+
+    [Header("반복 효과음")]
+    [Tooltip("목표 음량까지 부드럽게 바뀌는 시간입니다.")]
+    [SerializeField, Min(0.05f)] private float loopFadeSeconds = 0.5f;
 
     void Awake()
     {
@@ -81,6 +96,97 @@ public class SoundManager : MonoBehaviour
 
             _footstepSource.Play();
         }
+    }
+
+    /// <summary>
+    /// 반복 효과음을 준비합니다. 반환된 소리로 음량을 조절하고 사용이 끝나면 정지합니다.
+    /// </summary>
+    public AudioSource PlayLoopSFX(string sfxID)
+    {
+        SoundData data = soundDatabase?.GetSFX(sfxID);
+        if (data == null || data.clip == null)
+        {
+            Debug.LogWarning($"[SoundManager] 반복 효과음 '{sfxID}'를 찾을 수 없습니다.", this);
+            return null;
+        }
+
+        var source = gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
+        source.loop = true;
+        source.spatialBlend = 0f;
+        source.dopplerLevel = 0f;
+        source.outputAudioMixerGroup = sfxMixerGroup;
+        source.clip = data.clip;
+        source.volume = 0f;
+        _loopSFX.Add(source, new LoopSFX { data = data });
+        return source;
+    }
+
+    /// <summary>
+    /// 데이터베이스의 기본 음량에 곱할 비율과 재생 속도를 지정합니다.
+    /// </summary>
+    public void SetLoopSFX(AudioSource source, float volume, float pitch = 1f)
+    {
+        if (source == null || !_loopSFX.TryGetValue(source, out LoopSFX loop))
+            return;
+
+        loop.volume = Mathf.Clamp01(volume);
+        loop.pitch = Mathf.Clamp(pitch, 0.1f, 3f);
+    }
+
+    public void StopLoopSFX(AudioSource source)
+    {
+        if (source == null || !_loopSFX.Remove(source))
+            return;
+
+        source.Stop();
+        Destroy(source);
+    }
+
+    private void LateUpdate()
+    {
+        bool paused = Time.timeScale <= 0f || AudioListener.pause;
+        float step = Time.unscaledDeltaTime / Mathf.Max(0.05f, loopFadeSeconds);
+        foreach (var entry in _loopSFX)
+        {
+            AudioSource source = entry.Key;
+            if (source == null)
+                continue;
+
+            if (paused != _loopsPaused)
+            {
+                if (paused) source.Pause();
+                else source.UnPause();
+            }
+            if (paused)
+                continue;
+
+            LoopSFX loop = entry.Value;
+            float target = loop.volume * loop.data.volume;
+            source.volume = Mathf.MoveTowards(source.volume, target, step);
+            source.pitch = Mathf.MoveTowards(source.pitch, loop.pitch, step);
+            if (source.volume <= 0f)
+            {
+                if (source.isPlaying) source.Stop();
+            }
+            else if (!source.isPlaying)
+            {
+                source.Play();
+            }
+        }
+        _loopsPaused = paused;
+    }
+
+    private void OnDisable()
+    {
+        foreach (AudioSource source in _loopSFX.Keys)
+            if (source != null) source.Pause();
+        _loopsPaused = true;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 
     public void PlayBGM(string bgmID, float fadeDuration = 1f)

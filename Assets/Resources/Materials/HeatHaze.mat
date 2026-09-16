@@ -28,8 +28,8 @@ Material:
     - _DistortionStrength: 0.003
     - _HazeHeight: 0.55
     - _Heat: 0
-    - _PressureStrength: 0.008
-    - _VignetteStrength: 0.6
+    - _PressureStrength: 0.01
+    - _VignetteStrength: 0.7
     - _Warmth: 0.5
     m_Colors: []
   m_BuildTextureStacks: []
