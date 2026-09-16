@@ -426,6 +426,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1035407304}
     m_Modifications:
+    - target: {fileID: 1234354793356659536, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
+      propertyPath: targetMap
+      value: 
+      objectReference: {fileID: 1368412095}
+    - target: {fileID: 1234354793356659536, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
+      propertyPath: targetEntryPoint
+      value: 
+      objectReference: {fileID: 718277621}
     - target: {fileID: 3337323123780392075, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
       propertyPath: targetMap
       value: 
@@ -507,10 +515,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map_House
       objectReference: {fileID: 0}
-    - target: {fileID: 1799299738596060422, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2127463084}
     - target: {fileID: 2511211809067094331, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
       propertyPath: targetMap
       value: 
@@ -518,7 +522,7 @@ PrefabInstance:
     - target: {fileID: 2511211809067094331, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
       propertyPath: targetEntryPoint
       value: 
-      objectReference: {fileID: 1968982404}
+      objectReference: {fileID: 1330212987}
     - target: {fileID: 6810011679965402581, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
       propertyPath: m_LocalPosition.x
       value: -36
@@ -1001,6 +1005,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
+--- !u!1 &780858818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 780858820}
+  - component: {fileID: 780858819}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &780858819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780858818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd20d826d3511f459daff1242d6a5d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  soundDatabase: {fileID: 11400000, guid: 0bdd2fd96a6012e46ab36767b6bf6833, type: 2}
+  bgmMixerGroup: {fileID: 1630668995461526095, guid: 6e84ba5ca5ecb7a4f86247ade36f9215, type: 2}
+  sfxMixerGroup: {fileID: -1031122197948980396, guid: 6e84ba5ca5ecb7a4f86247ade36f9215, type: 2}
+  loopFadeSeconds: 0.5
+--- !u!4 &780858820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780858818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 105.23499, y: -28.74477, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &816614474 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1235334177247003554, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
@@ -1073,6 +1125,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2810149894643626498, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
   m_PrefabInstance: {fileID: 323364476395821149}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1330212987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8513174775057939252, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
+  m_PrefabInstance: {fileID: 460854959}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
 --- !u!114 &1368412095 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3299500944311534502, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
@@ -1299,6 +1362,9 @@ MonoBehaviour:
   - {fileID: 720479572}
   - {fileID: 1507683616}
   - {fileID: 264926723}
+  allCoolZones:
+  - {fileID: 507732703}
+  - {fileID: 264926723}
 --- !u!4 &1757445437
 Transform:
   m_ObjectHideFlags: 0
@@ -1413,6 +1479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   inventoryUIPanel: {fileID: 1203175204}
   inventoryUI: {fileID: 1687722452}
+  playerInput: {fileID: 2127463083}
 --- !u!4 &1777210874
 Transform:
   m_ObjectHideFlags: 0
@@ -1472,17 +1539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ed3bb930249214e8d6b9949c97e5ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutsceneManager
---- !u!114 &1968982404 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1082219033863481899, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
-  m_PrefabInstance: {fileID: 460854959}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f26357745f48447a622922782990f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
 --- !u!1 &1973524051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,9 +1570,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   itemData: {fileID: 11400000, guid: 61b2777b54d8cb944a0d0fea9002e7d2, type: 2}
-  uniquePickupID: 
+  uniquePickupID: test_water-bottle
   acquireDialog: {fileID: 11400000, guid: e4c1b8e950e7bd84d9f2d023d7dcb2c7, type: 2}
   holdDuration: 2
+  collectSoundID: Item_Get
 --- !u!61 &1973524053
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1845,10 +1902,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1893621909440751955, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
-      propertyPath: playerInput
-      value: 
-      objectReference: {fileID: 2127463083}
     - target: {fileID: 2817053990864687043, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
       propertyPath: playerInput
       value: 
@@ -1880,4 +1933,5 @@ SceneRoots:
   - {fileID: 162972609}
   - {fileID: 2072995675}
   - {fileID: 1982516503}
+  - {fileID: 780858820}
   - {fileID: 1973524054}
