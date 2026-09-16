@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 3022991992757690216}
   - component: {fileID: 781236589127463821}
   - component: {fileID: 1423516372197767047}
+  - component: {fileID: 7234975290861038541}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -344,3 +345,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSaveHandler
   uniqueID: Player_Main
+--- !u!114 &7234975290861038541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4147783366840814454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e37ff5c99f1444fda923867cda728805, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::HeatAudioEffect
+  warmBreathID: Heat_Breath_Warm
+  hotBreathID: Heat_Breath_Hot
+  dangerBreathID: Heat_Breath_Danger
+  heartbeatID: Heat_Heartbeat
