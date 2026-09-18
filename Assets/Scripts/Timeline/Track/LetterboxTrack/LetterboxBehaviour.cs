@@ -26,6 +26,16 @@ public class LetterboxBehaviour : PlayableBehaviour
     {
         if (!hasStarted || hasEnded) return;
 
+        double currentTime = playable.GetTime();
+        double duration = playable.GetDuration();
+        
+        if (currentTime < duration - 0.01f)
+        {
+            // Timeline이 중간에 Pause된 것: 레터박스 유지
+
+            return;
+        }
+
         // Timeline이 정상적으로 Clip을 빠져나갔을 때 레터박스를 닫는다
         hasEnded = true;
 
