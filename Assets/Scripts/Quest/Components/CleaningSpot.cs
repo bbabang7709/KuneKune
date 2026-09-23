@@ -16,6 +16,9 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _collider;
 
+    [Tooltip("청소를 진행하는 동안 발생시킬 파티클입니다.")]
+    [SerializeField] private ParticleSystem dustEffect;
+
     private bool _isCleaned;
     private float _cleaningTimer;
     private float _initialAlpha;
@@ -72,6 +75,7 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
     public void OnInteractPressed()
     {
         // 이전에 청소한 진행 시간부터 이어서 시작합니다.
+        dustEffect.Play();
     }
 
     public void OnInteractHeld()
@@ -91,6 +95,7 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
     {
         // F 키를 놓아도 청소 시간과 투명도를 그대로 유지합니다.
         ResetShakePosition();
+        dustEffect.Stop();
     }
 
     /// <summary>
@@ -124,6 +129,7 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
 
         _isCleaned = true;
         ResetShakePosition();
+        dustEffect.Stop();
 
         // 청소가 끝난 지점을 화면에서 숨깁니다.
         gameObject.SetActive(false);
