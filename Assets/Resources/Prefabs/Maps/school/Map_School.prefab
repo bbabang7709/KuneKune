@@ -508,6 +508,7 @@ MonoBehaviour:
   uniquePickupID: 
   acquireDialog: {fileID: 11400000, guid: 2ce79c033ff39c340b3b9b6846aa8608, type: 2}
   holdDuration: 3
+  collectSoundID: Item_Get
 --- !u!1 &2116262845679537401
 GameObject:
   m_ObjectHideFlags: 0
@@ -2175,6 +2176,70 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 12.318375, y: 2.407362}
   m_EdgeRadius: 0
+--- !u!1 &7502043204725904979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4087999581619757856}
+  - component: {fileID: 6057407868262635523}
+  - component: {fileID: 3802379274086816598}
+  m_Layer: 0
+  m_Name: DirtyDeskCutscene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4087999581619757856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502043204725904979}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3410284599650147223}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &6057407868262635523
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502043204725904979}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 37c8257ee4bea964395d96ffc1d8749d, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
+--- !u!114 &3802379274086816598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502043204725904979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea56ad9e86567fa4f857729b52bc7605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DirtyDeskCutsceneController
+  playOnlyOnce: 1
+  useFadeInOut: 1
 --- !u!1 &7533836673602754874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2918,6 +2983,7 @@ MonoBehaviour:
   uniquePickupID: 
   acquireDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
   holdDuration: 3
+  collectSoundID: Item_Get
 --- !u!1 &8995174687720840131
 GameObject:
   m_ObjectHideFlags: 0
@@ -3694,6 +3760,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4027323244535980723, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6218833566356963010}
+    - targetCorrespondingSourceObject: {fileID: 4027323244535980723, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4087999581619757856}
     - targetCorrespondingSourceObject: {fileID: 5955674115755589856, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9048219557440120323}
