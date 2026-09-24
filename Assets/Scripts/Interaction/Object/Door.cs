@@ -10,6 +10,7 @@ public class Door : MapTransition, IInteractable
     [SerializeField] private bool isLocked;
     [SerializeField] private string requiredKeyID;
     [SerializeField] private DialogData dialogWhenLocked;
+    [SerializeField] private DialogData dialogWhenUnlock;
 
     [Header("추격 잠금 설정")]
     [Tooltip("집 안 추격이 시작되면 이 문을 열 수 없게 합니다.")]
@@ -73,6 +74,11 @@ public class Door : MapTransition, IInteractable
         if (isLocked)
         {
             isLocked = false;
+            DialogSystem.Instance?.PlayDialog(
+                dialogWhenUnlock,
+                () => StartCoroutine(OpenDoorRoutine())
+            );
+            return;
         }
 
         // 부모에 구현된 ID 기반 이동 메서드 호출 (페이드 연출 자동 수행)

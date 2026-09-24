@@ -110,11 +110,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 172
-        y: 33
-        width: 53
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 21
+        width: 66
+        height: 76
+      alignment: 9
+      pivot: {x: 0.4032, y: 0.18}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -127,55 +127,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: room_Bookcase 2_ Dirty_1
-      rect:
-        serializedVersion: 2
-        x: 184
-        y: 20
-        width: 22
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6b7b0b4b51f98a130800000000000000
-      internalID: 3578284819520468918
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: room_Bookcase 2_ Dirty_2
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 21
-        width: 26
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f01f618e84f8b3000800000000000000
-      internalID: 16764566920163599
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 40720cbaf54e0d440b94dfffcf3c7dee
     internalID: 0
     vertices: []
     indices: 
