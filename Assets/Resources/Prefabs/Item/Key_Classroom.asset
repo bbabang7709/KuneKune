@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd7e8cf8f341b5046a748074db262f4b, type: 3}
-  m_Name: Key_School_Classroom
+  m_Name: Key_Classroom
   m_EditorClassIdentifier: Assembly-CSharp::KeyItemData
   itemType: 1
   itemID: key_classroom
@@ -19,4 +19,8 @@ MonoBehaviour:
     \uC5F4\uC1E0\uC774\uB2E4."
   itemCount: 1
   illustration: {fileID: 1095141833252711340, guid: 456a4ad8fa872bc40be5931fcd7fe7d9, type: 3}
-  icon: {fileID: -3574791145893869807, guid: 4d905306828a28c4b8bf42702672fcd4, type: 3}
+  icon: {fileID: 8038760031730268249, guid: e456865d7b6f8b848984d33f044c3fb4, type: 3}
+  keyAcquiredNormal: {fileID: 8038760031730268249, guid: e456865d7b6f8b848984d33f044c3fb4, type: 3}
+  keyAcquiredSelected: {fileID: -2549338176929860798, guid: f94dd8025b2147248af88262912ab4b4, type: 3}
+  keyUnacquiredNormal: {fileID: -402975343055170503, guid: 80a38b6c8bc141d40a4eab3ac55d4c81, type: 3}
+  keyUnacquiredSelected: {fileID: 8534101757486830481, guid: d7557212ed68e334a91c7a4e6f64b483, type: 3}

@@ -1128,6 +1128,7 @@ MonoBehaviour:
   soundDatabase: {fileID: 11400000, guid: 0bdd2fd96a6012e46ab36767b6bf6833, type: 2}
   bgmMixerGroup: {fileID: 1630668995461526095, guid: 6e84ba5ca5ecb7a4f86247ade36f9215, type: 2}
   sfxMixerGroup: {fileID: -1031122197948980396, guid: 6e84ba5ca5ecb7a4f86247ade36f9215, type: 2}
+  loopFadeSeconds: 0.5
 --- !u!4 &780858820
 Transform:
   m_ObjectHideFlags: 0

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7e8cf8f341b5046a748074db262f4b, type: 3}
+  m_Name: Key_Artroom
+  m_EditorClassIdentifier: Assembly-CSharp::KeyItemData
+  itemType: 1
+  itemID: key_artroom
+  itemName: "\uBBF8\uC220\uC2E4 \uC5F4\uC1E0"
+  description: "\uBBF8\uC220\uC2E4 \uC5F4\uC1E0\uC774\uB2E4. "
+  itemCount: 1
+  illustration: {fileID: 1095141833252711340, guid: 456a4ad8fa872bc40be5931fcd7fe7d9, type: 3}
+  icon: {fileID: 5884227263795012068, guid: 17fdb4791e3c27246a9c7be3f21ce45b, type: 3}
+  keyAcquiredNormal: {fileID: 5884227263795012068, guid: 17fdb4791e3c27246a9c7be3f21ce45b, type: 3}
+  keyAcquiredSelected: {fileID: 1343143017799462882, guid: 97885be055a6c5645842dba05f06cc3f, type: 3}
+  keyUnacquiredNormal: {fileID: -402975343055170503, guid: 80a38b6c8bc141d40a4eab3ac55d4c81, type: 3}
+  keyUnacquiredSelected: {fileID: 8534101757486830481, guid: d7557212ed68e334a91c7a4e6f64b483, type: 3}

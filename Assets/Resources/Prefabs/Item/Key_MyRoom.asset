@@ -18,4 +18,8 @@ MonoBehaviour:
   description: "\uBC29\uC758 \uBB38\uC744 \uC5F4 \uC218 \uC788\uB294 \uC5F4\uC1E0\uC774\uB2E4."
   itemCount: 1
   illustration: {fileID: 1095141833252711340, guid: 456a4ad8fa872bc40be5931fcd7fe7d9, type: 3}
-  icon: {fileID: -3574791145893869807, guid: 4d905306828a28c4b8bf42702672fcd4, type: 3}
+  icon: {fileID: 1824372522284013206, guid: 7ded513f37b552d46a034b8667aef5f0, type: 3}
+  keyAcquiredNormal: {fileID: 1824372522284013206, guid: 7ded513f37b552d46a034b8667aef5f0, type: 3}
+  keyAcquiredSelected: {fileID: -2694773913266341164, guid: 8f11edd25adb59c4ab93251b2bbe6416, type: 3}
+  keyUnacquiredNormal: {fileID: -402975343055170503, guid: 80a38b6c8bc141d40a4eab3ac55d4c81, type: 3}
+  keyUnacquiredSelected: {fileID: 8534101757486830481, guid: d7557212ed68e334a91c7a4e6f64b483, type: 3}

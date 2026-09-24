@@ -14,7 +14,22 @@ public abstract class ItemData : ScriptableObject
 
     [SerializeField] [Min(1)] private int itemCount = 1;
     [SerializeField] private Sprite illustration;
+
+    [Header("Consumable Visual")]
     [SerializeField] private Sprite icon;
+
+    [Header("Key Item Visuals (4 States)")]
+    [Tooltip("획득 & 미선택")]
+    [SerializeField] private Sprite keyAcquiredNormal;
+
+    [Tooltip("획득 & 선택")]
+    [SerializeField] private Sprite keyAcquiredSelected;
+
+    [Tooltip("미획득 & 미선택")]
+    [SerializeField] private Sprite keyUnacquiredNormal;
+
+    [Tooltip("미획득 & 미선택")]
+    [SerializeField] private Sprite keyUnacquiredSelected;
 
     public EItemType ItemType => itemType;
     public string ItemID => itemID;
@@ -23,4 +38,8 @@ public abstract class ItemData : ScriptableObject
     public int ItemCount => itemCount;
     public Sprite Illustration => illustration;
     public Sprite Icon => icon;
+    public Sprite KeyAcquiredNormal => keyAcquiredNormal;
+    public Sprite KeyAcquiredSelected => keyAcquiredSelected;
+    public Sprite KeyUnacquiredNormal => keyUnacquiredNormal;
+    public Sprite KeyUnacquiredSelected => keyUnacquiredSelected;
 }
