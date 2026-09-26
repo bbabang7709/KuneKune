@@ -4655,8 +4655,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Door
   targetMap: {fileID: 0}
   targetEntryPoint: {fileID: 0}
-  isLocked: 0
-  requiredKeyID: 
+  isLocked: 1
+  requiredKeyID: CANNOT_OPEN
   dialogWhenLocked: {fileID: 0}
   dialogWhenUnlock: {fileID: 0}
   _lockDuringHouseChase: 0

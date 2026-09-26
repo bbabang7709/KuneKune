@@ -5508,7 +5508,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8223417816810361252, guid: b413c496bfc3107408f1404429be5c64, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6524,6 +6524,7 @@ GameObject:
   - component: {fileID: 1853598510362124345}
   - component: {fileID: 485496862310351566}
   - component: {fileID: 2452750424314906068}
+  - component: {fileID: 4939024546772995978}
   m_Layer: 0
   m_Name: House_cleaning
   m_TagString: Untagged
@@ -6660,6 +6661,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CutscenePlayerSwapper
   dummyPlayer: {fileID: 0}
   offset: {x: 0, y: 1.42, z: 0}
+--- !u!114 &4939024546772995978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8688447660096842709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f74a03370dd2fd48afdcfd1d5284e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogTimelineController
 --- !u!1 &8693952642320598001
 GameObject:
   m_ObjectHideFlags: 0

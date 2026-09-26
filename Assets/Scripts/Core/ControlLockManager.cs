@@ -8,8 +8,22 @@ public class ControlLockManager : MonoBehaviour
     private HashSet<object> _movementLocks = new HashSet<object>();
     private HashSet<object> _inputLocks = new HashSet<object>();
 
-    public bool IsMovementLocked => _movementLocks.Count > 0;
-    public bool IsInputLocked => _inputLocks.Count > 0;
+    public bool IsMovementLocked
+    {
+        get
+        {
+            CleanUpDeadLocks();
+            return _movementLocks.Count > 0;
+        }
+    }
+    public bool IsInputLocked
+    {
+        get
+        {
+            CleanUpDeadLocks();
+            return _inputLocks.Count > 0;
+        }
+    }
 
     void Awake()
     {
@@ -48,8 +62,26 @@ public class ControlLockManager : MonoBehaviour
         _movementLocks.Clear();
     }
 
+    private void CleanUpDeadLocks()
+    {
+        _movementLocks.RemoveWhere(IsDeadObject);
+        _inputLocks.RemoveWhere(IsDeadObject);
+    }
+
+    private bool IsDeadObject(object source)
+    {
+        if (source is Object uObj)
+        {
+            return uObj == null;
+        }
+
+        return source == null;
+    }
+
     private void OnGUI()
     {
+        CleanUpDeadLocks();
+        
         // 화면 좌측 상단에 빨간색 글씨로 표시
         GUILayout.BeginArea(new Rect(10, 10, 400, 400));
         GUI.color = Color.red;

@@ -4,7 +4,7 @@ using UnityEngine.Playables;
 public class BrokenFloor : InteractableBase
 {
     [SerializeField] private PlayableDirector encounterCutscene;
-    [SerializeField] private PlayableDirector fallCutscene;
+    [SerializeField] private FallCutsceneController fallCutscene;
 
     [SerializeField] private Collider2D triggerCollider;
 
@@ -24,8 +24,8 @@ public class BrokenFloor : InteractableBase
         }
         else
         {
-            UIManager.Instance?.FadeOut(0.5f);
-            if (fallCutscene != null) fallCutscene.Play();   
+            Debug.Log("추락 컷씬 재생.");
+            if (fallCutscene != null) fallCutscene.PlayCutscene();   
             _playedFallCutscene = true;
             triggerCollider.enabled = false;
         }

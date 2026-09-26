@@ -39,6 +39,10 @@ public abstract class CutsceneControllerBase : MonoBehaviour
 
         OnCutsceneStartSetup();
 
+        Debug.Log(
+            $"<color=cyan>[DIRECTOR PLAY]</color> " +
+            $"{GetType().Name} / {director.name} / frame={Time.frameCount}"
+        );
         director.Play();
 
         yield return new WaitForSeconds(0.3f);
@@ -66,7 +70,7 @@ public abstract class CutsceneControllerBase : MonoBehaviour
 
         CutsceneManager.Instance?.EndCutscene();
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
 
         if (useFadeInOut && UIManager.Instance != null)
         {

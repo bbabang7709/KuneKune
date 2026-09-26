@@ -56,12 +56,6 @@ public class CutscenePlayerSwapper : MonoBehaviour
         if (_realPlayer != null && dummyPlayer != null)
         {
             _realPlayer.transform.position = dummyPlayer.transform.position + offset;
-
-            // SpriteRenderer dummySprite = dummyPlayer.GetComponent<SpriteRenderer>();
-            // if (dummySprite != null && _realPlayerSprite != null)
-            // {
-            //     _realPlayerSprite.flipX = dummySprite.flipX;
-            // }
         }
 
         // 배우 퇴장
