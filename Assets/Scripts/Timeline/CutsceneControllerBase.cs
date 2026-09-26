@@ -32,12 +32,21 @@ public abstract class CutsceneControllerBase : MonoBehaviour
     {
         if (useFadeInOut && UIManager.Instance != null)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
             yield return UIManager.Instance.FadeOutGameplayUI(0.5f);
+            yield return UIManager.Instance.FadeOut(0.5f);
         }
 
         OnCutsceneStartSetup();
+
         director.Play();
+
+        yield return new WaitForSeconds(0.3f);
+
+        if (useFadeInOut && UIManager.Instance != null)
+        {
+            yield return UIManager.Instance.FadeIn(0.5f);
+        }
     }
 
     protected virtual void EndCutscene()
@@ -47,14 +56,23 @@ public abstract class CutsceneControllerBase : MonoBehaviour
 
     private IEnumerator CutsceneEndRoutine()
     {
+
         if (useFadeInOut && UIManager.Instance != null)
         {
-            yield return UIManager.Instance.FadeInGameplayUI(0.5f);
+            yield return UIManager.Instance.FadeOut(0.5f);
         }
 
         OnCutsceneEndSetup();
 
         CutsceneManager.Instance?.EndCutscene();
+
+        yield return new WaitForSeconds(0.3f);
+
+        if (useFadeInOut && UIManager.Instance != null)
+        {
+            yield return UIManager.Instance.FadeIn(0.5f);
+            yield return UIManager.Instance.FadeInGameplayUI(0.5f);
+        }
     }
 
     protected virtual void OnCutsceneStartSetup() {}
