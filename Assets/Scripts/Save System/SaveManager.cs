@@ -94,6 +94,8 @@ public class SaveManager : MonoBehaviour
 
             if (ControlLockManager.Instance != null)
             {
+                ControlLockManager.Instance.ClearAllLocks();
+
                 ControlLockManager.Instance.AddInputLock(this);
                 ControlLockManager.Instance.AddMovementLock(this);
             }
@@ -130,9 +132,9 @@ public class SaveManager : MonoBehaviour
 
         if (UIManager.Instance != null) 
         {
-            yield return UIManager.Instance.FadeIn(1.0f);
+            yield return UIManager.Instance.FadeIn(0.5f);
 
-            yield return UIManager.Instance.FadeInGameplayUI(1.0f);
+            yield return UIManager.Instance.FadeInGameplayUI(0.5f);
         }
 
         if (ControlLockManager.Instance != null)

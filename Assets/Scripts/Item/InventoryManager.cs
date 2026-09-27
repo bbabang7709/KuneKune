@@ -72,7 +72,7 @@ public class InventoryManager : MonoBehaviour, ISaveable
                 inventoryUI.RefreshUI(
                     new List<string>(_consumables.Keys),
                     new List<int>(_consumables.Values),
-                    new List<string>(_keyItems)
+                    _keyItems
                 );
             }
         }
@@ -83,6 +83,11 @@ public class InventoryManager : MonoBehaviour, ISaveable
             {
                 ControlLockManager.Instance.RemoveInputLock(this);
                 ControlLockManager.Instance.RemoveMovementLock(this);
+            }
+
+            if (EventSystem.current != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
             }
         }
 

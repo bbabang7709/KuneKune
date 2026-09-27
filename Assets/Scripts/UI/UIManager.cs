@@ -76,16 +76,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image illustrationImage;
 
     [Header("Screen Fade")]
-
-    /// <summary>
-    /// 화면 전체 페이드 효과를 위한 CanvasGroup.
-    /// </summary>
     [SerializeField] private CanvasGroup fadeCanvasGroup;
-
-    /// <summary>
-    /// 게임 플레이 UI 전체의 투명도를 조절하는 CanvasGroup.
-    /// </summary>
     [SerializeField] private CanvasGroup gameplayUICanvasGroup;
+    private Coroutine _fadeCoroutine;
+    private Coroutine _gameplayUIFadeCoroutine;
 
     [Header("Letter Box")]
     [SerializeField] private RectTransform letterboxTop;
@@ -304,6 +298,12 @@ public class UIManager : MonoBehaviour
     {
         if (fadeCanvasGroup == null) return;
 
+        if (_fadeCoroutine != null)
+        {
+            StopCoroutine(_fadeCoroutine);
+            _fadeCoroutine = null;
+        }
+
         fadeCanvasGroup.gameObject.SetActive(true);
         fadeCanvasGroup.alpha = alpha;
         fadeCanvasGroup.blocksRaycasts = alpha > 0f;
@@ -317,6 +317,12 @@ public class UIManager : MonoBehaviour
     {
         if (gameplayUICanvasGroup == null) return;
 
+        if (_gameplayUIFadeCoroutine != null)
+        {
+            StopCoroutine(_gameplayUIFadeCoroutine);
+            _gameplayUIFadeCoroutine = null;
+        }
+
         gameplayUICanvasGroup.alpha = alpha;
     }
 
@@ -328,21 +334,11 @@ public class UIManager : MonoBehaviour
     {
         if (gameplayUICanvasGroup == null) yield break;
 
-        float elapsed = 0f;
-        float startAlpha = gameplayUICanvasGroup.alpha;
+        if (_gameplayUIFadeCoroutine != null) 
+            StopCoroutine(_gameplayUIFadeCoroutine);
 
-        while (elapsed < duration)
-        {
-            elapsed += Time.unscaledDeltaTime;
-
-            float t = Mathf.Clamp01(elapsed / duration);
-
-            gameplayUICanvasGroup.alpha = Mathf.Lerp(startAlpha, 1f, t);
-
-            yield return null;
-        }
-
-        gameplayUICanvasGroup.alpha = 1f;
+        _gameplayUIFadeCoroutine = StartCoroutine(GameplayUIFadeRoutine(1f, duration));
+        yield return _gameplayUIFadeCoroutine;
     }
 
     /// <summary>
@@ -353,21 +349,28 @@ public class UIManager : MonoBehaviour
     {
         if (gameplayUICanvasGroup == null) yield break;
 
+        if (_gameplayUIFadeCoroutine != null) 
+            StopCoroutine(_gameplayUIFadeCoroutine);
+
+        _gameplayUIFadeCoroutine = StartCoroutine(GameplayUIFadeRoutine(0f, duration));
+        yield return _gameplayUIFadeCoroutine;
+    }
+
+    private IEnumerator GameplayUIFadeRoutine(float targetAlpha, float duration)
+    {
         float elapsed = 0f;
         float startAlpha = gameplayUICanvasGroup.alpha;
 
         while (elapsed < duration)
         {
             elapsed += Time.unscaledDeltaTime;
-
             float t = Mathf.Clamp01(elapsed / duration);
-
-            gameplayUICanvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, t);
-
+            gameplayUICanvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, t);
             yield return null;
         }
 
-        gameplayUICanvasGroup.alpha = 0f;
+        gameplayUICanvasGroup.alpha = targetAlpha;
+        _gameplayUIFadeCoroutine = null;
     }
 
     /// <summary>
@@ -376,7 +379,9 @@ public class UIManager : MonoBehaviour
     /// <param name="duration">페이드 인에 걸리는 시간(초).</param>
     public IEnumerator FadeIn(float duration)
     {
-        yield return Fade(1f, 0f, duration);
+        if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
+        _fadeCoroutine = StartCoroutine(FadeRoutine(0f, duration));
+        yield return _fadeCoroutine;
     }
 
     /// <summary>
@@ -385,7 +390,9 @@ public class UIManager : MonoBehaviour
     /// <param name="duration">페이드 아웃에 걸리는 시간(초).</param>
     public IEnumerator FadeOut(float duration)
     {
-        yield return Fade(0f, 1f, duration);
+        if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
+        _fadeCoroutine = StartCoroutine(FadeRoutine(1f, duration));
+        yield return _fadeCoroutine;
     }
 
     /// <summary>
@@ -394,33 +401,34 @@ public class UIManager : MonoBehaviour
     /// <param name="startAlpha">시작 알파 값.</param>
     /// <param name="endAlpha">목표 알파 값.</param>
     /// <param name="duration">진행 시간(초).</param>
-    private IEnumerator Fade(float startAlpha, float endAlpha, float duration)
+    private IEnumerator FadeRoutine(float targetAlpha, float duration)
     {
-        float elapsed = 0f;
+        if (fadeCanvasGroup == null) yield break;
 
         fadeCanvasGroup.gameObject.SetActive(true);
         fadeCanvasGroup.blocksRaycasts = true;
 
-        fadeCanvasGroup.alpha = startAlpha;
+        float elapsed = 0f;
+        float startAlpha = fadeCanvasGroup.alpha;
 
         while (elapsed < duration)
         {
             elapsed += Time.unscaledDeltaTime;
-
             float t = Mathf.Clamp01(elapsed / duration);
 
-            fadeCanvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, t);
-
+            fadeCanvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, t);
             yield return null;
         }
 
-        fadeCanvasGroup.alpha = endAlpha;
+        fadeCanvasGroup.alpha = targetAlpha;
 
-        if (Mathf.Approximately(endAlpha, 0f))
+        if (Mathf.Approximately(targetAlpha, 0f))
         {
             fadeCanvasGroup.blocksRaycasts = false;
             fadeCanvasGroup.gameObject.SetActive(false);
         }
+
+        _fadeCoroutine = null;
     }
 
     private void InitializeLetterbox()

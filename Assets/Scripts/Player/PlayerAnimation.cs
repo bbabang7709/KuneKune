@@ -40,7 +40,7 @@ public class PlayerAnimation : MonoBehaviour
         if (Time.time - _lastFootstepTime < footstepCooldown) return;
         _lastFootstepTime = Time.time;
 
-        bool isIndoors = MapManager.Instance != null && MapManager.Instance.CurrentMap.IsInside;
+        bool isIndoors = MapManager.Instance?.CurrentMap?.IsInside ?? false;
         string targetSoundID = isIndoors ? insideFootstepID : outsideFootstepID;
 
         if (SoundManager.Instance != null)

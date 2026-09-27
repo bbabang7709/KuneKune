@@ -9576,6 +9576,7 @@ MonoBehaviour:
   isLocked: 0
   requiredKeyID: 
   dialogWhenLocked: {fileID: 0}
+  dialogWhenUnlock: {fileID: 0}
   _lockDuringHouseChase: 0
   openSprite: {fileID: 8896562225081582818, guid: e65d2966277fcfa41a996846394c1af5, type: 3}
   openSoundID: DoorOpen_Sliding
@@ -12898,6 +12899,7 @@ MonoBehaviour:
   isLocked: 0
   requiredKeyID: 
   dialogWhenLocked: {fileID: 0}
+  dialogWhenUnlock: {fileID: 0}
   _lockDuringHouseChase: 0
   openSprite: {fileID: 0}
   openSoundID: DoorOpen_Hinged
@@ -33531,6 +33533,7 @@ MonoBehaviour:
   isLocked: 1
   requiredKeyID: key_doll
   dialogWhenLocked: {fileID: 11400000, guid: df52a763497918d499b67cbd54f7857a, type: 2}
+  dialogWhenUnlock: {fileID: 0}
   _lockDuringHouseChase: 0
   openSprite: {fileID: 0}
   openSoundID: DoorOpen_Sliding
