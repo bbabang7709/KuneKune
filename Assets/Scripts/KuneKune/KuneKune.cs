@@ -392,17 +392,11 @@ public class KuneKune : MonoBehaviour
 
         State = ECharacterState.Idle;
 
-        if (ControlLockManager.Instance != null)
-        {
-            ControlLockManager.Instance.AddInputLock(this);
-            ControlLockManager.Instance.AddMovementLock(this);
-        }
+        ControlLockManager.Instance?.AddInputLock(this);
+        ControlLockManager.Instance?.AddMovementLock(this);
 
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.SetBGMVolume(0f);
-            SoundManager.Instance.PlaySFX("KuneKune_Jumpscare");    // 4초 지속
-        }
+        SoundManager.Instance?.SetBGMVolume(0f);
+        SoundManager.Instance?.PlaySFX("KuneKune_Jumpscare");   // 4초 지속
 
         if (UIManager.Instance != null)
         {
@@ -418,10 +412,7 @@ public class KuneKune : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1.5f);
 
-        if (SaveManager.Instance != null)
-        {
-            SaveManager.Instance.Load(true);
-        }
+        SaveManager.Instance?.Load(true);
     }
 
 #if UNITY_EDITOR
