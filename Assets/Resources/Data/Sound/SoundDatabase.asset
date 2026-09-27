@@ -50,3 +50,6 @@ MonoBehaviour:
   - soundID: Heat_Heartbeat
     clip: {fileID: 8300000, guid: fc1968ea4cf6a404d9a450b844ffdb56, type: 3}
     volume: 1
+  - soundID: DoorPush
+    clip: {fileID: 8300000, guid: cb4cc9e5f375450b85d4f9fa71e023b3, type: 3}
+    volume: 0.6
