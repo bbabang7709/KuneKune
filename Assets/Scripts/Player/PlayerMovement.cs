@@ -486,6 +486,14 @@ public class PlayerMovement : MonoBehaviour
             MapManager.Instance.KuneKune.Despawn();
     }
 
+    /// <summary>
+    /// 더위 게이지를 최대로 채우고 UI, 소리, 화면 효과에 알립니다.
+    /// </summary>
+    public void SetHeatToMax()
+    {
+        SetCurrentHeat(maxHeat);
+    }
+
     // Load시 저장된 Heat 복구용
     public void SetCurrentHeat(float amount)
     {
