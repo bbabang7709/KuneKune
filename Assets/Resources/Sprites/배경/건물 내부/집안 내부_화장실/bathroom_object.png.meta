@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9e5f7f6ca5712084fad2b89b808ee1e6
+guid: 3b11a2f085cc3b14d90fcae29f3072ef
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -127,12 +127,12 @@ TextureImporter:
       name: bathroom_object_0
       rect:
         serializedVersion: 2
-        x: 96
-        y: 33
-        width: 38
-        height: 79
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 97
+        y: 34
+        width: 36
+        height: 77
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -149,19 +149,19 @@ TextureImporter:
       name: bathroom_object_1
       rect:
         serializedVersion: 2
-        x: 144
-        y: 59
-        width: 32
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 189
+        y: 79
+        width: 36
+        height: 23
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1bfa977d14c2c9760800000000000000
+      spriteID: 74aa480b1918f80498a7a78721e3d2d7
       internalID: 7465890943573012401
       vertices: []
       indices: 
@@ -171,19 +171,19 @@ TextureImporter:
       name: bathroom_object_2
       rect:
         serializedVersion: 2
-        x: 188
-        y: 78
-        width: 38
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 297
+        y: 87
+        width: 17
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 036e339cbf3944270800000000000000
+      spriteID: 6690241db292aac41bd22eb54a94311c
       internalID: 8233868728361805360
       vertices: []
       indices: 
@@ -193,19 +193,19 @@ TextureImporter:
       name: bathroom_object_3
       rect:
         serializedVersion: 2
-        x: 296
-        y: 86
-        width: 19
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 145
+        y: 60
+        width: 30
+        height: 26
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a29cf3f3dc8fe65f0800000000000000
+      spriteID: c91372037108f5441b8fa34d046e101a
       internalID: -761397726565906134
       vertices: []
       indices: 
@@ -215,19 +215,19 @@ TextureImporter:
       name: bathroom_object_4
       rect:
         serializedVersion: 2
-        x: 178
-        y: 33
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 198
+        y: 31
+        width: 18
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b05fe239e092c0b40800000000000000
+      spriteID: 0887af7405c67604e9838a06cb96a841
       internalID: 5407742395140732171
       vertices: []
       indices: 
@@ -237,19 +237,19 @@ TextureImporter:
       name: bathroom_object_5
       rect:
         serializedVersion: 2
-        x: 197
-        y: 30
-        width: 20
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 179
+        y: 34
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 27fea8ddd0196a2b0800000000000000
+      spriteID: 2821e854a00ffac468ca5a2764a82d1b
       internalID: -5573608000086937742
       vertices: []
       indices: 
@@ -259,19 +259,19 @@ TextureImporter:
       name: bathroom_object_6
       rect:
         serializedVersion: 2
-        x: 224
-        y: 42
-        width: 10
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 225
+        y: 43
+        width: 8
+        height: 13
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 31150165dd3334100800000000000000
+      spriteID: 33a382e37689de14a8c7063b00a99697
       internalID: 90973443202240787
       vertices: []
       indices: 
@@ -281,19 +281,19 @@ TextureImporter:
       name: bathroom_object_7
       rect:
         serializedVersion: 2
-        x: 242
-        y: 33
-        width: 14
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 243
+        y: 34
+        width: 12
+        height: 25
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: dc9024addbfdf9b60800000000000000
+      spriteID: 4342bc5cabb432c45b01ca4f874582c5
       internalID: 7755163089858857421
       vertices: []
       indices: 
@@ -303,19 +303,19 @@ TextureImporter:
       name: bathroom_object_8
       rect:
         serializedVersion: 2
-        x: 258
-        y: 33
-        width: 49
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 259
+        y: 34
+        width: 47
+        height: 25
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cf6640a732955b4f0800000000000000
+      spriteID: 027a025f1ca332e40ad4a1fe7b0ce688
       internalID: -813646148764670212
       vertices: []
       indices: 
@@ -325,7 +325,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8aca0f4e1519e8245984eb0babc12fa4
     internalID: 0
     vertices: []
     indices: 
@@ -333,7 +333,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       bathroom_object_0: -1149212629989643
       bathroom_object_1: 7465890943573012401

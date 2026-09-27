@@ -54,6 +54,9 @@ TagManager:
   - name: Character
     uniqueID: 2338249969
     locked: 0
+  - name: SuperFront
+    uniqueID: 3716444511
+    locked: 0
   - name: UI
     uniqueID: 2647377241
     locked: 0
