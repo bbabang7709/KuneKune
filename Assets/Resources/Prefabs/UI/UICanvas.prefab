@@ -752,7 +752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8715562771269598031
 RectTransform:
   m_ObjectHideFlags: 0
@@ -788,7 +788,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1731492482262100055}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -923,6 +923,7 @@ MonoBehaviour:
   illustrationImage: {fileID: 3185792848356609459}
   fadeCanvasGroup: {fileID: 6677943793316062310}
   gameplayUICanvasGroup: {fileID: 2758271556030230540}
+  startWithBlackScreen: 1
   letterboxTop: {fileID: 3010974432102872704}
   letterboxBottom: {fileID: 1400992425387380278}
   letterboxHeight: 100

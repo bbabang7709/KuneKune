@@ -78,6 +78,9 @@ public class UIManager : MonoBehaviour
     [Header("Screen Fade")]
     [SerializeField] private CanvasGroup fadeCanvasGroup;
     [SerializeField] private CanvasGroup gameplayUICanvasGroup;
+    [Tooltip("체크하면 씬이 암전된 화면으로 시작합니다.")]
+    [SerializeField] private bool startWithBlackScreen = true;
+
     private Coroutine _fadeCoroutine;
     private Coroutine _gameplayUIFadeCoroutine;
 
@@ -113,15 +116,14 @@ public class UIManager : MonoBehaviour
             dialogRoot.SetActive(false);
         if (illustrationRoot != null)
             illustrationRoot.SetActive(false);
-
         dialogText.text = string.Empty;
 
         // Fade CanvasGroup
         if (fadeCanvasGroup != null)
         {
-            fadeCanvasGroup.alpha = 0f;
-            fadeCanvasGroup.blocksRaycasts = false;
-            fadeCanvasGroup.gameObject.SetActive(false);            
+            fadeCanvasGroup.gameObject.SetActive(startWithBlackScreen);
+            fadeCanvasGroup.alpha = startWithBlackScreen ? 1f : 0f;
+            fadeCanvasGroup.blocksRaycasts = startWithBlackScreen;       
         }
 
         InitializeLetterbox();

@@ -66,6 +66,8 @@ public class SaveManager : MonoBehaviour
             return;
         }
 
+        if (IsLoading) return;
+
         Time.timeScale = 1f;
         StartCoroutine(LoadRoutine(skipFadeOut));
     }
@@ -82,8 +84,6 @@ public class SaveManager : MonoBehaviour
 
         if (!skipFadeOut && UIManager.Instance != null) yield return UIManager.Instance.FadeOut(1.0f);
 
-        // =====================================================================
-        // 💡 핵심 픽스: 씬이 로드되자마자 첫 프레임이 그려지기 전에 화면을 덮는 이벤트를 예약합니다.
         UnityEngine.Events.UnityAction<Scene, LoadSceneMode> onSceneLoaded = (scene, mode) => 
         {
             if (UIManager.Instance != null) 
@@ -95,52 +95,56 @@ public class SaveManager : MonoBehaviour
             if (ControlLockManager.Instance != null)
             {
                 ControlLockManager.Instance.ClearAllLocks();
-
                 ControlLockManager.Instance.AddInputLock(this);
                 ControlLockManager.Instance.AddMovementLock(this);
             }
         };
         SceneManager.sceneLoaded += onSceneLoaded;
-        // =====================================================================
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         yield return new WaitUntil(() => asyncLoad.isDone);
 
-        // =====================================================================
-        // 💡 화면을 덮었으므로 예약했던 이벤트를 안전하게 해제합니다.
         SceneManager.sceneLoaded -= onSceneLoaded;
-        // =====================================================================
 
         yield return null; 
         _saveableObjects.RemoveWhere(obj => obj == null || (obj as MonoBehaviour) == null);
 
-        string json = File.ReadAllText(SavePath);
-        _currentSaveData = JsonUtility.FromJson<SaveData>(json);
-
-        if (chapterDatabase != null)
+        try
         {
-            ChapterStartInfo info = chapterDatabase.GetChapterInfo(_currentSaveData.currentChapter);
-            if (MapManager.Instance != null) MapManager.Instance.InitMap(info.startMapType, info.startEntryPointID);
+            string json = File.ReadAllText(SavePath);
+            _currentSaveData = JsonUtility.FromJson<SaveData>(json);
+
+            if (chapterDatabase != null)
+            {
+                ChapterStartInfo info = chapterDatabase.GetChapterInfo(_currentSaveData.currentChapter);
+                if (MapManager.Instance != null) MapManager.Instance.InitMap(info.startMapType, info.startEntryPointID);
+            }
+
+            foreach (var obj in _saveableObjects)
+            {
+                obj.LoadState(_currentSaveData);
+            }
+        } 
+        catch (System.Exception e)
+        {
+            Debug.LogError($"[SaveManager] 세이브 로드 중 치명적 에러 발생!!!! 코루틴 즉사를 방지했습니다.\n {e}");
         }
 
-        foreach (var obj in _saveableObjects)
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        if (UIManager.Instance != null && UIManager.Instance.gameObject.activeInHierarchy) 
         {
-            obj.LoadState(_currentSaveData);
-        }
+            UIManager.Instance.StartCoroutine(UIManager.Instance.FadeIn(0.5f));
+            UIManager.Instance.StartCoroutine(UIManager.Instance.FadeInGameplayUI(0.5f));
 
-        yield return new WaitForSeconds(1.0f);
-
-        if (UIManager.Instance != null) 
-        {
-            yield return UIManager.Instance.FadeIn(0.5f);
-
-            yield return UIManager.Instance.FadeInGameplayUI(0.5f);
+            yield return new WaitForSecondsRealtime(1f);
         }
 
         if (ControlLockManager.Instance != null)
         {
             ControlLockManager.Instance.RemoveInputLock(this);
             ControlLockManager.Instance.RemoveMovementLock(this);
+            ControlLockManager.Instance.ClearAllLocks();
         }
         
         IsLoading = false;
