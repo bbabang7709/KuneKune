@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine;
 
@@ -19,6 +20,9 @@ public class StatuePuzzle : MonoBehaviour
     [Tooltip("퍼즐 해결 시 지급할 보상 아이템")]
     [SerializeField] private KeyItemData rewardItem;
     [SerializeField] private DialogData rewardDialog;
+    
+    [Tooltip("발자국 연출")]
+    [SerializeField] private FootprintSequence footprintSequence;
 
     private bool _isSolved = false;
 
@@ -63,21 +67,20 @@ public class StatuePuzzle : MonoBehaviour
         if (rewardItem != null && InventoryManager.Instance != null)
         {
             Debug.Log("퍼즐 해결!! 키 아이템 획득");
-            // InventoryManager.Instance.AddItem(rewardItem);
             DialogSystem.Instance.PlayDialog(solveDialog, () => GetReward());
         }
-
-        // TODO: 퍼즐 해결 연출
     }
 
     private void GetReward()
     {
+        InventoryManager.Instance.AddItem(rewardItem);
+
         if (DialogSystem.Instance != null)
         {
             DialogSystem.Instance.PlayIllustrationDialog(
                 rewardItem.Illustration, 
                 rewardDialog, 
-                () => InventoryManager.Instance.AddItem(rewardItem)
+                () => StartCoroutine(FinishPuzzleRoutine())
             );
         }
     }
@@ -91,5 +94,17 @@ public class StatuePuzzle : MonoBehaviour
                 setting.statue.OnRotated -= CheckPuzzleCompletion;
             }
         }
+    }
+
+    private IEnumerator FinishPuzzleRoutine()
+    {
+        yield return new WaitForSeconds(1f);
+
+        yield return LightingEventManager.Instance?.FlickerRoutine();
+        yield return new WaitForSeconds(1f);
+        LightingEventManager.Instance?.SetBlackout(0.1f, 0.5f);
+        yield return new WaitForSeconds(1f);
+
+        footprintSequence.PlayFootprintSequence();
     }
 }

@@ -1166,6 +1166,7 @@ MonoBehaviour:
   staminaGuage: {fileID: 0}
   heatGuage: {fileID: 0}
   heatGaugeEffect: {fileID: 0}
+  glitchUICanvas: {fileID: 0}
   playerMovement: {fileID: 0}
   playerInput: {fileID: 1861654988}
   dialogTextSystem: {fileID: 1025194091063911985}
@@ -1174,6 +1175,12 @@ MonoBehaviour:
   illustrationRoot: {fileID: 0}
   illustrationImage: {fileID: 0}
   fadeCanvasGroup: {fileID: 6399615313195662395}
+  gameplayUICanvasGroup: {fileID: 0}
+  startWithBlackScreen: 0
+  letterboxTop: {fileID: 0}
+  letterboxBottom: {fileID: 0}
+  letterboxHeight: 100
+  jumpscareRect: {fileID: 0}
 --- !u!4 &2585945589569024544
 Transform:
   m_ObjectHideFlags: 0
@@ -1701,7 +1708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogSystem
   playerInput: {fileID: 1861654988}
-  playerMovement: {fileID: 0}
   textSystem: {fileID: 1025194091063911985}
 --- !u!1 &6886349546721791022
 GameObject:
@@ -2103,8 +2109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapArea
-  _mapID: outside_busstop
-  _mapType: 0
+  mapType: 0
+  _areaCamera: {fileID: 0}
+  BgmID: 
+  IsInside: 1
   _kuneKune_ables: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
