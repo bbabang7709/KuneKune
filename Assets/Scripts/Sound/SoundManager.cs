@@ -99,6 +99,44 @@ public class SoundManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 특정 오브젝트가 따로 재생하고 멈출 수 있는 효과음 채널을 만듭니다.
+    /// </summary>
+    public AudioSource CreateSFXSource(Transform owner)
+    {
+        AudioSource source = owner.gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
+        source.spatialBlend = 0f;
+        source.dopplerLevel = 0f;
+        source.outputAudioMixerGroup = sfxMixerGroup;
+        return source;
+    }
+
+    /// <summary>
+    /// 지정한 채널에서 재생합니다. 같은 채널의 이전 효과음은 멈춥니다.
+    /// </summary>
+    public bool PlaySFXOnSource(AudioSource source, string sfxID, float volume = 1f, bool loop = false)
+    {
+        if (source == null)
+            return false;
+
+        source.Stop();
+        SoundData data = soundDatabase?.GetSFX(sfxID);
+        if (data == null || data.clip == null)
+        {
+            source.clip = null;
+            Debug.LogWarning($"[SoundManager] SFX '{sfxID}'를 찾을 수 없습니다.", this);
+            return false;
+        }
+
+        source.clip = data.clip;
+        source.volume = data.volume * Mathf.Clamp01(volume);
+        source.pitch = 1f;
+        source.loop = loop;
+        source.Play();
+        return true;
+    }
+
+    /// <summary>
     /// 반복 효과음을 준비합니다. 반환된 소리로 음량을 조절하고 사용이 끝나면 정지합니다.
     /// </summary>
     public AudioSource PlayLoopSFX(string sfxID)

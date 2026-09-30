@@ -34,42 +34,71 @@ public class KuneKuneHand : MonoBehaviour
     [SerializeField, Min(0f)] private float _intensity = 1f;
     [Tooltip("불이 안정적으로 켜져 있는 평균 시간입니다. 가끔 짧게 떨린 뒤 다시 안정됩니다.")]
     [SerializeField, Min(0.01f)] private float _lightOnSeconds = 1f;
-    [Tooltip("불이 떨릴 때 어두워지는 시간입니다. 대부분 완전히 꺼지지 않고 희미해집니다.")]
-    [SerializeField, Min(0.01f)] private float _lightOffSeconds = 0.08f;
 
-    private float _nextPushSoundTime;
-    private float _pushHoldRemaining;   // 손이 다시 내려오기 전까지 남은 대기시간
+    [Header("형광등 효과음")]
+    [Tooltip("평소 켜져 있을 때의 작은 웅웅거림입니다.")]
+    [SerializeField, Range(0f, 1f)] private float _lightHumVolume = 0.25f;
+    [Tooltip("켜짐, 깜빡임, 소등 효과음의 음량입니다.")]
+    [SerializeField, Range(0f, 1f)] private float _lightCueVolume = 0.4f;
 
-    private int _shakingDoorIndex = -1;
-    private float _shakeTimeRemaining;
-    private float _shakeDirection = 1f;
+    #region 형광등 효과음
+    /// <summary>
+    /// 평소 켜져 있을 때의 작은 웅웅거림
+    /// </summary>
+    private AudioSource _lightHumSource;
+    private float _lightHumBaseVolume;
+    /// <summary>
+    /// 켜짐, 깜빡임, 소등 효과음
+    /// </summary>
+    private AudioSource _lightEventSource;
+    /// <summary>
+    /// 형광등 소리 일시정지 여부를 확인합니다.
+    /// </summary>
+    private bool _lightAudioPaused;
+    /// <summary>
+    /// 블랙아웃 효과가 들어갔는지 확인합니다.
+    /// </summary>
+    private bool _isPlayingLightCue;
+    #endregion
+
+    private Light2D[] _lights = new Light2D[DoorCount];
+    private Coroutine _coFlicker = null;
 
     #region Door
     private List<int> _remainingDoors = new List<int>();
     private SpriteRenderer[] _doorSprites = new SpriteRenderer[DoorCount];
     private Collider2D[] _doorColliders = new Collider2D[DoorCount];
-    private Light2D[] _lights = new Light2D[DoorCount];
-    private Coroutine _coFlicker = null;
-    private bool _isInitialized;
+    
     private Vector3[] _originalPositions = new Vector3[DoorCount];
     private Vector3[] _originalSpriteMin = new Vector3[DoorCount];
     private Vector2[] _originalColliderOffsets = new Vector2[DoorCount];
+
+    private int _shakingDoorIndex = -1;
+    private float _shakeTimeRemaining;
+    private float _shakeDirection = 1f;
+
+    public int OpenedDoorCount { get; private set; } = 0;
+    public int CurrentDoorIndex { get; private set; } = -1;
     #endregion
 
     private float _handDepth;
+    private float _nextPushSoundTime;
+    private float _pushHoldRemaining;   // 손이 다시 내려오기 전까지 남은 대기시간
 
     private Collider2D _playerCollider;
 
     public bool IsPlaying { get; private set; } = false;
     public bool IsCleared { get; private set; } = false;
     public bool IsGameOver { get; private set; } = false;
-    public int OpenedDoorCount { get; private set; } = 0;
-    public int CurrentDoorIndex { get; private set; } = -1;
 
+    public bool IsPaused => Time.timeScale <= 0f || AudioListener.pause ||
+        (IsPlaying && ((ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked) ||
+            (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying)));
+    
     private void Start()
     {
         Init();
-        Play();
+        Play(); // TEST용도
     }
 
     private void Init()
@@ -135,13 +164,13 @@ public class KuneKuneHand : MonoBehaviour
                 _playerCollider = player.GetComponent<Collider2D>();
         }
 
-        _isInitialized = true;
+        StopFlicker();
     }
 
     public void Play()
     {
         // 진행 중이거나 이미 끝났다면 다시 시작하지 않습니다.
-        if (!_isInitialized || IsPlaying || IsCleared || IsGameOver)
+        if (IsPlaying || IsCleared || IsGameOver)
             return;
 
         _remainingDoors.Clear();
@@ -154,13 +183,17 @@ public class KuneKuneHand : MonoBehaviour
 
     private void Update()
     {
-        if (Time.deltaTime <= 0f)
+        // 대화나 컷신으로 조작할 수 없는 동안에는 손도 내려오지 않습니다.
+        SetLightAudioPaused(IsPaused);
+        if (IsPaused)
             return;
 
-        // 대화나 컷신으로 조작할 수 없는 동안에는 손도 내려오지 않습니다.
-        if ((ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked) ||
-            (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) || AudioListener.pause)
-            return;
+        // 웅웅거림은 불이 어두워지는 만큼 작아지고, 다시 밝아지면 원래 음량으로 돌아갑니다.
+        if (!_isPlayingLightCue && _lightHumSource != null && CurrentDoorIndex >= 0)
+        {
+            float brightness = _lights[CurrentDoorIndex].intensity / Mathf.Max(0.001f, _intensity);
+            _lightHumSource.volume = _lightHumBaseVolume * Mathf.Clamp01(brightness);
+        }
 
         // 마지막 문을 열었어도 남은 흔들림은 자연스럽게 끝냅니다.
         UpdateDoorShake();
@@ -180,7 +213,7 @@ public class KuneKuneHand : MonoBehaviour
             IsPlaying = false;
             IsGameOver = true;
 
-            StopFlicker();
+            StartBlackout();
             ResetDoorShake();
             StartCoroutine(GameOverSequence());
             return;
@@ -276,13 +309,10 @@ public class KuneKuneHand : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1.5f);
 
-        SaveManager.Instance?.Load(true);
-    }
+        if (_coFlicker != null)
+            yield return _coFlicker;
 
-    private void OnEnable()
-    {
-        if (_isInitialized && IsPlaying)
-            StartFlicker();
+        SaveManager.Instance?.Load(true);
     }
 
     private void OnDisable()
@@ -376,6 +406,22 @@ public class KuneKuneHand : MonoBehaviour
             return;
 
         light.enabled = true;
+        light.intensity = 0f;
+
+        // 형광등 소리 셋팅
+        if (SoundManager.Instance != null)
+        {
+            if (_lightHumSource == null)
+                _lightHumSource = SoundManager.Instance.CreateSFXSource(transform);
+            if (_lightEventSource == null)
+                _lightEventSource = SoundManager.Instance.CreateSFXSource(transform);
+
+            // 전등 자체의 웅웅거림 소리 셋팅
+            SoundManager.Instance.PlaySFXOnSource(_lightHumSource, "Fluorescent_Idle", _lightHumVolume, true);
+            _lightHumBaseVolume = _lightHumSource.volume;
+            _lightHumSource.Pause();
+        }
+
         _coFlicker = StartCoroutine(CoFlicker(CurrentDoorIndex));
     }
 
@@ -387,11 +433,17 @@ public class KuneKuneHand : MonoBehaviour
             _coFlicker = null;
         }
 
+        if (_lightHumSource != null)
+            _lightHumSource.Stop();
+        if (_lightEventSource != null)
+            _lightEventSource.Stop();
+
+        _isPlayingLightCue = false;
+        _lightAudioPaused = false;
+
         foreach (Light2D light in _lights)
-        {
             if (light != null)
                 light.enabled = false;
-        }
     }
 
     private IEnumerator CoFlicker(int index)
@@ -399,20 +451,24 @@ public class KuneKuneHand : MonoBehaviour
         Light2D light = _lights[index];
         float noiseOffset = Random.Range(0f, 100f);
         float noiseTime = 0f;
-        bool justTurnedOn = true;
 
         while (IsPlaying && CurrentDoorIndex == index && light != null)
         {
-            // 평소에는 거의 일정하게 켜져 있고, 밝기만 아주 조금 흔들립니다.
-            // 처음 켜졌을 때는 일찍 한 번 떨리고, 이후에는 긴 간격을 둡니다.
-            float steadyTime = justTurnedOn
-                ? Random.Range(0.4f, 1f)
-                : Mathf.Max(0.5f, _lightOnSeconds) * Random.Range(0.75f, 1.75f);
-            justTurnedOn = false;
-
             float elapsed = 0f;
+            float steadyTime = Mathf.Max(0.5f, _lightOnSeconds) * Random.Range(0.75f, 1.75f);
+
+            // 평소에는 거의 일정하게 켜져 있고, 밝기만 아주 조금 흔들립니다.
             while (elapsed < steadyTime && light != null)
             {
+                if (IsPaused)
+                {
+                    SetLightAudioPaused(true);
+                    yield return null;
+                    continue;
+                }
+
+                SetLightAudioPaused(false);
+
                 elapsed += Time.deltaTime;
                 noiseTime += Time.deltaTime;
             
@@ -424,22 +480,115 @@ public class KuneKuneHand : MonoBehaviour
             if (light == null)
                 break;
 
-            // 접촉이 불안정한 듯 한두 번 또는 세 번 연달아 떨립니다.
+            // 깜빡깜빡
             int flickerCount = Random.value < 0.3f ? 1 : Random.Range(2, 4);
             for (int i = 0; i < flickerCount && light != null; i++)
             {
+                // 깜빡이는 순간 짧은 전기 잡음을 더합니다. 같은 채널을 써서 소리가 겹쳐 쌓이지 않게 합니다.
+                SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Flicker", _lightCueVolume);
+                if (_lightEventSource != null)
+                    _lightEventSource.pitch = Random.Range(0.96f, 1.04f);
+
                 float dimRatio = Random.value < 0.12f ? 0f : Random.Range(0.2f, 0.65f);
                 yield return FadeLight(light, _intensity * dimRatio, Random.Range(0.015f, 0.035f));
-                yield return new WaitForSeconds(Mathf.Max(0.01f, _lightOffSeconds) * Random.Range(0.4f, 1.2f));
-
-                // 매번 똑같은 밝기로 번쩍이지 않고, 힘겹게 밝기를 되찾습니다.
+                yield return FadeLight(light, _intensity * dimRatio, Random.Range(0.03f, 0.1f));
                 yield return FadeLight(light, _intensity * Random.Range(0.78f, 0.98f), Random.Range(0.03f, 0.09f));
+
                 if (i < flickerCount - 1)
-                    yield return new WaitForSeconds(Random.Range(0.045f, 0.16f));
+                    yield return FadeLight(light, light.intensity, Random.Range(0.045f, 0.16f));
             }
 
             yield return FadeLight(light, _intensity * 0.97f, Random.Range(0.15f, 0.3f));
         }
+
+        if (light != null)
+            light.enabled = false;
+
+        _coFlicker = null;
+    }
+
+    /// <summary>
+    /// 일시정지했던 소리를 이어서 재생하거나 재생 중인 소리를 일시정지합니다.
+    /// </summary>
+    /// <param name="paused">true: 일시정지, false: 이어서 재생</param>
+    private void SetLightAudioPaused(bool paused)
+    {
+        // 중복 방지
+        if (_lightAudioPaused == paused)
+            return;
+
+        _lightAudioPaused = paused;
+        if (paused)
+        {
+            _lightHumSource?.Pause();
+            _lightEventSource?.Pause();
+        }
+        else
+        {
+            _lightEventSource?.UnPause();
+            if (_isPlayingLightCue == false)
+                _lightHumSource?.UnPause();
+        }
+    }
+
+    private void StartBlackout()
+    {
+        StopFlicker();
+        Light2D light = _lights[CurrentDoorIndex];
+        if (light == null)
+            return;
+
+        // 정상 진행 때 쓰던 채널이 없더라도 소등 효과음을 재생할 수 있게 준비합니다.
+        if (_lightEventSource == null && SoundManager.Instance != null)
+            _lightEventSource = SoundManager.Instance.CreateSFXSource(transform);
+        
+        light.enabled = true;
+        _coFlicker = StartCoroutine(CoBlackout(light));
+    }
+
+    private IEnumerator CoBlackout(Light2D light)
+    {
+        // 게임이 멈췄는지 확인
+        while (IsPaused)
+        {
+            SetLightAudioPaused(true);
+            yield return null;
+        }
+
+        _lightAudioPaused = false;
+        _lightHumSource?.Pause();   // 웅웅 소리 멈춤
+
+        _isPlayingLightCue = true;
+        bool hasSound = SoundManager.Instance != null &&
+            SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Blackout", _lightCueVolume);
+
+        float initialIntensity = light.intensity;
+        float elapsed = 0f;
+        float seconds = hasSound ? _lightEventSource.clip.length : 1.2f;
+        while (elapsed < seconds && light != null)
+        {
+            if (IsPaused)
+            {
+                SetLightAudioPaused(true);
+                yield return null;
+                continue;
+            }
+
+            SetLightAudioPaused(false);
+
+            // 화면 그리기가 늦어져도 음원의 현재 재생 위치에 밝기를 맞춥니다.
+            elapsed = hasSound
+                ? (_lightEventSource.isPlaying ? _lightEventSource.time : seconds)
+                : elapsed + Time.deltaTime;
+            light.intensity = Mathf.Lerp(initialIntensity, 0f, Mathf.Clamp01(elapsed / seconds));
+            yield return null;
+        }
+
+        if (light != null)
+            light.intensity = 0f;
+
+        _lightEventSource?.Stop();
+        _isPlayingLightCue = false;
 
         if (light != null)
             light.enabled = false;
@@ -455,6 +604,15 @@ public class KuneKuneHand : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < seconds && light != null)
         {
+            if (IsPaused)
+            {
+                SetLightAudioPaused(true);
+                yield return null;
+                continue;
+            }
+
+            SetLightAudioPaused(false);
+
             elapsed += Time.deltaTime;
             float progress = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / seconds));
             light.intensity = Mathf.Lerp(initial, intensity, progress);
