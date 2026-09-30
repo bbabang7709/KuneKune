@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -90,6 +91,9 @@ public class KuneKuneHand : MonoBehaviour
     private float _nextPushSoundTime;
     private float _pushHoldRemaining;   // 손이 다시 내려오기 전까지 남은 대기시간
 
+    private Light2D _globalLight;
+
+    private Collider2D _collider;
     private Collider2D _playerCollider;
 
     public bool IsPlaying { get; private set; } = false;
@@ -162,12 +166,17 @@ public class KuneKuneHand : MonoBehaviour
             _originalColliderOffsets[i] = _doorColliders[i].offset;
         }
 
-        if (_playerCollider == null)
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-                _playerCollider = player.GetComponent<Collider2D>();
-        }
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            _playerCollider = player.GetComponent<Collider2D>();
+
+        _collider = transform.GetComponent<Collider2D>();
+        _collider.isTrigger = true;
+        _collider.excludeLayers = ~LayerMask.GetMask("Player");
+        _collider.enabled = false;
+
+        _globalLight = FindObjectsByType<Light2D>(FindObjectsSortMode.None)
+        .FirstOrDefault(light => light.lightType == Light2D.LightType.Global);
 
         if (_handScratchSource == null)
             _handScratchSource = SoundManager.Instance.CreateSFXSource(transform);
@@ -184,6 +193,9 @@ public class KuneKuneHand : MonoBehaviour
         // 진행 중이거나 이미 끝났다면 다시 시작하지 않습니다.
         if (IsPlaying || IsCleared || IsGameOver)
             return;
+
+        _collider.enabled = false;
+        _globalLight.color = new Color32(19, 12, 12, 255);
 
         _remainingDoors.Clear();
         for (int i = 0; i < DoorCount; i++)
@@ -302,6 +314,8 @@ public class KuneKuneHand : MonoBehaviour
         CurrentDoorIndex = -1;
 
         // TODO: 문을 모두 열었을 때의 이벤트 처리 => 인형의 오른팔과 교실 열쇠 획득
+
+        _collider.enabled = true;
     }
 
     private IEnumerator GameOverSequence()
@@ -642,5 +656,18 @@ public class KuneKuneHand : MonoBehaviour
 
         if (light != null)
             light.intensity = intensity;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (IsCleared)
+        {
+            // 5개의 문이 쾅 닫힘
+            for (int i = 0; i < DoorCount; ++i)
+                SetSprite(i, _closedDoorSprite);
+
+            SoundManager.Instance?.PlaySFX("StallDoor_Open", 8f);  // 기본 음량의 8배로 재생합니다.
+            _collider.enabled = false;
+        }
     }
 }

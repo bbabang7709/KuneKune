@@ -71,12 +71,12 @@ public class SoundManager : MonoBehaviour
         _footstepSource.playOnAwake = false;
     }
 
-    public void PlaySFX(string sfxID)
+    public void PlaySFX(string sfxID, float volumeMultiplier = 1f)
     {
         SoundData data = soundDatabase?.GetSFX(sfxID);
         if (data != null && data.clip != null)
         {
-            _sfxSource.PlayOneShot(data.clip, data.volume);
+            _sfxSource.PlayOneShot(data.clip, data.volume * Mathf.Max(0f, volumeMultiplier));
         }
         else
         {
