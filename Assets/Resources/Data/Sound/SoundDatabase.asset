@@ -61,10 +61,10 @@ MonoBehaviour:
     volume: 0.6
   - soundID: Fluorescent_Idle
     clip: {fileID: 8300000, guid: a216e433bbf24e5fa7acfbb234800601, type: 3}
-    volume: 0.3
+    volume: 0.9
   - soundID: Fluorescent_Blackout
     clip: {fileID: 8300000, guid: a216e433bbf24e5fa7acfbb234800605, type: 3}
-    volume: 0.3
+    volume: 0.8
   - soundID: Fluorescent_Flicker
     clip: {fileID: 8300000, guid: a216e433bbf24e5fa7acfbb234800607, type: 3}
-    volume: 0.2
+    volume: 0.4

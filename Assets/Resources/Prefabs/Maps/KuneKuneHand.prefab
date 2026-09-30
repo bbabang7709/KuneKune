@@ -1180,7 +1180,8 @@ MonoBehaviour:
   _shakeSeconds: 0.18
   _shakeDistance: 0.045
   _pushLiftDistance: 0.06
+  _handScratchVolume: 0.7
   _intensity: 1
   _lightOnSeconds: 1
-  _lightHumVolume: 0.25
+  _lightHumVolume: 0.6
   _lightCueVolume: 0.4
