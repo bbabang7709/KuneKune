@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class KuneKuneHand : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class KuneKuneHand : MonoBehaviour
 
     [Header("손을 밀어 올리는 난이도")]
     [Tooltip("손이 완전히 내려오는 데 걸리는 시간입니다.")]
-    [SerializeField, Min(0.1f)] private float _secondsToFullyLower = 3f;
+    [SerializeField, Min(0.1f)] private float _secondsToFullyLower = 4f;
     [Tooltip("한 번 누를 때 밀어 올리는 양입니다.")]
     [SerializeField, Range(0.01f, 1f)] private float _pushPerPress = 0.1f;
 
@@ -30,6 +30,13 @@ public class KuneKuneHand : MonoBehaviour
     [Tooltip("누르는 순간 문이 위로 들리는 거리입니다.")]
     [SerializeField, Min(0f)] private float _pushLiftDistance = 0.06f;
 
+    [Header("선택된 문의 전등")]
+    [SerializeField, Min(0f)] private float _intensity = 1f;
+    [Tooltip("불이 안정적으로 켜져 있는 평균 시간입니다. 가끔 짧게 떨린 뒤 다시 안정됩니다.")]
+    [SerializeField, Min(0.01f)] private float _lightOnSeconds = 1f;
+    [Tooltip("불이 떨릴 때 어두워지는 시간입니다. 대부분 완전히 꺼지지 않고 희미해집니다.")]
+    [SerializeField, Min(0.01f)] private float _lightOffSeconds = 0.08f;
+
     private float _nextPushSoundTime;
     private float _pushHoldRemaining;   // 손이 다시 내려오기 전까지 남은 대기시간
 
@@ -41,6 +48,9 @@ public class KuneKuneHand : MonoBehaviour
     private List<int> _remainingDoors = new List<int>();
     private SpriteRenderer[] _doorSprites = new SpriteRenderer[DoorCount];
     private Collider2D[] _doorColliders = new Collider2D[DoorCount];
+    private Light2D[] _lights = new Light2D[DoorCount];
+    private Coroutine _coFlicker = null;
+    private bool _isInitialized;
     private Vector3[] _originalPositions = new Vector3[DoorCount];
     private Vector3[] _originalSpriteMin = new Vector3[DoorCount];
     private Vector2[] _originalColliderOffsets = new Vector2[DoorCount];
@@ -64,27 +74,54 @@ public class KuneKuneHand : MonoBehaviour
 
     private void Init()
     {
+        if (transform.childCount < DoorCount)
+        {
+            Debug.LogError("KuneKuneHand의 자식으로 문 5개를 배치해주세요.", this);
+            return;
+        }
+
         for (int i = 0; i < DoorCount; i++)
         {
             Transform door = transform.GetChild(i);
             if (door == null)
             {
                 Debug.LogWarning($"문 {i}이 존재하지 않습니다. KuneKuneHand 오브젝트의 자식으로 5개의 문을 배치해야 합니다.", this);
-                continue;
+                return;
             }
 
-            if (door.TryGetComponent(out _doorSprites[i]) == false || _doorSprites[i].sprite == null ||
-                door.TryGetComponent(out _doorColliders[i]) == false)
-            {
-                _doorSprites[i] = door.AddComponent<SpriteRenderer>();
+            if (door.TryGetComponent(out _doorSprites[i]) == false)
+                _doorSprites[i] = door.gameObject.AddComponent<SpriteRenderer>();
+            if (_doorSprites[i].sprite == null)
                 _doorSprites[i].sprite = _closedDoorSprite;
-                _doorColliders[i] = door.AddComponent<BoxCollider2D>();
+            if (_doorSprites[i].sprite == null)
+            {
+                Debug.LogError($"문 {i}의 닫힌 문 이미지를 지정해주세요.", this);
+                return;
+            }
+            if (door.TryGetComponent(out _doorColliders[i]) == false)
+                _doorColliders[i] = door.gameObject.AddComponent<BoxCollider2D>();
+
+            _lights[i] = door.GetComponentInChildren<Light2D>(true);
+            if (_lights[i] == null)
+            {
+                GameObject lightObj = new GameObject("Light");
+                lightObj.transform.SetParent(door, false);
+                _lights[i] = lightObj.AddComponent<Light2D>();
+                _lights[i].lightType = Light2D.LightType.Point;
             }
 
             _doorSprites[i].sortingLayerName = "Middleground";
             _doorSprites[i].sortingOrder = 1;
             _doorColliders[i].isTrigger = true;
             _doorColliders[i].excludeLayers = ~LayerMask.GetMask("Player");
+
+            _lights[i].intensity = 0f;  // 처음에는 꺼져 있음
+            _lights[i].color = Color.white;
+            _lights[i].pointLightInnerRadius = 0f;
+            _lights[i].pointLightOuterRadius = 5f;
+            _lights[i].falloffIntensity = 0.7f;
+            _lights[i].shadowsEnabled = false;
+            _lights[i].transform.localPosition = new Vector3(1.15f, 3.51f, 0f);
 
             _originalPositions[i] = door.localPosition;
             _originalSpriteMin[i] = _doorSprites[i].sprite.bounds.min;
@@ -97,12 +134,14 @@ public class KuneKuneHand : MonoBehaviour
             if (player != null)
                 _playerCollider = player.GetComponent<Collider2D>();
         }
+
+        _isInitialized = true;
     }
 
     public void Play()
     {
         // 진행 중이거나 이미 끝났다면 다시 시작하지 않습니다.
-        if (IsPlaying || IsCleared || IsGameOver)
+        if (!_isInitialized || IsPlaying || IsCleared || IsGameOver)
             return;
 
         _remainingDoors.Clear();
@@ -141,6 +180,7 @@ public class KuneKuneHand : MonoBehaviour
             IsPlaying = false;
             IsGameOver = true;
 
+            StopFlicker();
             ResetDoorShake();
             StartCoroutine(GameOverSequence());
             return;
@@ -183,6 +223,7 @@ public class KuneKuneHand : MonoBehaviour
         _handDepth = 0.1f;  // 처음 손 위치
         _pushHoldRemaining = 0f;
         UpdateSprite();
+        StartFlicker();
     }
 
     private void UpdateSprite()
@@ -195,6 +236,9 @@ public class KuneKuneHand : MonoBehaviour
 
     private void OpenCurrentDoor()
     {
+        SoundManager.Instance?.PlaySFX("StallDoor_Open");
+
+        StopFlicker();
         SetSprite(CurrentDoorIndex, _openedDoorSprite);
         OpenedDoorCount++;
 
@@ -235,8 +279,15 @@ public class KuneKuneHand : MonoBehaviour
         SaveManager.Instance?.Load(true);
     }
 
+    private void OnEnable()
+    {
+        if (_isInitialized && IsPlaying)
+            StartFlicker();
+    }
+
     private void OnDisable()
     {
+        StopFlicker();
         ResetDoorShake();
         StopAllCoroutines();
         ControlLockManager.Instance?.RemoveInputLock(this);
@@ -312,5 +363,105 @@ public class KuneKuneHand : MonoBehaviour
         
         // 그림만 흔들고, 플레이어가 문 앞에 있는지 확인하는 범위는 고정합니다.
         _doorColliders[index].offset = _originalColliderOffsets[index] - (Vector2)visualOffset;
+    }
+
+    private void StartFlicker()
+    {
+        StopFlicker();
+        if (!isActiveAndEnabled || !IsPlaying || CurrentDoorIndex < 0)
+            return;
+
+        Light2D light = _lights[CurrentDoorIndex];
+        if (light == null)
+            return;
+
+        light.enabled = true;
+        _coFlicker = StartCoroutine(CoFlicker(CurrentDoorIndex));
+    }
+
+    private void StopFlicker()
+    {
+        if (_coFlicker != null)
+        {
+            StopCoroutine(_coFlicker);
+            _coFlicker = null;
+        }
+
+        foreach (Light2D light in _lights)
+        {
+            if (light != null)
+                light.enabled = false;
+        }
+    }
+
+    private IEnumerator CoFlicker(int index)
+    {
+        Light2D light = _lights[index];
+        float noiseOffset = Random.Range(0f, 100f);
+        float noiseTime = 0f;
+        bool justTurnedOn = true;
+
+        while (IsPlaying && CurrentDoorIndex == index && light != null)
+        {
+            // 평소에는 거의 일정하게 켜져 있고, 밝기만 아주 조금 흔들립니다.
+            // 처음 켜졌을 때는 일찍 한 번 떨리고, 이후에는 긴 간격을 둡니다.
+            float steadyTime = justTurnedOn
+                ? Random.Range(0.4f, 1f)
+                : Mathf.Max(0.5f, _lightOnSeconds) * Random.Range(0.75f, 1.75f);
+            justTurnedOn = false;
+
+            float elapsed = 0f;
+            while (elapsed < steadyTime && light != null)
+            {
+                elapsed += Time.deltaTime;
+                noiseTime += Time.deltaTime;
+            
+                float noise = Mathf.PerlinNoise(noiseOffset, noiseTime * 1.7f);
+                light.intensity = _intensity * Mathf.Lerp(0.94f, 1f, noise);
+                yield return null;
+            }
+
+            if (light == null)
+                break;
+
+            // 접촉이 불안정한 듯 한두 번 또는 세 번 연달아 떨립니다.
+            int flickerCount = Random.value < 0.3f ? 1 : Random.Range(2, 4);
+            for (int i = 0; i < flickerCount && light != null; i++)
+            {
+                float dimRatio = Random.value < 0.12f ? 0f : Random.Range(0.2f, 0.65f);
+                yield return FadeLight(light, _intensity * dimRatio, Random.Range(0.015f, 0.035f));
+                yield return new WaitForSeconds(Mathf.Max(0.01f, _lightOffSeconds) * Random.Range(0.4f, 1.2f));
+
+                // 매번 똑같은 밝기로 번쩍이지 않고, 힘겹게 밝기를 되찾습니다.
+                yield return FadeLight(light, _intensity * Random.Range(0.78f, 0.98f), Random.Range(0.03f, 0.09f));
+                if (i < flickerCount - 1)
+                    yield return new WaitForSeconds(Random.Range(0.045f, 0.16f));
+            }
+
+            yield return FadeLight(light, _intensity * 0.97f, Random.Range(0.15f, 0.3f));
+        }
+
+        if (light != null)
+            light.enabled = false;
+        _coFlicker = null;
+    }
+
+    private IEnumerator FadeLight(Light2D light, float intensity, float seconds)
+    {
+        if (light == null)
+            yield break;
+
+        float initial = light.intensity;
+        float elapsed = 0f;
+        while (elapsed < seconds && light != null)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / seconds));
+            light.intensity = Mathf.Lerp(initial, intensity, progress);
+            yield return null;
+        }
+
+        if (light != null)
+            light.intensity = intensity;
     }
 }

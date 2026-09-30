@@ -53,3 +53,6 @@ MonoBehaviour:
   - soundID: DoorPush
     clip: {fileID: 8300000, guid: cb4cc9e5f375450b85d4f9fa71e023b3, type: 3}
     volume: 0.6
+  - soundID: StallDoor_Open
+    clip: {fileID: 8300000, guid: 1a4b724698f96d440bd4970570c2e08d, type: 3}
+    volume: 0.2
