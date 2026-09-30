@@ -33,7 +33,7 @@ public class KunekuneHead : MonoBehaviour, IInteractable
         {
             bool dialogFinished = false;
 
-            DialogSystem.Instance.PlayIllustrationDialog(
+            DialogSystem.Instance.PlayFullScreenImageDialog(
                 jumpScareIllustration, 
                 null, 
                 () => dialogFinished = true

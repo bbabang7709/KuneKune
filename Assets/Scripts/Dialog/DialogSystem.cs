@@ -112,13 +112,13 @@ public class DialogSystem : MonoBehaviour
         callback?.Invoke();
     }
 
-    public void PlayIllustrationDialog(Sprite image, DialogData dialog, System.Action onFinished)
+    public void PlayFullScreenImageDialog(Sprite image, DialogData dialog, System.Action onFinished)
     {
         if (IsDialogPlaying) return;
-        _activeDialogRoutine = StartCoroutine(PlayIllustrationDialogRoutine(image, dialog, onFinished));
+        _activeDialogRoutine = StartCoroutine(PlayFullScreenImageDialogRoutine(image, dialog, onFinished));
     }
 
-    private IEnumerator PlayIllustrationDialogRoutine(Sprite image, DialogData dialog, System.Action onFinished)
+    private IEnumerator PlayFullScreenImageDialogRoutine(Sprite image, DialogData dialog, Action onFinished)
     {
         IsDialogPlaying = true;
         yield return null;
@@ -129,7 +129,7 @@ public class DialogSystem : MonoBehaviour
             ControlLockManager.Instance.AddInputLock(this);
         }
 
-        UIManager.Instance.OpenIllustration(image);
+        UIManager.Instance.OpenFullScreenImage(image);
 
         if (dialog != null && dialog.lines != null && dialog.lines.Length > 0)
         {
@@ -148,7 +148,56 @@ public class DialogSystem : MonoBehaviour
             yield return WaitForAdvanceInput();
         }
 
-        UIManager.Instance?.CloseIllustration();
+        UIManager.Instance?.CloseFullScreenImage();
+        UIManager.Instance?.CloseDialog();
+
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.RemoveMovementLock(this);
+            ControlLockManager.Instance.RemoveInputLock(this);
+        }
+
+        IsDialogPlaying = false;
+        onFinished?.Invoke();
+    }
+
+    public void PlayItemDialog(Sprite image, DialogData dialog, System.Action onFinished)
+    {
+        if (IsDialogPlaying) return;
+        _activeDialogRoutine = StartCoroutine(PlayItemDialogRoutine(image, dialog, onFinished));
+    }
+
+    private IEnumerator PlayItemDialogRoutine(Sprite image, DialogData dialog, Action onFinished)
+    {
+        IsDialogPlaying = true;
+        yield return null;
+
+        if (ControlLockManager.Instance != null)
+        {
+            ControlLockManager.Instance.AddMovementLock(this);
+            ControlLockManager.Instance.AddInputLock(this);
+        }
+
+        UIManager.Instance.OpenItemImage(image);
+
+        if (dialog != null && dialog.lines != null && dialog.lines.Length > 0)
+        {
+            UIManager.Instance?.OpenDialog();
+
+            foreach (string line in dialog.lines)
+            {
+                if (string.IsNullOrEmpty(line)) continue;
+
+                yield return StartCoroutine(textSystem.TypeText(line));
+                yield return WaitForAdvanceInput();
+            }
+        }
+        else
+        {
+            yield return WaitForAdvanceInput();
+        }
+
+        UIManager.Instance?.CloseItemImage();
         UIManager.Instance?.CloseDialog();
 
         if (ControlLockManager.Instance != null)

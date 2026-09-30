@@ -77,7 +77,7 @@ public class StatuePuzzle : MonoBehaviour
 
         if (DialogSystem.Instance != null)
         {
-            DialogSystem.Instance.PlayIllustrationDialog(
+            DialogSystem.Instance.PlayItemDialog(
                 rewardItem.Illustration, 
                 rewardDialog, 
                 () => StartCoroutine(FinishPuzzleRoutine())

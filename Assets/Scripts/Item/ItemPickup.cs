@@ -116,7 +116,7 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
 
         anim?.SetTrigger("Collect");
 
-        DialogSystem.Instance.PlayIllustrationDialog(
+        DialogSystem.Instance.PlayItemDialog(
             itemData.Illustration,
             acquireDialog,
             OnIllustrationFinished
