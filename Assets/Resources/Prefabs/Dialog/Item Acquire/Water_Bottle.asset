@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
-  m_Name: House_key
+  m_Name: Water_Bottle
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "\uB0B4 \uBC29 \uC5F4\uC1E0\uB97C \uD68D\uB4DD\uD588\uB2E4."
+  - "<color=blue>\uC2DC\uC6D0\uD55C \uBB3C\uBCD1</color>\uC744 \uD68D\uB4DD\uD588\uB2E4."
+  - "\uC0AC\uC6A9\uD558\uBA74 \uC870\uAE08 \uC2DC\uC6D0\uD574\uC9C8 \uAC83 \uAC19\uB2E4."

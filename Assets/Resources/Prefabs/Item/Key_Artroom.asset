@@ -17,7 +17,7 @@ MonoBehaviour:
   itemName: "\uBBF8\uC220\uC2E4 \uC5F4\uC1E0"
   description: "\uBBF8\uC220\uC2E4 \uC5F4\uC1E0\uC774\uB2E4. "
   itemCount: 1
-  illustration: {fileID: 1095141833252711340, guid: 456a4ad8fa872bc40be5931fcd7fe7d9, type: 3}
+  illustration: {fileID: 5884227263795012068, guid: 17fdb4791e3c27246a9c7be3f21ce45b, type: 3}
   icon: {fileID: 5884227263795012068, guid: 17fdb4791e3c27246a9c7be3f21ce45b, type: 3}
   keyAcquiredNormal: {fileID: 5884227263795012068, guid: 17fdb4791e3c27246a9c7be3f21ce45b, type: 3}
   keyAcquiredSelected: {fileID: 1343143017799462882, guid: 97885be055a6c5645842dba05f06cc3f, type: 3}
