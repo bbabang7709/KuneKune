@@ -30,6 +30,11 @@ public class KuneKuneHand : MonoBehaviour
     [Tooltip("누르는 순간 문이 위로 들리는 거리입니다.")]
     [SerializeField, Min(0f)] private float _pushLiftDistance = 0.06f;
 
+    [Header("손이 문을 긁는 효과음")]
+    [Tooltip("손이 나타나 있는 동안 반복되는 긁는 소리의 음량입니다.")]
+    [SerializeField, Range(0f, 1f)] private float _handScratchVolume = 0.7f;
+    private AudioSource _handScratchSource;
+
     [Header("선택된 문의 전등")]
     [SerializeField, Min(0f)] private float _intensity = 1f;
     [Tooltip("불이 안정적으로 켜져 있는 평균 시간입니다. 가끔 짧게 떨린 뒤 다시 안정됩니다.")]
@@ -52,9 +57,9 @@ public class KuneKuneHand : MonoBehaviour
     /// </summary>
     private AudioSource _lightEventSource;
     /// <summary>
-    /// 형광등 소리 일시정지 여부를 확인합니다.
+    /// 손과 형광등 소리를 일시정지했는지 기억합니다.
     /// </summary>
-    private bool _lightAudioPaused;
+    private bool _audioPaused;
     /// <summary>
     /// 블랙아웃 효과가 들어갔는지 확인합니다.
     /// </summary>
@@ -164,6 +169,13 @@ public class KuneKuneHand : MonoBehaviour
                 _playerCollider = player.GetComponent<Collider2D>();
         }
 
+        if (_handScratchSource == null)
+            _handScratchSource = SoundManager.Instance.CreateSFXSource(transform);
+
+        // 새 문에서 손이 나타날 때마다 처음부터 반복 재생합니다.
+        SoundManager.Instance.PlaySFXOnSource(_handScratchSource, "KuneKuneHand_Scratch", _handScratchVolume, true);
+        _handScratchSource.Stop();
+
         StopFlicker();
     }
 
@@ -184,7 +196,7 @@ public class KuneKuneHand : MonoBehaviour
     private void Update()
     {
         // 대화나 컷신으로 조작할 수 없는 동안에는 손도 내려오지 않습니다.
-        SetLightAudioPaused(IsPaused);
+        SetAudioPaused(IsPaused);
         if (IsPaused)
             return;
 
@@ -213,6 +225,7 @@ public class KuneKuneHand : MonoBehaviour
             IsPlaying = false;
             IsGameOver = true;
 
+            _handScratchSource?.Stop();
             StartBlackout();
             ResetDoorShake();
             StartCoroutine(GameOverSequence());
@@ -257,6 +270,7 @@ public class KuneKuneHand : MonoBehaviour
         _pushHoldRemaining = 0f;
         UpdateSprite();
         StartFlicker();
+        _handScratchSource?.Play();
     }
 
     private void UpdateSprite()
@@ -269,6 +283,7 @@ public class KuneKuneHand : MonoBehaviour
 
     private void OpenCurrentDoor()
     {
+        _handScratchSource?.Stop();
         SoundManager.Instance?.PlaySFX("StallDoor_Open");
 
         StopFlicker();
@@ -317,6 +332,7 @@ public class KuneKuneHand : MonoBehaviour
 
     private void OnDisable()
     {
+        _handScratchSource?.Stop();
         StopFlicker();
         ResetDoorShake();
         StopAllCoroutines();
@@ -439,7 +455,7 @@ public class KuneKuneHand : MonoBehaviour
             _lightEventSource.Stop();
 
         _isPlayingLightCue = false;
-        _lightAudioPaused = false;
+        _audioPaused = false;
 
         foreach (Light2D light in _lights)
             if (light != null)
@@ -462,12 +478,12 @@ public class KuneKuneHand : MonoBehaviour
             {
                 if (IsPaused)
                 {
-                    SetLightAudioPaused(true);
+                    SetAudioPaused(true);
                     yield return null;
                     continue;
                 }
 
-                SetLightAudioPaused(false);
+                SetAudioPaused(false);
 
                 elapsed += Time.deltaTime;
                 noiseTime += Time.deltaTime;
@@ -511,13 +527,18 @@ public class KuneKuneHand : MonoBehaviour
     /// 일시정지했던 소리를 이어서 재생하거나 재생 중인 소리를 일시정지합니다.
     /// </summary>
     /// <param name="paused">true: 일시정지, false: 이어서 재생</param>
-    private void SetLightAudioPaused(bool paused)
+    private void SetAudioPaused(bool paused)
     {
         // 중복 방지
-        if (_lightAudioPaused == paused)
+        if (_audioPaused == paused)
             return;
 
-        _lightAudioPaused = paused;
+        if (IsPaused)
+            _handScratchSource?.Pause();
+        else
+            _handScratchSource?.UnPause();
+
+        _audioPaused = paused;
         if (paused)
         {
             _lightHumSource?.Pause();
@@ -551,11 +572,11 @@ public class KuneKuneHand : MonoBehaviour
         // 게임이 멈췄는지 확인
         while (IsPaused)
         {
-            SetLightAudioPaused(true);
+            SetAudioPaused(true);
             yield return null;
         }
 
-        _lightAudioPaused = false;
+        _audioPaused = false;
         _lightHumSource?.Pause();   // 웅웅 소리 멈춤
 
         _isPlayingLightCue = true;
@@ -569,12 +590,12 @@ public class KuneKuneHand : MonoBehaviour
         {
             if (IsPaused)
             {
-                SetLightAudioPaused(true);
+                SetAudioPaused(true);
                 yield return null;
                 continue;
             }
 
-            SetLightAudioPaused(false);
+            SetAudioPaused(false);
 
             // 화면 그리기가 늦어져도 음원의 현재 재생 위치에 밝기를 맞춥니다.
             elapsed = hasSound
@@ -606,12 +627,12 @@ public class KuneKuneHand : MonoBehaviour
         {
             if (IsPaused)
             {
-                SetLightAudioPaused(true);
+                SetAudioPaused(true);
                 yield return null;
                 continue;
             }
 
-            SetLightAudioPaused(false);
+            SetAudioPaused(false);
 
             elapsed += Time.deltaTime;
             float progress = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / seconds));

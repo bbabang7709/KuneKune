@@ -56,6 +56,9 @@ MonoBehaviour:
   - soundID: StallDoor_Open
     clip: {fileID: 8300000, guid: 1a4b724698f96d440bd4970570c2e08d, type: 3}
     volume: 0.2
+  - soundID: KuneKuneHand_Scratch
+    clip: {fileID: 8300000, guid: 73914b0f12154d9291bcc4e3c76e0f48, type: 3}
+    volume: 0.6
   - soundID: Fluorescent_Idle
     clip: {fileID: 8300000, guid: a216e433bbf24e5fa7acfbb234800601, type: 3}
     volume: 0.3
