@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,7 @@ public class KuneKuneHand : MonoBehaviour
     [Tooltip("손이 가장 적게 나온 이미지부터 가장 많이 나온 이미지 순서입니다.")]
     [SerializeField] private Sprite[] _handSprites;
     [SerializeField] private Sprite _openedDoorSprite;
+    [SerializeField] private Sprite _closedDoorSprite;
 
     [Header("손을 밀어 올리는 난이도")]
     [Tooltip("손이 완전히 내려오는 데 걸리는 시간입니다.")]
@@ -37,7 +39,7 @@ public class KuneKuneHand : MonoBehaviour
 
     #region Door
     private List<int> _remainingDoors = new List<int>();
-    private SpriteRenderer[] _doors = new SpriteRenderer[DoorCount];
+    private SpriteRenderer[] _doorSprites = new SpriteRenderer[DoorCount];
     private Collider2D[] _doorColliders = new Collider2D[DoorCount];
     private Vector3[] _originalPositions = new Vector3[DoorCount];
     private Vector3[] _originalSpriteMin = new Vector3[DoorCount];
@@ -64,16 +66,28 @@ public class KuneKuneHand : MonoBehaviour
     {
         for (int i = 0; i < DoorCount; i++)
         {
-            Transform door = transform.Find($"Door_{i}");
-            if (door == null || door.TryGetComponent(out _doors[i]) == false || 
-                door.TryGetComponent(out _doorColliders[i]) == false || _doors[i].sprite == null)
+            Transform door = transform.GetChild(i);
+            if (door == null)
             {
-                Debug.LogError($"Door_{i}의 SpriteRenderer, Sprite, Collider2D를 확인해주세요.", this);
-                return;
+                Debug.LogWarning($"문 {i}이 존재하지 않습니다. KuneKuneHand 오브젝트의 자식으로 5개의 문을 배치해야 합니다.", this);
+                continue;
             }
 
+            if (door.TryGetComponent(out _doorSprites[i]) == false || _doorSprites[i].sprite == null ||
+                door.TryGetComponent(out _doorColliders[i]) == false)
+            {
+                _doorSprites[i] = door.AddComponent<SpriteRenderer>();
+                _doorSprites[i].sprite = _closedDoorSprite;
+                _doorColliders[i] = door.AddComponent<BoxCollider2D>();
+            }
+
+            _doorSprites[i].sortingLayerName = "Middleground";
+            _doorSprites[i].sortingOrder = 1;
+            _doorColliders[i].isTrigger = true;
+            _doorColliders[i].excludeLayers = ~LayerMask.GetMask("Player");
+
             _originalPositions[i] = door.localPosition;
-            _originalSpriteMin[i] = _doors[i].sprite.bounds.min;
+            _originalSpriteMin[i] = _doorSprites[i].sprite.bounds.min;
             _originalColliderOffsets[i] = _doorColliders[i].offset;
         }
 
@@ -241,7 +255,7 @@ public class KuneKuneHand : MonoBehaviour
 
     private void SetSprite(int index, Sprite sprite)
     {
-        SpriteRenderer door = _doors[index];
+        SpriteRenderer door = _doorSprites[index];
         door.sprite = sprite;
         ApplyDoorPose(index);
     }
@@ -272,13 +286,13 @@ public class KuneKuneHand : MonoBehaviour
         int previousDoor = _shakingDoorIndex;
         _shakingDoorIndex = -1;
         _shakeTimeRemaining = 0f;
-        if (previousDoor >= 0 && _doors[previousDoor] != null)
+        if (previousDoor >= 0 && _doorSprites[previousDoor] != null)
             ApplyDoorPose(previousDoor);
     }
 
     private void ApplyDoorPose(int index)
     {
-        SpriteRenderer door = _doors[index];
+        SpriteRenderer door = _doorSprites[index];
         Vector3 shakeOffset = Vector3.zero;
         if (index == _shakingDoorIndex)
         {
