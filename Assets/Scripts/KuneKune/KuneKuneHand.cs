@@ -107,7 +107,6 @@ public class KuneKuneHand : MonoBehaviour
     private void Start()
     {
         Init();
-        Play(); // TEST용도
     }
 
     private void Init()
