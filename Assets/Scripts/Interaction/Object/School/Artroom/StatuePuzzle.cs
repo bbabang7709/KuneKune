@@ -23,6 +23,8 @@ public class StatuePuzzle : MonoBehaviour
     
     [Tooltip("발자국 연출")]
     [SerializeField] private FootprintSequence footprintSequence;
+    [Tooltip("1층 교실의 더러운 책상 활성화")]
+    [SerializeField] private Collider2D deskCollider;
 
     private bool _isSolved = false;
 
@@ -35,6 +37,8 @@ public class StatuePuzzle : MonoBehaviour
                 setting.statue.OnRotated += CheckPuzzleCompletion;
             }
         }
+
+        if (deskCollider != null) deskCollider.enabled = false;
     }
 
     private void CheckPuzzleCompletion()
@@ -106,5 +110,6 @@ public class StatuePuzzle : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         footprintSequence.PlayFootprintSequence();
+        if (deskCollider != null) deskCollider.enabled = true;
     }
 }

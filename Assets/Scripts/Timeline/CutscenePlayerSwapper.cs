@@ -62,7 +62,7 @@ public class CutscenePlayerSwapper : MonoBehaviour
         if (dummyPlayer != null) dummyPlayer.SetActive(false);
 
         if (_realPlayerSprite != null) _realPlayerSprite.enabled = true;
-        _realPlayer.GetComponent<Collider2D>().enabled = true;
+        if (_realPlayer != null) _realPlayer.GetComponent<Collider2D>().enabled = true;
 
         if (ControlLockManager.Instance != null && _realPlayer != null)
         {

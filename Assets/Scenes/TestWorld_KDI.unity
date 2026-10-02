@@ -1220,6 +1220,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6057407868262635523, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_SceneBindings.Array.data[3].value
+      value: 
+      objectReference: {fileID: 1482565961572817210}
+    - target: {fileID: 6057407868262635523, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_SceneBindings.Array.data[5].value
+      value: 
+      objectReference: {fileID: 2081260616}
+    - target: {fileID: 6057407868262635523, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_SceneBindings.Array.data[8].value
+      value: 
+      objectReference: {fileID: 2081260620}
+    - target: {fileID: 6057407868262635523, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_SceneBindings.Array.data[9].value
+      value: 
+      objectReference: {fileID: 8372178321162685302}
+    - target: {fileID: 6057407868262635523, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_SceneBindings.Array.data[10].value
+      value: 
+      objectReference: {fileID: 8372178321162685302}
     - target: {fileID: 6199211275771406697, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
       propertyPath: m_Name
       value: Map_School
@@ -1232,10 +1252,17 @@ PrefabInstance:
       propertyPath: targetEntryPoint
       value: 
       objectReference: {fileID: 1618979714}
+    - target: {fileID: 8427105954969264003, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: dummyPlayer
+      value: 
+      objectReference: {fileID: 1482565961572817210}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3676008958900276210, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
 --- !u!1 &619394800
 GameObject:
@@ -2982,6 +3009,22 @@ Transform:
   - {fileID: 862617793}
   m_Father: {fileID: 2143723250}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2081260616 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 119943361921632843, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
+  m_PrefabInstance: {fileID: 323364476395821149}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalReceiver
+--- !u!95 &2081260620 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2624106242409334318, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
+  m_PrefabInstance: {fileID: 323364476395821149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2090357121
 GameObject:
   m_ObjectHideFlags: 0

@@ -458,6 +458,9 @@ public class PlayerMovement : MonoBehaviour
     
     private void IncreaseHeat()
     {
+        if (ControlLockManager.Instance != null && ControlLockManager.Instance.IsMovementLocked)
+            return;
+
         float heatIncreaseRate = appearance.CurrentAge switch
         {
             EPlayerAge.Adult => adultHeatIncreaseRate,
@@ -478,6 +481,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void DecreaseHeat(float min = 0f)
     {
+        if (ControlLockManager.Instance != null && ControlLockManager.Instance.IsMovementLocked)
+            return;
         // 더위 게이지가 천천히 내려간다
         CurrentHeat = Mathf.Max(min, CurrentHeat - heatDecreaseRate * Time.deltaTime);
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
