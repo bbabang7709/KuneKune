@@ -18,6 +18,8 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField]
     private InteractionPromptUI promptUI;
 
+    private KuneKuneHand handEvent;
+
     [Header("Interaction")]
     [SerializeField]
     private float interactionDistance = 1.5f;
@@ -174,6 +176,10 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     public void StartInteraction()
     {
+        // 손을 밀어 올리는 입력으로 주변의 다른 물건까지 조작하지 않습니다.
+        if (handEvent != null && handEvent.CanPushHand)
+            return;
+
         if (activeTarget != null)
             return;
 
@@ -260,6 +266,19 @@ public class PlayerInteraction : MonoBehaviour
             promptUI.Hide();
             return;
         }
+
+        if (handEvent != null && handEvent.CanPushHand)
+        {
+            if (handEvent.ShowHandPrompt)
+            {
+                promptUI.SetPosition(handEvent.HandPromptPosition);
+                promptUI.Show();
+            }
+            else
+                promptUI.Hide();
+            
+            return;
+        }
         
         if (currentTarget == null)
         {
@@ -328,6 +347,10 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        KuneKuneHand hand = collision.GetComponentInParent<KuneKuneHand>();
+        if (hand != null)
+            handEvent = hand;
+
         IInteractable interactable =
             collision.GetComponentInParent<IInteractable>();
 

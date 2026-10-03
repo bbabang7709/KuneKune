@@ -22,7 +22,7 @@ MonoBehaviour:
   sfxList:
   - soundID: DoorOpen_Sliding
     clip: {fileID: 8300000, guid: c9acd8ec190d9b8439cd9f3bab5a60f0, type: 3}
-    volume: 0.5
+    volume: 0.3
   - soundID: DoorOpen_Hinged
     clip: {fileID: 8300000, guid: 49dacb6b1940bd04f88979301a0219d7, type: 3}
     volume: 1
@@ -58,13 +58,13 @@ MonoBehaviour:
     volume: 0.2
   - soundID: KuneKuneHand_Scratch
     clip: {fileID: 8300000, guid: 73914b0f12154d9291bcc4e3c76e0f48, type: 3}
-    volume: 0.6
+    volume: 0.3
   - soundID: Fluorescent_Idle
     clip: {fileID: 8300000, guid: a216e433bbf24e5fa7acfbb234800601, type: 3}
-    volume: 0.9
+    volume: 0.08
   - soundID: Fluorescent_Blackout
     clip: {fileID: 8300000, guid: a216e433bbf24e5fa7acfbb234800605, type: 3}
-    volume: 0.8
+    volume: 0.2
   - soundID: Fluorescent_Flicker
     clip: {fileID: 8300000, guid: a216e433bbf24e5fa7acfbb234800607, type: 3}
-    volume: 0.4
+    volume: 0.1

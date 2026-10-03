@@ -9,6 +9,8 @@ public class KuneKuneHand : MonoBehaviour
 {
     private const int DoorCount = 5;
 
+    [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
+
     [Header("문과 손 이미지")]
     [Tooltip("손이 가장 적게 나온 이미지부터 가장 많이 나온 이미지 순서입니다.")]
     [SerializeField] private Sprite[] _handSprites;
@@ -17,9 +19,9 @@ public class KuneKuneHand : MonoBehaviour
 
     [Header("손을 밀어 올리는 난이도")]
     [Tooltip("손이 완전히 내려오는 데 걸리는 시간입니다.")]
-    [SerializeField, Min(0.1f)] private float _secondsToFullyLower = 4f;
+    [SerializeField, Min(0.1f)] private float _secondsToFullyLower = 5f;
     [Tooltip("한 번 누를 때 밀어 올리는 양입니다.")]
-    [SerializeField, Range(0.01f, 1f)] private float _pushPerPress = 0.1f;
+    [SerializeField, Range(0.01f, 1f)] private float _pushPerPress = 0.08f;
 
     [Header("문을 밀어 올리는 연출")]
     [Tooltip("밀어 올린 뒤 손이 다시 내려오기까지의 시간입니다.")]
@@ -31,21 +33,20 @@ public class KuneKuneHand : MonoBehaviour
     [Tooltip("누르는 순간 문이 위로 들리는 거리입니다.")]
     [SerializeField, Min(0f)] private float _pushLiftDistance = 0.06f;
 
-    [Header("손이 문을 긁는 효과음")]
-    [Tooltip("손이 나타나 있는 동안 반복되는 긁는 소리의 음량입니다.")]
-    [SerializeField, Range(0f, 1f)] private float _handScratchVolume = 0.7f;
-    private AudioSource _handScratchSource;
-
+    [Header("F 키 안내 연출")]
+    [Tooltip("마지막으로 문을 두드린 뒤 안내가 다시 나타나기까지의 시간입니다.")]
+    [SerializeField, Min(0f)] private float _handPromptDelay = 0.3f;
+    [Tooltip("손이 끝까지 내려왔을 때 안내가 좌우로 움직이는 최대 거리입니다.")]
+    [SerializeField, Min(0f)] private float _handPromptShakeDistance = 0.045f;
+    private float _handPromptHideRemaining;
+    private float _handPromptShakePhase;
+    
     [Header("선택된 문의 전등")]
     [SerializeField, Min(0f)] private float _intensity = 1f;
     [Tooltip("불이 안정적으로 켜져 있는 평균 시간입니다. 가끔 짧게 떨린 뒤 다시 안정됩니다.")]
     [SerializeField, Min(0.01f)] private float _lightOnSeconds = 1f;
 
-    [Header("형광등 효과음")]
-    [Tooltip("평소 켜져 있을 때의 작은 웅웅거림입니다.")]
-    [SerializeField, Range(0f, 1f)] private float _lightHumVolume = 0.25f;
-    [Tooltip("켜짐, 깜빡임, 소등 효과음의 음량입니다.")]
-    [SerializeField, Range(0f, 1f)] private float _lightCueVolume = 0.4f;
+    private AudioSource _handScratchSource;
 
     #region 형광등 효과음
     /// <summary>
@@ -95,10 +96,42 @@ public class KuneKuneHand : MonoBehaviour
 
     private Collider2D _collider;
     private Collider2D _playerCollider;
+    private PlayerMovement _playerMovement;
+    private float _heatBeforeEvent;
 
-    public bool IsPlaying { get; private set; } = false;
-    public bool IsCleared { get; private set; } = false;
-    public bool IsGameOver { get; private set; } = false;
+    public static bool IsPlaying { get; private set; } = false;
+    public static bool IsCleared { get; private set; } = false;
+    public static bool IsGameOver { get; private set; } = false;
+
+    // 손이 나온 문에 닿아 있고 조작할 수 있을 때만 키 안내를 표시합니다.
+    public bool CanPushHand => isActiveAndEnabled && IsPlaying && !IsPaused &&
+        CurrentDoorIndex >= 0 && IsPlayerAtCurrentDoor();
+
+    // 플레이어의 UI가 먼저 갱신되어도 두드린 프레임에는 안내를 숨깁니다.
+    public bool ShowHandPrompt => CanPushHand && _handPromptHideRemaining <= 0f &&
+        (Keyboard.current == null || !Keyboard.current.fKey.wasPressedThisFrame);
+
+    public Vector3 HandPromptPosition
+    {
+        get
+        {
+            if (CurrentDoorIndex < 0 || _playerCollider == null)
+                return transform.position;
+
+            Bounds bounds = _playerCollider.bounds;
+
+            // 문 그림 대신 고정된 충돌 범위를 기준으로 잡아 문 흔들림을 따라가지 않습니다.
+            float x = _doorColliders[CurrentDoorIndex].bounds.center.x;
+            float depth = Mathf.Clamp01(_handDepth);
+
+            // 손이 절반까지 내려오기 전에는 멈춰 있고, 이후부터 떨림이 서서히 커집니다.
+            float shakeStrength = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(0.45f, 1f, depth));
+            float shakeX = Mathf.Sin(_handPromptShakePhase) * _handPromptShakeDistance * shakeStrength;
+
+            // 손이 내려올수록 안내만 더 크게 떨립니다. 높이는 플레이어 머리 위로 유지합니다.
+            return new Vector3(x + shakeX, bounds.max.y + 0.35f, 0f);
+        }
+    }
 
     public bool IsPaused => Time.timeScale <= 0f || AudioListener.pause ||
         (IsPlaying && ((ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked) ||
@@ -107,6 +140,7 @@ public class KuneKuneHand : MonoBehaviour
     private void Start()
     {
         Init();
+        Play();
     }
 
     private void Init()
@@ -165,9 +199,14 @@ public class KuneKuneHand : MonoBehaviour
             _originalColliderOffsets[i] = _doorColliders[i].offset;
         }
 
+        _sunlightAreaRoot.gameObject.SetActive(false);
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
+        {
             _playerCollider = player.GetComponent<Collider2D>();
+            _playerMovement = player.GetComponent<PlayerMovement>();
+        }
 
         _collider = transform.GetComponent<Collider2D>();
         _collider.isTrigger = true;
@@ -181,7 +220,7 @@ public class KuneKuneHand : MonoBehaviour
             _handScratchSource = SoundManager.Instance.CreateSFXSource(transform);
 
         // 새 문에서 손이 나타날 때마다 처음부터 반복 재생합니다.
-        SoundManager.Instance.PlaySFXOnSource(_handScratchSource, "KuneKuneHand_Scratch", _handScratchVolume, true);
+        SoundManager.Instance.PlaySFXOnSource(_handScratchSource, "KuneKuneHand_Scratch", loop: true);
         _handScratchSource.Stop();
 
         StopFlicker();
@@ -193,6 +232,11 @@ public class KuneKuneHand : MonoBehaviour
         if (IsPlaying || IsCleared || IsGameOver)
             return;
 
+        // 클리어 시 복구할 더위 값은 실제 이벤트 시작 직전에 기록합니다.
+        if (_playerMovement != null)
+            _heatBeforeEvent = _playerMovement.CurrentHeat;
+
+        _sunlightAreaRoot.gameObject.SetActive(true);
         _collider.enabled = false;
         _globalLight.color = new Color32(19, 12, 12, 255);
 
@@ -201,7 +245,29 @@ public class KuneKuneHand : MonoBehaviour
             _remainingDoors.Add(i);
 
         IsPlaying = true;
+        _handPromptHideRemaining = 0f;
+        _handPromptShakePhase = 0f;
         SelectNextDoor();
+    }
+
+    private bool GameOver()
+    {
+        if (_handDepth < 1f)
+            return false;
+
+        // 손이 끝까지 내려왔다
+        _sunlightAreaRoot.gameObject.SetActive(false);
+        UpdateSprite();
+        IsPlaying = false;
+        IsGameOver = true;
+        _playerMovement.SetCurrentHeat(_heatBeforeEvent);
+
+        _handScratchSource?.Stop();
+        StartBlackout();
+        ResetDoorShake();
+        StartCoroutine(GameOverSequence());
+
+        return true;
     }
 
     private void Update()
@@ -224,28 +290,22 @@ public class KuneKuneHand : MonoBehaviour
         if (IsPlaying == false)
             return;
 
+        _handPromptHideRemaining = Mathf.Max(0f, _handPromptHideRemaining - Time.deltaTime);
+        _handPromptShakePhase = Mathf.Repeat(_handPromptShakePhase + Time.deltaTime * Mathf.Lerp(4f, 10f, Mathf.Clamp01(_handDepth)) * Mathf.PI * 2f, 
+            Mathf.PI * 2f);
+
         // 잠깐 버티는 시간이 끝난 뒤부터 손이 다시 내려옵니다.
         float lowerTime = Mathf.Max(0f, Time.deltaTime - _pushHoldRemaining);
         _pushHoldRemaining = Mathf.Max(0f, _pushHoldRemaining - Time.deltaTime);
         _handDepth = Mathf.Min(1f, _handDepth + lowerTime / Mathf.Max(0.1f, _secondsToFullyLower));
 
-        // 손이 끝까지 내려왔다
-        if (_handDepth >= 1f)
-        {
-            UpdateSprite();
-            IsPlaying = false;
-            IsGameOver = true;
-
-            _handScratchSource?.Stop();
-            StartBlackout();
-            ResetDoorShake();
-            StartCoroutine(GameOverSequence());
+        if (GameOver())
             return;
-        }
 
         // 누르고 있는 시간과 관계없이, 새로 누른 순간에만 한 번 밀어 올립니다.
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame && IsPlayerAtCurrentDoor())
+        if (Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame && IsPlayerAtCurrentDoor())
         {
+            _handPromptHideRemaining = _handPromptDelay;
             _handDepth = Mathf.Max(0f, _handDepth - Mathf.Clamp(_pushPerPress, 0.01f, 1f));
             _pushHoldRemaining = _pushHoldSeconds;
             BeginDoorShake();
@@ -268,14 +328,15 @@ public class KuneKuneHand : MonoBehaviour
         if (_playerCollider == null || _playerCollider.isActiveAndEnabled == false || door.isActiveAndEnabled == false)
             return false;
 
-        return door.bounds.Intersects(_playerCollider.bounds);
+        return door.IsTouching(_playerCollider);
     }
 
     private void SelectNextDoor()
     {
-        int randomIndex = Random.Range(0, _remainingDoors.Count);
-        CurrentDoorIndex = _remainingDoors[randomIndex];
-        _remainingDoors.RemoveAt(randomIndex);
+        // 첫 손은 2번째 문에서 나오고, 이후에는 남은 문 중에서 무작위로 선택합니다.
+        int index = OpenedDoorCount == 0 ? _remainingDoors.IndexOf(1) : Random.Range(0, _remainingDoors.Count);
+        CurrentDoorIndex = _remainingDoors[index];
+        _remainingDoors.RemoveAt(index);
         
         _handDepth = 0.1f;  // 처음 손 위치
         _pushHoldRemaining = 0f;
@@ -308,9 +369,13 @@ public class KuneKuneHand : MonoBehaviour
         }
 
         // 모든 문을 열었다
+        _sunlightAreaRoot.gameObject.SetActive(false);
         IsPlaying = false;
         IsCleared = true;
         CurrentDoorIndex = -1;
+
+        Debug.Log(_heatBeforeEvent);
+        _playerMovement.SetCurrentHeat(_heatBeforeEvent);
 
         // TODO: 문을 모두 열었을 때의 이벤트 처리 => 인형의 오른팔과 교실 열쇠 획득
 
@@ -446,9 +511,9 @@ public class KuneKuneHand : MonoBehaviour
                 _lightEventSource = SoundManager.Instance.CreateSFXSource(transform);
 
             // 전등 자체의 웅웅거림 소리 셋팅
-            SoundManager.Instance.PlaySFXOnSource(_lightHumSource, "Fluorescent_Idle", _lightHumVolume, true);
+            SoundManager.Instance.PlaySFXOnSource(_lightHumSource, "Fluorescent_Idle", loop: true);
             _lightHumBaseVolume = _lightHumSource.volume;
-            _lightHumSource.Pause();
+            //_lightHumSource.Pause();
         }
 
         _coFlicker = StartCoroutine(CoFlicker(CurrentDoorIndex));
@@ -514,7 +579,7 @@ public class KuneKuneHand : MonoBehaviour
             for (int i = 0; i < flickerCount && light != null; i++)
             {
                 // 깜빡이는 순간 짧은 전기 잡음을 더합니다. 같은 채널을 써서 소리가 겹쳐 쌓이지 않게 합니다.
-                SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Flicker", _lightCueVolume);
+                SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Flicker", loop: false);
                 if (_lightEventSource != null)
                     _lightEventSource.pitch = Random.Range(0.96f, 1.04f);
 
@@ -594,7 +659,7 @@ public class KuneKuneHand : MonoBehaviour
 
         _isPlayingLightCue = true;
         bool hasSound = SoundManager.Instance != null &&
-            SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Blackout", _lightCueVolume);
+            SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Blackout", loop: false);
 
         float initialIntensity = light.intensity;
         float elapsed = 0f;
