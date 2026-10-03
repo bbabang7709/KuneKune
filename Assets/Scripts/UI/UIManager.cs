@@ -75,6 +75,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Image illustrationImage;
 
+    [Header("Full Screen Image")]
+    [SerializeField] private GameObject fullScreenImageRoot;
+    [SerializeField] private Image fullScreenImage;
+
     [Header("Screen Fade")]
     [SerializeField] private CanvasGroup fadeCanvasGroup;
     [SerializeField] private CanvasGroup gameplayUICanvasGroup;
@@ -114,9 +118,13 @@ public class UIManager : MonoBehaviour
         // Dialog 
         if (dialogRoot != null)
             dialogRoot.SetActive(false);
+        dialogText.text = string.Empty;
+
         if (illustrationRoot != null)
             illustrationRoot.SetActive(false);
-        dialogText.text = string.Empty;
+        
+        if (fullScreenImageRoot != null)
+            fullScreenImageRoot.SetActive(false);
 
         // Fade CanvasGroup
         if (fadeCanvasGroup != null)
@@ -265,7 +273,7 @@ public class UIManager : MonoBehaviour
     /// 이미지 연출을 시작한다.
     /// </summary>
     /// <param name="image">표시할 이미지.</param>
-    public void OpenIllustration(Sprite image)
+    public void OpenItemImage(Sprite image)
     {
         // 이전 텍스트를 먼저 제거한다.
         dialogTextSystem.ClearText();
@@ -281,11 +289,23 @@ public class UIManager : MonoBehaviour
     /// 이미지 연출을 종료한다.
     /// 이미지와 대화창을 함께 숨긴다.
     /// </summary>
-    public void CloseIllustration()
+    public void CloseItemImage()
     {
         illustrationRoot.SetActive(false);
 
         illustrationImage.sprite = null;
+    }
+
+    public void OpenFullScreenImage(Sprite sprite)
+    {
+        fullScreenImage.sprite = sprite;
+        fullScreenImageRoot.SetActive(true);
+    }
+
+    public void CloseFullScreenImage()
+    {
+        fullScreenImageRoot.SetActive(false);
+        fullScreenImage.sprite = null;
     }
 
     // =========================================================

@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
-  m_Name: School_classkey
+  m_Name: School_class_dirty_desk
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "\uAD50\uC2E4 \uC5F4\uC1E0\uB97C \uD68D\uB4DD\uD588\uB2E4."
+  - "\uC544\uB0D0."
+  - "\uB0B4\uAC00 \uD55C \uAC83\uC774 \uC544\uB2C8\uC57C."

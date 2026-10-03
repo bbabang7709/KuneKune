@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
-  m_Name: School_shovel
+  m_Name: School_classroom_key
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "\uBAA8\uC885\uC0BD\uC744 \uD68D\uB4DD\uD588\uB2E4."
-  - "\uC774\uC81C \uB545\uC744 \uD314 \uC218 \uC788\uB2E4."
+  - "\uAD50\uC2E4 \uC5F4\uC1E0\uB97C \uD68D\uB4DD\uD588\uB2E4."

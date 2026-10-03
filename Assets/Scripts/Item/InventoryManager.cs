@@ -94,6 +94,18 @@ public class InventoryManager : MonoBehaviour, ISaveable
         inventoryUIPanel.SetActive(isOpening);
     }
 
+    public void AcquireItem(ItemData item, DialogData dialog)
+    {
+        if (item == null) return;
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX("Item_Get");
+        if (DialogSystem.Instance != null)
+        {
+            DialogSystem.Instance.PlayItemDialog(item.Illustration, dialog, null);
+        }
+
+        AddItem(item);
+    }
+
     public void AddItem(ItemData data)
     {
         switch (data.ItemType)

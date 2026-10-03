@@ -19,6 +19,10 @@ MonoBehaviour:
     \uC57D\uAC04 \n\uC2DC\uC6D0\uD574\uC9C8 \uAC83 \uAC19\uB2E4.\n\n<color=blue>\uB354\uC704
     -10</color>"
   itemCount: 1
-  illustration: {fileID: 0}
+  illustration: {fileID: 4523649996240726951, guid: 1526e7c8e25d1864883a681e8f41bfaf, type: 3}
   icon: {fileID: 4523649996240726951, guid: 1526e7c8e25d1864883a681e8f41bfaf, type: 3}
+  keyAcquiredNormal: {fileID: 0}
+  keyAcquiredSelected: {fileID: 0}
+  keyUnacquiredNormal: {fileID: 0}
+  keyUnacquiredSelected: {fileID: 0}
   heatRecovery: 10

@@ -68,8 +68,6 @@ public abstract class CutsceneControllerBase : MonoBehaviour
 
         OnCutsceneEndSetup();
 
-        CutsceneManager.Instance?.EndCutscene();
-
         yield return new WaitForSeconds(1f);
 
         if (useFadeInOut && UIManager.Instance != null)
@@ -78,6 +76,7 @@ public abstract class CutsceneControllerBase : MonoBehaviour
             yield return UIManager.Instance.FadeInGameplayUI(0.5f);
         }
 
+        CutsceneManager.Instance?.EndCutscene();
         OnCutsceneFinished();
     }
 

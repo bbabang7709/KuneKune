@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrokenFloor
   encounterCutscene: {fileID: 0}
-  fallCutscene: {fileID: 0}
+  fallCutscene: {fileID: 2816618703769883421}
   triggerCollider: {fileID: 8157466972607248048}
 --- !u!1 &251943706510246459
 GameObject:
@@ -842,6 +842,125 @@ MonoBehaviour:
   BgmID: BGM_Cicada
   IsInside: 1
   _kuneKune_ables: {fileID: 0}
+--- !u!1 &558410198250660407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4782445428648777728}
+  - component: {fileID: 2122150502833701664}
+  - component: {fileID: 3926676383241066634}
+  - component: {fileID: 4336936798155991404}
+  m_Layer: 0
+  m_Name: CM_House_fall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4782445428648777728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558410198250660407}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.062195, y: -0.88632965, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2337646351379240546}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2122150502833701664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558410198250660407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 34
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!114 &3926676383241066634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558410198250660407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineConfiner2D
+  BoundingShape2D: {fileID: 6674235954895798033}
+  Damping: 0.5
+  SlowingDistance: 5
+  OversizeWindow:
+    Enabled: 0
+    MaxWindowSize: 0
+    Padding: 0
+  m_LegacyMaxWindowSize: -2
+--- !u!95 &4336936798155991404
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558410198250660407}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &767992257147036718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,6 +1471,8 @@ Transform:
   - {fileID: 8909020421710677137}
   - {fileID: 6169304492127296682}
   - {fileID: 6408237771236454648}
+  - {fileID: 2337646351379240546}
+  - {fileID: 8120959747095549358}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7120034587123456789
@@ -2842,6 +2963,142 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &2171241548199929941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2337646351379240546}
+  - component: {fileID: 3469586421439078438}
+  - component: {fileID: 1213048360854931696}
+  - component: {fileID: 2816618703769883421}
+  - component: {fileID: 427020368078187462}
+  - component: {fileID: 3869379336311772561}
+  m_Layer: 0
+  m_Name: House_fall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2337646351379240546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171241548199929941}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -20.352192, y: -0.20206833, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4782445428648777728}
+  m_Father: {fileID: 6810011679965402581}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &3469586421439078438
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171241548199929941}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 99d8c04469b74864eb12fb21e0fa0e51, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 3956598456694838156, guid: 99d8c04469b74864eb12fb21e0fa0e51, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -1753730826088496399, guid: 99d8c04469b74864eb12fb21e0fa0e51, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -5082806697729425648, guid: 99d8c04469b74864eb12fb21e0fa0e51, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -7330873694840163063, guid: 99d8c04469b74864eb12fb21e0fa0e51, type: 2}
+    value: {fileID: 1213048360854931696}
+  - key: {fileID: 8769526108024319255, guid: 99d8c04469b74864eb12fb21e0fa0e51, type: 2}
+    value: {fileID: 4336936798155991404}
+  m_ExposedReferences:
+    m_References: []
+--- !u!114 &1213048360854931696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171241548199929941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalReceiver
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 80da440428d976c4cb5ada7d68aca6cc, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2816618703769883421}
+          m_TargetAssemblyTypeName: FallCutsceneController, Assembly-CSharp
+          m_MethodName: FadeOut
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0.5
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2816618703769883421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171241548199929941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e74f290cf2f1df44ba1a04e792cf0c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallCutsceneController
+  playOnlyOnce: 1
+  useFadeInOut: 1
+  _player: {fileID: 0}
+  escapeEvent: {fileID: 3790652501213701879}
+--- !u!114 &427020368078187462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171241548199929941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af846e08d886c94daaff97855e3116f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CutscenePlayerSwapper
+  dummyPlayer: {fileID: 0}
+  offset: {x: 0, y: 1.42, z: 0}
+--- !u!114 &3869379336311772561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171241548199929941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f74a03370dd2fd48afdcfd1d5284e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogTimelineController
 --- !u!1 &2186558944404956100
 GameObject:
   m_ObjectHideFlags: 0
@@ -7866,6 +8123,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryPoint
   EntryID: house_hallway_2
+--- !u!1 &8613267256110466332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8120959747095549358}
+  - component: {fileID: 3790652501213701879}
+  m_Layer: 0
+  m_Name: HouseEscapingSequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8120959747095549358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8613267256110466332}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.1088905, y: -1.5716896, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6810011679965402581}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3790652501213701879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8613267256110466332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f10da12595e78ce418b098bc6d551404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HouseEscapingSequence
+  timeLimit: 20
+  _houseDoors:
+  - {fileID: 2511211809067094331}
+  - {fileID: 3024298534365240039}
+  - {fileID: 8404818835348205960}
+  - {fileID: 3897060821844299798}
+  _player: {fileID: 0}
 --- !u!1 &8687226742852446918
 GameObject:
   m_ObjectHideFlags: 0
@@ -9588,6 +9896,17 @@ PrefabInstance:
       addedObject: {fileID: 1750380689855409461}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+--- !u!114 &2511211809067094331 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8869758308386632253, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+  m_PrefabInstance: {fileID: 6471158067953246982}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Door
 --- !u!114 &3299500944311534502 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8359812695565852832, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
@@ -9619,3 +9938,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 646633779023817274, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
   m_PrefabInstance: {fileID: 6471158067953246982}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8404818835348205960 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3273485573732471438, guid: 60ec7ef7cae3fd64fa33b300af07a873, type: 3}
+  m_PrefabInstance: {fileID: 6471158067953246982}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22bd8b9e5424b87479934991c4924c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Door

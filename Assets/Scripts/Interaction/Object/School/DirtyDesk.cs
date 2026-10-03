@@ -8,5 +8,8 @@ public class DirtyDesk : InteractableBase
     {
         Debug.Log($"{name} 상호작용 : 컷씬 재생합니다.");
         cutscene.PlayCutscene();
+
+        var col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
     }
 }

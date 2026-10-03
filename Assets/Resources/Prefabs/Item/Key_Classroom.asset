@@ -18,7 +18,7 @@ MonoBehaviour:
   description: "\uC6B0\uB9AC \uBC18 \uAD50\uC2E4 \uBB38\uC744 \uC5F4 \uC218 \uC788\uB294
     \uC5F4\uC1E0\uC774\uB2E4."
   itemCount: 1
-  illustration: {fileID: 1095141833252711340, guid: 456a4ad8fa872bc40be5931fcd7fe7d9, type: 3}
+  illustration: {fileID: 8038760031730268249, guid: e456865d7b6f8b848984d33f044c3fb4, type: 3}
   icon: {fileID: 8038760031730268249, guid: e456865d7b6f8b848984d33f044c3fb4, type: 3}
   keyAcquiredNormal: {fileID: 8038760031730268249, guid: e456865d7b6f8b848984d33f044c3fb4, type: 3}
   keyAcquiredSelected: {fileID: -2549338176929860798, guid: f94dd8025b2147248af88262912ab4b4, type: 3}

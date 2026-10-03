@@ -25,7 +25,7 @@ public class FuneralPortrait : MonoBehaviour, IInteractable
     public void OnInteractPressed()
     {   
         // TODO: 텍스트 연출 구현 시 이미지 띄우는 연출 추가
-        DialogSystem.Instance?.PlayIllustrationDialog(illustration, dialog, () => ChangeSprite());
+        DialogSystem.Instance?.PlayFullScreenImageDialog(illustration, dialog, () => ChangeSprite());
         
         // if (!HasSpriteChanged)
         // {

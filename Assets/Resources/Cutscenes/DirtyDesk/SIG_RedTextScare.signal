@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
-  m_Name: House_key
-  m_EditorClassIdentifier: Assembly-CSharp::DialogData
-  lines:
-  - "\uB0B4 \uBC29 \uC5F4\uC1E0\uB97C \uD68D\uB4DD\uD588\uB2E4."
+  m_Script: {fileID: 11500000, guid: d6fa2d92fc1b3f34da284357edf89c3b, type: 3}
+  m_Name: SIG_RedTextScare
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalAsset

@@ -10,15 +10,20 @@ public class ToiletMirror : MonoBehaviour, IInteractable
     [SerializeField] private GameObject imageRoot;
     [SerializeField] private Image displayImage;
     [SerializeField] private float displayTime = 0.3f;
+
+    private bool _isWatching = false;
     
     public void OnInteractPressed()
     {
         if (displayImage == null || horrorSprite == null || originalSprite == null) return;
+        if (_isWatching) return;
+
 
         StartCoroutine(InteractionRoutine());
     }
     private IEnumerator InteractionRoutine()
     {
+        _isWatching = true;
         imageRoot.SetActive(true);
         displayImage.sprite = originalSprite;
 
@@ -35,6 +40,7 @@ public class ToiletMirror : MonoBehaviour, IInteractable
         imageRoot.SetActive(false);
 
         Time.timeScale = 1f;
+        _isWatching = false;
     }
 
 }
