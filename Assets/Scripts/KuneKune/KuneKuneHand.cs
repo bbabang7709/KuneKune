@@ -47,6 +47,14 @@ public class KuneKuneHand : MonoBehaviour
     [Tooltip("켜짐, 깜빡임, 소등 효과음의 음량입니다.")]
     [SerializeField, Range(0f, 1f)] private float _lightCueVolume = 0.4f;
 
+    [Header("획득 아이템")]
+    [Tooltip("이벤트를 완료했을 때 얻을 아이템과 다이얼로그 등록하기")]
+    [SerializeField] private DialogData finishDialog;
+    [SerializeField] private ItemData rewardItem_key;
+    [SerializeField] private DialogData keyDialog;
+    [SerializeField] private ItemData rewardItem_dollArm;
+    [SerializeField] private DialogData dollArmDialog;
+
     #region 형광등 효과음
     /// <summary>
     /// 평소 켜져 있을 때의 작은 웅웅거림
@@ -109,7 +117,7 @@ public class KuneKuneHand : MonoBehaviour
         Init();
     }
 
-    private void Init()
+    public void Init()
     {
         if (transform.childCount < DoorCount)
         {
@@ -313,27 +321,43 @@ public class KuneKuneHand : MonoBehaviour
         CurrentDoorIndex = -1;
 
         // TODO: 문을 모두 열었을 때의 이벤트 처리 => 인형의 오른팔과 교실 열쇠 획득
+        if (DialogSystem.Instance != null && finishDialog != null)
+        {
+            DialogSystem.Instance.PlayDialog(finishDialog, () => 
+                StartCoroutine(RewardRoutine())
+            );
+        }
 
         _collider.enabled = true;
+    }
+
+    private IEnumerator RewardRoutine()
+    {
+        if (rewardItem_key == null || rewardItem_dollArm == null) yield break;
+        
+        InventoryManager.Instance?.AcquireItem(rewardItem_dollArm, dollArmDialog);
+        yield return new WaitUntil(() => DialogSystem.Instance.IsDialogPlaying == false);
+
+        InventoryManager.Instance?.AcquireItem(rewardItem_key, keyDialog);
     }
 
     private IEnumerator GameOverSequence()
     {
         Debug.Log("손이 끝까지 내려와 게임 오버되었습니다.", this);
-        //ControlLockManager.Instance?.AddInputLock(this);
-        //ControlLockManager.Instance?.AddMovementLock(this);
+        ControlLockManager.Instance?.AddInputLock(this);
+        ControlLockManager.Instance?.AddMovementLock(this);
 
         // 무서워서 꺼버렸다. 나중에 알아서 켜주세요.
-        //SoundManager.Instance?.SetBGMVolume(0f);
-        //SoundManager.Instance?.PlaySFX("KuneKune_Jumpscare");
+        SoundManager.Instance?.SetBGMVolume(0f);
+        SoundManager.Instance?.PlaySFX("KuneKune_Jumpscare");
 
-        //if (UIManager.Instance != null)
-        //    yield return UIManager.Instance.ShowJumpscareRoutine(0.05f);
+        if (UIManager.Instance != null)
+           yield return UIManager.Instance.ShowJumpscareRoutine(0.05f);
 
-        //yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
 
-        //if (UIManager.Instance != null)
-        //    yield return UIManager.Instance.FadeOut(0.2f);
+        if (UIManager.Instance != null)
+           yield return UIManager.Instance.FadeOut(0.2f);
 
         yield return new WaitForSecondsRealtime(1.5f);
 

@@ -228,9 +228,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 386
-        y: 1
+        y: 0
         width: 75
-        height: 107
+        height: 108
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -315,7 +315,7 @@ TextureImporter:
       name: tree_ani_8
       rect:
         serializedVersion: 2
-        x: 761
+        x: 762
         y: 0
         width: 75
         height: 107
@@ -382,9 +382,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1044
-        y: 1
+        y: 0
         width: 75
-        height: 107
+        height: 108
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

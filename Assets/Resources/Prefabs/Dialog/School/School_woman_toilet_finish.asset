@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
-  m_Name: School_locker_default
+  m_Name: School_woman_toilet_finish
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "\uC7A0\uACA8\uC838\uC788\uB2E4."
+  - "\uD5C9... \uD5C9..."
+  - "\uB05D\uB09C... \uAC74\uAC00?"
+  - "\uD734\uC6B0..."
+  - "... \uBB54\uAC00 \uB5A8\uC5B4\uC838 \uC788\uB2E4."
