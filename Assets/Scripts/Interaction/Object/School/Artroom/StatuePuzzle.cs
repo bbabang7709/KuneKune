@@ -22,6 +22,7 @@ public class StatuePuzzle : MonoBehaviour
     [SerializeField] private DialogData rewardDialog;
     
     [Tooltip("발자국 연출")]
+    [SerializeField] private float fadeIntensity = 0.05f;
     [SerializeField] private FootprintSequence footprintSequence;
     [Tooltip("1층 교실의 더러운 책상 활성화")]
     [SerializeField] private Collider2D deskCollider;
@@ -106,7 +107,7 @@ public class StatuePuzzle : MonoBehaviour
 
         yield return LightingEventManager.Instance?.FlickerRoutine();
         yield return new WaitForSeconds(1f);
-        LightingEventManager.Instance?.SetBlackout(0.1f, 0.5f);
+        LightingEventManager.Instance?.SetBlackout(fadeIntensity, 0.2f);
         yield return new WaitForSeconds(1f);
 
         footprintSequence.PlayFootprintSequence();
