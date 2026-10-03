@@ -9,6 +9,8 @@ public class KuneKuneHand : MonoBehaviour
 {
     private const int DoorCount = 5;
 
+    [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
+
     [Header("문과 손 이미지")]
     [Tooltip("손이 가장 적게 나온 이미지부터 가장 많이 나온 이미지 순서입니다.")]
     [SerializeField] private Sprite[] _handSprites;
@@ -38,22 +40,13 @@ public class KuneKuneHand : MonoBehaviour
     [SerializeField, Min(0f)] private float _handPromptShakeDistance = 0.045f;
     private float _handPromptHideRemaining;
     private float _handPromptShakePhase;
-
-    [Header("손이 문을 긁는 효과음")]
-    [Tooltip("손이 나타나 있는 동안 반복되는 긁는 소리의 음량입니다.")]
-    [SerializeField, Range(0f, 1f)] private float _handScratchVolume = 0.7f;
-    private AudioSource _handScratchSource;
-
+    
     [Header("선택된 문의 전등")]
     [SerializeField, Min(0f)] private float _intensity = 1f;
     [Tooltip("불이 안정적으로 켜져 있는 평균 시간입니다. 가끔 짧게 떨린 뒤 다시 안정됩니다.")]
     [SerializeField, Min(0.01f)] private float _lightOnSeconds = 1f;
 
-    [Header("형광등 효과음")]
-    [Tooltip("평소 켜져 있을 때의 작은 웅웅거림입니다.")]
-    [SerializeField, Range(0f, 1f)] private float _lightHumVolume = 0.25f;
-    [Tooltip("켜짐, 깜빡임, 소등 효과음의 음량입니다.")]
-    [SerializeField, Range(0f, 1f)] private float _lightCueVolume = 0.4f;
+    private AudioSource _handScratchSource;
 
     #region 형광등 효과음
     /// <summary>
@@ -142,9 +135,11 @@ public class KuneKuneHand : MonoBehaviour
         (IsPlaying && ((ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked) ||
             (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying)));
     
-    private void Awake()
+    private void Start()
     {
         Init();
+        Play();
+
     }
 
     private void Init()
@@ -203,6 +198,8 @@ public class KuneKuneHand : MonoBehaviour
             _originalColliderOffsets[i] = _doorColliders[i].offset;
         }
 
+        _sunlightAreaRoot.gameObject.SetActive(false);
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
             _playerCollider = player.GetComponent<Collider2D>();
@@ -219,7 +216,7 @@ public class KuneKuneHand : MonoBehaviour
             _handScratchSource = SoundManager.Instance.CreateSFXSource(transform);
 
         // 새 문에서 손이 나타날 때마다 처음부터 반복 재생합니다.
-        SoundManager.Instance.PlaySFXOnSource(_handScratchSource, "KuneKuneHand_Scratch", _handScratchVolume, true);
+        SoundManager.Instance.PlaySFXOnSource(_handScratchSource, "KuneKuneHand_Scratch", loop: true);
         _handScratchSource.Stop();
 
         StopFlicker();
@@ -231,6 +228,7 @@ public class KuneKuneHand : MonoBehaviour
         if (IsPlaying || IsCleared || IsGameOver)
             return;
 
+        _sunlightAreaRoot.gameObject.SetActive(true);
         _collider.enabled = false;
         _globalLight.color = new Color32(19, 12, 12, 255);
 
@@ -242,6 +240,25 @@ public class KuneKuneHand : MonoBehaviour
         _handPromptHideRemaining = 0f;
         _handPromptShakePhase = 0f;
         SelectNextDoor();
+    }
+
+    private bool GameOver()
+    {
+        if (_handDepth < 1f)
+            return false;
+
+        // 손이 끝까지 내려왔다
+        _sunlightAreaRoot.gameObject.SetActive(false);
+        UpdateSprite();
+        IsPlaying = false;
+        IsGameOver = true;
+
+        _handScratchSource?.Stop();
+        StartBlackout();
+        ResetDoorShake();
+        StartCoroutine(GameOverSequence());
+
+        return true;
     }
 
     private void Update()
@@ -273,19 +290,8 @@ public class KuneKuneHand : MonoBehaviour
         _pushHoldRemaining = Mathf.Max(0f, _pushHoldRemaining - Time.deltaTime);
         _handDepth = Mathf.Min(1f, _handDepth + lowerTime / Mathf.Max(0.1f, _secondsToFullyLower));
 
-        // 손이 끝까지 내려왔다
-        if (_handDepth >= 1f)
-        {
-            UpdateSprite();
-            IsPlaying = false;
-            IsGameOver = true;
-
-            _handScratchSource?.Stop();
-            StartBlackout();
-            ResetDoorShake();
-            StartCoroutine(GameOverSequence());
+        if (GameOver())
             return;
-        }
 
         // 누르고 있는 시간과 관계없이, 새로 누른 순간에만 한 번 밀어 올립니다.
         if (Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame && IsPlayerAtCurrentDoor())
@@ -354,6 +360,7 @@ public class KuneKuneHand : MonoBehaviour
         }
 
         // 모든 문을 열었다
+        _sunlightAreaRoot.gameObject.SetActive(false);
         IsPlaying = false;
         IsCleared = true;
         CurrentDoorIndex = -1;
@@ -492,9 +499,9 @@ public class KuneKuneHand : MonoBehaviour
                 _lightEventSource = SoundManager.Instance.CreateSFXSource(transform);
 
             // 전등 자체의 웅웅거림 소리 셋팅
-            SoundManager.Instance.PlaySFXOnSource(_lightHumSource, "Fluorescent_Idle", _lightHumVolume, true);
+            SoundManager.Instance.PlaySFXOnSource(_lightHumSource, "Fluorescent_Idle", loop: true);
             _lightHumBaseVolume = _lightHumSource.volume;
-            _lightHumSource.Pause();
+            //_lightHumSource.Pause();
         }
 
         _coFlicker = StartCoroutine(CoFlicker(CurrentDoorIndex));
@@ -560,7 +567,7 @@ public class KuneKuneHand : MonoBehaviour
             for (int i = 0; i < flickerCount && light != null; i++)
             {
                 // 깜빡이는 순간 짧은 전기 잡음을 더합니다. 같은 채널을 써서 소리가 겹쳐 쌓이지 않게 합니다.
-                SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Flicker", _lightCueVolume);
+                SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Flicker", loop: false);
                 if (_lightEventSource != null)
                     _lightEventSource.pitch = Random.Range(0.96f, 1.04f);
 
@@ -640,7 +647,7 @@ public class KuneKuneHand : MonoBehaviour
 
         _isPlayingLightCue = true;
         bool hasSound = SoundManager.Instance != null &&
-            SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Blackout", _lightCueVolume);
+            SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Blackout", loop: false);
 
         float initialIntensity = light.intensity;
         float elapsed = 0f;
