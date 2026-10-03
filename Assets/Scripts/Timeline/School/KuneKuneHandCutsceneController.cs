@@ -26,6 +26,18 @@ public class KuneKuneHandCutsceneController : CutsceneControllerBase
 
         _globalLight.color = new Color32(19, 12, 12, 255);
     }
+    
+    protected override void Awake()
+    {
+        base.Awake();
+        if (_event == null)
+            _event = FindFirstObjectByType<KuneKuneHand>();
+    }
+
+    //private void Start()
+    //{
+    //    //PlayCutscene();
+    //}
 
     protected override void OnCutsceneFinished()
     {

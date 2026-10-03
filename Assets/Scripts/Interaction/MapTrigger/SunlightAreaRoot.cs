@@ -4,7 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(CompositeCollider2D))]
 public class SunlightAreaRoot : MonoBehaviour
 {
-    [Header("�ν����Ϳ��� ���� ����")]
     [SerializeField] private string _mapID;
 
     private CompositeCollider2D _collider;
@@ -25,7 +24,6 @@ public class SunlightAreaRoot : MonoBehaviour
             Collider2D co = child.GetComponent<Collider2D>();
             if (co != null)
             {
-                // �ʱ�ȭ
                 co.enabled = true;
                 co.compositeOperation = Collider2D.CompositeOperation.Merge;
             }
@@ -34,7 +32,7 @@ public class SunlightAreaRoot : MonoBehaviour
         _collider.isTrigger = true;
         _collider.geometryType = CompositeCollider2D.GeometryType.Polygons;
         LayerMask playerMask = LayerMask.GetMask("Player");
-        _collider.excludeLayers = ~playerMask;  // �÷��̾ �ν�
+        _collider.excludeLayers = ~playerMask;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -42,11 +40,9 @@ public class SunlightAreaRoot : MonoBehaviour
         if (MapManager.Instance == null || MapManager.Instance.CurrentMap == null)
             return;
 
-        // �÷��̾ �ִ� ������ Ȯ��
         // if (MapManager.Instance.CurrentMap.mapType != _mapID)
         //     return;
 
-        Debug.Log("�÷��̾�� ���ռ� ��~ ��ȣ~~");
         _player.IsExposedToSunlight = true;
     }
 
@@ -55,11 +51,9 @@ public class SunlightAreaRoot : MonoBehaviour
         if (MapManager.Instance == null || MapManager.Instance.CurrentMap == null)
             return;
 
-        // �÷��̾ �ִ� ������ Ȯ��
         // if (MapManager.Instance.CurrentMap.MapID != _mapID)
         //     return;
 
-        Debug.Log("��Ÿ�� D�� �����ϳ׿�! �� ���ռ��� �ϴ� ���ƿ�?");
         _player.IsExposedToSunlight = false;
     }
 }

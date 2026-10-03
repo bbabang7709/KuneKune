@@ -97,6 +97,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float studentHeatIncreaseRate = 20f;
     [SerializeField] private float childHeatIncreaseRate = 25f;
     public float CurrentHeat { get; private set; } = 0f;
+    public float MaxHeat => maxHeat;
+    private float? targetHeat;
 
     /// <summary>
     /// 현재 더위 게이지를 0부터 1 사이의 비율로 반환합니다.
@@ -360,6 +362,23 @@ public class PlayerMovement : MonoBehaviour
     // =========================================================
     private void UpdateHeat()
     {
+        // 임의 증감 요청은 환경에 따른 갱신보다 먼저 목표값까지 처리합니다.
+        if (targetHeat.HasValue)
+        {
+            if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying)
+                return;
+
+            float target = targetHeat.Value;
+            if (CurrentHeat < target)
+                IncreaseHeat(target);
+            else if (CurrentHeat > target)
+                DecreaseHeat(target);
+
+            if (CurrentHeat == target)
+                targetHeat = null;
+            return;
+        }
+
         // 테스트 중에는 현재 맵과 햇빛 노출 상태에 관계없이 더위를 올린다.
         if (_test)
         {
@@ -463,7 +482,7 @@ public class PlayerMovement : MonoBehaviour
         recoveryDelayTimer = staminaRecoveryDelay;
     }
     
-    private void IncreaseHeat()
+    private void IncreaseHeat(float? limit = null)
     {
         if (ControlLockManager.Instance != null && (ControlLockManager.Instance.IsMovementLocked || ControlLockManager.Instance.IsInputLocked))
             return;
@@ -476,7 +495,7 @@ public class PlayerMovement : MonoBehaviour
             _ => 0f
         };
 
-        CurrentHeat = Mathf.Min(maxHeat, CurrentHeat + heatIncreaseRate * Time.deltaTime);
+        CurrentHeat = Mathf.Min(limit ?? maxHeat, CurrentHeat + heatIncreaseRate * Time.deltaTime);
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
 
         // 쿠네쿠네가 아직 소환되지 않은 상태
@@ -491,27 +510,32 @@ public class PlayerMovement : MonoBehaviour
         if (ControlLockManager.Instance != null && (ControlLockManager.Instance.IsMovementLocked || ControlLockManager.Instance.IsInputLocked))
             return;
         // 더위 게이지가 천천히 내려간다
-        CurrentHeat = Mathf.Max(min, CurrentHeat - heatDecreaseRate * Time.deltaTime);
+        // 복구 목표가 안전 구역 최저값보다 낮아도 감소 처리로 다시 올리지 않습니다.
+        CurrentHeat = Mathf.Max(Mathf.Min(min, CurrentHeat), CurrentHeat - heatDecreaseRate * Time.deltaTime);
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
 
-        if (MapManager.Instance.KuneKune.State != ECharacterState.Unspawned)
-            MapManager.Instance.KuneKune.Despawn();
+        KuneKune kuneKune = MapManager.Instance != null ? MapManager.Instance.KuneKune : null;
+        if (kuneKune != null && kuneKune.State != ECharacterState.Unspawned)
+            kuneKune.Despawn();
     }
 
     /// <summary>
-    /// 더위 게이지를 최대로 채우고 UI, 소리, 화면 효과에 알립니다.
+    /// 로드 시에는 즉시 설정하고, 일반 호출은 amount만큼 증감할 목표를 설정합니다.
+    /// 증가에는 연령별 증가율, 감소에는 heatDecreaseRate를 사용합니다.
     /// </summary>
-    public void SetHeatToMax()
+    public void SetCurrentHeat(float amount, bool isLoad = false)
     {
-        SetCurrentHeat(maxHeat);
-    }
+        if (isLoad)
+        {
+            if (amount < 0f || amount > maxHeat) return;
 
-    // Load시 저장된 Heat 복구용
-    public void SetCurrentHeat(float amount)
-    {
-        if (amount < 0f || amount > maxHeat) return;
+            targetHeat = null;
+            CurrentHeat = amount;
+            OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
+            return;
+        }
 
-        CurrentHeat = amount;
-        OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
+        // 새 요청은 현재 값을 기준으로 목표를 바꾸며, 값 자체는 UpdateHeat에서 갱신합니다.
+        targetHeat = Mathf.Clamp(amount, 0f, maxHeat);
     }
 }
