@@ -77,8 +77,11 @@ public abstract class CutsceneControllerBase : MonoBehaviour
         }
 
         CutsceneManager.Instance?.EndCutscene();
+        OnCutsceneFinished();
     }
 
     protected virtual void OnCutsceneStartSetup() {}
     protected virtual void OnCutsceneEndSetup() {}
+    // 화면과 게임 UI가 복구된 뒤 다음 게임 이벤트를 시작합니다.
+    protected virtual void OnCutsceneFinished() {}
 }
