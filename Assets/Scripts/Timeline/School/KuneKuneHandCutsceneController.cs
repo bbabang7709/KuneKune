@@ -13,6 +13,11 @@ public class KuneKuneHandCutsceneController : CutsceneControllerBase
             _event = FindFirstObjectByType<KuneKuneHand>();
     }
 
+    //private void Start()
+    //{
+    //    //PlayCutscene();
+    //}
+
     protected override void OnCutsceneFinished()
     {
         _event.Play();

@@ -1175,12 +1175,14 @@ MonoBehaviour:
   - {fileID: -1208182735, guid: 6dd1ae4bd3fce7d46bf692fb06cb5ad6, type: 3}
   _openedDoorSprite: {fileID: -5731995649871461844, guid: 3572dbdcc0d95e4428c8b272a464d79e, type: 3}
   _closedDoorSprite: {fileID: 5350010632970059455, guid: e732a22244dd423439e2abe3a90b5df1, type: 3}
-  _secondsToFullyLower: 4
-  _pushPerPress: 0.1
+  _secondsToFullyLower: 5
+  _pushPerPress: 0.08
   _pushHoldSeconds: 0.16
   _shakeSeconds: 0.18
   _shakeDistance: 0.045
   _pushLiftDistance: 0.06
+  _handPromptDelay: 0.45
+  _handPromptShakeDistance: 0.045
   _handScratchVolume: 0.7
   _intensity: 1
   _lightOnSeconds: 1
