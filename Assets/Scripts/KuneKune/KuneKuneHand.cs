@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class KuneKuneHand : MonoBehaviour
 {
@@ -11,10 +13,11 @@ public class KuneKuneHand : MonoBehaviour
     [Tooltip("손이 가장 적게 나온 이미지부터 가장 많이 나온 이미지 순서입니다.")]
     [SerializeField] private Sprite[] _handSprites;
     [SerializeField] private Sprite _openedDoorSprite;
+    [SerializeField] private Sprite _closedDoorSprite;
 
     [Header("손을 밀어 올리는 난이도")]
     [Tooltip("손이 완전히 내려오는 데 걸리는 시간입니다.")]
-    [SerializeField, Min(0.1f)] private float _secondsToFullyLower = 3f;
+    [SerializeField, Min(0.1f)] private float _secondsToFullyLower = 4f;
     [Tooltip("한 번 누를 때 밀어 올리는 양입니다.")]
     [SerializeField, Range(0.01f, 1f)] private float _pushPerPress = 0.1f;
 
@@ -28,61 +31,160 @@ public class KuneKuneHand : MonoBehaviour
     [Tooltip("누르는 순간 문이 위로 들리는 거리입니다.")]
     [SerializeField, Min(0f)] private float _pushLiftDistance = 0.06f;
 
-    private float _nextPushSoundTime;
-    private float _pushHoldRemaining;   // 손이 다시 내려오기 전까지 남은 대기시간
+    [Header("손이 문을 긁는 효과음")]
+    [Tooltip("손이 나타나 있는 동안 반복되는 긁는 소리의 음량입니다.")]
+    [SerializeField, Range(0f, 1f)] private float _handScratchVolume = 0.7f;
+    private AudioSource _handScratchSource;
+
+    [Header("선택된 문의 전등")]
+    [SerializeField, Min(0f)] private float _intensity = 1f;
+    [Tooltip("불이 안정적으로 켜져 있는 평균 시간입니다. 가끔 짧게 떨린 뒤 다시 안정됩니다.")]
+    [SerializeField, Min(0.01f)] private float _lightOnSeconds = 1f;
+
+    [Header("형광등 효과음")]
+    [Tooltip("평소 켜져 있을 때의 작은 웅웅거림입니다.")]
+    [SerializeField, Range(0f, 1f)] private float _lightHumVolume = 0.25f;
+    [Tooltip("켜짐, 깜빡임, 소등 효과음의 음량입니다.")]
+    [SerializeField, Range(0f, 1f)] private float _lightCueVolume = 0.4f;
+
+    #region 형광등 효과음
+    /// <summary>
+    /// 평소 켜져 있을 때의 작은 웅웅거림
+    /// </summary>
+    private AudioSource _lightHumSource;
+    private float _lightHumBaseVolume;
+    /// <summary>
+    /// 켜짐, 깜빡임, 소등 효과음
+    /// </summary>
+    private AudioSource _lightEventSource;
+    /// <summary>
+    /// 손과 형광등 소리를 일시정지했는지 기억합니다.
+    /// </summary>
+    private bool _audioPaused;
+    /// <summary>
+    /// 블랙아웃 효과가 들어갔는지 확인합니다.
+    /// </summary>
+    private bool _isPlayingLightCue;
+    #endregion
+
+    private Light2D[] _lights = new Light2D[DoorCount];
+    private Coroutine _coFlicker = null;
+
+    #region Door
+    private List<int> _remainingDoors = new List<int>();
+    private SpriteRenderer[] _doorSprites = new SpriteRenderer[DoorCount];
+    private Collider2D[] _doorColliders = new Collider2D[DoorCount];
+    
+    private Vector3[] _originalPositions = new Vector3[DoorCount];
+    private Vector3[] _originalSpriteMin = new Vector3[DoorCount];
+    private Vector2[] _originalColliderOffsets = new Vector2[DoorCount];
 
     private int _shakingDoorIndex = -1;
     private float _shakeTimeRemaining;
     private float _shakeDirection = 1f;
 
-    #region Door
-    private List<int> _remainingDoors = new List<int>();
-    private SpriteRenderer[] _doors = new SpriteRenderer[DoorCount];
-    private Collider2D[] _doorColliders = new Collider2D[DoorCount];
-    private Vector3[] _originalPositions = new Vector3[DoorCount];
-    private Vector3[] _originalSpriteMin = new Vector3[DoorCount];
-    private Vector2[] _originalColliderOffsets = new Vector2[DoorCount];
+    public int OpenedDoorCount { get; private set; } = 0;
+    public int CurrentDoorIndex { get; private set; } = -1;
     #endregion
 
     private float _handDepth;
+    private float _nextPushSoundTime;
+    private float _pushHoldRemaining;   // 손이 다시 내려오기 전까지 남은 대기시간
 
+    private Light2D _globalLight;
+
+    private Collider2D _collider;
     private Collider2D _playerCollider;
 
     public bool IsPlaying { get; private set; } = false;
     public bool IsCleared { get; private set; } = false;
     public bool IsGameOver { get; private set; } = false;
-    public int OpenedDoorCount { get; private set; } = 0;
-    public int CurrentDoorIndex { get; private set; } = -1;
 
+    public bool IsPaused => Time.timeScale <= 0f || AudioListener.pause ||
+        (IsPlaying && ((ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked) ||
+            (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying)));
+    
     private void Start()
     {
         Init();
-        Play();
     }
 
     private void Init()
     {
+        if (transform.childCount < DoorCount)
+        {
+            Debug.LogError("KuneKuneHand의 자식으로 문 5개를 배치해주세요.", this);
+            return;
+        }
+
         for (int i = 0; i < DoorCount; i++)
         {
-            Transform door = transform.Find($"Door_{i}");
-            if (door == null || door.TryGetComponent(out _doors[i]) == false || 
-                door.TryGetComponent(out _doorColliders[i]) == false || _doors[i].sprite == null)
+            Transform door = transform.GetChild(i);
+            if (door == null)
             {
-                Debug.LogError($"Door_{i}의 SpriteRenderer, Sprite, Collider2D를 확인해주세요.", this);
+                Debug.LogWarning($"문 {i}이 존재하지 않습니다. KuneKuneHand 오브젝트의 자식으로 5개의 문을 배치해야 합니다.", this);
                 return;
             }
 
+            if (door.TryGetComponent(out _doorSprites[i]) == false)
+                _doorSprites[i] = door.gameObject.AddComponent<SpriteRenderer>();
+            if (_doorSprites[i].sprite == null)
+                _doorSprites[i].sprite = _closedDoorSprite;
+            if (_doorSprites[i].sprite == null)
+            {
+                Debug.LogError($"문 {i}의 닫힌 문 이미지를 지정해주세요.", this);
+                return;
+            }
+            if (door.TryGetComponent(out _doorColliders[i]) == false)
+                _doorColliders[i] = door.gameObject.AddComponent<BoxCollider2D>();
+
+            _lights[i] = door.GetComponentInChildren<Light2D>(true);
+            if (_lights[i] == null)
+            {
+                GameObject lightObj = new GameObject("Light");
+                lightObj.transform.SetParent(door, false);
+                _lights[i] = lightObj.AddComponent<Light2D>();
+                _lights[i].lightType = Light2D.LightType.Point;
+            }
+
+            _doorSprites[i].sortingLayerName = "Middleground";
+            _doorSprites[i].sortingOrder = 1;
+            _doorColliders[i].isTrigger = true;
+            _doorColliders[i].excludeLayers = ~LayerMask.GetMask("Player");
+
+            _lights[i].intensity = 0f;  // 처음에는 꺼져 있음
+            _lights[i].color = Color.white;
+            _lights[i].pointLightInnerRadius = 0f;
+            _lights[i].pointLightOuterRadius = 5f;
+            _lights[i].falloffIntensity = 0.7f;
+            _lights[i].shadowsEnabled = false;
+            _lights[i].transform.localPosition = new Vector3(1.15f, 3.51f, 0f);
+
             _originalPositions[i] = door.localPosition;
-            _originalSpriteMin[i] = _doors[i].sprite.bounds.min;
+            _originalSpriteMin[i] = _doorSprites[i].sprite.bounds.min;
             _originalColliderOffsets[i] = _doorColliders[i].offset;
         }
 
-        if (_playerCollider == null)
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-                _playerCollider = player.GetComponent<Collider2D>();
-        }
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            _playerCollider = player.GetComponent<Collider2D>();
+
+        _collider = transform.GetComponent<Collider2D>();
+        _collider.isTrigger = true;
+        _collider.excludeLayers = ~LayerMask.GetMask("Player");
+        _collider.enabled = false;
+
+        _globalLight = FindObjectsByType<Light2D>(FindObjectsSortMode.None)
+        .FirstOrDefault(light => light.lightType == Light2D.LightType.Global);
+
+        if (_handScratchSource == null)
+            _handScratchSource = SoundManager.Instance.CreateSFXSource(transform);
+
+        // 새 문에서 손이 나타날 때마다 처음부터 반복 재생합니다.
+        SoundManager.Instance.PlaySFXOnSource(_handScratchSource, "KuneKuneHand_Scratch", _handScratchVolume, true);
+        _handScratchSource.Stop();
+
+        StopFlicker();
     }
 
     public void Play()
@@ -90,6 +192,9 @@ public class KuneKuneHand : MonoBehaviour
         // 진행 중이거나 이미 끝났다면 다시 시작하지 않습니다.
         if (IsPlaying || IsCleared || IsGameOver)
             return;
+
+        _collider.enabled = false;
+        _globalLight.color = new Color32(19, 12, 12, 255);
 
         _remainingDoors.Clear();
         for (int i = 0; i < DoorCount; i++)
@@ -101,13 +206,17 @@ public class KuneKuneHand : MonoBehaviour
 
     private void Update()
     {
-        if (Time.deltaTime <= 0f)
+        // 대화나 컷신으로 조작할 수 없는 동안에는 손도 내려오지 않습니다.
+        SetAudioPaused(IsPaused);
+        if (IsPaused)
             return;
 
-        // 대화나 컷신으로 조작할 수 없는 동안에는 손도 내려오지 않습니다.
-        if ((ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked) ||
-            (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) || AudioListener.pause)
-            return;
+        // 웅웅거림은 불이 어두워지는 만큼 작아지고, 다시 밝아지면 원래 음량으로 돌아갑니다.
+        if (!_isPlayingLightCue && _lightHumSource != null && CurrentDoorIndex >= 0)
+        {
+            float brightness = _lights[CurrentDoorIndex].intensity / Mathf.Max(0.001f, _intensity);
+            _lightHumSource.volume = _lightHumBaseVolume * Mathf.Clamp01(brightness);
+        }
 
         // 마지막 문을 열었어도 남은 흔들림은 자연스럽게 끝냅니다.
         UpdateDoorShake();
@@ -127,6 +236,8 @@ public class KuneKuneHand : MonoBehaviour
             IsPlaying = false;
             IsGameOver = true;
 
+            _handScratchSource?.Stop();
+            StartBlackout();
             ResetDoorShake();
             StartCoroutine(GameOverSequence());
             return;
@@ -169,6 +280,8 @@ public class KuneKuneHand : MonoBehaviour
         _handDepth = 0.1f;  // 처음 손 위치
         _pushHoldRemaining = 0f;
         UpdateSprite();
+        StartFlicker();
+        _handScratchSource?.Play();
     }
 
     private void UpdateSprite()
@@ -181,6 +294,10 @@ public class KuneKuneHand : MonoBehaviour
 
     private void OpenCurrentDoor()
     {
+        _handScratchSource?.Stop();
+        SoundManager.Instance?.PlaySFX("StallDoor_Open");
+
+        StopFlicker();
         SetSprite(CurrentDoorIndex, _openedDoorSprite);
         OpenedDoorCount++;
 
@@ -196,6 +313,8 @@ public class KuneKuneHand : MonoBehaviour
         CurrentDoorIndex = -1;
 
         // TODO: 문을 모두 열었을 때의 이벤트 처리 => 인형의 오른팔과 교실 열쇠 획득
+
+        _collider.enabled = true;
     }
 
     private IEnumerator GameOverSequence()
@@ -218,11 +337,16 @@ public class KuneKuneHand : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1.5f);
 
+        if (_coFlicker != null)
+            yield return _coFlicker;
+
         SaveManager.Instance?.Load(true);
     }
 
     private void OnDisable()
     {
+        _handScratchSource?.Stop();
+        StopFlicker();
         ResetDoorShake();
         StopAllCoroutines();
         ControlLockManager.Instance?.RemoveInputLock(this);
@@ -241,7 +365,7 @@ public class KuneKuneHand : MonoBehaviour
 
     private void SetSprite(int index, Sprite sprite)
     {
-        SpriteRenderer door = _doors[index];
+        SpriteRenderer door = _doorSprites[index];
         door.sprite = sprite;
         ApplyDoorPose(index);
     }
@@ -272,13 +396,13 @@ public class KuneKuneHand : MonoBehaviour
         int previousDoor = _shakingDoorIndex;
         _shakingDoorIndex = -1;
         _shakeTimeRemaining = 0f;
-        if (previousDoor >= 0 && _doors[previousDoor] != null)
+        if (previousDoor >= 0 && _doorSprites[previousDoor] != null)
             ApplyDoorPose(previousDoor);
     }
 
     private void ApplyDoorPose(int index)
     {
-        SpriteRenderer door = _doors[index];
+        SpriteRenderer door = _doorSprites[index];
         Vector3 shakeOffset = Vector3.zero;
         if (index == _shakingDoorIndex)
         {
@@ -298,5 +422,251 @@ public class KuneKuneHand : MonoBehaviour
         
         // 그림만 흔들고, 플레이어가 문 앞에 있는지 확인하는 범위는 고정합니다.
         _doorColliders[index].offset = _originalColliderOffsets[index] - (Vector2)visualOffset;
+    }
+
+    private void StartFlicker()
+    {
+        StopFlicker();
+        if (!isActiveAndEnabled || !IsPlaying || CurrentDoorIndex < 0)
+            return;
+
+        Light2D light = _lights[CurrentDoorIndex];
+        if (light == null)
+            return;
+
+        light.enabled = true;
+        light.intensity = 0f;
+
+        // 형광등 소리 셋팅
+        if (SoundManager.Instance != null)
+        {
+            if (_lightHumSource == null)
+                _lightHumSource = SoundManager.Instance.CreateSFXSource(transform);
+            if (_lightEventSource == null)
+                _lightEventSource = SoundManager.Instance.CreateSFXSource(transform);
+
+            // 전등 자체의 웅웅거림 소리 셋팅
+            SoundManager.Instance.PlaySFXOnSource(_lightHumSource, "Fluorescent_Idle", _lightHumVolume, true);
+            _lightHumBaseVolume = _lightHumSource.volume;
+            _lightHumSource.Pause();
+        }
+
+        _coFlicker = StartCoroutine(CoFlicker(CurrentDoorIndex));
+    }
+
+    private void StopFlicker()
+    {
+        if (_coFlicker != null)
+        {
+            StopCoroutine(_coFlicker);
+            _coFlicker = null;
+        }
+
+        if (_lightHumSource != null)
+            _lightHumSource.Stop();
+        if (_lightEventSource != null)
+            _lightEventSource.Stop();
+
+        _isPlayingLightCue = false;
+        _audioPaused = false;
+
+        foreach (Light2D light in _lights)
+            if (light != null)
+                light.enabled = false;
+    }
+
+    private IEnumerator CoFlicker(int index)
+    {
+        Light2D light = _lights[index];
+        float noiseOffset = Random.Range(0f, 100f);
+        float noiseTime = 0f;
+
+        while (IsPlaying && CurrentDoorIndex == index && light != null)
+        {
+            float elapsed = 0f;
+            float steadyTime = Mathf.Max(0.5f, _lightOnSeconds) * Random.Range(0.75f, 1.75f);
+
+            // 평소에는 거의 일정하게 켜져 있고, 밝기만 아주 조금 흔들립니다.
+            while (elapsed < steadyTime && light != null)
+            {
+                if (IsPaused)
+                {
+                    SetAudioPaused(true);
+                    yield return null;
+                    continue;
+                }
+
+                SetAudioPaused(false);
+
+                elapsed += Time.deltaTime;
+                noiseTime += Time.deltaTime;
+            
+                float noise = Mathf.PerlinNoise(noiseOffset, noiseTime * 1.7f);
+                light.intensity = _intensity * Mathf.Lerp(0.94f, 1f, noise);
+                yield return null;
+            }
+
+            if (light == null)
+                break;
+
+            // 깜빡깜빡
+            int flickerCount = Random.value < 0.3f ? 1 : Random.Range(2, 4);
+            for (int i = 0; i < flickerCount && light != null; i++)
+            {
+                // 깜빡이는 순간 짧은 전기 잡음을 더합니다. 같은 채널을 써서 소리가 겹쳐 쌓이지 않게 합니다.
+                SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Flicker", _lightCueVolume);
+                if (_lightEventSource != null)
+                    _lightEventSource.pitch = Random.Range(0.96f, 1.04f);
+
+                float dimRatio = Random.value < 0.12f ? 0f : Random.Range(0.2f, 0.65f);
+                yield return FadeLight(light, _intensity * dimRatio, Random.Range(0.015f, 0.035f));
+                yield return FadeLight(light, _intensity * dimRatio, Random.Range(0.03f, 0.1f));
+                yield return FadeLight(light, _intensity * Random.Range(0.78f, 0.98f), Random.Range(0.03f, 0.09f));
+
+                if (i < flickerCount - 1)
+                    yield return FadeLight(light, light.intensity, Random.Range(0.045f, 0.16f));
+            }
+
+            yield return FadeLight(light, _intensity * 0.97f, Random.Range(0.15f, 0.3f));
+        }
+
+        if (light != null)
+            light.enabled = false;
+
+        _coFlicker = null;
+    }
+
+    /// <summary>
+    /// 일시정지했던 소리를 이어서 재생하거나 재생 중인 소리를 일시정지합니다.
+    /// </summary>
+    /// <param name="paused">true: 일시정지, false: 이어서 재생</param>
+    private void SetAudioPaused(bool paused)
+    {
+        // 중복 방지
+        if (_audioPaused == paused)
+            return;
+
+        if (IsPaused)
+            _handScratchSource?.Pause();
+        else
+            _handScratchSource?.UnPause();
+
+        _audioPaused = paused;
+        if (paused)
+        {
+            _lightHumSource?.Pause();
+            _lightEventSource?.Pause();
+        }
+        else
+        {
+            _lightEventSource?.UnPause();
+            if (_isPlayingLightCue == false)
+                _lightHumSource?.UnPause();
+        }
+    }
+
+    private void StartBlackout()
+    {
+        StopFlicker();
+        Light2D light = _lights[CurrentDoorIndex];
+        if (light == null)
+            return;
+
+        // 정상 진행 때 쓰던 채널이 없더라도 소등 효과음을 재생할 수 있게 준비합니다.
+        if (_lightEventSource == null && SoundManager.Instance != null)
+            _lightEventSource = SoundManager.Instance.CreateSFXSource(transform);
+        
+        light.enabled = true;
+        _coFlicker = StartCoroutine(CoBlackout(light));
+    }
+
+    private IEnumerator CoBlackout(Light2D light)
+    {
+        // 게임이 멈췄는지 확인
+        while (IsPaused)
+        {
+            SetAudioPaused(true);
+            yield return null;
+        }
+
+        _audioPaused = false;
+        _lightHumSource?.Pause();   // 웅웅 소리 멈춤
+
+        _isPlayingLightCue = true;
+        bool hasSound = SoundManager.Instance != null &&
+            SoundManager.Instance.PlaySFXOnSource(_lightEventSource, "Fluorescent_Blackout", _lightCueVolume);
+
+        float initialIntensity = light.intensity;
+        float elapsed = 0f;
+        float seconds = hasSound ? _lightEventSource.clip.length : 1.2f;
+        while (elapsed < seconds && light != null)
+        {
+            if (IsPaused)
+            {
+                SetAudioPaused(true);
+                yield return null;
+                continue;
+            }
+
+            SetAudioPaused(false);
+
+            // 화면 그리기가 늦어져도 음원의 현재 재생 위치에 밝기를 맞춥니다.
+            elapsed = hasSound
+                ? (_lightEventSource.isPlaying ? _lightEventSource.time : seconds)
+                : elapsed + Time.deltaTime;
+            light.intensity = Mathf.Lerp(initialIntensity, 0f, Mathf.Clamp01(elapsed / seconds));
+            yield return null;
+        }
+
+        if (light != null)
+            light.intensity = 0f;
+
+        _lightEventSource?.Stop();
+        _isPlayingLightCue = false;
+
+        if (light != null)
+            light.enabled = false;
+        _coFlicker = null;
+    }
+
+    private IEnumerator FadeLight(Light2D light, float intensity, float seconds)
+    {
+        if (light == null)
+            yield break;
+
+        float initial = light.intensity;
+        float elapsed = 0f;
+        while (elapsed < seconds && light != null)
+        {
+            if (IsPaused)
+            {
+                SetAudioPaused(true);
+                yield return null;
+                continue;
+            }
+
+            SetAudioPaused(false);
+
+            elapsed += Time.deltaTime;
+            float progress = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / seconds));
+            light.intensity = Mathf.Lerp(initial, intensity, progress);
+            yield return null;
+        }
+
+        if (light != null)
+            light.intensity = intensity;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (IsCleared)
+        {
+            // 5개의 문이 쾅 닫힘
+            for (int i = 0; i < DoorCount; ++i)
+                SetSprite(i, _closedDoorSprite);
+
+            SoundManager.Instance?.PlaySFX("StallDoor_Open", 8f);  // 기본 음량의 8배로 재생합니다.
+            _collider.enabled = false;
+        }
     }
 }
