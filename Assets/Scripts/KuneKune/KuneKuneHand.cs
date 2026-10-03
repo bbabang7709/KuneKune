@@ -96,6 +96,8 @@ public class KuneKuneHand : MonoBehaviour
 
     private Collider2D _collider;
     private Collider2D _playerCollider;
+    private PlayerMovement _playerMovement;
+    private float _heatBeforeEvent;
 
     public static bool IsPlaying { get; private set; } = false;
     public static bool IsCleared { get; private set; } = false;
@@ -139,7 +141,6 @@ public class KuneKuneHand : MonoBehaviour
     {
         Init();
         Play();
-
     }
 
     private void Init()
@@ -202,7 +203,10 @@ public class KuneKuneHand : MonoBehaviour
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
+        {
             _playerCollider = player.GetComponent<Collider2D>();
+            _playerMovement = player.GetComponent<PlayerMovement>();
+        }
 
         _collider = transform.GetComponent<Collider2D>();
         _collider.isTrigger = true;
@@ -228,6 +232,10 @@ public class KuneKuneHand : MonoBehaviour
         if (IsPlaying || IsCleared || IsGameOver)
             return;
 
+        // 클리어 시 복구할 더위 값은 실제 이벤트 시작 직전에 기록합니다.
+        if (_playerMovement != null)
+            _heatBeforeEvent = _playerMovement.CurrentHeat;
+
         _sunlightAreaRoot.gameObject.SetActive(true);
         _collider.enabled = false;
         _globalLight.color = new Color32(19, 12, 12, 255);
@@ -252,6 +260,7 @@ public class KuneKuneHand : MonoBehaviour
         UpdateSprite();
         IsPlaying = false;
         IsGameOver = true;
+        _playerMovement.SetCurrentHeat(_heatBeforeEvent);
 
         _handScratchSource?.Stop();
         StartBlackout();
@@ -364,6 +373,9 @@ public class KuneKuneHand : MonoBehaviour
         IsPlaying = false;
         IsCleared = true;
         CurrentDoorIndex = -1;
+
+        Debug.Log(_heatBeforeEvent);
+        _playerMovement.SetCurrentHeat(_heatBeforeEvent);
 
         // TODO: 문을 모두 열었을 때의 이벤트 처리 => 인형의 오른팔과 교실 열쇠 획득
 

@@ -33,6 +33,6 @@ public class PlayerSaveHandler : MonoBehaviour, ISaveable
     public void LoadState(SaveData data)
     {
         _appearance?.SetAge(data.playerAge);
-        _movement?.SetCurrentHeat(data.currentHeat);
+        _movement?.SetCurrentHeat(data.currentHeat, isLoad: true);
     }
 }

@@ -165,12 +165,12 @@ public class KuneKune : MonoBehaviour
         SetPositionAndDirection(position);
 
         // 등장 경로와 관계없이 더위 게이지와 연결된 연출을 최대로 올립니다.
-        _player.GetComponent<PlayerMovement>().SetHeatToMax();
+        PlayerMovement p = _player.GetComponent<PlayerMovement>();
+        if (p.CurrentHeat >= p.MaxHeat)
+            p.SetCurrentHeat(p.MaxHeat);
 
         if (_fullScreenGlitchMaterial != null)
-        {
             _fullScreenGlitchMaterial.SetFloat(IntensityId, Mathf.Clamp01(intensity)); 
-        }
     }
 
     // 발을 바닥 높이에 맞춰 배치하고 플레이어 쪽을 바라봅니다.

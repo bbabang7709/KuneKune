@@ -1263,11 +1263,8 @@ MonoBehaviour:
   _pushLiftDistance: 0.06
   _handPromptDelay: 0.45
   _handPromptShakeDistance: 0.045
-  _handScratchVolume: 0.7
   _intensity: 1
   _lightOnSeconds: 1
-  _lightHumVolume: 0.6
-  _lightCueVolume: 0.4
 --- !u!61 &4173435657148418281
 BoxCollider2D:
   m_ObjectHideFlags: 0
