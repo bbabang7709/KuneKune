@@ -15,7 +15,8 @@ public enum EMapType
     House_MyRoom,
     School_Hallway,
     School_Classroom,
-    School_Toilet,
+    School_ManToilet,
+    School_WomanToilet,
     School_2F,
     SchoolArtroom
 }

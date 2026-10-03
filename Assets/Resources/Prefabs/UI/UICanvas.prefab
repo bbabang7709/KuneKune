@@ -670,8 +670,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 163.68}
-  m_SizeDelta: {x: 1050, y: 300}
+  m_AnchoredPosition: {x: 0, y: 238.68}
+  m_SizeDelta: {x: 1050, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &369844115028701052
 CanvasRenderer:
@@ -701,7 +701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -28673476811256419, guid: bc1cf815a3a5b184180736483722e9cd, type: 3}
+  m_Sprite: {fileID: 3752039341811889212, guid: 1a6c4cd9358a2f24096029b942e5430b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -726,12 +726,12 @@ MonoBehaviour:
   m_Padding:
     m_Left: 14
     m_Right: 0
-    m_Top: 15
+    m_Top: 14
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 121, y: 124}
+  m_CellSize: {x: 120.8, y: 108.76}
   m_Spacing: {x: 6.7, y: 8}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUIManager
   itemDatabase: {fileID: 11400000, guid: bae2c9877f6e16b4baeec5a9f83af343, type: 2}
-  maxConsumableSlots: 16
+  maxConsumableSlots: 8
   fixedKeyItemIDs:
   - key_myroom
   - key_classroom
@@ -1027,6 +1027,8 @@ MonoBehaviour:
   - doll_head
   - doll_arm
   - doll_leg
+  - needle
+  - hanky
   consumableSlotPrefab: {fileID: 4750131554947408659, guid: 2e94d1b15cfc53c47bd9784e449adfd9, type: 3}
   keyItemSlotPrefab: {fileID: 4750131554947408659, guid: 456694886d94d8049a9880b1c38d1342, type: 3}
   consumableContainer: {fileID: 8888010263474370476}
@@ -3498,8 +3500,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -163.68}
-  m_SizeDelta: {x: 1050, y: 300}
+  m_AnchoredPosition: {x: 0, y: -113.68}
+  m_SizeDelta: {x: 1050, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4411122531115777101
 CanvasRenderer:
@@ -3529,7 +3531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8668678625150183771, guid: bc1cf815a3a5b184180736483722e9cd, type: 3}
+  m_Sprite: {fileID: 194819891474040623, guid: 1a6c4cd9358a2f24096029b942e5430b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3967,6 +3969,7 @@ GameObject:
   - component: {fileID: 6167950954737424691}
   - component: {fileID: 2957165048983113424}
   - component: {fileID: 3236314595193260053}
+  - component: {fileID: 991183083420936825}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -4021,8 +4024,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4031,6 +4034,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &991183083420936825
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5644927908376725110}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 175c313471799964282316388a16ba8c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6323922298777972354
 GameObject:
   m_ObjectHideFlags: 0

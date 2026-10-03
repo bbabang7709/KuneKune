@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7e8cf8f341b5046a748074db262f4b, type: 3}
+  m_Name: Needle
+  m_EditorClassIdentifier: Assembly-CSharp::KeyItemData
+  itemType: 1
+  itemID: needle
+  itemName: "\uBC14\uB290\uC9C8 \uB3C4\uAD6C"
+  description: "\uBC14\uB290\uC9C8 \uB3C4\uAD6C\uC774\uB2E4. \n\uBB34\uC5B8\uAC00
+    \uC218\uC120\uD560 \uB54C \uC4F8 \uC218 \uC788\uC744 \uAC83 \uAC19\uB2E4."
+  itemCount: 1
+  illustration: {fileID: 1472525381983710957, guid: 85c22c52d7b70fe42a5d0c89c46ed9d7, type: 3}
+  icon: {fileID: 1472525381983710957, guid: 85c22c52d7b70fe42a5d0c89c46ed9d7, type: 3}
+  keyAcquiredNormal: {fileID: 1472525381983710957, guid: 85c22c52d7b70fe42a5d0c89c46ed9d7, type: 3}
+  keyAcquiredSelected: {fileID: -8702828580671796008, guid: 308fe88a06b4dbf4a8583c98813dea1b, type: 3}
+  keyUnacquiredNormal: {fileID: 7978501101940092238, guid: 60cc1e83eeee7db4cb3ebfa33a2a29e8, type: 3}
+  keyUnacquiredSelected: {fileID: -5230170076601769816, guid: ae4545f4175d0304ba454cc499eebcc1, type: 3}

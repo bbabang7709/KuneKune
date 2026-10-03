@@ -28,7 +28,20 @@ public class FootprintSequence : MonoBehaviour
     public void PlayFootprintSequence()
     {
         StartCoroutine(SequenceRoutine());
-    }   
+    }
+
+    public void HideFootprint()
+    {
+        foreach (var fp in footprints)
+        {
+            if (fp == null) continue;
+            Color c = fp.color;
+            c.a = 0f;
+            fp.color = c;
+
+            fp.gameObject.SetActive(false);
+        }
+    }
 
     private IEnumerator SequenceRoutine()
     {

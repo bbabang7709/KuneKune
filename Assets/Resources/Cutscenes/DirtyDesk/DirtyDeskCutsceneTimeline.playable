@@ -947,6 +947,22 @@ MonoBehaviour:
     m_DisplayName: DialogClip
   m_Markers:
     m_Objects: []
+--- !u!114 &-4214616278738225779
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalEmitter
+  m_Time: 14.516666666666667
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: cb652b923e96dd24eab238248fbc3711, type: 2}
 --- !u!114 &-4027738870238608027
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2307,6 +2323,7 @@ MonoBehaviour:
     m_Objects:
     - {fileID: 8799667487336976288}
     - {fileID: 8408848934975377353}
+    - {fileID: -4214616278738225779}
 --- !u!114 &8113067667836937983
 MonoBehaviour:
   m_ObjectHideFlags: 1

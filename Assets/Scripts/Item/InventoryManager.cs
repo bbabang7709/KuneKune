@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -94,13 +95,13 @@ public class InventoryManager : MonoBehaviour, ISaveable
         inventoryUIPanel.SetActive(isOpening);
     }
 
-    public void AcquireItem(ItemData item, DialogData dialog)
+    public void AcquireItem(ItemData item, DialogData dialog, Action onFinished = null)
     {
         if (item == null) return;
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX("Item_Get");
         if (DialogSystem.Instance != null)
         {
-            DialogSystem.Instance.PlayItemDialog(item.Illustration, dialog, null);
+            DialogSystem.Instance.PlayItemDialog(item.Illustration, dialog, onFinished);
         }
 
         AddItem(item);

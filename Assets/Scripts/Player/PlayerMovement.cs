@@ -14,7 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 4f;
-
+    
+    private float _speedMultiplier = 1f;
     private Vector2 moveDirection;
 
     /// <summary>
@@ -185,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
                 ? sprintSpeed
                 : moveSpeed;
 
-        rb.linearVelocity = moveDirection * speed;
+        rb.linearVelocity = moveDirection * speed * _speedMultiplier;
     }
 
     // =========================================================
@@ -235,6 +236,12 @@ public class PlayerMovement : MonoBehaviour
             : input < 0f
                 ? Vector2.left
                 : Vector2.zero;
+    }
+
+    public void SetSpeedMultiplier(float amount)
+    {
+        if (amount < 0) return;
+        _speedMultiplier = amount;
     }
 
     // =========================================================

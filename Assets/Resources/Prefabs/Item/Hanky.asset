@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7e8cf8f341b5046a748074db262f4b, type: 3}
+  m_Name: Hanky
+  m_EditorClassIdentifier: Assembly-CSharp::KeyItemData
+  itemType: 1
+  itemID: hanky
+  itemName: "\uC190\uC218\uAC74"
+  description: "\uB204\uAD70\uAC00\uC758 \uC774\uB2C8\uC15C\uC774 \uC801\uD78C \uC190\uC218\uAC74\uC774\uB2E4.\n\n...
+    \uC65C\uC778\uC9C0 \uADF8\uB9AC\uC6B4 \uB290\uB08C\uC774 \uB4E0\uB2E4."
+  itemCount: 1
+  illustration: {fileID: -6560618423535854421, guid: a50ab319c0301184496fc4f1b1836dc4, type: 3}
+  icon: {fileID: -6560618423535854421, guid: a50ab319c0301184496fc4f1b1836dc4, type: 3}
+  keyAcquiredNormal: {fileID: -6560618423535854421, guid: a50ab319c0301184496fc4f1b1836dc4, type: 3}
+  keyAcquiredSelected: {fileID: -3748946930524109899, guid: b97465ff7865abc4aa3522d046dd68d4, type: 3}
+  keyUnacquiredNormal: {fileID: 7394427612040947042, guid: b23ac6611b5a78f42bb11cc734c3f260, type: 3}
+  keyUnacquiredSelected: {fileID: 8710163274098219208, guid: 9bac297999ee1984d956164e9d9f3785, type: 3}
