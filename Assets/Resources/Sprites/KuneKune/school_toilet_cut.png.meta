@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6f1a6e0b823e07649a72f96aa7a2de1a
+guid: 6dd1ae4bd3fce7d46bf692fb06cb5ad6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 851887268008484169
-    second: school_toilet_cut_0
+      213: 2328285797731140239
+    second: school_toilet_cut 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 94dd25ee4f282db00800000000000000
-      internalID: 851887268008484169
+      spriteID: f820a55e89bbf4020800000000000000
+      internalID: 2328285797731140239
       vertices: []
       indices: 
       edges: []
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2de844807fa98d74594469d6d9e8ac92
-      internalID: -788012767
+      spriteID: d7b49b2c27392a24891a00ad39e2a7cc
+      internalID: -510667176
       vertices: []
       indices: 
       edges: []
@@ -159,8 +159,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92cb25ccd23ec9844ba856a64da10047
-      internalID: -411710936
+      spriteID: ddf49b2134747214aa2d6377b930a998
+      internalID: -1802352733
       vertices: []
       indices: 
       edges: []
@@ -181,8 +181,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40eaf9b758b93f14887705e49c23b310
-      internalID: -1867497672
+      spriteID: 6f6acfe03d99db84eb0c63c006f84816
+      internalID: 164434539
       vertices: []
       indices: 
       edges: []
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93314b3a28f0a7f46bbfd943f40efcf7
-      internalID: 7173094
+      spriteID: 381ba3b11ee26e541bded6136da570a3
+      internalID: 263069413
       vertices: []
       indices: 
       edges: []
@@ -225,8 +225,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 033ad481a1f29b04781117b6aa092ff0
-      internalID: 1532859019
+      spriteID: 5026d5fda7313014495750388216da81
+      internalID: 1630759623
       vertices: []
       indices: 
       edges: []
@@ -247,8 +247,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b734e564cbb74104eac6d102b63b43c8
-      internalID: -367966050
+      spriteID: 7c173ba4d5dd6244eb991f201c691d55
+      internalID: -1208182735
       vertices: []
       indices: 
       edges: []
@@ -257,7 +257,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 45145b4031081904b8065e6a74b17274
+    spriteID: 79119b2c9c69ff34385ccdbe40cb09e7
     internalID: 0
     vertices: []
     indices: 
@@ -269,13 +269,13 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      school_toilet_cut_0: 851887268008484169
-      school_toilet_cut_1: -788012767
-      school_toilet_cut_2: -411710936
-      school_toilet_cut_3: -1867497672
-      school_toilet_cut_4: 7173094
-      school_toilet_cut_5: 1532859019
-      school_toilet_cut_6: -367966050
+      school_toilet_cut_0: 2328285797731140239
+      school_toilet_cut_1: -510667176
+      school_toilet_cut_2: -1802352733
+      school_toilet_cut_3: 164434539
+      school_toilet_cut_4: 263069413
+      school_toilet_cut_5: 1630759623
+      school_toilet_cut_6: -1208182735
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

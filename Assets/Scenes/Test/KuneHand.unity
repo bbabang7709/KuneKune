@@ -1162,6 +1162,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3779942200821827443, guid: 0dfe7c161cab25344ae5c23c07cdf0c4, type: 3}
   m_PrefabInstance: {fileID: 1704188703}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1704188706 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4248860206430104048, guid: 0dfe7c161cab25344ae5c23c07cdf0c4, type: 3}
+  m_PrefabInstance: {fileID: 1704188703}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c7b5b7d764eb6a418b395308bc1266c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KuneKuneHand
 --- !u!1 &1801566529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2368,6 +2379,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4811324628962735255, guid: 8f1a6464d431b284385fa32c977e50fd, type: 3}
+      propertyPath: _event
+      value: 
+      objectReference: {fileID: 1704188706}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
