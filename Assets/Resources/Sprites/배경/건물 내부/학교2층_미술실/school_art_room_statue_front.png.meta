@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 68d865568e681354492712ccc4b678ad
+guid: 1dd11232c20e1f14a8e6c69bebdcbb6f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2921066578979528199
-    second: "\uC870\uAC01\uC0C1(\uC784\uC2DC)_0"
-  - first:
-      213: 3262737995563199419
-    second: "\uC870\uAC01\uC0C1(\uC784\uC2DC)_1"
-  - first:
-      213: 4255934322792805766
-    second: "\uC870\uAC01\uC0C1(\uC784\uC2DC)_2"
-  - first:
-      213: -3774754782339343862
-    second: "\uC870\uAC01\uC0C1(\uC784\uC2DC)_3"
+      213: 7094648698115869991
+    second: school_art_room_statue_front_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,89 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uC870\uAC01\uC0C1(\uC784\uC2DC)_front"
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 30
-        width: 22
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 70e175db396b98820800000000000000
-      internalID: 2921066578979528199
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uC870\uAC01\uC0C1(\uC784\uC2DC)_left"
+      name: school_art_room_statue_front_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 21
-        height: 31
+        width: 24
+        height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bbbe6b49be2974d20800000000000000
-      internalID: 3262737995563199419
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uC870\uAC01\uC0C1(\uC784\uC2DC)_back"
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 30
-        width: 22
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6853579b7bd101b30800000000000000
-      internalID: 4255934322792805766
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uC870\uAC01\uC0C1(\uC784\uC2DC)_right"
-      rect:
-        serializedVersion: 2
-        x: 22
-        y: 0
-        width: 21
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a0ad47466806d9bc0800000000000000
-      internalID: -3774754782339343862
+      spriteID: 72d4261e661457260800000000000000
+      internalID: 7094648698115869991
       vertices: []
       indices: 
       edges: []
@@ -200,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1835c3ef6e2e2134f93e70441db3de7c
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uC870\uAC01\uC0C1(\uC784\uC2DC)_back": 4255934322792805766
-      "\uC870\uAC01\uC0C1(\uC784\uC2DC)_front": 2921066578979528199
-      "\uC870\uAC01\uC0C1(\uC784\uC2DC)_left": 3262737995563199419
-      "\uC870\uAC01\uC0C1(\uC784\uC2DC)_right": -3774754782339343862
+      school_art_room_statue_front_0: 7094648698115869991
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
