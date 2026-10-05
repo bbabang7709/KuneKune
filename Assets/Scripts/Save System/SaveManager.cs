@@ -129,6 +129,9 @@ public class SaveManager : MonoBehaviour
         {
             Debug.LogError($"[SaveManager] 세이브 로드 중 치명적 에러 발생!!!! 코루틴 즉사를 방지했습니다.\n {e}");
         }
+        
+        if (BackgroundManager.Instance != null)
+            BackgroundManager.Instance.SetBackgroundForChapter(_currentSaveData.currentChapter);
 
         yield return new WaitForSecondsRealtime(1.0f);
 
