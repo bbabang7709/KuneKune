@@ -99,20 +99,20 @@ public class KuneKune : MonoBehaviour
         if (MapManager.Instance.KunekuneSpawnPoints.Count == 0)
         {
             Debug.Log("현재 맵에서 쿠네쿠네가 소환될 수 있는 사물이 없네요.");
-            
+            return;
             // TEST용 폴백 로직 유지
-            Transform tr = GameObject.Find("KuneKune_ables")?.transform;
-            if (tr != null)
-            {
-                Debug.Log("테스트를 위해 아무 KuneKune_ables에서 소환할게요");
-                Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
-                foreach (Transform sp in spawnPoints)
-                {
-                    if (sp == tr) continue;
-                    SpawnObject = sp.gameObject;
-                    MapManager.Instance.KunekuneSpawnPoints.Add(sp);
-                }
-            }
+            //Transform tr = GameObject.Find("KuneKune_ables")?.transform;
+            //if (tr != null)
+            //{
+            //    Debug.Log("테스트를 위해 아무 KuneKune_ables에서 소환할게요");
+            //    Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
+            //    foreach (Transform sp in spawnPoints)
+            //    {
+            //        if (sp == tr) continue;
+            //        SpawnObject = sp.gameObject;
+            //        MapManager.Instance.KunekuneSpawnPoints.Add(sp);
+            //    }
+            //}
         }
         
         GameObject closest = null;
