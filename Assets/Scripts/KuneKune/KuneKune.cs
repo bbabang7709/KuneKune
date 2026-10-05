@@ -48,6 +48,7 @@ public class KuneKune : MonoBehaviour
     [SerializeField] Material _fullScreenGlitchMaterial;
     [SerializeField, Range(0f, 1f)] float intensity = 0.3f; // 0(정상 화면) ~ 1(글리치 강도 최대)
     readonly int IntensityId = Shader.PropertyToID("_Intensity");
+    private static readonly int GlitchTimeId = Shader.PropertyToID("_GlitchTime");
 
     public GameObject SpawnObject { get; private set; }
 
@@ -230,6 +231,13 @@ public class KuneKune : MonoBehaviour
                 _animator.Play("Run");
                 break;
         }
+    }
+
+    private void LateUpdate()
+    {
+        // 메뉴가 게임 시간을 멈춰도 화면 글리치의 패턴은 계속 움직입니다.
+        if (_fullScreenGlitchMaterial != null)
+            _fullScreenGlitchMaterial.SetFloat(GlitchTimeId, Time.unscaledTime);
     }
 
     private void FixedUpdate()

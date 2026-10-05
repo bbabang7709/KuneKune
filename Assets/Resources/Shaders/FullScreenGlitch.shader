@@ -3,6 +3,7 @@ Shader "FullScreenGlitch"
     Properties
     {
         _Intensity ("Intensity", Range(0, 1)) = 0
+        [HideInInspector] _GlitchTime ("Glitch Time", Float) = 0
 
         [Header(Glitch Settings)]
         _RgbSplit ("RGB Split", Range(0, 0.05)) = 0.012
@@ -39,6 +40,7 @@ Shader "FullScreenGlitch"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
 
             float _Intensity;
+            float _GlitchTime;
             float _RgbSplit;
             float _Jitter;
             float _BlockGlitch;
@@ -77,7 +79,8 @@ Shader "FullScreenGlitch"
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 
                 float2 uv = input.texcoord;
-                float time = _Time.y;
+                // 쿠네쿠네가 전달하는 unscaledTime으로 일시정지 중에도 재생합니다.
+                float time = _GlitchTime;
 
                 // 0.125초(8fps)마다 8% 확률로 글리치 강도를 순간 증폭시킨다 (버스트 노이즈처럼 화면이 튀는 순간을 만든다).
                 float burstSeed = floor(time * 8.0);
