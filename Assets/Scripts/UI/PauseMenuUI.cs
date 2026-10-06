@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +12,9 @@ public class PauseMenuUI : UIBase
 
     [Tooltip("로드 시 띄울 경고 메세지 Panel")]
     [SerializeField] private GameObject loadWarningPanel;
+
+    [Tooltip("메뉴 배경과 버튼 사이에 표시할 독백 연출")]
+    [SerializeField] private PauseMenuEcho pauseMenuEcho;
 
     [Header("Settings")]
     [SerializeField] private string titleSceneName = "Scene_Intro";
@@ -36,7 +38,7 @@ public class PauseMenuUI : UIBase
     {
         if (SaveManager.Instance != null && SaveManager.Instance.IsLoading) return;
         if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) return;
-
+        
         bool isOpening = !pauseMenuPanel.activeSelf;
         pauseMenuPanel.SetActive(isOpening);
 
@@ -52,7 +54,9 @@ public class PauseMenuUI : UIBase
 
     public void PauseGame()
     {
-        if (DialogSystem.Instance.IsDialogPlaying) return;
+        if (SaveManager.Instance != null && SaveManager.Instance.IsLoading) return;
+        if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) return;
+        if (IsPaused) return;
 
         ControlLockManager.Instance?.AddMovementLock(true);
         ControlLockManager.Instance?.AddInputLock(true);
@@ -63,10 +67,13 @@ public class PauseMenuUI : UIBase
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        pauseMenuEcho?.Play();
     }
 
     public void ResumeGame()
     {
+        pauseMenuEcho?.Stop();
         IsPaused = false;
         pauseMenuPanel.SetActive(false);
         loadWarningPanel.SetActive(false);
@@ -85,6 +92,7 @@ public class PauseMenuUI : UIBase
 
     public void OnClickGoToTitle()
     {
+        pauseMenuEcho?.Stop();
         StartCoroutine(GoToTitleRoutine());
     }
 
@@ -99,6 +107,7 @@ public class PauseMenuUI : UIBase
 
     public void OpenLoadWarning()
     {
+        pauseMenuEcho?.Stop();
         pauseMenuPanel.SetActive(false);
         loadWarningPanel.SetActive(true);
     }
@@ -107,5 +116,6 @@ public class PauseMenuUI : UIBase
     {
         loadWarningPanel.SetActive(false);
         pauseMenuPanel.SetActive(true);
+        pauseMenuEcho?.Play();
     }
 }
