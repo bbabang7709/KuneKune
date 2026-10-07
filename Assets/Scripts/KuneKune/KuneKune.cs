@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public enum ECharacterState
 {
@@ -205,10 +207,7 @@ public class KuneKune : MonoBehaviour
         _lastPlayerMap = null;
         gameObject.SetActive(false);
         
-        if (_fullScreenGlitchMaterial != null)
-        {
-            _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    
-        }
+        ResetFullScreenGlitch();
         State = ECharacterState.Unspawned;
 
         var currentArea = MapManager.Instance?.CurrentMap;
@@ -238,6 +237,14 @@ public class KuneKune : MonoBehaviour
         // 메뉴가 게임 시간을 멈춰도 화면 글리치의 패턴은 계속 움직입니다.
         if (_fullScreenGlitchMaterial != null)
             _fullScreenGlitchMaterial.SetFloat(GlitchTimeId, Time.unscaledTime);
+    }
+
+    private void ResetFullScreenGlitch()
+    {
+        if (_fullScreenGlitchMaterial == null) return;
+
+        _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);
+        _fullScreenGlitchMaterial.SetFloat(GlitchTimeId, 0f);
     }
 
     private void FixedUpdate()
@@ -426,10 +433,11 @@ public class KuneKune : MonoBehaviour
         SaveManager.Instance?.Load(true);
     }
 
-#if UNITY_EDITOR
     void OnEnable()
     {
+#if UNITY_EDITOR
         EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+#endif
 
         if (CutsceneManager.Instance != null)
         {
@@ -440,7 +448,11 @@ public class KuneKune : MonoBehaviour
 
     void OnDisable()
     {
+        // 공유 머티리얼의 런타임 값이 타이틀 등 다음 씬에 남지 않게 합니다.
+        ResetFullScreenGlitch();
+#if UNITY_EDITOR
         EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+#endif
 
         if (CutsceneManager.Instance != null)
         {
@@ -449,15 +461,11 @@ public class KuneKune : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     void OnPlayModeStateChanged(PlayModeStateChange state)
     {
         if (state == PlayModeStateChange.ExitingPlayMode)
-        {
-            if (_fullScreenGlitchMaterial != null)
-            {
-                _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    
-            }
-        }
+            ResetFullScreenGlitch();
     }
 #endif
 }

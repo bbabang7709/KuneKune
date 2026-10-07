@@ -20,6 +20,7 @@ public class PauseMenuUI : UIBase
     [SerializeField] private string titleSceneName = "Scene_Intro";
 
     public bool IsPaused = false;
+    private bool _isReturningToTitle;
 
     protected override void Awake()
     {
@@ -36,6 +37,7 @@ public class PauseMenuUI : UIBase
 
     public void TogglePauseMenu()
     {
+        if (_isReturningToTitle) return;
         if (SaveManager.Instance != null && SaveManager.Instance.IsLoading) return;
         if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) return;
         
@@ -73,6 +75,7 @@ public class PauseMenuUI : UIBase
 
     public void ResumeGame()
     {
+        if (_isReturningToTitle) return;
         pauseMenuEcho?.Stop();
         IsPaused = false;
         pauseMenuPanel.SetActive(false);
@@ -86,27 +89,42 @@ public class PauseMenuUI : UIBase
 
     public void OnClickLoadGame()
     {
+        if (_isReturningToTitle) return;
         ResumeGame();
         SaveManager.Instance?.Load();
     }
 
     public void OnClickGoToTitle()
     {
+        if (_isReturningToTitle) return;
+        _isReturningToTitle = true;
         pauseMenuEcho?.Stop();
         StartCoroutine(GoToTitleRoutine());
     }
 
     private IEnumerator GoToTitleRoutine()
     {
-        Time.timeScale = 1f;
+        // 페이드는 실제 시간을 사용하므로, 씬을 떠날 때까지 게임은 멈춰 둡니다.
+        Time.timeScale = 0f;
 
-        yield return UIManager.Instance.FadeOut(1f);
+        if (UIManager.Instance != null)
+            yield return UIManager.Instance.FadeOut(1f);
 
+        // LoadScene은 다음 프레임에 완료됩니다. 이전 씬이 움직이지 않도록
+        // 메뉴 객체가 파괴된 뒤에도 호출되는 정적 콜백에서 시간을 복구합니다.
+        SceneManager.sceneLoaded += ResumeTimeAfterSceneLoad;
         SceneManager.LoadScene(titleSceneName);
+    }
+
+    private static void ResumeTimeAfterSceneLoad(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= ResumeTimeAfterSceneLoad;
+        Time.timeScale = 1f;
     }
 
     public void OpenLoadWarning()
     {
+        if (_isReturningToTitle) return;
         pauseMenuEcho?.Stop();
         pauseMenuPanel.SetActive(false);
         loadWarningPanel.SetActive(true);
@@ -114,6 +132,7 @@ public class PauseMenuUI : UIBase
 
     public void CloseLoadWarning()
     {
+        if (_isReturningToTitle) return;
         loadWarningPanel.SetActive(false);
         pauseMenuPanel.SetActive(true);
         pauseMenuEcho?.Play();
