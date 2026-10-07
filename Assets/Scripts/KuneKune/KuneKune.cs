@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public enum ECharacterState
 {
@@ -48,6 +50,7 @@ public class KuneKune : MonoBehaviour
     [SerializeField] Material _fullScreenGlitchMaterial;
     [SerializeField, Range(0f, 1f)] float intensity = 0.3f; // 0(정상 화면) ~ 1(글리치 강도 최대)
     readonly int IntensityId = Shader.PropertyToID("_Intensity");
+    private static readonly int GlitchTimeId = Shader.PropertyToID("_GlitchTime");
 
     public GameObject SpawnObject { get; private set; }
 
@@ -99,20 +102,20 @@ public class KuneKune : MonoBehaviour
         if (MapManager.Instance.KunekuneSpawnPoints.Count == 0)
         {
             Debug.Log("현재 맵에서 쿠네쿠네가 소환될 수 있는 사물이 없네요.");
-            
+            return;
             // TEST용 폴백 로직 유지
-            Transform tr = GameObject.Find("KuneKune_ables")?.transform;
-            if (tr != null)
-            {
-                Debug.Log("테스트를 위해 아무 KuneKune_ables에서 소환할게요");
-                Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
-                foreach (Transform sp in spawnPoints)
-                {
-                    if (sp == tr) continue;
-                    SpawnObject = sp.gameObject;
-                    MapManager.Instance.KunekuneSpawnPoints.Add(sp);
-                }
-            }
+            //Transform tr = GameObject.Find("KuneKune_ables")?.transform;
+            //if (tr != null)
+            //{
+            //    Debug.Log("테스트를 위해 아무 KuneKune_ables에서 소환할게요");
+            //    Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
+            //    foreach (Transform sp in spawnPoints)
+            //    {
+            //        if (sp == tr) continue;
+            //        SpawnObject = sp.gameObject;
+            //        MapManager.Instance.KunekuneSpawnPoints.Add(sp);
+            //    }
+            //}
         }
         
         GameObject closest = null;
@@ -204,10 +207,7 @@ public class KuneKune : MonoBehaviour
         _lastPlayerMap = null;
         gameObject.SetActive(false);
         
-        if (_fullScreenGlitchMaterial != null)
-        {
-            _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    
-        }
+        ResetFullScreenGlitch();
         State = ECharacterState.Unspawned;
 
         var currentArea = MapManager.Instance?.CurrentMap;
@@ -230,6 +230,21 @@ public class KuneKune : MonoBehaviour
                 _animator.Play("Run");
                 break;
         }
+    }
+
+    private void LateUpdate()
+    {
+        // 메뉴가 게임 시간을 멈춰도 화면 글리치의 패턴은 계속 움직입니다.
+        if (_fullScreenGlitchMaterial != null)
+            _fullScreenGlitchMaterial.SetFloat(GlitchTimeId, Time.unscaledTime);
+    }
+
+    private void ResetFullScreenGlitch()
+    {
+        if (_fullScreenGlitchMaterial == null) return;
+
+        _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);
+        _fullScreenGlitchMaterial.SetFloat(GlitchTimeId, 0f);
     }
 
     private void FixedUpdate()
@@ -418,10 +433,11 @@ public class KuneKune : MonoBehaviour
         SaveManager.Instance?.Load(true);
     }
 
-#if UNITY_EDITOR
     void OnEnable()
     {
+#if UNITY_EDITOR
         EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+#endif
 
         if (CutsceneManager.Instance != null)
         {
@@ -432,7 +448,11 @@ public class KuneKune : MonoBehaviour
 
     void OnDisable()
     {
+        // 공유 머티리얼의 런타임 값이 타이틀 등 다음 씬에 남지 않게 합니다.
+        ResetFullScreenGlitch();
+#if UNITY_EDITOR
         EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+#endif
 
         if (CutsceneManager.Instance != null)
         {
@@ -441,15 +461,11 @@ public class KuneKune : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     void OnPlayModeStateChanged(PlayModeStateChange state)
     {
         if (state == PlayModeStateChange.ExitingPlayMode)
-        {
-            if (_fullScreenGlitchMaterial != null)
-            {
-                _fullScreenGlitchMaterial.SetFloat(IntensityId, 0f);    
-            }
-        }
+            ResetFullScreenGlitch();
     }
 #endif
 }

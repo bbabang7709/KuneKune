@@ -31,6 +31,8 @@ public class ToiletBulkhead : MonoBehaviour, IInteractable
         isOpend = true;
         sr.sprite = openedSprite;
 
+        SoundManager.Instance?.PlaySFX("StallDoor_Open");
+
         if (innerBowlCollider != null) innerBowlCollider.enabled = true;
 
         if (TryGetComponent<Collider2D>(out var doorCollider))
