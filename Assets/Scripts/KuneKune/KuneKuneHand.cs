@@ -345,8 +345,8 @@ public class KuneKuneHand : MonoBehaviour
 
     private void SelectNextDoor()
     {
-        // 첫 손은 2번째 문에서 나오고, 이후에는 남은 문 중에서 무작위로 선택합니다.
-        int index = OpenedDoorCount == 0 ? _remainingDoors.IndexOf(1) : Random.Range(0, _remainingDoors.Count);
+        // 첫 손은 첫 번째 문에서 나오고, 이후에는 남은 문 중에서 무작위로 선택합니다.
+        int index = OpenedDoorCount == 0 ? _remainingDoors.IndexOf(0) : Random.Range(0, _remainingDoors.Count);
         CurrentDoorIndex = _remainingDoors[index];
         _remainingDoors.RemoveAt(index);
         
@@ -416,7 +416,6 @@ public class KuneKuneHand : MonoBehaviour
         ControlLockManager.Instance?.AddInputLock(this);
         ControlLockManager.Instance?.AddMovementLock(this);
 
-        // 무서워서 꺼버렸다. 나중에 알아서 켜주세요.
         SoundManager.Instance?.SetBGMVolume(0f);
         SoundManager.Instance?.PlaySFX("KuneKune_Jumpscare");
 

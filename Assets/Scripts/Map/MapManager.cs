@@ -38,7 +38,7 @@ public class MapManager : MonoBehaviour
 
     public HashSet<Transform> KunekuneSpawnPoints { get; private set; } = new();
 
-    private GameObject player;
+    public GameObject Player { get; private set; }
 
     public KuneKune KuneKune { get; private set; }
 
@@ -52,7 +52,7 @@ public class MapManager : MonoBehaviour
 
         Instance = this;
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        Player = GameObject.FindGameObjectWithTag("Player");
         KuneKune = KuneKune.Instantiate();
         QuestManager.Instantiate();
     }
@@ -108,13 +108,13 @@ public class MapManager : MonoBehaviour
             UpdateKunekuneSpawns(_currentArea);
 
             Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
-            if (spawnPoint != null && player != null)
+            if (spawnPoint != null && Player != null)
             {
-                player.transform.position = spawnPoint.position;
+                Player.transform.position = spawnPoint.position;
 
                 Physics2D.SyncTransforms();
 
-                PlayerAppearance playerApp = player.GetComponent<PlayerAppearance>();
+                PlayerAppearance playerApp = Player.GetComponent<PlayerAppearance>();
                 if (playerApp != null)
                 {
                     playerApp.RefreshCollider();
@@ -165,13 +165,13 @@ public class MapManager : MonoBehaviour
             UpdateKunekuneSpawns(_currentArea); // 이동한 맵의 쿠네쿠네 스폰 포인트 갱신
 
             Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
-            if (spawnPoint != null && player != null)
+            if (spawnPoint != null && Player != null)
             {
-                player.transform.position = spawnPoint.position;
+                Player.transform.position = spawnPoint.position;
 
                 Physics2D.SyncTransforms();
 
-                PlayerAppearance playerApp = player.GetComponent<PlayerAppearance>();
+                PlayerAppearance playerApp = Player.GetComponent<PlayerAppearance>();
                 if (playerApp != null)
                 {
                     playerApp.RefreshCollider();
