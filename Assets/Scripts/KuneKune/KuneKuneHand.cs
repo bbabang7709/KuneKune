@@ -148,11 +148,15 @@ public class KuneKuneHand : MonoBehaviour
     private void Start()
     {
         Init();
-        //Play();
     }
 
     public void Init()
     {
+        // 정적 변수 초기화 (씬 재로드 시 정상 작동을 위함)
+        IsPlaying = false;
+        IsCleared = false;
+        IsGameOver = false;
+        
         if (transform.childCount < DoorCount)
         {
             Debug.LogError("KuneKuneHand의 자식으로 문 5개를 배치해주세요.", this);

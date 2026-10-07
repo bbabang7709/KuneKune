@@ -4,6 +4,6 @@ public enum EChapter
     None,
     Chapter1_Outside,
     Chapter2_House,
-    Chapter3_School
-    // Chapter4_Mountain
+    Chapter3_School,
+    Chapter4_Chase
 }

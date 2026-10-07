@@ -52,6 +52,8 @@ public class GameStartController : MonoBehaviour
                 SaveManager.Instance.SaveChapterCheckpoint(EChapter.Chapter1_Outside);
             if (MapManager.Instance != null)
                 MapManager.Instance.InitMap(EMapType.Outside_Busstop, "outside_gamestart");
+            if (BackgroundManager.Instance != null)
+                BackgroundManager.Instance.SetBackgroundForChapter(EChapter.Chapter1_Outside);
 
             yield return new WaitForSecondsRealtime(0.5f);
 

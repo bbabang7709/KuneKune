@@ -5,34 +5,41 @@ using UnityEngine.UI;
 public class ToiletMirror : MonoBehaviour, IInteractable
 {
     [Header("Interaction Settings")]
+    [Tooltip("첫 상호작용 이벤트 설정")]
     [SerializeField] private Sprite startSprite;
     [SerializeField] private GameObject imageRoot;
     [SerializeField] private Animator imageAnim;
     [SerializeField] private Image displayImage;
 
+    [Tooltip("첫 상호작용 이후 상호작용 시 띄울 다이얼로그")]
+    [SerializeField] private DialogData dialogAfterFirstInteraction;
+
     [SerializeField] private float delayTime = 1f;
 
     private bool _isWatching = false;
+    private bool _hasInteracted = false;
     
     public void OnInteractPressed()
     {
         if (displayImage == null) return;
         if (_isWatching) return;
 
-        if (ControlLockManager.Instance != null)
+        if (!_hasInteracted)
         {
-            ControlLockManager.Instance.AddInputLock(this);
-            ControlLockManager.Instance.AddMovementLock(this);
+            _hasInteracted = true;
+            if (ControlLockManager.Instance != null)
+            {
+                ControlLockManager.Instance.AddInputLock(this);
+                ControlLockManager.Instance.AddMovementLock(this);
+            }
+
+            StartCoroutine(InteractionRoutine());
         }
-
-        StartCoroutine(InteractionRoutine());
-    }
-
-    public void EndCutscene()
-    {
-        
-
-        
+        else
+        {
+            if (DialogSystem.Instance != null)
+                DialogSystem.Instance.PlayDialog(dialogAfterFirstInteraction);
+        }
     }
 
     private IEnumerator InteractionRoutine()

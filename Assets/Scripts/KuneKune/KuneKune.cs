@@ -38,7 +38,7 @@ public class KuneKune : MonoBehaviour
     }
 
     private float _direction;
-    private float _speed = 5f;
+    [SerializeField] private float _speed = 5f;
 
     private Queue<IKuneKuneMapRoute> _mapRoutes = new();
     private MapArea _currentMap;
@@ -217,6 +217,13 @@ public class KuneKune : MonoBehaviour
             if (currentArea.IsInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
             else SoundManager.Instance?.FadeBGMVolume(1f);
         }
+    }
+
+    public void SetMoveSpeed(float amount)
+    {
+        if (amount < 0) return;
+
+        _speed = amount;
     }
 
     private void UpdateAnimation()
