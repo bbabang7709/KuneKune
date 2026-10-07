@@ -18,7 +18,9 @@ public enum EMapType
     School_ManToilet,
     School_WomanToilet,
     School_2F,
-    SchoolArtroom
+    SchoolArtroom,
+    Flashback,
+    Chase_Ricefield
 }
 
 /// <summary>
