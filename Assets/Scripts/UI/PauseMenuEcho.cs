@@ -12,11 +12,12 @@ public class PauseMenuEcho : MonoBehaviour
     [Header("Presentation")]
     [SerializeField] private TMP_Text echoText;
     [SerializeField] private Color echoColor = new Color(138f / 255f, 40f / 255f, 46f / 255f, 0.65f);
-    [SerializeField] private Vector2 delayRange = new Vector2(1.5f, 3f);
+    [SerializeField] private Vector2 delayRange = new Vector2(0.5f, 1f);    // 0.5 ~ 1초마다 반복
     [Tooltip("반복할 때마다 동시에 표시할 메아리 수를 이 범위에서 추첨합니다. 1~8개까지 설정할 수 있습니다.")]
     [SerializeField] private Vector2Int echoCountRange = new Vector2Int(1, 6);
     [SerializeField, Min(0f)] private float fadeInDuration = 0.8f;
-    [SerializeField, Min(0f)] private float holdDuration = 0.7f;
+    [SerializeField, Min(0f)] private float holdDuration = 0.4f;
+    [Tooltip("각 메아리의 페이드아웃 시간은 이 값의 60~140% 범위에서 따로 정합니다.")]
     [SerializeField, Min(0f)] private float fadeOutDuration = 1f;
     [Tooltip("메아리 텍스트가 페이드인/페이드아웃할 때 화면 픽셀 기준으로 좌우로 얼마나 미끄러질지 결정합니다.")]
     [SerializeField, Range(2f, 5f)] private float slidePixels = 4f;
@@ -26,6 +27,8 @@ public class PauseMenuEcho : MonoBehaviour
     [SerializeField] private RectTransform[] menuButtons;
     [SerializeField, Min(0f)] private float buttonPaddingPixels = 16f;
     [SerializeField, Min(0f)] private float screenPaddingPixels = 12f;
+    [Tooltip("화면 상하에서 각각 제외할 높이 비율입니다. 테두리 안쪽에만 메아리가 표시되도록 합니다.")]
+    [SerializeField, Range(0f, 0.25f)] private float verticalScreenPaddingRatio = 0.05f;
 
     [Header("Inner Thoughts")]
     [SerializeField] private string[] phrases =
@@ -60,7 +63,14 @@ public class PauseMenuEcho : MonoBehaviour
         /// </summary>
         public Vector2 Slide;
         public Rect MovementBounds;
+        public float ElapsedTime;
+        public float FadeInDuration;
+        public float HoldDuration;
+        public float FadeOutDuration;
+        public float Lifetime => FadeInDuration + HoldDuration + FadeOutDuration;
     }
+
+    private PlayerMovement _player;
 
     private void Awake()
     {
@@ -78,14 +88,15 @@ public class PauseMenuEcho : MonoBehaviour
                 menuButtons[i] = buttons[i].transform as RectTransform;
         }
 
+        _player = MapManager.Instance?.Player?.GetComponent<PlayerMovement>();
+
         Stop();
     }
 
     private bool CanShowEcho()
     {
-        KuneKune kuneKune = MapManager.Instance != null ? MapManager.Instance.KuneKune : null;
         return isActiveAndEnabled && PauseMenuUI.Instance != null && PauseMenuUI.Instance.IsPaused &&
-            kuneKune != null && kuneKune.isActiveAndEnabled && kuneKune.State != ECharacterState.Unspawned &&
+            _player != null && _player.CurrentHeat >= _player.MaxHeat &&
             (SaveManager.Instance == null || !SaveManager.Instance.IsLoading);
     }
 
@@ -202,13 +213,12 @@ public class PauseMenuEcho : MonoBehaviour
                 _lastPhraseIndex = phraseIndex;
                 _batchPhraseIndices.Add(phraseIndex);
 
+                AssignEchoTiming(echo);
                 echo.Text.rectTransform.anchoredPosition = echo.Position + echo.Slide;
                 echo.Text.gameObject.SetActive(true);
             }
 
-            yield return FadeEchoes(0f, echoColor.a, fadeInDuration, false);
-            yield return new WaitForSecondsRealtime(Mathf.Max(0f, holdDuration));
-            yield return FadeEchoes(echoColor.a, 0f, fadeOutDuration, true);
+            yield return AnimateEchoes();
             
             HideEchoTexts();
         }
@@ -278,6 +288,7 @@ public class PauseMenuEcho : MonoBehaviour
         Vector2 pixelSize = new Vector2(screenRect.width / Mathf.Max(1, Screen.width), screenRect.height / Mathf.Max(1, Screen.height));
         Vector2 slide = Vector2.right * (pixelSize.x * slidePixels);
         Vector2 screenPadding = pixelSize * screenPaddingPixels;
+        screenPadding.y = Mathf.Max(screenPadding.y, screenRect.height * verticalScreenPaddingRatio);
         _buttonPadding = pixelSize * buttonPaddingPixels;
 
         // 짧은 문구는 작게, 긴 독백은 줄바꿈하여 실제 표시 크기로 겹침을 검사합니다.
@@ -375,31 +386,78 @@ public class PauseMenuEcho : MonoBehaviour
         return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
     }
 
-    private IEnumerator FadeEchoes(float startAlpha, float endAlpha, float duration, bool isFadeOut)
+    private void AssignEchoTiming(Echo echo)
     {
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float progress = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / duration));
-            ApplyEchoFade(Mathf.Lerp(startAlpha, endAlpha, progress), progress, isFadeOut);
-            yield return null;
-        }
+        echo.ElapsedTime = 0f;
+        echo.FadeInDuration = Mathf.Max(0f, fadeInDuration);
+        float maxHold = Mathf.Max(0f, holdDuration);
+        echo.HoldDuration = Random.Range(Mathf.Min(0.2f, maxHold), maxHold);
+        echo.FadeOutDuration = Mathf.Max(0f, fadeOutDuration) * Random.Range(0.6f, 1.4f);
 
-        ApplyEchoFade(endAlpha, 1f, isFadeOut);
+        // 무작위 시간이 비슷해도 같은 순간에 끝나지 않도록 최소 간격을 확보합니다.
+        const float minDisappearSpacing = 0.15f;
+        for (int attempt = 0; attempt < _echoList.Count; attempt++)
+        {
+            bool adjusted = false;
+            foreach (Echo other in _echoList)
+            {
+                if (other == echo || other.Text == null || !other.Text.gameObject.activeSelf)
+                    continue;
+
+                if (Mathf.Abs(echo.Lifetime - other.Lifetime) < minDisappearSpacing)
+                {
+                    echo.HoldDuration += other.Lifetime + minDisappearSpacing - echo.Lifetime;
+                    adjusted = true;
+                }
+            }
+
+            if (!adjusted)
+                break;
+        }
     }
 
-    private void ApplyEchoFade(float alpha, float progress, bool isFadeOut)
+    private IEnumerator AnimateEchoes()
     {
-        foreach (Echo echo in _echoList)
+        while (true)
         {
-            if (echo.Text == null || !echo.Text.gameObject.activeSelf)
-                continue;
+            bool hasActiveEcho = false;
+            foreach (Echo echo in _echoList)
+            {
+                if (echo.Text == null || !echo.Text.gameObject.activeSelf)
+                    continue;
 
-            Vector2 start = isFadeOut ? echo.Position : echo.Position + echo.Slide;
-            Vector2 end = isFadeOut ? echo.Position - echo.Slide * 0.5f : echo.Position;
-            echo.Text.alpha = alpha;
-            echo.Text.rectTransform.anchoredPosition = Vector2.Lerp(start, end, progress);
+                echo.ElapsedTime += Time.unscaledDeltaTime;
+                if (echo.ElapsedTime >= echo.Lifetime)
+                {
+                    HideEchoText(echo.Text);
+                    continue;
+                }
+
+                hasActiveEcho = true;
+                if (echo.ElapsedTime < echo.FadeInDuration)
+                {
+                    float progress = Mathf.SmoothStep(0f, 1f, echo.ElapsedTime / echo.FadeInDuration);
+                    echo.Text.alpha = Mathf.Lerp(0f, echoColor.a, progress);
+                    echo.Text.rectTransform.anchoredPosition = Vector2.Lerp(echo.Position + echo.Slide, echo.Position, progress);
+                }
+                else if (echo.ElapsedTime < echo.FadeInDuration + echo.HoldDuration)
+                {
+                    echo.Text.alpha = echoColor.a;
+                    echo.Text.rectTransform.anchoredPosition = echo.Position;
+                }
+                else
+                {
+                    float fadeElapsed = echo.ElapsedTime - echo.FadeInDuration - echo.HoldDuration;
+                    float progress = Mathf.SmoothStep(0f, 1f, fadeElapsed / echo.FadeOutDuration);
+                    echo.Text.alpha = Mathf.Lerp(echoColor.a, 0f, progress);
+                    echo.Text.rectTransform.anchoredPosition = Vector2.Lerp(echo.Position, echo.Position - echo.Slide * 0.5f, progress);
+                }
+            }
+
+            if (!hasActiveEcho)
+                yield break;
+
+            yield return null;
         }
     }
 }

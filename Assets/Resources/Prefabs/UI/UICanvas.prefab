@@ -6726,10 +6726,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenuEcho
   echoText: {fileID: 8200000000000000104}
   echoColor: {r: 0.5411765, g: 0.15686275, b: 0.18039216, a: 0.65}
-  delayRange: {x: 1.5, y: 3}
+  delayRange: {x: 0.5, y: 1}
   echoCountRange: {x: 1, y: 6}
   fadeInDuration: 0.8
-  holdDuration: 0.7
+  holdDuration: 0.4
   fadeOutDuration: 1
   slidePixels: 4
   menuButtons:
@@ -6738,6 +6738,7 @@ MonoBehaviour:
   - {fileID: 4414970200857178803}
   buttonPaddingPixels: 16
   screenPaddingPixels: 12
+  verticalScreenPaddingRatio: 0.05
   phrases:
   - "\uC65C..."
   - "\uC2EB\uC5B4..."
