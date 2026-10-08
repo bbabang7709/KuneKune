@@ -1265,6 +1265,11 @@ MonoBehaviour:
   _handPromptShakeDistance: 0.045
   _intensity: 1
   _lightOnSeconds: 1
+  finishDialog: {fileID: 11400000, guid: 768e5d019f010e749b9dc96ab2348c6e, type: 2}
+  rewardItem_key: {fileID: 11400000, guid: 0222b2bdb1ee40245a4f910da704ead5, type: 2}
+  keyDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
+  rewardItem_dollArm: {fileID: 11400000, guid: 55d3ddfb0ddb37b46bb53e0e0e18b951, type: 2}
+  dollArmDialog: {fileID: 11400000, guid: a8321a0874fd4544484399766e024163, type: 2}
 --- !u!61 &4173435657148418281
 BoxCollider2D:
   m_ObjectHideFlags: 0
