@@ -15138,6 +15138,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.58
       objectReference: {fileID: 0}
+    - target: {fileID: 1449489882143271558, guid: 8f1a6464d431b284385fa32c977e50fd, type: 3}
+      propertyPath: BoundingShape2D
+      value: 
+      objectReference: {fileID: 6511089005605284350}
     - target: {fileID: 4099087307697133821, guid: 8f1a6464d431b284385fa32c977e50fd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.300179
@@ -15198,8 +15202,13 @@ PrefabInstance:
       propertyPath: _event
       value: 
       objectReference: {fileID: 1531081461758457135}
+    - target: {fileID: 8727943231583837139, guid: 8f1a6464d431b284385fa32c977e50fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8727943231583837139, guid: 8f1a6464d431b284385fa32c977e50fd, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4099087307697133821, guid: 8f1a6464d431b284385fa32c977e50fd, type: 3}
       insertIndex: 1
