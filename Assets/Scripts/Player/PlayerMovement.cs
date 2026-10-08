@@ -96,6 +96,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float adultHeatIncreaseRate = 10f;
     [SerializeField] private float studentHeatIncreaseRate = 20f;
     [SerializeField] private float childHeatIncreaseRate = 25f;
+
+    [SerializeField] private float sweatThreshold = 50f; // 땀을 흘리기 시작할 더위
+
     public float CurrentHeat { get; private set; } = 0f;
     public float MaxHeat => maxHeat;
     private float? targetHeat;
@@ -398,6 +401,9 @@ public class PlayerMovement : MonoBehaviour
         // 햇빛 노출될 때 더위 게이지 증가
         else if (IsExposedToSunlight)
             IncreaseHeat();
+        
+        bool shouldSweat = CurrentHeat >= sweatThreshold;
+        appearance.SetSweatyState(shouldSweat);
     }
 
     // --- Public API --- //

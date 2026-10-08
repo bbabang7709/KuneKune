@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AdultProfile
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAgeProfile
   animatorOverride: {fileID: 22100000, guid: 5672bebedc9fd914fa9b2834720e817f, type: 2}
+  sweatyAnimatorOverride: {fileID: 22100000, guid: 76c89aac5d262554e9ba53d3cf6c32a1, type: 2}
   standingColliderSize: {x: 0.9, y: 2.84}
   standingColliderOffset: {x: 0, y: -0.1}
   crouchingColliderSize: {x: 1, y: 1.7}

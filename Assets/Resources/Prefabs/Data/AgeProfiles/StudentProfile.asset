@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StudentProfile
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAgeProfile
   animatorOverride: {fileID: 22100000, guid: 471deb876967744488bbf09967c2763f, type: 2}
+  sweatyAnimatorOverride: {fileID: 22100000, guid: 974666562dc8d3b488da5063cc91ac54, type: 2}
   standingColliderSize: {x: 0.8, y: 2.4}
   standingColliderOffset: {x: 0, y: -0.23}
   crouchingColliderSize: {x: 1, y: 1.7}

@@ -28,6 +28,8 @@ public class PlayerAppearance : MonoBehaviour
     private PlayerMovement movement;
     private PlayerAgeProfile currentProfile;
 
+    private bool _isSweaty = false;
+
     public EPlayerAge CurrentAge { get; private set; } = EPlayerAge.Adult;
 
     void Awake()
@@ -38,7 +40,10 @@ public class PlayerAppearance : MonoBehaviour
             bodyCollider = GetComponent<CapsuleCollider2D>();
         
         movement = GetComponent<PlayerMovement>();
+    }
 
+    void Start()
+    {
         SetAge(EPlayerAge.Adult);   // 시작은 어른
     }
 
@@ -80,6 +85,14 @@ public class PlayerAppearance : MonoBehaviour
         ApplyAnimationProfile();
     }
 
+    public void SetSweatyState(bool isSweaty)
+    {
+        if (_isSweaty == isSweaty) return;
+
+        _isSweaty = isSweaty;
+        ApplyAnimationProfile();
+    }
+
     private void HandleCrouchStateChanged(bool isCrouching)
     {
         ApplyColliderProfile(isCrouching);
@@ -88,9 +101,16 @@ public class PlayerAppearance : MonoBehaviour
     // Animation 적용 메서드
     private void ApplyAnimationProfile()
     {
-        if (currentProfile.animatorOverride == null) return;
+        if (currentProfile == null) return;
 
-        anim.runtimeAnimatorController = currentProfile.animatorOverride;
+        AnimatorOverrideController targetController = _isSweaty && currentProfile.sweatyAnimatorOverride != null
+            ? currentProfile.sweatyAnimatorOverride
+            : currentProfile.animatorOverride;
+            
+        if (targetController != null && anim.runtimeAnimatorController != targetController)
+        {
+            anim.runtimeAnimatorController = targetController;
+        }
     }
 
     // Collider 적용 메서드
@@ -102,13 +122,11 @@ public class PlayerAppearance : MonoBehaviour
         {
             bodyCollider.size = currentProfile.crouchingColliderSize;
             bodyCollider.offset = currentProfile.crouchingColliderOffset;
-            Debug.Log("Crouching Collider 적용 완료");
         }
         else
         {
             bodyCollider.size = currentProfile.standingColliderSize;
             bodyCollider.offset = currentProfile.standingColliderOffset;
-            Debug.Log("Standing Collider 적용 완료");
         }
     }
 

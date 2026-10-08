@@ -8,6 +8,7 @@ public class PlayerAgeProfile : ScriptableObject
 {
     [Header("Animation")]
     public AnimatorOverrideController animatorOverride;
+    public AnimatorOverrideController sweatyAnimatorOverride;   // 땀 흘릴 때
     
     [Header("Standing Collider")]
     public Vector2 standingColliderSize;
