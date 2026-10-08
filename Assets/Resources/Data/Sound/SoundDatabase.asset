@@ -68,3 +68,6 @@ MonoBehaviour:
   - soundID: Fluorescent_Flicker
     clip: {fileID: 8300000, guid: a216e433bbf24e5fa7acfbb234800607, type: 3}
     volume: 0.1
+  - soundID: BrokenFloor
+    clip: {fileID: 8300000, guid: 9e94a680c86a1c64aa60070620e6b553, type: 3}
+    volume: 0.3

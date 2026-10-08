@@ -18,6 +18,12 @@ public class CleaningCutsceneController : CutsceneControllerBase
         if (triggerCollider != null) triggerCollider.enabled = true;
     }
 
+    // 타임라인의 바닥 붕괴 Signal에서 호출합니다.
+    public void PlayFloorCollapseSound()
+    {
+        SoundManager.Instance?.PlaySFX("BrokenFloor");
+    }
+
     private IEnumerator WaitAndPlayCutscene()
     {
         if (SaveManager.Instance != null)
