@@ -1,133 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1816796743050623432
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8850549402948593927}
-  - component: {fileID: 3225635824627552718}
-  - component: {fileID: 5576541917453477122}
-  - component: {fileID: 2258015591190071781}
-  - component: {fileID: 8371216501869644021}
-  m_Layer: 0
-  m_Name: Cutscene_KuneKuneFirstEncounter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8850549402948593927
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816796743050623432}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5304654598845424808}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!320 &3225635824627552718
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816796743050623432}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 3e5210c8183d99347ac9bbae708a706a, type: 2}
-  m_InitialState: 0
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 6572481095149038651, guid: 3e5210c8183d99347ac9bbae708a706a, type: 2}
-    value: {fileID: 8371216501869644021}
-  m_ExposedReferences:
-    m_References: []
---- !u!114 &5576541917453477122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816796743050623432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f74a03370dd2fd48afdcfd1d5284e4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DialogTimelineController
---- !u!114 &2258015591190071781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816796743050623432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e35b5e98bdac61e48b2e4ccef06e41e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::KuneKuneFirstEncounterCutsceneController
-  playOnlyOnce: 1
-  useFadeInOut: 0
-  _kuneKune: {fileID: 8352896770531520831}
-  _cutsceneCamera: {fileID: 711553687682817914}
-  _bound: {fileID: 2209564276314484832}
---- !u!114 &8371216501869644021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816796743050623432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalReceiver
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 63c3428fb97f4432900f9aa09e26f550, type: 2}
-    - {fileID: 11400000, guid: fca673315b404b12813a151d81428d07, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2258015591190071781}
-          m_TargetAssemblyTypeName: KuneKuneFirstEncounterCutsceneController, Assembly-CSharp
-          m_MethodName: BlendToCutsceneCamera
-          m_Mode: 4
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 2
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2258015591190071781}
-          m_TargetAssemblyTypeName: KuneKuneFirstEncounterCutsceneController, Assembly-CSharp
-          m_MethodName: SpawnKuneKune
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1877194979941291736
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +153,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8850549402948593927}
   - {fileID: 9122140913877310912}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -408,7 +279,7 @@ MonoBehaviour:
   _speed: 5
   _fullScreenGlitchMaterial: {fileID: 2100000, guid: 2edce572c476884488c98e3b3cb3463d, type: 2}
   intensity: 0.3
-  _firstEncounterCutscene: {fileID: 2258015591190071781}
+  _firstEncounterCutscene: {fileID: 0}
 --- !u!70 &1084270191183527978
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
