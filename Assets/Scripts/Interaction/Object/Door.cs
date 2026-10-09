@@ -14,7 +14,8 @@ public class Door : MapTransition, IInteractable
 
     [Header("추격 잠금 설정")]
     [Tooltip("집 안 추격이 시작되면 이 문을 열 수 없게 합니다.")]
-    [SerializeField] private bool _lockDuringHouseChase;
+    [SerializeField] private bool _lockDuringChase;
+    [SerializeField] private DialogData dialogWhenChase;
 
     [Header("Door Visuals")]
     [Tooltip("문이 열렸을 때 보여줄 스프라이트 등록")]
@@ -35,9 +36,9 @@ public class Door : MapTransition, IInteractable
 
     private bool _isTransitioning = false;
 
-    private bool _isLockedByHouseChase;
+    private bool _isLockedByChase;
 
-    public bool LockDuringHouseChase => _lockDuringHouseChase;
+    public bool LockDuringChase => _lockDuringChase;
 
     void Awake()
     {
@@ -50,10 +51,10 @@ public class Door : MapTransition, IInteractable
         if (_isTransitioning) return; 
 
         // 추격 잠금은 열쇠 보유 여부와 상관없이 문을 열 수 없습니다.
-        if (_isLockedByHouseChase)
+        if (_isLockedByChase)
         {
-            Debug.Log("[Door] 추격 중에는 이 문을 열 수 없습니다.", this);
-            PlayLockedDialog();
+            if (DialogSystem.Instance != null) DialogSystem.Instance.PlayDialog(dialogWhenChase);
+
             return;
         }
 
@@ -115,7 +116,7 @@ public class Door : MapTransition, IInteractable
 
     public void SetHouseChaseLocked(bool isLocked)
     {
-        _isLockedByHouseChase = isLocked;
+        _isLockedByChase = isLocked;
     }
 
     private bool CheckCanOpen()

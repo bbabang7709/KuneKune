@@ -107,7 +107,7 @@ public class HouseChase : MonoBehaviour
     {
         foreach (Door door in _houseDoors)
         {
-            if (door == null || door.LockDuringHouseChase == false)
+            if (door == null || door.LockDuringChase == false)
                 continue;
             door.SetHouseChaseLocked(isLocked);
         }
