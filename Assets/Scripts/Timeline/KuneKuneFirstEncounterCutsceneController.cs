@@ -47,9 +47,6 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
     /// </summary>
     public void BlendToCutsceneCamera(float duration)
     {
-        if (!Application.isPlaying)
-            return;
-
         if (_cutsceneCamera == null)
         {
             Debug.LogWarning("첫 조우 컷씬의 CM 카메라를 지정해주세요.", this);
@@ -160,13 +157,24 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
             return;
 
         _kuneKune.gameObject.SetActive(true);
+        _kuneKune.SpriteRenderer.sprite = null;
         _kuneKune.SpriteRenderer.enabled = true;
         _kuneKune.SpawnObject.SetActive(false);
         _kuneKune.State = ECharacterState.Spawning;
     }
 
+    protected override void OnCutsceneFinished()
+    {
+        base.OnCutsceneFinished();
+        _kuneKune.State = ECharacterState.Run;
+    }
+
     public void Play()
     {
+        // 코루틴이 저장 로딩을 기다리는 동안에도 쿠네쿠네는 보이지 않아야 합니다.
+        _kuneKune.SpriteRenderer.enabled = false;
+        _kuneKune.SpawnObject.SetActive(true);
+        _kuneKune.State = ECharacterState.Idle;
         StartCoroutine(WaitAndPlayCutscene());
     }
 
@@ -176,9 +184,6 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
         {
             yield return new WaitUntil(() => SaveManager.Instance.IsLoading == false);
         }
-
-        _kuneKune.SpriteRenderer.enabled = false;
-        _kuneKune.SpawnObject.SetActive(true);
 
         PlayCutscene();
     }

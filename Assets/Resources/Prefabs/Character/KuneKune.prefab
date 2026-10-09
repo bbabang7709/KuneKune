@@ -154,6 +154,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9122140913877310912}
+  - {fileID: 3871543296719546400}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7445647295397108618
@@ -279,7 +280,7 @@ MonoBehaviour:
   _speed: 5
   _fullScreenGlitchMaterial: {fileID: 2100000, guid: 2edce572c476884488c98e3b3cb3463d, type: 2}
   intensity: 0.3
-  _firstEncounterCutscene: {fileID: 0}
+  _firstEncounterCutscene: {fileID: 7785178480896064112}
 --- !u!70 &1084270191183527978
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -317,3 +318,131 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 2.46875}
   m_Size: {x: 1.625, y: 4.9375}
   m_Direction: 0
+--- !u!1 &8827715978355040181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3871543296719546400}
+  - component: {fileID: 3143590775047753681}
+  - component: {fileID: 772451295891374979}
+  - component: {fileID: 7785178480896064112}
+  - component: {fileID: 6134210005062836168}
+  m_Layer: 0
+  m_Name: Cutscene_KuneKuneFirstEncounter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3871543296719546400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827715978355040181}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5304654598845424808}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &3143590775047753681
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827715978355040181}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 3a56917f82891b44595216393c87a666, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 3404036850088565918, guid: 3a56917f82891b44595216393c87a666, type: 2}
+    value: {fileID: 6134210005062836168}
+  m_ExposedReferences:
+    m_References: []
+--- !u!114 &772451295891374979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827715978355040181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f74a03370dd2fd48afdcfd1d5284e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogTimelineController
+--- !u!114 &7785178480896064112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827715978355040181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35b5e98bdac61e48b2e4ccef06e41e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KuneKuneFirstEncounterCutsceneController
+  playOnlyOnce: 1
+  useFadeInOut: 0
+  _kuneKune: {fileID: 8352896770531520831}
+  _cutsceneCamera: {fileID: 711553687682817914}
+  _bound: {fileID: 2209564276314484832}
+--- !u!114 &6134210005062836168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827715978355040181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalReceiver
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: fad6dd4f823568643b27c55a3aba1291, type: 2}
+    - {fileID: 11400000, guid: e37a786d5df086945a03ee2cc61fafea, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7785178480896064112}
+          m_TargetAssemblyTypeName: KuneKuneFirstEncounterCutsceneController, Assembly-CSharp
+          m_MethodName: BlendToCutsceneCamera
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 2
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7785178480896064112}
+          m_TargetAssemblyTypeName: KuneKuneFirstEncounterCutsceneController, Assembly-CSharp
+          m_MethodName: SpawnKuneKune
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

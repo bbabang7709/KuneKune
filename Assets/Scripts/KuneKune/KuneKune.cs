@@ -88,7 +88,7 @@ public class KuneKune : MonoBehaviour
         Despawn();
 
         if (_firstEncounterCutscene == null)
-            _firstEncounterCutscene = FindFirstObjectByType<KuneKuneFirstEncounterCutsceneController>();
+            _firstEncounterCutscene = GetComponentInChildren<KuneKuneFirstEncounterCutsceneController>(true);
     }
 
     public static KuneKune Instantiate()
@@ -162,6 +162,13 @@ public class KuneKune : MonoBehaviour
 
     public void Spawn(Vector3 position, bool runImmediately = false)
     {
+        bool playFirstEncounter = _firstEncounterCutscene != null && !_firstEncounterCutscene.HasPlayed;
+
+        // 활성화와 로딩 대기 전에 숨겨 첫 조우 시작 시 이전 스프라이트가 보이지 않게 합니다.
+        SpriteRenderer.enabled = !playFirstEncounter;
+        if (playFirstEncounter && SpawnObject != null)
+            SpawnObject.SetActive(true);
+
         gameObject.SetActive(true);
         SoundManager.Instance?.PlayBGM("BGM_KuneKune", 0.01f);
 
@@ -172,11 +179,8 @@ public class KuneKune : MonoBehaviour
         SetPositionAndDirection(position);
 
         // 첫 등장 때는 쿠네쿠네 컷씬
-        if (_firstEncounterCutscene != null && !_firstEncounterCutscene.HasPlayed)
-        {
+        if (playFirstEncounter)
             _firstEncounterCutscene.Play();
-            State = ECharacterState.Run;
-        }
         else
             State = runImmediately ? ECharacterState.Run : ECharacterState.Spawning;
         
@@ -244,7 +248,7 @@ public class KuneKune : MonoBehaviour
         switch (_state)
         {
             case ECharacterState.Spawning:
-                _animator.Play(SpawnAnimationName);
+                _animator.Play(SpawnAnimationName, 0, 0);
                 break;
             case ECharacterState.Run:
                 _animator.Play("Run");
@@ -269,10 +273,17 @@ public class KuneKune : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // HasPlayed는 시작 시점에 true가 됩니다. 컷씬 중에는 변신이 끝나도 추적하지 않습니다.
+        // Animator는 계속 재생되며, 첫 조우의 추적 시작은 OnCutsceneFinished에서 처리합니다.
+        if (CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying)
+            return;
+
         switch (_state)
         {
             case ECharacterState.Spawning:
-                if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+                // Animator.Play 직후에는 이전 상태를 읽을 수 있으므로 변신 상태인지도 확인합니다.
+                var animationState = _animator.GetCurrentAnimatorStateInfo(0);
+                if (animationState.IsName(SpawnAnimationName) && animationState.normalizedTime >= 1f)
                     State = ECharacterState.Run;
                 break;
             case ECharacterState.Idle:
