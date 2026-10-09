@@ -16,7 +16,7 @@ public enum ECharacterState
 
 public class KuneKune : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
+    public SpriteRenderer SpriteRenderer { get; private set; }
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
@@ -44,7 +44,7 @@ public class KuneKune : MonoBehaviour
     private MapArea _currentMap;
     private MapArea _lastPlayerMap;
 
-    private string _spawnAnimationName = "";
+    public string SpawnAnimationName { get; private set; } = "";
 
     [Header("FullScreenGlitch")]
     [SerializeField] Material _fullScreenGlitchMaterial;
@@ -58,6 +58,8 @@ public class KuneKune : MonoBehaviour
 
     private bool _isCatchingPlayer = false; // 공포 연출 중복 실행 방지용 플래그
 
+    [SerializeField] private KuneKuneFirstEncounterCutsceneController _firstEncounterCutscene;
+
     private void Awake()
     {
         Init();
@@ -65,7 +67,7 @@ public class KuneKune : MonoBehaviour
 
     private void Init()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
@@ -84,6 +86,9 @@ public class KuneKune : MonoBehaviour
         _collider.excludeLayers = ~allowedLayerMask;
 
         Despawn();
+
+        if (_firstEncounterCutscene == null)
+            _firstEncounterCutscene = FindFirstObjectByType<KuneKuneFirstEncounterCutsceneController>();
     }
 
     public static KuneKune Instantiate()
@@ -148,9 +153,10 @@ public class KuneKune : MonoBehaviour
         }
         #endregion
 
-        _spawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
+        SpawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
+
         SpawnObject = closest;
-        closest.SetActive(false);   
+        closest.SetActive(false);
         Spawn(closest.transform.position);
     }
 
@@ -163,10 +169,17 @@ public class KuneKune : MonoBehaviour
         _lastPlayerMap = _currentMap;
         _mapRoutes.Clear();
 
-        State = runImmediately ? ECharacterState.Run : ECharacterState.Spawning;
-        
         SetPositionAndDirection(position);
 
+        // 첫 등장 때는 쿠네쿠네 컷씬
+        if (_firstEncounterCutscene != null && !_firstEncounterCutscene.HasPlayed)
+        {
+            _firstEncounterCutscene.Play();
+            State = ECharacterState.Run;
+        }
+        else
+            State = runImmediately ? ECharacterState.Run : ECharacterState.Spawning;
+        
         // 등장 경로와 관계없이 더위 게이지와 연결된 연출을 최대로 올립니다.
         PlayerMovement p = _player.GetComponent<PlayerMovement>();
         if (p.CurrentHeat >= p.MaxHeat)
@@ -183,7 +196,7 @@ public class KuneKune : MonoBehaviour
 
         float xDifference = _player.transform.position.x - floorPosition.x;
         _direction = xDifference > 0f ? 1f : -1f;
-        _spriteRenderer.flipX = _direction < 0f;
+        SpriteRenderer.flipX = _direction < 0f;
     }
 
     private Vector3 GetFloorAlignedPosition(Vector3 floorPosition)
@@ -231,7 +244,7 @@ public class KuneKune : MonoBehaviour
         switch (_state)
         {
             case ECharacterState.Spawning:
-                _animator.Play(_spawnAnimationName);
+                _animator.Play(SpawnAnimationName);
                 break;
             case ECharacterState.Run:
                 _animator.Play("Run");
@@ -353,7 +366,7 @@ public class KuneKune : MonoBehaviour
             return;
 
         _direction = Mathf.Sign(xDifference);
-        _spriteRenderer.flipX = _direction < 0f;
+        SpriteRenderer.flipX = _direction < 0f;
 
         Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, _speed * Time.fixedDeltaTime);

@@ -6,6 +6,7 @@ public class CameraManager : MonoBehaviour
     public static CameraManager Instance { get; private set; }
 
     private CinemachineCamera currentCamera;
+    public CinemachineCamera CurrentCamera => currentCamera;
     private Transform followTarget;
 
     void Awake()
