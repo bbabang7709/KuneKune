@@ -557,7 +557,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &1276066477035937605
 GameObject:
@@ -3293,7 +3293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4432,7 +4432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenuUI
   pauseMenuPanel: {fileID: 9209975667539864352}
   loadWarningPanel: {fileID: 2055698821122192756}
-  pauseMenuEcho: {fileID: 8200000000000000105}
+  pauseMenuEcho: {fileID: 8200000000000000106}
   titleSceneName: Scene_Intro
   IsPaused: 0
 --- !u!1 &6473476428946262858
@@ -5677,7 +5677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6809,6 +6809,7 @@ GameObject:
   - component: {fileID: 6704483531204440944}
   - component: {fileID: 4778178145656949807}
   - component: {fileID: 8200000000000000105}
+  - component: {fileID: 8200000000000000106}
   m_Layer: 5
   m_Name: Pause Menu BG
   m_TagString: Untagged
@@ -6898,7 +6899,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4fc3015598a4cbeb5dc8441b6893e4f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PauseMenuEcho
+  m_EditorClassIdentifier: Assembly-CSharp::CanvasEcho
+  targetCanvas: {fileID: 2156444603922970853}
+  echoContainer: {fileID: 1489140280234367110}
   echoText: {fileID: 8200000000000000104}
   echoColor: {r: 0.5411765, g: 0.15686275, b: 0.18039216, a: 0.65}
   delayRange: {x: 0.5, y: 1}
@@ -6907,13 +6910,16 @@ MonoBehaviour:
   holdDuration: 0.4
   fadeOutDuration: 1
   slidePixels: 4
-  menuButtons:
+  excludedUI:
   - {fileID: 6517974370332370464}
   - {fileID: 1177420447048853849}
   - {fileID: 4414970200857178803}
-  buttonPaddingPixels: 16
+  - {fileID: 3048905437761905897}
+  - {fileID: 5372297401379998810}
+  - {fileID: 61023531976930452}
+  excludedUIPaddingPixels: 16
   screenPaddingPixels: 12
-  verticalScreenPaddingRatio: 0.05
+  screenPaddingRatio: 0.05
   phrases:
   - "\uC65C..."
   - "\uC2EB\uC5B4..."
@@ -6959,6 +6965,19 @@ MonoBehaviour:
   - "\uC2EB\uC5B4."
   - "\uC2EB\uC5B4... \uC2EB\uC5B4..."
   - "\uC81C\uBC1C \uADF8\uB9CC..."
+--- !u!114 &8200000000000000106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209975667539864352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a976911d5be4565bb0505bc03e8ee1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseMenuEcho
+  canvasEcho: {fileID: 8200000000000000105}
 --- !u!1 &9212209430240332423
 GameObject:
   m_ObjectHideFlags: 0
