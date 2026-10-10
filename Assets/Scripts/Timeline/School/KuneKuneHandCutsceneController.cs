@@ -62,8 +62,9 @@ public class KuneKuneHandCutsceneController : CutsceneControllerBase
         RestoreCameraPriority();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         RestoreCameraPriority();
     }
 

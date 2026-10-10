@@ -92,8 +92,9 @@ public class ToiletCutsceneController : CutsceneControllerBase
         _isEntryPlaying = false;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         StopAllCoroutines();
         _dialogController.ClearDialogOverride();
         _isEntryPlaying = false;
