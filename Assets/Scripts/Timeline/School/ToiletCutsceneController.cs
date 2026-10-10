@@ -5,7 +5,17 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class ToiletCutsceneController : CutsceneControllerBase
 {
+    private const string FirstEscapeFlag = "HasSeenFirstToiletEscape";
+
+    [Header("화장실 진입 대사")]
+    [SerializeField] private DialogData _normalDialog;
+    [SerializeField] private DialogData _firstEscapeDialog;
+    [SerializeField] private DialogData _repeatEscapeDialog;
+
     private Collider2D _collider;
+    private DialogTimelineController _dialogController;
+    private bool _isEntryPlaying;
+    private bool _firstEscapeShownWithoutSaveManager;
 
     protected override void Awake()
     {
@@ -13,21 +23,85 @@ public class ToiletCutsceneController : CutsceneControllerBase
         _collider = GetComponent<Collider2D>();
         _collider.isTrigger = true;
         _collider.excludeLayers = ~LayerMask.GetMask("Player");
+
+        _dialogController = GetComponent<DialogTimelineController>();
+        _dialogController.DialogStarted += OnDialogStarted;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-            StartCoroutine(WaitAndPlayCutscene());
+        if (!collision.CompareTag("Player") || _isEntryPlaying || (playOnlyOnce && hasPlayed))
+            return;
+
+        _isEntryPlaying = true;
+        bool wasBeingChased = MapManager.Instance != null && MapManager.Instance.ConsumeChasedMapEntry();
+        StartCoroutine(WaitAndPlayCutscene(wasBeingChased));
     }
 
-    private IEnumerator WaitAndPlayCutscene()
+    private IEnumerator WaitAndPlayCutscene(bool wasBeingChased)
     {
         if (SaveManager.Instance != null)
         {
             yield return new WaitUntil(() => SaveManager.Instance.IsLoading == false);
         }
 
+        yield return new WaitUntil(() =>
+            (CutsceneManager.Instance == null || !CutsceneManager.Instance.IsCutscenePlaying) &&
+            (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
+
+        DialogData selectedDialog = SelectEntryDialog(wasBeingChased);
+        if (_normalDialog == null || selectedDialog == null)
+        {
+            Debug.LogError("화장실 진입 대사를 지정해주세요.", this);
+            _isEntryPlaying = false;
+            yield break;
+        }
+
+        _dialogController.SetDialogOverride(_normalDialog, selectedDialog);
         PlayCutscene();
+    }
+
+    private DialogData SelectEntryDialog(bool wasBeingChased)
+    {
+        // 쿠네쿠네에게 쫓기는 상황이 아닌 대사
+        if (!wasBeingChased)
+            return _normalDialog;
+
+        // 쿠네쿠네에게 쫓기는 상황일 때, 화장실에 처음 들어오는 경우인지 확인
+        bool hasSeenFirstEscape = SaveManager.Instance != null
+            ? SaveManager.Instance.GetFlag(FirstEscapeFlag)
+            : _firstEscapeShownWithoutSaveManager;
+
+        // 첫 피신 대사를 이미 봤는지 확인
+        return hasSeenFirstEscape ? _repeatEscapeDialog : _firstEscapeDialog;
+    }
+
+    private void OnDialogStarted(DialogData dialog)
+    {
+        if (!_isEntryPlaying || dialog != _firstEscapeDialog)
+            return;
+
+        // 첫 대사가 시작되면 기록하며, 다음 체크포인트 저장 때 저장 파일에 반영합니다.
+        _firstEscapeShownWithoutSaveManager = true;
+        SaveManager.Instance?.SetFlag(FirstEscapeFlag, true);
+    }
+
+    protected override void OnCutsceneFinished()
+    {
+        _dialogController.ClearDialogOverride();
+        _isEntryPlaying = false;
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        _dialogController.ClearDialogOverride();
+        _isEntryPlaying = false;
+    }
+
+    private void OnDestroy()
+    {
+        if (_dialogController != null)
+            _dialogController.DialogStarted -= OnDialogStarted;
     }
 }

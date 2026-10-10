@@ -32,6 +32,14 @@ public class MapManager : MonoBehaviour
     [SerializeField] private List<MapArea> allCoolZones = new List<MapArea>();
 
     public EMapType CurrentMapType { get; private set; } = EMapType.Outside_Busstop;
+    private bool _wasChasedOnMapEntry;
+
+    public bool ConsumeChasedMapEntry()
+    {
+        bool wasChased = _wasChasedOnMapEntry;
+        _wasChasedOnMapEntry = false;
+        return wasChased;
+    }
     
     private MapArea _currentArea;
     public MapArea CurrentMap => _currentArea; // 쿠네쿠네 및 외부 참조용
@@ -92,6 +100,10 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public void InitMap(EMapType targetMapType, string entryID)
     {
+        // 저장 로드는 피신으로 취급하지 않고, 거울 등 인게임 즉시 이동은 추격 상황을 보존합니다.
+        _wasChasedOnMapEntry = (SaveManager.Instance == null || !SaveManager.Instance.IsLoading) &&
+            KuneKune != null && KuneKune.IsChaseActive;
+
         _currentArea = allMapAreas.Find(m => m.mapType == targetMapType);
 
         if (_currentArea != null)
@@ -139,6 +151,8 @@ public class MapManager : MonoBehaviour
 
     private IEnumerator ChangeMapRoutine(EMapType targetMapType, string entryID, Action onComplete)
     {
+        // 도착 후 더위 감소로 Despawn되어도, 이동 직전의 추격 상황을 보존합니다.
+        bool wasChased = KuneKune != null && KuneKune.IsChaseActive;
         Time.timeScale = 0f;
 
         if (ControlLockManager.Instance != null)
@@ -154,6 +168,7 @@ public class MapManager : MonoBehaviour
         if (_currentArea != null)
         {
             CurrentMapType = targetMapType;
+            _wasChasedOnMapEntry = wasChased;
             
             if (!KuneKune.gameObject.activeInHierarchy)
             {

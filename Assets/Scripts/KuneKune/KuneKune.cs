@@ -24,6 +24,8 @@ public class KuneKune : MonoBehaviour
     private Collider2D _playerCollider;
 
     private ECharacterState _state;
+    // 대사나 컷씬으로 잠시 Idle이 되어도 추격 중이라는 사실은 유지합니다.
+    public bool IsChaseActive { get; private set; }
     public ECharacterState State
     {
         get => _state;
@@ -32,6 +34,10 @@ public class KuneKune : MonoBehaviour
             if (_state != value)
             {
                 _state = value;
+                if (value == ECharacterState.Run)
+                    IsChaseActive = true;
+                else if (value == ECharacterState.Unspawned)
+                    IsChaseActive = false;
                 UpdateAnimation();
             }
         }
@@ -439,6 +445,7 @@ public class KuneKune : MonoBehaviour
     {
         Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 데스씬 연출 시작");
 
+        IsChaseActive = false;
         State = ECharacterState.Idle;
 
         ControlLockManager.Instance?.AddInputLock(this);
