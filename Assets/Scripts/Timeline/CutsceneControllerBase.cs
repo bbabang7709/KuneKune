@@ -7,6 +7,7 @@ public abstract class CutsceneControllerBase : MonoBehaviour
 {
     protected PlayableDirector director;
     protected bool hasPlayed = false;
+    public bool HasPlayed => hasPlayed;
 
     [Header("Cutscene Settings")]
     [SerializeField] protected bool playOnlyOnce = true;

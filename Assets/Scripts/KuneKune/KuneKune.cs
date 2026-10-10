@@ -16,7 +16,7 @@ public enum ECharacterState
 
 public class KuneKune : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
+    public SpriteRenderer SpriteRenderer { get; private set; }
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
@@ -44,7 +44,7 @@ public class KuneKune : MonoBehaviour
     private MapArea _currentMap;
     private MapArea _lastPlayerMap;
 
-    private string _spawnAnimationName = "";
+    public string SpawnAnimationName { get; private set; } = "";
 
     [Header("FullScreenGlitch")]
     [SerializeField] Material _fullScreenGlitchMaterial;
@@ -58,6 +58,8 @@ public class KuneKune : MonoBehaviour
 
     private bool _isCatchingPlayer = false; // 공포 연출 중복 실행 방지용 플래그
 
+    [SerializeField] private KuneKuneFirstEncounterCutsceneController _firstEncounterCutscene;
+
     private void Awake()
     {
         Init();
@@ -65,7 +67,7 @@ public class KuneKune : MonoBehaviour
 
     private void Init()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
@@ -84,6 +86,9 @@ public class KuneKune : MonoBehaviour
         _collider.excludeLayers = ~allowedLayerMask;
 
         Despawn();
+
+        if (_firstEncounterCutscene == null)
+            _firstEncounterCutscene = GetComponentInChildren<KuneKuneFirstEncounterCutsceneController>(true);
     }
 
     public static KuneKune Instantiate()
@@ -148,14 +153,22 @@ public class KuneKune : MonoBehaviour
         }
         #endregion
 
-        _spawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
+        SpawnAnimationName = Regex.Replace(closest.name, @"_0(?: \(\d+\))?$", "");
+
         SpawnObject = closest;
-        closest.SetActive(false);   
+        closest.SetActive(false);
         Spawn(closest.transform.position);
     }
 
     public void Spawn(Vector3 position, bool runImmediately = false)
     {
+        bool playFirstEncounter = _firstEncounterCutscene != null && !_firstEncounterCutscene.HasPlayed;
+
+        // 활성화와 로딩 대기 전에 숨겨 첫 조우 시작 시 이전 스프라이트가 보이지 않게 합니다.
+        SpriteRenderer.enabled = !playFirstEncounter;
+        if (playFirstEncounter && SpawnObject != null)
+            SpawnObject.SetActive(true);
+
         gameObject.SetActive(true);
         SoundManager.Instance?.PlayBGM("BGM_KuneKune", 0.01f);
 
@@ -163,10 +176,14 @@ public class KuneKune : MonoBehaviour
         _lastPlayerMap = _currentMap;
         _mapRoutes.Clear();
 
-        State = runImmediately ? ECharacterState.Run : ECharacterState.Spawning;
-        
         SetPositionAndDirection(position);
 
+        // 첫 등장 때는 쿠네쿠네 컷씬
+        if (playFirstEncounter)
+            _firstEncounterCutscene.Play();
+        else
+            State = runImmediately ? ECharacterState.Run : ECharacterState.Spawning;
+        
         // 등장 경로와 관계없이 더위 게이지와 연결된 연출을 최대로 올립니다.
         PlayerMovement p = _player.GetComponent<PlayerMovement>();
         if (p.CurrentHeat >= p.MaxHeat)
@@ -183,7 +200,7 @@ public class KuneKune : MonoBehaviour
 
         float xDifference = _player.transform.position.x - floorPosition.x;
         _direction = xDifference > 0f ? 1f : -1f;
-        _spriteRenderer.flipX = _direction < 0f;
+        SpriteRenderer.flipX = _direction < 0f;
     }
 
     private Vector3 GetFloorAlignedPosition(Vector3 floorPosition)
@@ -231,7 +248,7 @@ public class KuneKune : MonoBehaviour
         switch (_state)
         {
             case ECharacterState.Spawning:
-                _animator.Play(_spawnAnimationName);
+                _animator.Play(SpawnAnimationName, 0, 0);
                 break;
             case ECharacterState.Run:
                 _animator.Play("Run");
@@ -256,10 +273,17 @@ public class KuneKune : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // HasPlayed는 시작 시점에 true가 됩니다. 컷씬 중에는 변신이 끝나도 추적하지 않습니다.
+        // Animator는 계속 재생되며, 첫 조우의 추적 시작은 OnCutsceneFinished에서 처리합니다.
+        if (CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying)
+            return;
+
         switch (_state)
         {
             case ECharacterState.Spawning:
-                if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+                // Animator.Play 직후에는 이전 상태를 읽을 수 있으므로 변신 상태인지도 확인합니다.
+                var animationState = _animator.GetCurrentAnimatorStateInfo(0);
+                if (animationState.IsName(SpawnAnimationName) && animationState.normalizedTime >= 1f)
                     State = ECharacterState.Run;
                 break;
             case ECharacterState.Idle:
@@ -353,7 +377,7 @@ public class KuneKune : MonoBehaviour
             return;
 
         _direction = Mathf.Sign(xDifference);
-        _spriteRenderer.flipX = _direction < 0f;
+        SpriteRenderer.flipX = _direction < 0f;
 
         Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, _speed * Time.fixedDeltaTime);
