@@ -99,6 +99,20 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float sweatThreshold = 50f; // 땀을 흘리기 시작할 더위
 
+    [Header("Max Heat Stamina Recovery")]
+    [Tooltip("최대 더위가 이 시간 동안 유지된 후 스태미나 회복 속도가 감소합니다.")]
+    [Min(0f)]
+    [SerializeField] private float maxHeatRecoveryPenaltyDelay = 5f;
+    [Tooltip("회복 속도가 최소 배율에 도달하기까지 걸리는 시간입니다.")]
+    [Min(0.01f)]
+    [SerializeField] private float maxHeatRecoveryPenaltyDuration = 15f;
+    [Tooltip("최대 더위가 오래 지속될 때 적용할 스태미나 회복 속도의 최소 배율입니다.")]
+    [Range(0f, 1f)]
+    [SerializeField] private float minStaminaRecoveryMultiplierAtMaxHeat = 0.25f;
+
+    private float maxHeatDuration;
+    private float staminaRecoveryMultiplier = 1f;
+
     public float CurrentHeat { get; private set; } = 0f;
     public float MaxHeat => maxHeat;
     private float? targetHeat;
@@ -164,8 +178,9 @@ public class PlayerMovement : MonoBehaviour
         UpdateExhaustion();
         UpdateCrawlingState();
         UpdateSprintingState();
-        UpdateStamina();
         UpdateHeat();
+        UpdateMaxHeatRecoveryPenalty();
+        UpdateStamina();
 
         IsMoving = rb.linearVelocity != Vector2.zero;
     }
@@ -363,6 +378,34 @@ public class PlayerMovement : MonoBehaviour
     // =========================================================
     // Input State
     // =========================================================
+    /// <summary>
+    /// 최대 더위의 연속 유지 시간에 따라 스태미나 회복 속도를 점진적으로 낮춘다.
+    /// 더위가 최대값 아래로 내려가면 즉시 정상 회복 속도로 되돌린다.
+    /// </summary>
+    private void UpdateMaxHeatRecoveryPenalty()
+    {
+        if (maxHeat <= 0f || CurrentHeat < maxHeat)
+        {
+            maxHeatDuration = 0f;
+            staminaRecoveryMultiplier = 1f;
+            return;
+        }
+
+        // 더위 갱신이 멈추는 대화 및 조작 잠금 중에는 유지 시간을 누적하지 않는다.
+        if (IsMovementLocked ||
+            (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) ||
+            (ControlLockManager.Instance != null &&
+             (ControlLockManager.Instance.IsMovementLocked || ControlLockManager.Instance.IsInputLocked)))
+            return;
+
+        float delay = Mathf.Max(0f, maxHeatRecoveryPenaltyDelay);
+        float duration = Mathf.Max(0.01f, maxHeatRecoveryPenaltyDuration);
+        maxHeatDuration = Mathf.Min(maxHeatDuration + Time.deltaTime, delay + duration);
+
+        float progress = Mathf.Clamp01((maxHeatDuration - delay) / duration);
+        staminaRecoveryMultiplier = Mathf.Lerp(1f, Mathf.Clamp01(minStaminaRecoveryMultiplierAtMaxHeat), progress);
+    }
+
     private void UpdateHeat()
     {
         // 임의 증감 요청은 환경에 따른 갱신보다 먼저 목표값까지 처리합니다.
@@ -444,7 +487,7 @@ public class PlayerMovement : MonoBehaviour
         CurrentStamina = Mathf.Min(
             maxStamina,
             CurrentStamina +
-            staminaRecoveryRate * Time.deltaTime
+            staminaRecoveryRate * staminaRecoveryMultiplier * Time.deltaTime
         );
 
         OnStaminaChanged?.Invoke(
@@ -537,6 +580,8 @@ public class PlayerMovement : MonoBehaviour
 
             targetHeat = null;
             CurrentHeat = amount;
+            maxHeatDuration = 0f;
+            staminaRecoveryMultiplier = 1f;
             OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
             return;
         }

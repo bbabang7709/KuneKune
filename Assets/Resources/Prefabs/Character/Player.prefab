@@ -288,6 +288,9 @@ MonoBehaviour:
   studentHeatIncreaseRate: 20
   childHeatIncreaseRate: 25
   sweatThreshold: 50
+  maxHeatRecoveryPenaltyDelay: 5
+  maxHeatRecoveryPenaltyDuration: 15
+  minStaminaRecoveryMultiplierAtMaxHeat: 0.25
   exhaustionDuration: 2
 --- !u!114 &1903586609420879912
 MonoBehaviour:
