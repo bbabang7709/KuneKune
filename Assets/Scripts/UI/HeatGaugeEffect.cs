@@ -40,6 +40,7 @@ public sealed class HeatGaugeEffect : MonoBehaviour
     private Color _currentFillColor;
     
     private float _heatRatio;
+    private float _pulsePhase;
 
     private void Awake()
     {
@@ -82,7 +83,9 @@ public sealed class HeatGaugeEffect : MonoBehaviour
 
         // 맥박 -> 크기 변화
         float pulseSpeed = Mathf.Lerp(0.8f, 2.4f, motionStrength);
-        float pulse = Mathf.Sin(time * pulseSpeed * Mathf.PI * 2f) * 0.5f + 0.5f;   // 0 ~ 1
+        // 속도가 바뀌어도 맥박 위치가 튀지 않도록 프레임마다 위상을 누적합니다.
+        _pulsePhase = Mathf.Repeat(_pulsePhase + Time.unscaledDeltaTime * pulseSpeed * Mathf.PI * 2f, Mathf.PI * 2f);
+        float pulse = Mathf.Sin(_pulsePhase) * 0.5f + 0.5f;   // 0 ~ 1
         float scale = 1f + pulse * _maxPulseScale * motionStrength;
         _gaugeRoot.localScale = Vector3.Scale(_originalScale, new Vector3(scale, scale, 1f));
 

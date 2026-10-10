@@ -49,6 +49,7 @@ public class KuneKune : MonoBehaviour
     private Queue<IKuneKuneMapRoute> _mapRoutes = new();
     private MapArea _currentMap;
     private MapArea _lastPlayerMap;
+    private float? _mapTransitionWaitRemaining;
 
     public string SpawnAnimationName { get; private set; } = "";
 
@@ -181,6 +182,7 @@ public class KuneKune : MonoBehaviour
         _currentMap = MapManager.Instance?.CurrentMap;
         _lastPlayerMap = _currentMap;
         _mapRoutes.Clear();
+        _mapTransitionWaitRemaining = null;
 
         SetPositionAndDirection(position);
 
@@ -226,6 +228,7 @@ public class KuneKune : MonoBehaviour
     public void Despawn()
     {
         _mapRoutes.Clear();
+        _mapTransitionWaitRemaining = null;
         _currentMap = null;
         _lastPlayerMap = null;
         gameObject.SetActive(false);
@@ -315,6 +318,7 @@ public class KuneKune : MonoBehaviour
         if (_currentMap == playerMap)
         {
             _mapRoutes.Clear();
+            _mapTransitionWaitRemaining = null;
             _lastPlayerMap = playerMap;
             MoveHorizontallyTowards(_player.transform.position.x);
             return;
@@ -324,6 +328,7 @@ public class KuneKune : MonoBehaviour
         {
             _lastPlayerMap = playerMap;
             _mapRoutes = MapManager.Instance.FindRoute(_currentMap, transform.position, playerMap, _player.transform.position);
+            _mapTransitionWaitRemaining = null;
         }
 
         if (_mapRoutes.Count > 0)
@@ -337,6 +342,7 @@ public class KuneKune : MonoBehaviour
         {
             Debug.LogWarning("쿠네쿠네가 이동할 문 위치가 사라졌습니다.", this);
             _mapRoutes.Clear();
+            _mapTransitionWaitRemaining = null;
             return;
         }
 
@@ -349,10 +355,21 @@ public class KuneKune : MonoBehaviour
 
         if (reachedTransition || reachedPositionWithoutArea)
         {
-            MoveThroughMapTransition();
+            // 이동 지점에 도착한 뒤 추격이 진행되는 게임 시간으로 1.5초 기다립니다.
+            if (!_mapTransitionWaitRemaining.HasValue)
+                _mapTransitionWaitRemaining = 1.5f;
+            else
+                _mapTransitionWaitRemaining -= Time.fixedDeltaTime;
+
+            if (_mapTransitionWaitRemaining <= 0f)
+            {
+                _mapTransitionWaitRemaining = null;
+                MoveThroughMapTransition();
+            }
             return;
         }
 
+        _mapTransitionWaitRemaining = null;
         MoveHorizontallyTowards(targetX);
     }
 
@@ -486,6 +503,7 @@ public class KuneKune : MonoBehaviour
 
     void OnDisable()
     {
+        _mapTransitionWaitRemaining = null;
         // 공유 머티리얼의 런타임 값이 타이틀 등 다음 씬에 남지 않게 합니다.
         ResetFullScreenGlitch();
 #if UNITY_EDITOR

@@ -284,9 +284,10 @@ MonoBehaviour:
   maxHeat: 100
   minHeat: 20
   heatDecreaseRate: 20
-  adultHeatIncreaseRate: 10
+  adultHeatIncreaseRate: 4
   studentHeatIncreaseRate: 20
   childHeatIncreaseRate: 25
+  sweatThreshold: 50
   exhaustionDuration: 2
 --- !u!114 &1903586609420879912
 MonoBehaviour:
