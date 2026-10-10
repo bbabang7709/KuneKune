@@ -23,7 +23,13 @@ public class DialogBehaviour : PlayableBehaviour
 
         if (dialog == null) return;
 
-        DialogTimelineController controller = Object.FindFirstObjectByType<DialogTimelineController>();
+        PlayableDirector director = playable.GetGraph().GetResolver() as PlayableDirector;
+        // 대사 교체와 재생 알림은 현재 Timeline에 연결된 컨트롤러에서 처리합니다.
+        DialogTimelineController controller = director != null
+            ? director.GetComponent<DialogTimelineController>()
+            : null;
+        if (controller == null)
+            controller = Object.FindFirstObjectByType<DialogTimelineController>();
 
         if (controller == null)
         {
@@ -42,8 +48,6 @@ public class DialogBehaviour : PlayableBehaviour
         //
         // 따라서 현재 PlayableGraph의 Resolver인 PlayableDirector를
         // 직접 가져와서 전달합니다.
-        PlayableDirector director = playable.GetGraph().GetResolver() as PlayableDirector;
-
         if (director == null)
         {
             Debug.LogError(

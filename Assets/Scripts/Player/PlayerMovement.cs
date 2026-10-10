@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float minHeat = 20f;   // 화장실
     [SerializeField] private float heatDecreaseRate = 20f;
     // 연령에 따라 다른 더위 게이지 증가량
-    [SerializeField] private float adultHeatIncreaseRate = 10f;
+    [SerializeField] private float adultHeatIncreaseRate = 4f;
     [SerializeField] private float studentHeatIncreaseRate = 20f;
     [SerializeField] private float childHeatIncreaseRate = 25f;
 

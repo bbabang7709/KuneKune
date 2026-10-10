@@ -26,6 +26,8 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
     protected override void Awake()
     {
         base.Awake();
+        // 첫 조우는 Spawn의 HasPlayed 검사와 PlayCutscene을 통해서만 시작합니다.
+        director.playOnAwake = false;
         if (_kuneKune == null)
             _kuneKune = FindFirstObjectByType<KuneKune>();
 
@@ -36,8 +38,9 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
             _bound = _cutsceneCamera.GetComponent<CinemachineConfiner2D>();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         ReleaseCutsceneCamera();
     }
 
@@ -171,6 +174,8 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
 
     public void Play()
     {
+        if (HasPlayed || !isActiveAndEnabled) return;
+
         // 코루틴이 저장 로딩을 기다리는 동안에도 쿠네쿠네는 보이지 않아야 합니다.
         _kuneKune.SpriteRenderer.enabled = false;
         _kuneKune.SpawnObject.SetActive(true);
