@@ -465,6 +465,7 @@ GameObject:
   - component: {fileID: 5584394228198236395}
   - component: {fileID: 7098291111448679609}
   - component: {fileID: 7024795702906542725}
+  - component: {fileID: 1307893514191974017}
   m_Layer: 0
   m_Name: CM_House_first_visit
   m_TagString: Untagged
@@ -571,6 +572,26 @@ MonoBehaviour:
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
   FollowOffset: {x: 0, y: 0, z: -10}
+--- !u!114 &1307893514191974017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435921605247786327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineConfiner2D
+  BoundingShape2D: {fileID: 0}
+  Damping: 0.5
+  SlowingDistance: 5
+  OversizeWindow:
+    Enabled: 0
+    MaxWindowSize: 0
+    Padding: 0
+  m_LegacyMaxWindowSize: -2
 --- !u!1 &495253694747585631
 GameObject:
   m_ObjectHideFlags: 0
@@ -5388,6 +5409,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HouseCutsceneController
   playOnlyOnce: 1
   useFadeInOut: 1
+  _cutsceneCamera: {fileID: 5584394228198236395}
+  _bound: {fileID: 1307893514191974017}
 --- !u!114 &6987869896456726437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5402,6 +5425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalReceiver
   m_Events:
     m_Signals:
+    - {fileID: 11400000, guid: 02b4aecc3f1b83744a317cdd3061ed9b, type: 2}
     - {fileID: 11400000, guid: 940842d1829c6764c9ec701e8e9e4c43, type: 2}
     m_Events:
     - m_PersistentCalls:
@@ -5415,6 +5439,20 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1799299738596060422}
+          m_TargetAssemblyTypeName: HouseCutsceneController, Assembly-CSharp
+          m_MethodName: BlendToCutsceneCamera
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 2
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
