@@ -21,7 +21,7 @@ public class HouseCutsceneController : CutsceneControllerBase
     /// 컷씬용 부드러운 전환 설정되었는지 확인
     /// </summary>
     private bool _isCameraBlendOverrideRegistered;
-    private float _cameraBlendDuration = 1f;
+    private float _cameraBlendDuration = 2f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,7 +44,8 @@ public class HouseCutsceneController : CutsceneControllerBase
 
     protected override void OnCutsceneEndSetup()
     {
-        ReleaseCutsceneCamera();
+        RestoreCameraPriority();
+        //ReleaseCutsceneCamera();
         SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter2_House);
         QuestManager.Instance?.StartQuest("HouseCleanup");
     }
@@ -145,17 +146,6 @@ public class HouseCutsceneController : CutsceneControllerBase
         }
 
         RestoreCameraPriority();
-
-        // 복귀 Signal의 블렌드가 남아 있더라도 종료 시 즉시 완료합니다.
-        if (_cutsceneCamera == null)
-            return;
-
-        for (int i = 0; i < CinemachineBrain.ActiveBrainCount; i++)
-        {
-            var brain = CinemachineBrain.GetActiveBrain(i);
-            if (brain.ActiveBlend != null && brain.ActiveBlend.Uses(_cutsceneCamera))
-                brain.ActiveBlend = null;
-        }
     }
 
     private void RestoreCameraPriority()
