@@ -71,3 +71,9 @@ MonoBehaviour:
   - soundID: BrokenFloor
     clip: {fileID: 8300000, guid: 9e94a680c86a1c64aa60070620e6b553, type: 3}
     volume: 0.3
+  - soundID: RotateStatue
+    clip: {fileID: 8300000, guid: 4f271a532b705f848a8dbb7bd4ea5b5e, type: 3}
+    volume: 0.5
+  - soundID: PuzzleComplete_Statue
+    clip: {fileID: 8300000, guid: 2e0ef97edead85442a35fda8adc02174, type: 3}
+    volume: 0.5

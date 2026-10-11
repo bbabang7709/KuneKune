@@ -3,9 +3,6 @@ using UnityEngine.Events;
 
 public class HangingRope : MonoBehaviour
 {
-    [Header("Death Event")]
-    public UnityEvent OnRopeDeath;
-    
     private bool _isCaughted = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,7 +25,7 @@ public class HangingRope : MonoBehaviour
 
                     // TODO: 효과음 재생
 
-                    OnRopeDeath?.Invoke();
+                    if (SaveManager.Instance != null) SaveManager.Instance.Load(true);
                 }
             }
         }

@@ -103,10 +103,10 @@ TextureImporter:
       name: "\uBC30\uACBD_0"
       rect:
         serializedVersion: 2
-        x: 293
-        y: 166
-        width: 2914
-        height: 1637
+        x: 295
+        y: 168
+        width: 2909
+        height: 1633
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -47,6 +47,7 @@ public class StatuePuzzlePiece : InteractableBase
 
         CurrentDirection = (EDirection)(((int)CurrentDirection + 1) % 4);
         _sr.sprite = sprites[(int)CurrentDirection];
+        SoundManager.Instance?.PlaySFX("RotateStatue");
         
         OnRotated?.Invoke();
         _timer = rotationDelay;
