@@ -116,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
     public float CurrentHeat { get; private set; } = 0f;
     public float MaxHeat => maxHeat;
     private float? targetHeat;
+    private float? _heatIncreaseRateOverride;
 
     /// <summary>
     /// 현재 더위 게이지를 0부터 1 사이의 비율로 반환합니다.
@@ -536,13 +537,13 @@ public class PlayerMovement : MonoBehaviour
         if (ControlLockManager.Instance != null && (ControlLockManager.Instance.IsMovementLocked || ControlLockManager.Instance.IsInputLocked))
             return;
 
-        float heatIncreaseRate = appearance.CurrentAge switch
+        float heatIncreaseRate = _heatIncreaseRateOverride ?? (appearance.CurrentAge switch
         {
             EPlayerAge.Adult => adultHeatIncreaseRate,
             EPlayerAge.Student => studentHeatIncreaseRate,
             EPlayerAge.Child => childHeatIncreaseRate,
             _ => 0f
-        };
+        });
 
         CurrentHeat = Mathf.Min(limit ?? maxHeat, CurrentHeat + heatIncreaseRate * Time.deltaTime);
         OnHeatChanged?.Invoke(CurrentHeat, maxHeat);
@@ -566,6 +567,14 @@ public class PlayerMovement : MonoBehaviour
         KuneKune kuneKune = MapManager.Instance != null ? MapManager.Instance.KuneKune : null;
         if (kuneKune != null && kuneKune.State != ECharacterState.Unspawned)
             kuneKune.Despawn();
+    }
+
+    /// <summary>
+    /// 이벤트 중 더위 증가 속도를 임시 적용하고, null이면 연령별 기본 속도로 복구합니다.
+    /// </summary>
+    public void SetHeatIncreaseRateOverride(float? rate)
+    {
+        _heatIncreaseRateOverride = rate.HasValue ? Mathf.Max(0f, rate.Value) : null;
     }
 
     /// <summary>

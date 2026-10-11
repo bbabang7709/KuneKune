@@ -8,6 +8,7 @@ using UnityEngine.Rendering.Universal;
 public class KuneKuneHand : MonoBehaviour
 {
     private const int DoorCount = 5;
+    private const float EventHeatIncreaseRate = 7f;
 
     [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
 
@@ -246,7 +247,10 @@ public class KuneKuneHand : MonoBehaviour
 
         // 클리어 시 복구할 더위 값은 실제 이벤트 시작 직전에 기록합니다.
         if (_playerMovement != null)
+        {
             _heatBeforeEvent = _playerMovement.CurrentHeat;
+            _playerMovement.SetHeatIncreaseRateOverride(EventHeatIncreaseRate);
+        }
 
         _sunlightAreaRoot.gameObject.SetActive(true);
         _collider.enabled = false;
@@ -272,6 +276,7 @@ public class KuneKuneHand : MonoBehaviour
         UpdateSprite();
         IsPlaying = false;
         IsGameOver = true;
+        _playerMovement.SetHeatIncreaseRateOverride(null);
         _playerMovement.SetCurrentHeat(_heatBeforeEvent);
 
         _handScratchSource?.Stop();
@@ -387,6 +392,7 @@ public class KuneKuneHand : MonoBehaviour
         CurrentDoorIndex = -1;
 
         Debug.Log(_heatBeforeEvent);
+        _playerMovement.SetHeatIncreaseRateOverride(null);
         _playerMovement.SetCurrentHeat(_heatBeforeEvent);
 
         // TODO: 문을 모두 열었을 때의 이벤트 처리 => 인형의 오른팔과 교실 열쇠 획득
@@ -437,6 +443,7 @@ public class KuneKuneHand : MonoBehaviour
 
     private void OnDisable()
     {
+        _playerMovement?.SetHeatIncreaseRateOverride(null);
         _handScratchSource?.Stop();
         StopFlicker();
         ResetDoorShake();
