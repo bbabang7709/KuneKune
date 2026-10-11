@@ -87,6 +87,9 @@ public class UIManager : MonoBehaviour
 
     private Coroutine _fadeCoroutine;
     private Coroutine _gameplayUIFadeCoroutine;
+    private Transform _dialogFadeLayer;
+    private Transform _dialogFadeParent;
+    private int _dialogFadeSiblingIndex;
 
     [Header("Letter Box")]
     [SerializeField] private RectTransform letterboxTop;
@@ -200,6 +203,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
+        RestoreDialogFadeOrder();
+
         if (playerMovement != null)
         {
             playerMovement.OnStaminaChanged -= UpdateStaminaUI;
@@ -329,6 +334,9 @@ public class UIManager : MonoBehaviour
         fadeCanvasGroup.gameObject.SetActive(true);
         fadeCanvasGroup.alpha = alpha;
         fadeCanvasGroup.blocksRaycasts = alpha > 0f;
+
+        if (alpha <= 0f)
+            RestoreDialogFadeOrder();
     }
 
     /// <summary>
@@ -418,6 +426,57 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 대사 UI를 암전 패널 앞에 표시한 채 화면을 서서히 어둡게 합니다.
+    /// </summary>
+    public IEnumerator FadeOutKeepingDialog(float duration)
+    {
+        KeepDialogAboveFade();
+        yield return FadeOut(duration);
+    }
+
+    /// <summary>
+    /// 대사 UI를 암전 패널 앞에 표시한 채 화면을 서서히 밝게 합니다.
+    /// </summary>
+    public IEnumerator FadeInKeepingDialog(float duration)
+    {
+        KeepDialogAboveFade();
+        yield return FadeIn(duration);
+    }
+
+    private void KeepDialogAboveFade()
+    {
+        if (dialogRoot != null && fadeCanvasGroup != null && _dialogFadeLayer == null)
+        {
+            Transform fadeParent = fadeCanvasGroup.transform.parent;
+            Transform dialogLayer = dialogRoot.transform;
+
+            // 대사를 포함하며 암전 패널과 같은 부모를 가진 UI 계층을 찾습니다.
+            while (dialogLayer != null && dialogLayer.parent != fadeParent)
+                dialogLayer = dialogLayer.parent;
+
+            if (dialogLayer != null && dialogLayer != fadeCanvasGroup.transform)
+            {
+                _dialogFadeLayer = dialogLayer;
+                _dialogFadeParent = dialogLayer.parent;
+                _dialogFadeSiblingIndex = dialogLayer.GetSiblingIndex();
+                dialogLayer.SetAsLastSibling();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 암전 중 대사를 앞에 표시하기 위해 바꾼 UI 순서를 복구합니다.
+    /// </summary>
+    public void RestoreDialogFadeOrder()
+    {
+        if (_dialogFadeLayer != null && _dialogFadeLayer.parent == _dialogFadeParent)
+            _dialogFadeLayer.SetSiblingIndex(_dialogFadeSiblingIndex);
+
+        _dialogFadeLayer = null;
+        _dialogFadeParent = null;
+    }
+
+    /// <summary>
     /// 전체 화면 페이드 처리를 수행하는 코루틴.
     /// </summary>
     /// <param name="startAlpha">시작 알파 값.</param>
@@ -448,6 +507,7 @@ public class UIManager : MonoBehaviour
         {
             fadeCanvasGroup.blocksRaycasts = false;
             fadeCanvasGroup.gameObject.SetActive(false);
+            RestoreDialogFadeOrder();
         }
 
         _fadeCoroutine = null;

@@ -169,7 +169,9 @@ public class KuneKune : MonoBehaviour
 
     public void Spawn(Vector3 position, bool runImmediately = false)
     {
-        bool playFirstEncounter = _firstEncounterCutscene != null && !_firstEncounterCutscene.HasPlayed;
+        // 추격전 맵이 아니고, 첫 조우 컷씬이 아직 재생되지 않았다면 컷씬을 재생합니다.
+        bool playFirstEncounter = MapManager.Instance.CurrentMapType != EMapType.Chase_Ricefield 
+            &&_firstEncounterCutscene != null && !_firstEncounterCutscene.HasPlayed;
 
         // 활성화와 로딩 대기 전에 숨겨 첫 조우 시작 시 이전 스프라이트가 보이지 않게 합니다.
         SpriteRenderer.enabled = !playFirstEncounter;
