@@ -85,6 +85,9 @@ public class StatuePuzzle : MonoBehaviour
             portraits[i].sprite = originalSprites[i];
         }
 
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySFX("PuzzleComplete_Statue");
+
         if (rewardItem != null && InventoryManager.Instance != null)
         {
             Debug.Log("퍼즐 해결!! 키 아이템 획득");

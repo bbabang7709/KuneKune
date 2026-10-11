@@ -11,6 +11,9 @@ public class KuneSpawn : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
+            PlayerAppearance player = collision.GetComponent<PlayerAppearance>();
+            if (player != null) player.SetAge(EPlayerAge.Child);
+            
             KuneKune kune = MapManager.Instance?.KuneKune;
             if (kune != null) 
             {
