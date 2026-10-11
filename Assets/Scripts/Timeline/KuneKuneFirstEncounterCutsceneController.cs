@@ -44,6 +44,12 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
         ReleaseCutsceneCamera();
     }
 
+    protected override void OnCutsceneEndSetup()
+    {
+        // 경계와 블렌드 설정을 유지한 채 플레이어 카메라로 복귀합니다.
+        RestoreCameraPriority();
+    }
+
     #region 카메라 세팅
     /// <summary>
     /// Timeline Signal에서 호출합니다. duration초 동안 현재 카메라에서 CM으로 이동합니다.
@@ -111,11 +117,6 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
         return new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.EaseInOut, _cameraBlendDuration);
     }
 
-    protected override void OnCutsceneEndSetup()
-    {
-        ReleaseCutsceneCamera();
-    }
-
     private void ReleaseCutsceneCamera()
     {
         if (_bound != null && _bound.BoundingShape2D != null)
@@ -129,17 +130,6 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
         }
 
         RestoreCameraPriority();
-
-        // 복귀 Signal의 블렌드가 남아 있더라도 종료 시 즉시 완료합니다.
-        if (_cutsceneCamera == null)
-            return;
-
-        for (int i = 0; i < CinemachineBrain.ActiveBrainCount; i++)
-        {
-            var brain = CinemachineBrain.GetActiveBrain(i);
-            if (brain.ActiveBlend != null && brain.ActiveBlend.Uses(_cutsceneCamera))
-                brain.ActiveBlend = null;
-        }
     }
 
     private void RestoreCameraPriority()

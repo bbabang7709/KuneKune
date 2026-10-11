@@ -12736,7 +12736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6827113579712803715}
   m_Layer: 0
-  m_Name: Prompt Point (1)
+  m_Name: Prompt Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
