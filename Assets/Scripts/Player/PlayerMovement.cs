@@ -583,10 +583,10 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void SetCurrentHeat(float amount, bool isLoad = false)
     {
+        if (amount < 0f || amount > maxHeat) return;
+        
         if (isLoad)
         {
-            if (amount < 0f || amount > maxHeat) return;
-
             targetHeat = null;
             CurrentHeat = amount;
             maxHeatDuration = 0f;
