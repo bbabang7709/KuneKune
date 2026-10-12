@@ -5,6 +5,7 @@ using UnityEngine;
 public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 {
     private const int CutsceneCameraPriority = 20;
+    [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
 
     [SerializeField] private SpriteRenderer _water;
 
@@ -30,6 +31,12 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     protected override void Awake()
     {
         base.Awake();
+
+        if (_sunlightAreaRoot == null)
+            _sunlightAreaRoot = GetComponentInChildren<SunlightAreaRoot>(true);
+
+        _sunlightAreaRoot.Deactivate();
+
         if (_cutsceneCamera == null)
             _cutsceneCamera = GetComponentInChildren<CinemachineCamera>(true);
 
@@ -69,6 +76,8 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     {
         RestoreDialogFadeOrder();
         RestoreCameraPriority();
+
+        _sunlightAreaRoot.gameObject.SetActive(true);
     }
 
     protected override void OnDisable()
