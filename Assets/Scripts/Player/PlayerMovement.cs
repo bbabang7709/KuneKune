@@ -438,13 +438,14 @@ public class PlayerMovement : MonoBehaviour
         
         if (DialogSystem.Instance.IsDialogPlaying) return;  // 다이얼로그 연출 중에는 더위 게이지 갱신 중단
 
-        // 화장실(세이프 존)
-        // TODO: 아이템 사용(부채, 시원한 물) 인식
-        if (MapManager.Instance.IsCoolZone(MapManager.Instance.CurrentMapType))
-            DecreaseHeat(minHeat);
-        // 햇빛 노출될 때 더위 게이지 증가
-        else if (IsExposedToSunlight)
+        // 컷씬 후 활성화된 햇빛 영역은 화장실의 기본 냉각보다 우선한다.
+        if (IsExposedToSunlight)
             IncreaseHeat();
+
+        // 햇빛에 노출되지 않은 화장실에서는 기존대로 더위를 낮춘다.
+        // TODO: 아이템 사용(부채, 시원한 물) 인식
+        else if (MapManager.Instance.IsCoolZone(MapManager.Instance.CurrentMapType))
+            DecreaseHeat(minHeat);
         
         bool shouldSweat = CurrentHeat >= sweatThreshold;
         appearance.SetSweatyState(shouldSweat);

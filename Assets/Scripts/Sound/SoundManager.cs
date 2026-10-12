@@ -227,17 +227,21 @@ public class SoundManager : MonoBehaviour
         if (Instance == this) Instance = null;
     }
 
-    public void PlayBGM(string bgmID, float fadeDuration = 1f)
+    public void PlayBGM(string bgmID, float fadeDuration = 1f, float volumeMultiplier = 1f)
     {
         SoundData data = soundDatabase?.GetBGM(bgmID);
         if (data == null || data.clip == null) return;
 
-        // 이미 같은 곡이 재생 중이면 무시
-        if (_bgmSource.clip == data.clip && _bgmSource.isPlaying) return;
+        // 정지 페이드 중이라면 같은 곡이어도 다시 재생해야 합니다.
+        if (_currentBGMData == data && _bgmSource.clip == data.clip && _bgmSource.isPlaying)
+        {
+            FadeBGMVolume(volumeMultiplier, fadeDuration);
+            return;
+        }
 
         _currentBGMData = data;
         if (_volumeCoroutine != null) StopCoroutine(_volumeCoroutine);
-        _volumeCoroutine = StartCoroutine(CrossFadeBGM(data, fadeDuration));
+        _volumeCoroutine = StartCoroutine(CrossFadeBGM(data, fadeDuration, volumeMultiplier));
     }
 
     public void FadeBGMVolume(float multiplier, float fadeDuration = 1f)
@@ -265,8 +269,9 @@ public class SoundManager : MonoBehaviour
         _bgmSource.volume = targetVolume;
     }
 
-    private IEnumerator CrossFadeBGM(SoundData nextData, float duration)
+    private IEnumerator CrossFadeBGM(SoundData nextData, float duration, float volumeMultiplier)
     {
+        float targetVolume = nextData.volume * Mathf.Max(0f, volumeMultiplier);
         float currentTime = 0f;
         float startVol = _bgmSource.volume;
 
@@ -287,11 +292,11 @@ public class SoundManager : MonoBehaviour
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
-            _bgmSource.volume = Mathf.Lerp(0f, nextData.volume, currentTime / duration);
+            _bgmSource.volume = Mathf.Lerp(0f, targetVolume, currentTime / duration);
             yield return null;
         }
 
-        _bgmSource.volume = nextData.volume;
+        _bgmSource.volume = targetVolume;
     }
 
     public void SetBGMVolume(float level)
