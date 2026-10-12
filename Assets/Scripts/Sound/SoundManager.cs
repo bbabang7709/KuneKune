@@ -246,7 +246,7 @@ public class SoundManager : MonoBehaviour
         CancelBGMRoutines();
         _currentBGMData = data;
         _bgmVolumeMultiplier = Mathf.Max(0f, volumeMultiplier);
-        _crossFadeCoroutine = StartCoroutine(CrossFadeBGM(data, fadeDuration));
+        _crossFadeCoroutine = StartCoroutine(CrossFadeBGM(data, fadeDuration, volumeMultiplier));
     } 
 
     public void FadeBGMVolume(float multiplier, float fadeDuration = 1f)
