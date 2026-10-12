@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 {
+    private const string TrueFlagFailed = "HasTrueFlagFailed";
+
     private const int CutsceneCameraPriority = 20;
     [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
     private MapArea _sunlightMap;
@@ -29,6 +31,12 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     /// </summary>
     private bool _isCameraBlendOverrideRegistered;
     private float _cameraBlendDuration = 2f;
+
+    private bool _trueFlagFailedWithoutSaveManager;
+
+    // 로드로 SaveData가 교체되어도 이전 실행의 실패 여부를 캐시하지 않는다.
+    public bool HasTrueFlagFailed =>
+        SaveManager.Instance?.GetFlag(TrueFlagFailed) ?? _trueFlagFailedWithoutSaveManager;
 
     protected override void Awake()
     {
@@ -57,22 +65,22 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         if (playOnlyOnce && hasPlayed)
             return;
 
-        if (_water != null)
-            _water.sprite = null;
-
         StartCoroutine(WaitAndPlayCutscene());
     }
 
     private IEnumerator WaitAndPlayCutscene()
     {
-        if (SaveManager.Instance != null)
-        {
-            yield return new WaitUntil(() => SaveManager.Instance.IsLoading == false);
-        }
-
         yield return new WaitUntil(() =>
+            (SaveManager.Instance == null || !SaveManager.Instance.IsLoading) &&
             (CutsceneManager.Instance == null || !CutsceneManager.Instance.IsCutscenePlaying) &&
             (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
+
+        // 직접 Play가 호출되어도 로드된 실패 기록을 확인한 뒤에만 재생한다.
+        if (HasTrueFlagFailed || (playOnlyOnce && hasPlayed))
+            yield break;
+
+        if (_water != null)
+            _water.sprite = null;
 
         PlayCutscene();
     }
@@ -98,6 +106,14 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         _blood.sprite = null;
         _sunlightAreaRoot?.Deactivate();
         _sunlightMap = null;
+
+        // 손수건으로 안 닦아주고 그냥 나감
+        _trueFlagFailedWithoutSaveManager = true;
+        SaveManager.Instance?.SetFlag(TrueFlagFailed, true);
+
+        PlayerMovement p = MapManager.Instance?.Player.GetComponent<PlayerMovement>();
+        if (p.CurrentHeat >= p.MaxHeat)
+            p.SetCurrentHeat(p.MaxHeat * 0.95f);
     }
 
     protected override void OnDisable()

@@ -6,18 +6,22 @@ using UnityEngine;
 public class ToiletCutsceneController : CutsceneControllerBase
 {
     private const string FirstEscapeFlag = "HasSeenFirstToiletEscape";
+    private const string FirstTrueFlagFailDialogFlag = "HasSeenFirstToiletTrueFlagFail";
 
     [Header("화장실 진입 대사")]
     [SerializeField] private DialogData _normalDialog;
     [SerializeField] private DialogData _firstEscapeDialog;
     [SerializeField] private DialogData _repeatEscapeDialog;
-    
+    [SerializeField] private DialogData _firstTrueFlagFailDialog;
+    [SerializeField] private DialogData _repeatTrueFlagFailDialog;
+
     private ToiletTrueFlagCutsceneController _toiletTrueFlagCutscene;
 
     private Collider2D _collider;
     private DialogTimelineController _dialogController;
     private bool _isEntryPlaying;
     private bool _firstEscapeShownWithoutSaveManager;
+    private bool _firstTrueFlagFailShownWithoutSaveManager;
 
     protected override void Awake()
     {
@@ -38,38 +42,37 @@ public class ToiletCutsceneController : CutsceneControllerBase
         if (!collision.CompareTag("Player") || _isEntryPlaying || (playOnlyOnce && hasPlayed))
             return;
 
+        _isEntryPlaying = true;
+        StartCoroutine(WaitAndPlayCutscene());
+    }
+
+    private IEnumerator WaitAndPlayCutscene()
+    {
+        // 컷씬과 대사는 저장 파일을 읽고 맵 복원이 끝난 뒤의 상태로 선택한다.
+        yield return new WaitUntil(() =>
+            (SaveManager.Instance == null || !SaveManager.Instance.IsLoading) &&
+            (CutsceneManager.Instance == null || !CutsceneManager.Instance.IsCutscenePlaying) &&
+            (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
+
         // 진엔딩 플래그를 만족하면 화장실 진입 대사를 재생하지 않는다.
         // 진엔딩 플래그 컷씬이 재생된적이 있다면, 화장실 진입 대사가 다시 나온다.
         if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false
             && InventoryManager.Instance != null && InventoryManager.Instance.HasKey("hanky"))
         {
             _toiletTrueFlagCutscene.Play();
-            return;
+            yield break;
         }
 
         // test
-        //if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false)
+        //if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false &&
+        //    !_toiletTrueFlagCutscene.HasTrueFlagFailed)
         //{
+        //    _isEntryPlaying = false;
         //    _toiletTrueFlagCutscene.Play();
-        //    return;
+        //    yield break;
         //}
 
-        _isEntryPlaying = true;
         bool wasBeingChased = MapManager.Instance != null && MapManager.Instance.ConsumeChasedMapEntry();
-        StartCoroutine(WaitAndPlayCutscene(wasBeingChased));
-    }
-
-    private IEnumerator WaitAndPlayCutscene(bool wasBeingChased)
-    {
-        if (SaveManager.Instance != null)
-        {
-            yield return new WaitUntil(() => SaveManager.Instance.IsLoading == false);
-        }
-
-        yield return new WaitUntil(() =>
-            (CutsceneManager.Instance == null || !CutsceneManager.Instance.IsCutscenePlaying) &&
-            (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
-
         DialogData selectedDialog = SelectEntryDialog(wasBeingChased);
         if (_normalDialog == null || selectedDialog == null)
         {
@@ -84,6 +87,16 @@ public class ToiletCutsceneController : CutsceneControllerBase
 
     private DialogData SelectEntryDialog(bool wasBeingChased)
     {
+        // 진엔딩 플래그에 실패한 이후에는 일반/피신 대사보다 실패 대사를 우선한다.
+        if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasTrueFlagFailed)
+        {
+            bool hasSeenFirstFailure = SaveManager.Instance != null
+                    ? SaveManager.Instance.GetFlag(FirstTrueFlagFailDialogFlag)
+                    : _firstTrueFlagFailShownWithoutSaveManager;
+
+            return hasSeenFirstFailure ? _repeatTrueFlagFailDialog : _firstTrueFlagFailDialog;
+        }
+
         // 쿠네쿠네에게 쫓기는 상황이 아닌 대사
         if (!wasBeingChased)
             return _normalDialog;
@@ -99,12 +112,20 @@ public class ToiletCutsceneController : CutsceneControllerBase
 
     private void OnDialogStarted(DialogData dialog)
     {
-        if (!_isEntryPlaying || dialog != _firstEscapeDialog)
+        if (!_isEntryPlaying)
             return;
 
         // 첫 대사가 시작되면 기록하며, 다음 체크포인트 저장 때 저장 파일에 반영합니다.
-        _firstEscapeShownWithoutSaveManager = true;
-        SaveManager.Instance?.SetFlag(FirstEscapeFlag, true);
+        if (dialog == _firstTrueFlagFailDialog)
+        {
+            _firstTrueFlagFailShownWithoutSaveManager = true;
+            SaveManager.Instance?.SetFlag(FirstTrueFlagFailDialogFlag, true);
+        }
+        else if (dialog == _firstEscapeDialog)
+        {
+            _firstEscapeShownWithoutSaveManager = true;
+            SaveManager.Instance?.SetFlag(FirstEscapeFlag, true);
+        }
     }
 
     protected override void OnCutsceneFinished()
