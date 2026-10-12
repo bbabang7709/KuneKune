@@ -110,12 +110,7 @@ public class MapManager : MonoBehaviour
         {
             CurrentMapType = targetMapType;
             
-            if (!KuneKune.gameObject.activeInHierarchy)
-            {
-                SoundManager.Instance?.PlayBGM(_currentArea.BgmID);
-                if (_currentArea.IsInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
-                else SoundManager.Instance?.FadeBGMVolume(1f);
-            } 
+            RefreshMapBGM();
 
             UpdateKunekuneSpawns(_currentArea);
 
@@ -170,12 +165,7 @@ public class MapManager : MonoBehaviour
             CurrentMapType = targetMapType;
             _wasChasedOnMapEntry = wasChased;
             
-            if (!KuneKune.gameObject.activeInHierarchy)
-            {
-                SoundManager.Instance?.PlayBGM(_currentArea.BgmID);
-                if (_currentArea.IsInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
-                else SoundManager.Instance?.FadeBGMVolume(1f);
-            } 
+            RefreshMapBGM();
 
             UpdateKunekuneSpawns(_currentArea); // 이동한 맵의 쿠네쿠네 스폰 포인트 갱신
 
@@ -211,6 +201,27 @@ public class MapManager : MonoBehaviour
         Time.timeScale = 1f;
 
         onComplete?.Invoke();
+    }
+
+    /// <summary>
+    /// 화장실에서는 음악을 멈추고, 추격 중이 아니면 현재 맵의 기본 음악을 재생합니다.
+    /// </summary>
+    public void RefreshMapBGM()
+    {
+        if (_currentArea == null)
+            return;
+
+        if (IsCoolZone(CurrentMapType))
+        {
+            SoundManager.Instance?.StopBGM();
+            return;
+        }
+
+        if (KuneKune != null && KuneKune.gameObject.activeInHierarchy)
+            return;
+
+        SoundManager.Instance?.PlayBGM(_currentArea.BgmID,
+            volumeMultiplier: _currentArea.IsInside ? 0.35f : 1f);
     }
 
     public bool IsCoolZone(EMapType current)
