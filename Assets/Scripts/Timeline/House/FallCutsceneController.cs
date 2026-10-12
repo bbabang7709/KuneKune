@@ -5,6 +5,14 @@ public class FallCutsceneController : CutsceneControllerBase
 {
     [SerializeField] private PlayerAppearance _player;
     [SerializeField] private HouseEscapingSequence escapeEvent;
+
+    [SerializeField] private DoorBangingEffect doorBanging;
+
+    protected override void OnCutsceneStartSetup()
+    {
+        if (doorBanging != null) doorBanging.StopBanging();
+    }
+
     protected override void OnCutsceneEndSetup()
     {
         StartCoroutine(EndSetupRoutine());

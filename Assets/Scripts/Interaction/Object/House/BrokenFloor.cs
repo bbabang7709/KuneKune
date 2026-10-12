@@ -17,6 +17,8 @@ public class BrokenFloor : InteractableBase
 
     [SerializeField] private Collider2D triggerCollider;
 
+    [SerializeField] private DoorBangingEffect doorBanging;
+
     private bool _playedEncounterCutscene = false;
     private bool _playedFallCutscene = false;
 
@@ -66,6 +68,8 @@ public class BrokenFloor : InteractableBase
         if (encounterSceneRoot != null) encounterSceneRoot.SetActive(false);
 
         // TODO: 문 쾅쾅쾅!! 연출 넣기
+        if (doorBanging != null) doorBanging.StartBanging();
+
 
         if (ControlLockManager.Instance != null)
         {
