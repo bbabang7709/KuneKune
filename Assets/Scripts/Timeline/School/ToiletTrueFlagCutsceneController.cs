@@ -6,6 +6,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 {
     private const int CutsceneCameraPriority = 20;
     [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
+    private MapArea _sunlightMap;
 
     [SerializeField] private SpriteRenderer _water;
 
@@ -77,12 +78,28 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         RestoreDialogFadeOrder();
         RestoreCameraPriority();
 
+        _sunlightMap = MapManager.Instance?.CurrentMap;
         _sunlightAreaRoot.gameObject.SetActive(true);
+    }
+
+    private void LateUpdate()
+    {
+        // 같은 화장실 안에서 영역을 벗어나는 것과 문을 통해 맵을 나가는 것을 구분한다.
+        if (_sunlightMap == null || MapManager.Instance?.CurrentMap == null)
+            return;
+
+        if (MapManager.Instance.CurrentMap == _sunlightMap)
+            return;
+
+        _sunlightAreaRoot?.Deactivate();
+        _sunlightMap = null;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
+        _sunlightAreaRoot?.Deactivate();
+        _sunlightMap = null;
         RestoreDialogFadeOrder();
         ReleaseCutsceneCamera();
     }
