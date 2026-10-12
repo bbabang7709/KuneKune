@@ -18,7 +18,7 @@ public class KuneSpawn : MonoBehaviour
             if (kune != null) 
             {
                 kune.SetMoveSpeed(chaseSpeed);
-                kune.Spawn(spawnPoint.position);
+                kune.Spawn(spawnPoint.position, true);
             }
         }
     }

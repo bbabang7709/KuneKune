@@ -237,7 +237,7 @@ public class SoundManager : MonoBehaviour
 
         _currentBGMData = data;
         if (_volumeCoroutine != null) StopCoroutine(_volumeCoroutine);
-        StartCoroutine(CrossFadeBGM(data, fadeDuration));
+        _volumeCoroutine = StartCoroutine(CrossFadeBGM(data, fadeDuration));
     }
 
     public void FadeBGMVolume(float multiplier, float fadeDuration = 1f)
@@ -299,5 +299,40 @@ public class SoundManager : MonoBehaviour
         if (level < 0f || level > 1f) return;
 
         _bgmSource.volume = level;
+    }
+
+    public void StopBGM(float fadeDuration = 1f)
+    {
+        if (_volumeCoroutine != null) StopCoroutine(_volumeCoroutine);
+
+        _currentBGMData = null;
+
+        if (!_bgmSource.isPlaying) return;
+
+        if (fadeDuration <= 0f)
+        {
+            _bgmSource.Stop();
+            _bgmSource.clip = null;
+            return;
+        }
+
+        _volumeCoroutine = StartCoroutine(StopBGMRoutine(fadeDuration));
+    }
+
+    private IEnumerator StopBGMRoutine(float duration)
+    {
+        float currentTime = 0f;
+        float startVol = _bgmSource.volume;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            _bgmSource.volume = Mathf.Lerp(startVol, 0f, currentTime / duration);
+            yield return null;
+        }
+
+        _bgmSource.Stop();
+        _bgmSource.clip = null;
+        _bgmSource.volume = 0f;
     }
 }

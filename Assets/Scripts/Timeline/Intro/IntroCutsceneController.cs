@@ -22,6 +22,12 @@ public class IntroCutsceneController : MonoBehaviour
         blinkCoroutine = StartCoroutine(TextBlinkRoutine());
     }
 
+    void Start()
+    {
+        BackgroundManager.Instance?.SetBackgroundForChapter(EChapter.Chapter1_Outside);
+        SoundManager.Instance?.PlayBGM("BGM_KuneKune");
+    }
+
     private void Update()
     {
         if (!hasPlayed && Input.GetKeyDown(KeyCode.Space))
@@ -34,6 +40,8 @@ public class IntroCutsceneController : MonoBehaviour
     {
         // 중복 입력 방지
             hasPlayed = true;
+
+            SoundManager.Instance?.PlayBGM("BGM_Cicada");
 
             // 블링크 중지
             if (blinkCoroutine != null)
