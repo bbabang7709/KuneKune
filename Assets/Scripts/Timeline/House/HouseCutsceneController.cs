@@ -25,11 +25,20 @@ public class HouseCutsceneController : CutsceneControllerBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player") || _isWaitingForCutscene || (playOnlyOnce && hasPlayed))
+        if (!collision.CompareTag("Player") || (playOnlyOnce && hasPlayed))
             return;
 
         PlayerMovement playerMovement = collision.GetComponentInParent<PlayerMovement>();
         if (playerMovement == null) return;
+
+        // 더위가 최대일 때는 화장실로 피신할 수 있게 두고, 재생 가능한 진입에서는 즉시 잠급니다.
+        // 이미 대기 중이어도 화장실에서 복도로 돌아온 순간에는 잠금이 필요합니다.
+        if (MapManager.Instance != null && MapManager.Instance.CurrentMapType == EMapType.House_Hallway &&
+            playerMovement.CurrentHeat < playerMovement.MaxHeat)
+            HoldControls();
+
+        if (_isWaitingForCutscene)
+            return;
 
         _isWaitingForCutscene = true;
         StartCoroutine(WaitAndPlayCutscene(playerMovement));
@@ -62,6 +71,8 @@ public class HouseCutsceneController : CutsceneControllerBase
             (CutsceneManager.Instance == null || !CutsceneManager.Instance.IsCutscenePlaying) &&
             (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
 
+        // 로드가 잠금을 지웠을 수 있으므로 다시 잠근 뒤 컷씬 잠금으로 넘깁니다.
+        HoldControls();
         _isWaitingForCutscene = false;
         PlayCutscene();
     }
