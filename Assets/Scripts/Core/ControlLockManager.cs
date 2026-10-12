@@ -36,9 +36,15 @@ public class ControlLockManager : MonoBehaviour
         Instance = this;
     }
 
+    /// <summary>
+    /// 새로운 잠금이 추가된 즉시 호출됩니다. 다음 프레임의 갱신을 기다리지 않고 조작을 끊을 때 사용합니다.
+    /// </summary>
+    public event System.Action OnLockAdded;
+
     public void AddMovementLock(object source)
     {
-        _movementLocks.Add(source);
+        if (_movementLocks.Add(source))
+            OnLockAdded?.Invoke();
     }
 
     public void RemoveMovementLock(object source)
@@ -48,7 +54,8 @@ public class ControlLockManager : MonoBehaviour
 
     public void AddInputLock(object source)
     {
-        _inputLocks.Add(source);
+        if (_inputLocks.Add(source))
+            OnLockAdded?.Invoke();
     }
 
     public void RemoveInputLock(object source)

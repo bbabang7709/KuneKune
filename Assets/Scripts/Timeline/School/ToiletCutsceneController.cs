@@ -55,6 +55,8 @@ public class ToiletCutsceneController : CutsceneControllerBase
         //}
 
         _isEntryPlaying = true;
+        // 대기 코루틴이 PlayCutscene을 호출할 때까지의 프레임 틈에 조작이 새지 않게 먼저 잠급니다.
+        HoldControls();
         bool wasBeingChased = MapManager.Instance != null && MapManager.Instance.ConsumeChasedMapEntry();
         StartCoroutine(WaitAndPlayCutscene(wasBeingChased));
     }
@@ -64,6 +66,8 @@ public class ToiletCutsceneController : CutsceneControllerBase
         if (SaveManager.Instance != null)
         {
             yield return new WaitUntil(() => SaveManager.Instance.IsLoading == false);
+            // 로드가 끝나며 잠금이 모두 지워질 수 있으므로 다시 잠급니다.
+            HoldControls();
         }
 
         yield return new WaitUntil(() =>
@@ -75,11 +79,19 @@ public class ToiletCutsceneController : CutsceneControllerBase
         {
             Debug.LogError("화장실 진입 대사를 지정해주세요.", this);
             _isEntryPlaying = false;
+            ReleaseControls();
             yield break;
         }
 
         _dialogController.SetDialogOverride(_normalDialog, selectedDialog);
         PlayCutscene();
+
+        // 컷씬이 시작되지 않았다면 다음 진입을 막지 않도록 되돌립니다.
+        if (!IsCutsceneRunning)
+        {
+            _dialogController.ClearDialogOverride();
+            _isEntryPlaying = false;
+        }
     }
 
     private DialogData SelectEntryDialog(bool wasBeingChased)

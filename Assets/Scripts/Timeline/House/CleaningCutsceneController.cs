@@ -7,8 +7,10 @@ public class CleaningCutsceneController : CutsceneControllerBase
     [SerializeField] private Collider2D triggerCollider;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !(playOnlyOnce && hasPlayed))
         {
+            // 대기 코루틴이 PlayCutscene을 호출할 때까지의 프레임 틈에 조작이 새지 않게 먼저 잠급니다.
+            HoldControls();
             StartCoroutine(WaitAndPlayCutscene());
         }
     }
@@ -29,6 +31,8 @@ public class CleaningCutsceneController : CutsceneControllerBase
         if (SaveManager.Instance != null)
         {
             yield return new WaitUntil(() => SaveManager.Instance.IsLoading == false);
+            // 로드가 끝나며 잠금이 모두 지워질 수 있으므로 다시 잠급니다.
+            HoldControls();
         }
 
         PlayCutscene();
