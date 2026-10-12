@@ -43,6 +43,8 @@ public class ToiletCutsceneController : CutsceneControllerBase
             return;
 
         _isEntryPlaying = true;
+        // 대기 코루틴이 PlayCutscene을 호출할 때까지의 프레임 틈에 조작이 새지 않게 먼저 잠급니다.
+        HoldControls();
         StartCoroutine(WaitAndPlayCutscene());
     }
 
@@ -54,12 +56,17 @@ public class ToiletCutsceneController : CutsceneControllerBase
             (CutsceneManager.Instance == null || !CutsceneManager.Instance.IsCutscenePlaying) &&
             (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
 
+        // 로드가 끝나며 잠금이 모두 지워질 수 있으므로 다시 잠급니다.
+        HoldControls();
+
         // 진엔딩 플래그를 만족하면 화장실 진입 대사를 재생하지 않는다.
         // 진엔딩 플래그 컷씬이 재생된적이 있다면, 화장실 진입 대사가 다시 나온다.
         if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false
             && InventoryManager.Instance != null && InventoryManager.Instance.HasKey("hanky"))
         {
             _toiletTrueFlagCutscene.Play();
+            // TrueFlag 컨트롤러가 자기 잠금을 먼저 걸었으므로 이쪽의 대기용 잠금은 넘겨줍니다.
+            ReleaseControls();
             yield break;
         }
 
@@ -78,11 +85,19 @@ public class ToiletCutsceneController : CutsceneControllerBase
         {
             Debug.LogError("화장실 진입 대사를 지정해주세요.", this);
             _isEntryPlaying = false;
+            ReleaseControls();
             yield break;
         }
 
         _dialogController.SetDialogOverride(_normalDialog, selectedDialog);
         PlayCutscene();
+
+        // 컷씬이 시작되지 않았다면 다음 진입을 막지 않도록 되돌립니다.
+        if (!IsCutsceneRunning)
+        {
+            _dialogController.ClearDialogOverride();
+            _isEntryPlaying = false;
+        }
     }
 
     private DialogData SelectEntryDialog(bool wasBeingChased)

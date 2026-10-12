@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimation anim;
     private PlayerAppearance appearance;
     private PlayerInteraction interaction;
+    private ControlLockManager _lockManager;
 
     void Awake()
     {
@@ -16,6 +17,29 @@ public class PlayerController : MonoBehaviour
         anim = GetComponentInChildren<PlayerAnimation>();
         appearance = GetComponent<PlayerAppearance>();
         interaction = GetComponent<PlayerInteraction>();
+    }
+
+    private void Start()
+    {
+        // ControlLockManager는 Awake에서 등록되므로 Start에서 구독합니다.
+        _lockManager = ControlLockManager.Instance;
+        if (_lockManager != null)
+            _lockManager.OnLockAdded += HandleLockAdded;
+    }
+
+    private void OnDestroy()
+    {
+        if (_lockManager != null)
+            _lockManager.OnLockAdded -= HandleLockAdded;
+    }
+
+    /// <summary>
+    /// 잠금이 걸린 프레임에 이미 설정된 이동 방향과 진행 중인 상호작용을 바로 끊습니다.
+    /// </summary>
+    private void HandleLockAdded()
+    {
+        movement?.StopImmediately();
+        interaction?.CancelInteraction();
     }
 
     void Update()

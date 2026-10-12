@@ -101,6 +101,7 @@ MonoBehaviour:
   needToStop: 0100
   fallCutscene: {fileID: 2816618703769883421}
   triggerCollider: {fileID: 8157466972607248048}
+  doorBanging: {fileID: 6591040869143438506}
 --- !u!1 &251943706510246459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1842,6 +1843,7 @@ GameObject:
   - component: {fileID: 1240725735205363720}
   - component: {fileID: 3548837255930587266}
   - component: {fileID: 3132444294873911738}
+  - component: {fileID: 6591040869143438506}
   m_Layer: 0
   m_Name: house_hallway_room_door_close_0 (1)
   m_TagString: Untagged
@@ -1995,6 +1997,23 @@ MonoBehaviour:
   openSoundID: DoorOpen_Sliding
   transitionDelay: 0.2
   resetDelay: 0.1
+--- !u!114 &6591040869143438506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936245084992230015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257fbda3f3f4db446908b9ed8729a583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorBangingEffect
+  shakeIntensity: 0.3
+  knockDuration: 0.05
+  timeBetweenKnocks: 0.25
+  timeBetweenBursts: 1.5
+  singleBangSound: Door_Banging
 --- !u!1 &998938983150994171
 GameObject:
   m_ObjectHideFlags: 0
@@ -3208,6 +3227,7 @@ MonoBehaviour:
   useFadeInOut: 1
   _player: {fileID: 0}
   escapeEvent: {fileID: 3790652501213701879}
+  doorBanging: {fileID: 6591040869143438506}
 --- !u!114 &427020368078187462
 MonoBehaviour:
   m_ObjectHideFlags: 0

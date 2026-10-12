@@ -77,3 +77,6 @@ MonoBehaviour:
   - soundID: PuzzleComplete_Statue
     clip: {fileID: 8300000, guid: 2e0ef97edead85442a35fda8adc02174, type: 3}
     volume: 0.5
+  - soundID: Door_Banging
+    clip: {fileID: 8300000, guid: 6f6baa58338c6764c91a10deaddb1b5c, type: 3}
+    volume: 0.8

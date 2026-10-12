@@ -257,6 +257,21 @@ public class PlayerMovement : MonoBehaviour
                 : Vector2.zero;
     }
 
+    /// <summary>
+    /// 조작이 잠기는 순간 이동 방향과 속도를 즉시 끊는다.
+    /// 다음 Update를 기다리면 그 사이의 FixedUpdate가 이전 방향으로 한 번 더 이동시킨다.
+    /// </summary>
+    public void StopImmediately()
+    {
+        moveDirection = Vector2.zero;
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
+
+        IsMoving = false;
+        IsSprinting = false;
+        isSprintMode = false;
+    }
+
     public void SetSpeedMultiplier(float amount)
     {
         if (amount < 0) return;

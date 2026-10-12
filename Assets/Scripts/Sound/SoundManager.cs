@@ -20,6 +20,8 @@ public class SoundManager : MonoBehaviour
 
     private SoundData _currentBGMData;
     private Coroutine _volumeCoroutine;
+    private Coroutine _crossFadeCoroutine;
+    private float _bgmVolumeMultiplier = 1f;
 
     private sealed class LoopSFX
     {
@@ -226,32 +228,48 @@ public class SoundManager : MonoBehaviour
     {
         if (Instance == this) Instance = null;
     }
-
+    
     public void PlayBGM(string bgmID, float fadeDuration = 1f, float volumeMultiplier = 1f)
     {
         SoundData data = soundDatabase?.GetBGM(bgmID);
         if (data == null || data.clip == null) return;
 
-        // 정지 페이드 중이라면 같은 곡이어도 다시 재생해야 합니다.
-        if (_currentBGMData == data && _bgmSource.clip == data.clip && _bgmSource.isPlaying)
+        // 이미 같은 곡이 재생 중이거나 전환 중이면 곡은 유지하고 배율만 맞춥니다.
+        // (전환 중에는 clip이 아직 이전 곡이므로 목표 곡 기준으로 비교합니다.
+        //  StopBGM 중에는 _currentBGMData가 null이라 같은 곡이어도 다시 재생됩니다.)
+        if (_currentBGMData == data && _bgmSource.isPlaying)
         {
             FadeBGMVolume(volumeMultiplier, fadeDuration);
             return;
         }
 
+        CancelBGMRoutines();
         _currentBGMData = data;
-        if (_volumeCoroutine != null) StopCoroutine(_volumeCoroutine);
-        _volumeCoroutine = StartCoroutine(CrossFadeBGM(data, fadeDuration, volumeMultiplier));
-    }
+        _bgmVolumeMultiplier = Mathf.Max(0f, volumeMultiplier);
+        _crossFadeCoroutine = StartCoroutine(CrossFadeBGM(data, fadeDuration));
+    } 
 
     public void FadeBGMVolume(float multiplier, float fadeDuration = 1f)
     {
         if (_currentBGMData == null || !_bgmSource.isPlaying) return;
 
+        _bgmVolumeMultiplier = multiplier;
+
+        // 곡 전환 중이면 전환이 끝날 때 이 배율로 맞춰지므로 따로 페이드하지 않습니다.
+        if (_crossFadeCoroutine != null) return;
+
         if (_volumeCoroutine != null) StopCoroutine(_volumeCoroutine);
 
         float targetVolume = _currentBGMData.volume * multiplier;
-        _volumeCoroutine = StartCoroutine(VolumeFadeRoutine(targetVolume, fadeDuration)); 
+        _volumeCoroutine = StartCoroutine(VolumeFadeRoutine(targetVolume, fadeDuration));
+    }
+
+    private void CancelBGMRoutines()
+    {
+        if (_volumeCoroutine != null) StopCoroutine(_volumeCoroutine);
+        if (_crossFadeCoroutine != null) StopCoroutine(_crossFadeCoroutine);
+        _volumeCoroutine = null;
+        _crossFadeCoroutine = null;
     }
 
     private IEnumerator VolumeFadeRoutine(float targetVolume, float duration)
@@ -292,11 +310,12 @@ public class SoundManager : MonoBehaviour
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
-            _bgmSource.volume = Mathf.Lerp(0f, targetVolume, currentTime / duration);
+            _bgmSource.volume = Mathf.Lerp(0f, nextData.volume * _bgmVolumeMultiplier, currentTime / duration);
             yield return null;
         }
 
-        _bgmSource.volume = targetVolume;
+        _bgmSource.volume = nextData.volume * _bgmVolumeMultiplier;
+        _crossFadeCoroutine = null;
     }
 
     public void SetBGMVolume(float level)
@@ -308,7 +327,7 @@ public class SoundManager : MonoBehaviour
 
     public void StopBGM(float fadeDuration = 1f)
     {
-        if (_volumeCoroutine != null) StopCoroutine(_volumeCoroutine);
+        CancelBGMRoutines();
 
         _currentBGMData = null;
 

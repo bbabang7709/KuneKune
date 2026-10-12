@@ -54,14 +54,16 @@ public class DialogSystem : MonoBehaviour
     private IEnumerator PlayDialogRoutine(DialogData dialog)
     {
         IsDialogPlaying = true;
-        yield return null;
 
         // 💡 변경점 3: 이동과 입력을 명확하게 모두 잠금
+        // 한 프레임 양보하기 전에 잠가야 그 사이에 이동이나 상호작용이 새지 않는다.
         if (ControlLockManager.Instance != null)
         {
             ControlLockManager.Instance.AddMovementLock(this);
             ControlLockManager.Instance.AddInputLock(this);
         }
+
+        yield return null;
 
         UIManager.Instance?.OpenDialog();
 
@@ -121,13 +123,14 @@ public class DialogSystem : MonoBehaviour
     private IEnumerator PlayFullScreenImageDialogRoutine(Sprite image, DialogData dialog, Action onFinished)
     {
         IsDialogPlaying = true;
-        yield return null;
 
         if (ControlLockManager.Instance != null)
         {
             ControlLockManager.Instance.AddMovementLock(this);
             ControlLockManager.Instance.AddInputLock(this);
         }
+
+        yield return null;
 
         UIManager.Instance.OpenFullScreenImage(image);
 
@@ -170,13 +173,14 @@ public class DialogSystem : MonoBehaviour
     private IEnumerator PlayItemDialogRoutine(Sprite image, DialogData dialog, Action onFinished)
     {
         IsDialogPlaying = true;
-        yield return null;
 
         if (ControlLockManager.Instance != null)
         {
             ControlLockManager.Instance.AddMovementLock(this);
             ControlLockManager.Instance.AddInputLock(this);
         }
+
+        yield return null;
 
         UIManager.Instance.OpenItemImage(image);
 

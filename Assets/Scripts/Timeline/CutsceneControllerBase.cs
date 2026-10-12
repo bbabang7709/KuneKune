@@ -16,6 +16,9 @@ public abstract class CutsceneControllerBase : MonoBehaviour
     private bool _isCutsceneRunning;
     private bool _endRequested;
     private bool _isEnding;
+    private bool _isHoldingControls;
+
+    protected bool IsCutsceneRunning => _isCutsceneRunning;
 
     private bool CanRunCutscene => gameObject.activeInHierarchy && isActiveAndEnabled &&
         gameObject.scene.isLoaded && (SaveManager.Instance == null || !SaveManager.Instance.IsLoading);
@@ -43,7 +46,33 @@ public abstract class CutsceneControllerBase : MonoBehaviour
         _isCutsceneRunning = false;
         _endRequested = false;
         _isEnding = false;
+        ReleaseControls();
         StopAllCoroutines();
+    }
+
+    /// <summary>
+    /// 트리거로 컷씬을 기다리는 동안 PlayCutscene 호출 전의 프레임 틈에 조작이 새지 않도록 잠급니다.
+    /// PlayCutscene이 컷씬을 시작하면 CutsceneManager의 잠금으로 넘어가며 자동으로 해제됩니다.
+    /// 세이브 로드가 잠금을 모두 지울 수 있으므로 대기 후에 다시 호출해도 됩니다.
+    /// </summary>
+    protected void HoldControls()
+    {
+        if (ControlLockManager.Instance == null) return;
+
+        ControlLockManager.Instance.AddInputLock(this);
+        ControlLockManager.Instance.AddMovementLock(this);
+        _isHoldingControls = true;
+    }
+
+    protected void ReleaseControls()
+    {
+        if (!_isHoldingControls) return;
+        _isHoldingControls = false;
+
+        if (ControlLockManager.Instance == null) return;
+
+        ControlLockManager.Instance.RemoveInputLock(this);
+        ControlLockManager.Instance.RemoveMovementLock(this);
     }
 
     private void OnDirectorPlayed(PlayableDirector playedDirector)
@@ -59,12 +88,18 @@ public abstract class CutsceneControllerBase : MonoBehaviour
 
     public void PlayCutscene()
     {
-        if (!CanRunCutscene || _isEnding) return;
-        if (playOnlyOnce && hasPlayed) return;
+        if (!CanRunCutscene || _isEnding || (playOnlyOnce && hasPlayed))
+        {
+            ReleaseControls();
+            return;
+        }
+
         hasPlayed = true;
         _isCutsceneRunning = true;
 
         CutsceneManager.Instance?.StartCutscene();
+        // 같은 프레임에 CutsceneManager의 잠금으로 넘어가므로 대기용 잠금은 틈 없이 해제됩니다.
+        ReleaseControls();
         StartCoroutine(CutsceneStartRoutine());
     }
 
