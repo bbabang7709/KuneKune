@@ -292,7 +292,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ToiletTrueFlagCutsceneController
   playOnlyOnce: 1
   useFadeInOut: 1
-  _sunlightArea: {fileID: 960084516014650672}
+  _sunlightAreaRoot: {fileID: 960084516014650672}
+  _blood: {fileID: 1893904946566302826}
   _water: {fileID: 0}
   fadeOutDuration: 2
   _cutsceneCamera: {fileID: 6785937045812481355}

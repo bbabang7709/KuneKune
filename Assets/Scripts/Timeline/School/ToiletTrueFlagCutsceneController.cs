@@ -8,6 +8,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
     private MapArea _sunlightMap;
 
+    [SerializeField] private SpriteRenderer _blood;
     [SerializeField] private SpriteRenderer _water;
 
     [Header("화면 암전")]
@@ -32,6 +33,9 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     protected override void Awake()
     {
         base.Awake();
+
+        if (_blood == null)
+            _blood = GetComponentInChildren<SpriteRenderer>(true);
 
         if (_sunlightAreaRoot == null)
             _sunlightAreaRoot = GetComponentInChildren<SunlightAreaRoot>(true);
@@ -91,6 +95,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         if (MapManager.Instance.CurrentMap == _sunlightMap)
             return;
 
+        _blood.sprite = null;
         _sunlightAreaRoot?.Deactivate();
         _sunlightMap = null;
     }
