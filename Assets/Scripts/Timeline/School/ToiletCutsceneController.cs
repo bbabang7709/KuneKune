@@ -11,6 +11,8 @@ public class ToiletCutsceneController : CutsceneControllerBase
     [SerializeField] private DialogData _normalDialog;
     [SerializeField] private DialogData _firstEscapeDialog;
     [SerializeField] private DialogData _repeatEscapeDialog;
+    
+    private ToiletTrueFlagCutsceneController _toiletTrueFlagCutscene;
 
     private Collider2D _collider;
     private DialogTimelineController _dialogController;
@@ -20,6 +22,9 @@ public class ToiletCutsceneController : CutsceneControllerBase
     protected override void Awake()
     {
         base.Awake();
+
+        _toiletTrueFlagCutscene = FindFirstObjectByType<ToiletTrueFlagCutsceneController>(FindObjectsInactive.Include);
+
         _collider = GetComponent<Collider2D>();
         _collider.isTrigger = true;
         _collider.excludeLayers = ~LayerMask.GetMask("Player");
@@ -32,6 +37,22 @@ public class ToiletCutsceneController : CutsceneControllerBase
     {
         if (!collision.CompareTag("Player") || _isEntryPlaying || (playOnlyOnce && hasPlayed))
             return;
+
+        // 진엔딩 플래그를 만족하면 화장실 진입 대사를 재생하지 않는다.
+        // 진엔딩 플래그 컷씬이 재생된적이 있다면, 화장실 진입 대사가 다시 나온다.
+        if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false
+            && InventoryManager.Instance != null && InventoryManager.Instance.HasKey("hanky"))
+        {
+            _toiletTrueFlagCutscene.Play();
+            return;
+        }
+
+        // test
+        //if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false)
+        //{
+        //    _toiletTrueFlagCutscene.Play();
+        //    return;
+        //}
 
         _isEntryPlaying = true;
         bool wasBeingChased = MapManager.Instance != null && MapManager.Instance.ConsumeChasedMapEntry();
