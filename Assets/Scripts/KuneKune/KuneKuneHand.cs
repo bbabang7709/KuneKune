@@ -103,6 +103,9 @@ public class KuneKuneHand : MonoBehaviour
 
     private Light2D _globalLight;
 
+    /// <summary>
+    /// 이벤트 종료 후 플레이어가 문을 나가면, 쾅 닫히는 연출을 위한 영역
+    /// </summary>
     private Collider2D _collider;
     private Collider2D _playerCollider;
     private PlayerMovement _playerMovement;
@@ -212,7 +215,7 @@ public class KuneKuneHand : MonoBehaviour
             _originalColliderOffsets[i] = _doorColliders[i].offset;
         }
 
-        _sunlightAreaRoot.gameObject.SetActive(false);
+        _sunlightAreaRoot.Deactivate();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -272,7 +275,7 @@ public class KuneKuneHand : MonoBehaviour
             return false;
 
         // 손이 끝까지 내려왔다
-        _sunlightAreaRoot.gameObject.SetActive(false);
+        _sunlightAreaRoot.Deactivate();
         UpdateSprite();
         IsPlaying = false;
         IsGameOver = true;
@@ -386,7 +389,7 @@ public class KuneKuneHand : MonoBehaviour
         }
 
         // 모든 문을 열었다
-        _sunlightAreaRoot.gameObject.SetActive(false);
+        _sunlightAreaRoot.Deactivate();
         IsPlaying = false;
         IsCleared = true;
         CurrentDoorIndex = -1;

@@ -238,13 +238,7 @@ public class KuneKune : MonoBehaviour
         ResetFullScreenGlitch();
         State = ECharacterState.Unspawned;
 
-        var currentArea = MapManager.Instance?.CurrentMap;
-        if (currentArea != null)
-        {
-            SoundManager.Instance?.PlayBGM(currentArea.BgmID);
-            if (currentArea.IsInside) SoundManager.Instance?.FadeBGMVolume(0.35f);
-            else SoundManager.Instance?.FadeBGMVolume(1f);
-        }
+        MapManager.Instance?.RefreshMapBGM();
     }
 
     public void SetMoveSpeed(float amount)

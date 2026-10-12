@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: ToiletTrueFlag_0
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
+  - "\uC73C, \uCC28\u2026\u2026"
+  - "\uB530\uB73B\uD574\u2026\u2026?"
   - "\u2026\u2026\uC5B4?"
   - "\uC190\uB4F1\uC5D0 \uBB3B\uC5B4 \uC788\uB294 \uAC83\uC740 \uBB3C\uC774 \uC544\uB2C8\uB77C
     \uAC80\uBD89\uC740 \uD53C\uB2E4."

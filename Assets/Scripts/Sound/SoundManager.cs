@@ -228,21 +228,26 @@ public class SoundManager : MonoBehaviour
     {
         if (Instance == this) Instance = null;
     }
-
-    public void PlayBGM(string bgmID, float fadeDuration = 1f)
+    
+    public void PlayBGM(string bgmID, float fadeDuration = 1f, float volumeMultiplier = 1f)
     {
         SoundData data = soundDatabase?.GetBGM(bgmID);
         if (data == null || data.clip == null) return;
 
-        // 이미 같은 곡이 재생 중이거나 전환 중이면 무시
-        // (전환 중에는 clip이 아직 이전 곡이므로 목표 곡 기준으로 비교합니다)
-        if (_currentBGMData == data && _bgmSource.isPlaying) return;
+        // 이미 같은 곡이 재생 중이거나 전환 중이면 곡은 유지하고 배율만 맞춥니다.
+        // (전환 중에는 clip이 아직 이전 곡이므로 목표 곡 기준으로 비교합니다.
+        //  StopBGM 중에는 _currentBGMData가 null이라 같은 곡이어도 다시 재생됩니다.)
+        if (_currentBGMData == data && _bgmSource.isPlaying)
+        {
+            FadeBGMVolume(volumeMultiplier, fadeDuration);
+            return;
+        }
 
         CancelBGMRoutines();
         _currentBGMData = data;
-        _bgmVolumeMultiplier = 1f;
+        _bgmVolumeMultiplier = Mathf.Max(0f, volumeMultiplier);
         _crossFadeCoroutine = StartCoroutine(CrossFadeBGM(data, fadeDuration));
-    }
+    } 
 
     public void FadeBGMVolume(float multiplier, float fadeDuration = 1f)
     {
@@ -282,8 +287,9 @@ public class SoundManager : MonoBehaviour
         _bgmSource.volume = targetVolume;
     }
 
-    private IEnumerator CrossFadeBGM(SoundData nextData, float duration)
+    private IEnumerator CrossFadeBGM(SoundData nextData, float duration, float volumeMultiplier)
     {
+        float targetVolume = nextData.volume * Mathf.Max(0f, volumeMultiplier);
         float currentTime = 0f;
         float startVol = _bgmSource.volume;
 

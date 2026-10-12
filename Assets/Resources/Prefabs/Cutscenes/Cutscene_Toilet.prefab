@@ -200,6 +200,8 @@ MonoBehaviour:
   _normalDialog: {fileID: 11400000, guid: 579ce3f195e05d845bfffedcb3cd3e54, type: 2}
   _firstEscapeDialog: {fileID: 11400000, guid: d8d2b98d530a5d0469c402efd7cc1829, type: 2}
   _repeatEscapeDialog: {fileID: 11400000, guid: 20decbfcf47ca8247bc5b18a0908f5c2, type: 2}
+  _firstTrueFlagFailDialog: {fileID: 11400000, guid: 1d28f28218cb907478d48a3592667715, type: 2}
+  _repeatTrueFlagFailDialog: {fileID: 11400000, guid: a12004a7d5ca1424999ec696308200f1, type: 2}
 --- !u!61 &1842334296422322651
 BoxCollider2D:
   m_ObjectHideFlags: 0
