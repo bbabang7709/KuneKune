@@ -85,6 +85,7 @@ public class ControlLockManager : MonoBehaviour
         return source == null;
     }
 
+#if UNITY_EDITOR
     private void OnGUI()
     {
         CleanUpDeadLocks();
@@ -107,4 +108,5 @@ public class ControlLockManager : MonoBehaviour
         
         GUILayout.EndArea();
     }
+#endif
 }
