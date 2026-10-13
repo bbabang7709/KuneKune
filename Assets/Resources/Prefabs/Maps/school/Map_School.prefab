@@ -3336,6 +3336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  _doorLight: {fileID: 0}
+  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 6a9637fba730bf14a920f4caee999f9e, type: 2}
   uniquePickupID: key_doll_leg
   acquireDialog: {fileID: 11400000, guid: e7e94924e702f4749992d433155372e5, type: 2}
@@ -7158,6 +7160,91 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &5399348227702931390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5660199069440128801}
+  - component: {fileID: 2879964503820193228}
+  m_Layer: 0
+  m_Name: Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5660199069440128801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5399348227702931390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.34, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5964566078939029323}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2879964503820193228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5399348227702931390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 2
+  m_LightType: 1
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.691
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 0.1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000bf3a82064d0d6aef1f12c48ff1dc5e8b5f7184dd59c5cb9d
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 0
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0.017199993, y: -0.5072, z: 0}
+    m_Extent: {x: 2.3055, y: 1.0804, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 2
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 1
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -1.1195145, y: -0.51366043, z: 0}
+  - {x: -0.06856537, y: -0.58935547, z: 0}
+  - {x: 0.9573364, y: -0.54574966, z: 0}
+  - {x: 1.3237991, y: -0.4329033, z: 0}
+  - {x: -1.2901154, y: -0.42757034, z: 0}
 --- !u!1 &5488718617007646971
 GameObject:
   m_ObjectHideFlags: 0
@@ -8247,6 +8334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  _doorLight: {fileID: 0}
+  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 0222b2bdb1ee40245a4f910da704ead5, type: 2}
   uniquePickupID: 
   acquireDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
@@ -12728,6 +12817,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  _doorLight: {fileID: 0}
+  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 0222b2bdb1ee40245a4f910da704ead5, type: 2}
   uniquePickupID: 
   acquireDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
@@ -13173,6 +13264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  _doorLight: {fileID: 5399348227702931390}
+  _toiletLight: {fileID: 8102380079917558857}
   itemData: {fileID: 11400000, guid: 06cb5b8bc2a86834a8bf2ebf1779f5d5, type: 2}
   uniquePickupID: hanky
   acquireDialog: {fileID: 11400000, guid: a776cd780fe8530418541dc6d8f03726, type: 2}
@@ -13291,6 +13384,11 @@ PrefabInstance:
 --- !u!4 &6887414269053747940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6196529720615069996, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}
+  m_PrefabInstance: {fileID: 750830351882824648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8102380079917558857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8798366791721109377, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}
   m_PrefabInstance: {fileID: 750830351882824648}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1154971550674104356
@@ -14776,6 +14874,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3585832406769425684, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6230673295014697057}
+    - targetCorrespondingSourceObject: {fileID: 3585832406769425684, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5660199069440128801}
     - targetCorrespondingSourceObject: {fileID: 4170565309767850829, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6634188284802023820}

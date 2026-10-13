@@ -13,6 +13,9 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     [SerializeField] private Transform _kuneKune;
     private Animator _kuneKuneAnimator;
+
+    private AudioSource _handScratchSource;
+
     private float _kuneKuneAnimationSpeedBeforePause;
     private bool _isKuneKuneAnimationPaused;
     private bool _resumeKuneKuneAnimationAfterDialog;
@@ -44,14 +47,34 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     private float _cameraBlendDuration = 2f;
 
     private bool _trueFlagFailedWithoutSaveManager;
+    private bool _trueFlagSucceededWithoutSaveManager;
 
-    private bool _isMovingKuneKune;
+    public bool _isMovingKuneKune;
     private bool _isKuneKunePausedForDialog;
     private bool _isPlayRequested;
+    private bool _canInteractWithKuneKune;
+
+    public bool CanInteractWithKuneKune =>
+        _canInteractWithKuneKune && !HasTrueFlagFailed && !HasTrueFlagSucceeded && _kuneKune != null &&
+        _kuneKune.gameObject.activeInHierarchy && _sunlightMap != null &&
+        MapManager.Instance != null && MapManager.Instance.CurrentMap == _sunlightMap &&
+        (SaveManager.Instance == null || !SaveManager.Instance.IsLoading);
 
     // 로드로 SaveData가 교체되어도 이전 실행의 실패 여부를 캐시하지 않는다.
     public bool HasTrueFlagFailed =>
         SaveManager.Instance?.GetFlag(TrueFlagFailed) ?? _trueFlagFailedWithoutSaveManager;
+
+    public bool HasTrueFlagSucceeded =>
+        SaveManager.Instance?.IsTrueEndingUnlocked ?? _trueFlagSucceededWithoutSaveManager;
+
+    public void CompleteTrueFlagInteraction()
+    {
+        if (!CanInteractWithKuneKune) return;
+
+        _canInteractWithKuneKune = false;
+        _trueFlagSucceededWithoutSaveManager = true;
+        SaveManager.Instance?.UnlockTrueEnding();
+    }
 
     protected override void Awake()
     {
@@ -110,10 +133,12 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     public void Play()
     {
-        if (_isPlayRequested || IsCutsceneRunning || HasTrueFlagFailed || (playOnlyOnce && hasPlayed))
+        if (_isPlayRequested || IsCutsceneRunning || HasTrueFlagFailed || HasTrueFlagSucceeded ||
+            (playOnlyOnce && hasPlayed))
             return;
 
         _isPlayRequested = true;
+        _canInteractWithKuneKune = false;
 
         if (_water != null)
             _water.sprite = null;
@@ -138,7 +163,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
             (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
 
         // 직접 Play가 호출되어도 로드된 실패 기록을 확인한 뒤에만 재생한다.
-        if (HasTrueFlagFailed || (playOnlyOnce && hasPlayed))
+        if (HasTrueFlagFailed || HasTrueFlagSucceeded || (playOnlyOnce && hasPlayed))
         {
             _isPlayRequested = false;
             ReleaseControls();
@@ -159,6 +184,15 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         _sunlightMap = MapManager.Instance?.CurrentMap;
         _sunlightAreaRoot.gameObject.SetActive(true);
+    }
+
+    protected override void OnCutsceneFinished()
+    {
+        _canInteractWithKuneKune = true;
+        if (_handScratchSource == null)
+            _handScratchSource = SoundManager.Instance.CreateSFXSource(transform);
+
+        SoundManager.Instance.PlaySFXOnSource(_handScratchSource, "KuneKuneHand_Scratch", loop: true);
     }
 
     private void FixedUpdate()
@@ -186,6 +220,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
             return;
 
         _blood.sprite = null;
+        _canInteractWithKuneKune = false;
 
         _sunlightAreaRoot?.Deactivate();
         _sunlightMap = null;
@@ -194,8 +229,11 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         _kuneKune?.gameObject.SetActive(false);
 
         // 손수건으로 안 닦아주고 그냥 나감
-        _trueFlagFailedWithoutSaveManager = true;
-        SaveManager.Instance?.SetFlag(TrueFlagFailed, true);
+        if (!HasTrueFlagSucceeded)
+        {
+            _trueFlagFailedWithoutSaveManager = true;
+            SaveManager.Instance?.SetFlag(TrueFlagFailed, true);
+        }
 
         PlayerMovement p = MapManager.Instance?.Player.GetComponent<PlayerMovement>();
         if (p.CurrentHeat >= p.MaxHeat)
@@ -211,6 +249,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         }
         _isKuneKunePausedForDialog = false;
         _isPlayRequested = false;
+        _canInteractWithKuneKune = false;
         StopKuneKune();
         ResumeKuneKuneAnimation();
         _resumeKuneKuneAnimationAfterDialog = false;
@@ -262,6 +301,8 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     public void StopKuneKune()
     {
         _isMovingKuneKune = false;
+        if (_handScratchSource != null)
+            _handScratchSource.Stop();
     }
 
     /// <summary>

@@ -6,6 +6,9 @@ using UnityEngine;
 /// </summary>
 public class ItemPickup : MonoBehaviour, IHoldInteractable
 {
+    [SerializeField] private GameObject _doorLight;
+    [SerializeField] private GameObject _toiletLight;
+
     [Header("Item Data")]
     [SerializeField] private ItemData itemData;
 
@@ -106,6 +109,12 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
         if (col != null) col.enabled = false;
 
         Debug.Log($"{name} 아이템 획득");
+        // 손수건 잡으면 화장실 조명 활성화
+        if (uniquePickupID == "hanky" && _doorLight != null && _toiletLight != null)
+        {
+            _doorLight.SetActive(true);
+            _toiletLight.SetActive(true);
+        }
 
         InventoryManager.Instance?.AddItem(itemData);
 

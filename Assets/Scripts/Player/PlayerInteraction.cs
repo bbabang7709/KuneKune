@@ -339,6 +339,9 @@ public class PlayerInteraction : MonoBehaviour
         if (interactable is WeakFloor weakFloor)
             return weakFloor.CanInteract;
 
+        if (interactable is ToiletTrueFlagKuneKuneInteraction trueFlagKuneKune)
+            return trueFlagKuneKune.CanInteract;
+
         return true;
     }
 

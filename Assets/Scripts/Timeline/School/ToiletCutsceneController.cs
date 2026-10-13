@@ -39,6 +39,9 @@ public class ToiletCutsceneController : CutsceneControllerBase
 
     private bool CanPlayTrueFlagCutscene()
     {
+        if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasTrueFlagSucceeded)
+            return false;
+
         // test
         //if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false &&
         //    !_toiletTrueFlagCutscene.HasTrueFlagFailed)
@@ -48,7 +51,8 @@ public class ToiletCutsceneController : CutsceneControllerBase
 
         if (_toiletTrueFlagCutscene == null || _toiletTrueFlagCutscene.HasPlayed ||
             _toiletTrueFlagCutscene.HasTrueFlagFailed || InventoryManager.Instance == null ||
-            !InventoryManager.Instance.HasKey("hanky")) return false;
+            !InventoryManager.Instance.HasKey("hanky")) 
+            return false;
 
         return true;
     }

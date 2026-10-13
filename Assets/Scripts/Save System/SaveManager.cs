@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
+    public const string TrueEndingUnlockedFlag = "HasUnlockedTrueEnding";
+
+    public bool IsTrueEndingUnlocked => GetFlag(TrueEndingUnlockedFlag);
 
     public bool IsLoading { get; private set; }
 
@@ -38,6 +41,33 @@ public class SaveManager : MonoBehaviour
     public void SetFlag(string uniqueID, bool isCompleted) => _currentSaveData.SetFlag(uniqueID, isCompleted);
     public bool GetFlag(string uniqueID, bool defaultValue = false) => _currentSaveData.GetFlag(uniqueID, defaultValue);
 
+    /// <summary>
+    /// 진엔딩 조건을 달성했음을 기록하고 현재 진행도를 즉시 저장합니다.
+    /// </summary>
+    public void UnlockTrueEnding()
+    {
+        if (IsLoading || IsTrueEndingUnlocked) return;
+
+        SetFlag(TrueEndingUnlockedFlag, true);
+        SaveCurrentProgress();
+    }
+
+    /// <summary>
+    /// 현재 챕터 체크포인트를 유지하며 이벤트 플래그와 플레이어 진행도를 저장합니다.
+    /// </summary>
+    public void SaveCurrentProgress()
+    {
+        if (IsLoading) return;
+
+        foreach (var obj in _saveableObjects)
+        {
+            obj.SaveState(_currentSaveData);
+        }
+
+        string json = JsonUtility.ToJson(_currentSaveData, true);
+        File.WriteAllText(SavePath, json);
+    }
+
     public void SaveChapterCheckpoint(EChapter newChapter)
     {
         if (chapterDatabase == null) return;
@@ -47,13 +77,7 @@ public class SaveManager : MonoBehaviour
         _currentSaveData.currentChapter = info.chapter;
         _currentSaveData.playerAge = info.playerAge;
 
-        foreach (var obj in _saveableObjects)
-        {
-            obj.SaveState(_currentSaveData);
-        }
-
-        string json = JsonUtility.ToJson(_currentSaveData, true);
-        File.WriteAllText(SavePath, json);
+        SaveCurrentProgress();
         Debug.Log($"[SaveManager] {newChapter} 체크포인트 저장 완료");
     }
 
