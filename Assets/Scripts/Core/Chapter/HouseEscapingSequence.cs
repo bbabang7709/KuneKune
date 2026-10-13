@@ -12,6 +12,9 @@ public class HouseEscapingSequence : MonoBehaviour
 
     [SerializeField] private PlayerAppearance _player;
 
+    [SerializeField] private DialogData caughtDialog;
+    [SerializeField] private DialogData firstVisitSchoolDialog;
+
     private bool _isCaught = false;
 
     public void StartEscapeSequence()
@@ -73,13 +76,27 @@ public class HouseEscapingSequence : MonoBehaviour
     private IEnumerator ChangeChpaterRoutine()
     {
         yield return UIManager.Instance?.FadeOut(0.5f);
+
+        if (DialogSystem.Instance != null && caughtDialog != null)
+        {            
+            DialogSystem.Instance.PlayDialog(caughtDialog);
+
+            yield return new WaitUntil(()=> DialogSystem.Instance.IsDialogPlaying == false);
+        }
         
         MapManager.Instance?.InitMap(EMapType.School_Hallway, "school_hallway_0");
         if (_player != null) _player.SetAge(EPlayerAge.Student);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(5f);
 
         yield return UIManager.Instance?.FadeIn(1.5f);
+
+        if (DialogSystem.Instance != null && caughtDialog != null)
+        {
+            DialogSystem.Instance.PlayDialog(firstVisitSchoolDialog);
+
+            yield return new WaitUntil(()=> DialogSystem.Instance.IsDialogPlaying == false);
+        }
 
         SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter3_School);
         if (ControlLockManager.Instance != null)

@@ -1546,6 +1546,14 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 2127463089}
+    - target: {fileID: 3790652501213701879, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
+      propertyPath: caughtDialog
+      value: 
+      objectReference: {fileID: 11400000, guid: 73aba763d021575459070000cc9945f6, type: 2}
+    - target: {fileID: 3790652501213701879, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
+      propertyPath: firstVisitSchoolDialog
+      value: 
+      objectReference: {fileID: 11400000, guid: dc0819650199dcc4490df8706b9d5e38, type: 2}
     - target: {fileID: 5300241171918175312, guid: 58c9c60fe03048e43a5ca2ba89ea1f09, type: 3}
       propertyPath: imageAnim
       value: 
@@ -3431,7 +3439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
     Enabled: 1
-    m_Value: 10
+    m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
