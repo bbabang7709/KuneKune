@@ -84,7 +84,8 @@ public class ToiletCutsceneController : CutsceneControllerBase
         if (CanPlayTrueFlagCutscene())
         {
             _toiletTrueFlagCutscene.Play();
-            // TrueFlag 컨트롤러가 자기 잠금을 먼저 걸었으므로 이쪽의 대기용 잠금은 넘겨줍니다.
+            _isEntryPlaying = false;
+
             ReleaseControls();
             yield break;
         }

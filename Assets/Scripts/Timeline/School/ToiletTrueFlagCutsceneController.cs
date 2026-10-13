@@ -225,7 +225,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         _sunlightAreaRoot?.Deactivate();
         _sunlightMap = null;
 
-        _isMovingKuneKune = false;
+        StopKuneKune();
         _kuneKune?.gameObject.SetActive(false);
 
         // 손수건으로 안 닦아주고 그냥 나감
