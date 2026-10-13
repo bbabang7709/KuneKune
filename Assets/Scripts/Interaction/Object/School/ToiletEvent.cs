@@ -12,7 +12,6 @@ public class ToiletEvent : MonoBehaviour
     [Header("Event Objects")]
     [SerializeField] private List<ToiletBowl> toiletBowls;
     [SerializeField] private KunekuneHead kunekuneHeadPrefab;
-    [SerializeField] private GameObject classroomKey;
 
     private static int MAX_COUNT = 4;
     private int interactCount = 0;
@@ -54,6 +53,6 @@ public class ToiletEvent : MonoBehaviour
         Debug.Log($"{targetBowl.name} 위치에 쿠네쿠네 머리 등장!");
 
         KunekuneHead headInstance = Instantiate(kunekuneHeadPrefab, targetBowl.DropPoint.position, Quaternion.identity);
-        headInstance.Setup(targetBowl.DropPoint, classroomKey);
+        headInstance.Setup(targetBowl.DropPoint);
     }
 }

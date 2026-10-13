@@ -19,19 +19,27 @@ public class BrokenFloor : InteractableBase
 
     [SerializeField] private DoorBangingEffect doorBanging;
 
+    [Tooltip("눈 마주침 연출이 끝난 직후 이 시간(초) 동안은 추락 상호작용을 막는다 (연속 입력 방지)")]
+    [SerializeField] private float interactCooldownAfterEncounter = 0.5f;
+
     private bool _playedEncounterCutscene = false;
     private bool _playedFallCutscene = false;
+    private bool _isEncounterPlaying = false;
+    private float _encounterFinishedTime = float.NegativeInfinity;
 
     public override void OnInteractPressed()
     {
         if (CutsceneManager.Instance.IsCutscenePlaying) return;
         if (_playedFallCutscene) return;
 
+        // 눈 마주침 연출 중이거나 막 끝난 직후에는 구멍과 상호작용할 수 없다.
+        if (_isEncounterPlaying) return;
+        if (Time.unscaledTime - _encounterFinishedTime < interactCooldownAfterEncounter) return;
+
         if (!_playedEncounterCutscene)
         {
-            StartCoroutine(EncounterRoutine());
             _playedEncounterCutscene = true;
-            Debug.Log("쿠네쿠네 눈 마주침 컷씬 종료. 다시 상호작용해 아래로 떨어질 수 있습니다.");
+            StartCoroutine(EncounterRoutine());
         }
         else
         {
@@ -44,6 +52,8 @@ public class BrokenFloor : InteractableBase
 
     private IEnumerator EncounterRoutine()
     {
+        _isEncounterPlaying = true;
+
         if (ControlLockManager.Instance != null)
         {
             ControlLockManager.Instance.AddMovementLock(this);
@@ -75,5 +85,9 @@ public class BrokenFloor : InteractableBase
         {
             ControlLockManager.Instance.RemoveMovementLock(this);
         }
+
+        _isEncounterPlaying = false;
+        _encounterFinishedTime = Time.unscaledTime;
+        Debug.Log("쿠네쿠네 눈 마주침 컷씬 종료. 다시 상호작용해 아래로 떨어질 수 있습니다.");
     }
 }
