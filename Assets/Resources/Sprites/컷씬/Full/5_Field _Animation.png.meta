@@ -208,42 +208,20 @@ TextureImporter:
       name: 5_Field _Animation_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 5
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 41
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e7c470d24ffa6d250800000000000000
-      internalID: 5969151819388505214
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_1
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 0
-        width: 16
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e6b87d469aeaf0e90800000000000000
-      internalID: -7057230048501724306
+      spriteID: 4c4fad90088550e479bf98500212b6da
+      internalID: 775255671
       vertices: []
       indices: 
       edges: []
@@ -252,42 +230,20 @@ TextureImporter:
       name: 5_Field _Animation_2
       rect:
         serializedVersion: 2
-        x: 99
+        x: 100
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 41
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 32ea24871005ad540800000000000000
-      internalID: 5033423500782775843
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_3
-      rect:
-        serializedVersion: 2
-        x: 123
-        y: 0
-        width: 19
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 33fd81e8fb4981630800000000000000
-      internalID: 3898029027932823347
+      spriteID: 9a7610db603c8df49ba53d9b8b024be5
+      internalID: -711890738
       vertices: []
       indices: 
       edges: []
@@ -296,42 +252,20 @@ TextureImporter:
       name: 5_Field _Animation_4
       rect:
         serializedVersion: 2
-        x: 194
+        x: 195
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 44
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1ac62b20e8f865d80800000000000000
-      internalID: -8262258626271220575
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_5
-      rect:
-        serializedVersion: 2
-        x: 218
-        y: 0
-        width: 22
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 055ec2db81f38ca50800000000000000
-      internalID: 6541547834241246544
+      spriteID: 645b5fc7268907e45bf0c4a236b22921
+      internalID: -1645136554
       vertices: []
       indices: 
       edges: []
@@ -340,42 +274,20 @@ TextureImporter:
       name: 5_Field _Animation_6
       rect:
         serializedVersion: 2
-        x: 289
+        x: 290
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 44
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8f77f670ade8e6f40800000000000000
-      internalID: 5723669243513239544
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_7
-      rect:
-        serializedVersion: 2
-        x: 313
-        y: 0
-        width: 22
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f4575315926ea2a30800000000000000
-      internalID: 4191415468352173391
+      spriteID: 35d6e27f8e61b644d9e4fa00452a33df
+      internalID: -2141903582
       vertices: []
       indices: 
       edges: []
@@ -384,42 +296,20 @@ TextureImporter:
       name: 5_Field _Animation_8
       rect:
         serializedVersion: 2
-        x: 384
+        x: 385
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 43
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 417e4609452bfb180800000000000000
-      internalID: -9097356645995583724
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_9
-      rect:
-        serializedVersion: 2
-        x: 408
-        y: 0
-        width: 21
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 960e0971e778b5380800000000000000
-      internalID: -8981436056229322647
+      spriteID: 561bb8d3f17f4f648b33515c4e839d75
+      internalID: 1648445794
       vertices: []
       indices: 
       edges: []
@@ -428,42 +318,20 @@ TextureImporter:
       name: 5_Field _Animation_10
       rect:
         serializedVersion: 2
-        x: 479
+        x: 480
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 43
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 09926d17c7c5a6040800000000000000
-      internalID: 4641624055514278288
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_11
-      rect:
-        serializedVersion: 2
-        x: 503
-        y: 0
-        width: 21
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f8cd0fe00bd2248c0800000000000000
-      internalID: -4016597683472900977
+      spriteID: 1f2d9ac94019d404e9c4aae0e459b459
+      internalID: -29465615
       vertices: []
       indices: 
       edges: []
@@ -472,42 +340,20 @@ TextureImporter:
       name: 5_Field _Animation_12
       rect:
         serializedVersion: 2
-        x: 574
+        x: 575
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 43
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0719b396c6dd3a610800000000000000
-      internalID: 1631390947729969520
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_13
-      rect:
-        serializedVersion: 2
-        x: 598
-        y: 0
-        width: 21
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 925191de815459d90800000000000000
-      internalID: -7091686064865602263
+      spriteID: 74b128c622f7a8945abd444342e7f1e9
+      internalID: -1507069724
       vertices: []
       indices: 
       edges: []
@@ -516,42 +362,20 @@ TextureImporter:
       name: 5_Field _Animation_14
       rect:
         serializedVersion: 2
-        x: 669
+        x: 670
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 46
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 68e44c53a7b386220800000000000000
-      internalID: 2479296990941564550
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_15
-      rect:
-        serializedVersion: 2
-        x: 693
-        y: 0
-        width: 24
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fe8764e93b6754020800000000000000
-      internalID: 2325395296433371375
+      spriteID: 9112471d5f6bba44bb638cca142ddb7c
+      internalID: 1169269134
       vertices: []
       indices: 
       edges: []
@@ -560,42 +384,20 @@ TextureImporter:
       name: 5_Field _Animation_16
       rect:
         serializedVersion: 2
-        x: 764
+        x: 765
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 54
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c5bb722b80655b460800000000000000
-      internalID: 7256800969926097756
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_17
-      rect:
-        serializedVersion: 2
-        x: 788
-        y: 0
-        width: 32
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 13e8ffa8ecc9302d0800000000000000
-      internalID: -3313632489905353167
+      spriteID: dc78f971014a9ca419eb599118370871
+      internalID: 932115621
       vertices: []
       indices: 
       edges: []
@@ -604,64 +406,20 @@ TextureImporter:
       name: 5_Field _Animation_18
       rect:
         serializedVersion: 2
-        x: 859
+        x: 860
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 56
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f149af7c4c287fc40800000000000000
-      internalID: 5546045247810343967
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_19
-      rect:
-        serializedVersion: 2
-        x: 883
-        y: 0
-        width: 19
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 97a5bc382844388c0800000000000000
-      internalID: -3998276716827288967
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_20
-      rect:
-        serializedVersion: 2
-        x: 906
-        y: 0
-        width: 11
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 265fa3727c8f679c0800000000000000
-      internalID: -3929680090593823390
+      spriteID: cde2a9b58c74881449c68a0f5001b62a
+      internalID: -270275323
       vertices: []
       indices: 
       edges: []
@@ -670,64 +428,20 @@ TextureImporter:
       name: 5_Field _Animation_21
       rect:
         serializedVersion: 2
-        x: 954
+        x: 955
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 60
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6046a26432beff3f0800000000000000
-      internalID: -864714066698279930
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_22
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 0
-        width: 19
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ecba5ab0c2880c340800000000000000
-      internalID: 4882051718824963022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_23
-      rect:
-        serializedVersion: 2
-        x: 1002
-        y: 0
-        width: 14
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d3ec9a5149d6b87c0800000000000000
-      internalID: -4068037355613073859
+      spriteID: 112262a8b7116b343ab45d9848023568
+      internalID: -1861777427
       vertices: []
       indices: 
       edges: []
@@ -736,64 +450,20 @@ TextureImporter:
       name: 5_Field _Animation_24
       rect:
         serializedVersion: 2
-        x: 1049
+        x: 1050
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 67
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 945d5e0396409fc90800000000000000
-      internalID: -7135667284753394359
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_25
-      rect:
-        serializedVersion: 2
-        x: 1073
-        y: 0
-        width: 19
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4f76c8dfec0f67130800000000000000
-      internalID: 3564300926918092788
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_26
-      rect:
-        serializedVersion: 2
-        x: 1101
-        y: 0
-        width: 17
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: da5354a61da406d60800000000000000
-      internalID: 7881381611189908909
+      spriteID: f491cca20fb31314980c64effe2ef8b2
+      internalID: 555066537
       vertices: []
       indices: 
       edges: []
@@ -802,64 +472,20 @@ TextureImporter:
       name: 5_Field _Animation_27
       rect:
         serializedVersion: 2
-        x: 1144
+        x: 1145
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 69
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 15dc47413a2241d90800000000000000
-      internalID: -7128034226402439855
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_28
-      rect:
-        serializedVersion: 2
-        x: 1168
-        y: 0
-        width: 19
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1e33185d9768b93b0800000000000000
-      internalID: -5504658261699120159
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_29
-      rect:
-        serializedVersion: 2
-        x: 1200
-        y: 0
-        width: 15
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f472cbabb46066390800000000000000
-      internalID: -7825560380184451249
+      spriteID: 33657bd2912764e4098b024eeded0af9
+      internalID: 1523029040
       vertices: []
       indices: 
       edges: []
@@ -868,64 +494,20 @@ TextureImporter:
       name: 5_Field _Animation_30
       rect:
         serializedVersion: 2
-        x: 1239
+        x: 1240
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 71
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ba7dd431df8191de0800000000000000
-      internalID: -1362029937073203285
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_31
-      rect:
-        serializedVersion: 2
-        x: 1263
-        y: 0
-        width: 19
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 63c2368475456f8b0800000000000000
-      internalID: -5118811192606643146
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_32
-      rect:
-        serializedVersion: 2
-        x: 1302
-        y: 0
-        width: 10
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 54c60634c5252b770800000000000000
-      internalID: 8625046792588782661
+      spriteID: 99f62b3c57bf6a241a368448f6f1ac19
+      internalID: 1823099250
       vertices: []
       indices: 
       edges: []
@@ -934,64 +516,20 @@ TextureImporter:
       name: 5_Field _Animation_33
       rect:
         serializedVersion: 2
-        x: 1334
+        x: 1335
         y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 80
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ace02eb9984601f90800000000000000
-      internalID: -6984972479863058742
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_34
-      rect:
-        serializedVersion: 2
-        x: 1358
-        y: 0
-        width: 19
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bd5382e4123a48140800000000000000
-      internalID: 4721077672831628763
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 5_Field _Animation_35
-      rect:
-        serializedVersion: 2
-        x: 1401
-        y: 0
-        width: 15
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f07dd347eb8a5fae0800000000000000
-      internalID: -1516120163592841457
+      spriteID: 422db458e2214094baa73649b5846fc7
+      internalID: -575631714
       vertices: []
       indices: 
       edges: []
@@ -1000,7 +538,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4df76f02ab788ad4ea24e39409835257
     internalID: 0
     vertices: []
     indices: 
@@ -1008,43 +546,45 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":4,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      5_Field _Animation_0: 5969151819388505214
+      5_Field _Animation_0: 775255671
       5_Field _Animation_1: -7057230048501724306
-      5_Field _Animation_10: 4641624055514278288
+      5_Field _Animation_10: -29465615
       5_Field _Animation_11: -4016597683472900977
-      5_Field _Animation_12: 1631390947729969520
+      5_Field _Animation_12: -1507069724
       5_Field _Animation_13: -7091686064865602263
-      5_Field _Animation_14: 2479296990941564550
+      5_Field _Animation_14: 1169269134
       5_Field _Animation_15: 2325395296433371375
-      5_Field _Animation_16: 7256800969926097756
+      5_Field _Animation_16: 932115621
       5_Field _Animation_17: -3313632489905353167
-      5_Field _Animation_18: 5546045247810343967
+      5_Field _Animation_18: -270275323
       5_Field _Animation_19: -3998276716827288967
-      5_Field _Animation_2: 5033423500782775843
+      5_Field _Animation_2: -711890738
       5_Field _Animation_20: -3929680090593823390
-      5_Field _Animation_21: -864714066698279930
+      5_Field _Animation_21: -1861777427
       5_Field _Animation_22: 4882051718824963022
       5_Field _Animation_23: -4068037355613073859
-      5_Field _Animation_24: -7135667284753394359
+      5_Field _Animation_24: 555066537
       5_Field _Animation_25: 3564300926918092788
       5_Field _Animation_26: 7881381611189908909
-      5_Field _Animation_27: -7128034226402439855
+      5_Field _Animation_27: 1523029040
       5_Field _Animation_28: -5504658261699120159
       5_Field _Animation_29: -7825560380184451249
       5_Field _Animation_3: 3898029027932823347
-      5_Field _Animation_30: -1362029937073203285
+      5_Field _Animation_30: 1823099250
       5_Field _Animation_31: -5118811192606643146
       5_Field _Animation_32: 8625046792588782661
-      5_Field _Animation_33: -6984972479863058742
+      5_Field _Animation_33: -575631714
       5_Field _Animation_34: 4721077672831628763
       5_Field _Animation_35: -1516120163592841457
-      5_Field _Animation_4: -8262258626271220575
+      5_Field _Animation_4: -1645136554
       5_Field _Animation_5: 6541547834241246544
-      5_Field _Animation_6: 5723669243513239544
+      5_Field _Animation_6: -2141903582
       5_Field _Animation_7: 4191415468352173391
-      5_Field _Animation_8: -9097356645995583724
+      5_Field _Animation_8: 1648445794
       5_Field _Animation_9: -8981436056229322647
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

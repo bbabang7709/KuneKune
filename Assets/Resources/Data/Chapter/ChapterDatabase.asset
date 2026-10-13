@@ -25,7 +25,11 @@ MonoBehaviour:
     playerAge: 1
     startMapType: 9
     startEntryPointID: school_hallway_0
-  - chapter: 3
-    playerAge: 1
-    startMapType: 9
-    startEntryPointID: school_hallway_0
+  - chapter: 4
+    playerAge: 2
+    startMapType: 15
+    startEntryPointID: flashback_0
+  - chapter: 5
+    playerAge: 2
+    startMapType: 16
+    startEntryPointID: chase_start

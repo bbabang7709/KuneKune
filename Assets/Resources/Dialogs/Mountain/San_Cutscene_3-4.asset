@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
+  m_Name: San_Cutscene_3-4
+  m_EditorClassIdentifier: Assembly-CSharp::DialogData
+  lines:
+  - "\uC9D3\uAD83\uC740 \uCE5C\uAD6C\uB4E4\uC774 \uB098\uC640 \uC18C\uAFC9\uCE5C\uAD6C
+    \uC0AC\uC774\uB97C \uAC08\uB77C\uB193\uC73C\uB824\uACE0 \uD588\uB2E4."
+  - "\uB0B4\uAC00 \uD55C \uAC8C \uC544\uB2C8\uC5C8\uB294\uB370..."
+  - "\uC18C\uAFC9\uCE5C\uAD6C\uC5D0\uAC8C \uC900 \uC0C1\uCC98\uB294 \uB108\uBB34
+    \uCEF8\uB358 \uAC83 \uAC19\uB2E4."
