@@ -15309,6 +15309,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cutscene_KuneKuneHand
       objectReference: {fileID: 0}
+    - target: {fileID: 3584480750925426901, guid: 8f1a6464d431b284385fa32c977e50fd, type: 3}
+      propertyPath: _door
+      value:
+      objectReference: {fileID: 2304304659406826473}
     - target: {fileID: 1449489882143271558, guid: 8f1a6464d431b284385fa32c977e50fd, type: 3}
       propertyPath: BoundingShape2D
       value: 
