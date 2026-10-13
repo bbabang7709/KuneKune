@@ -73,6 +73,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         _canInteractWithKuneKune = false;
         _trueFlagSucceededWithoutSaveManager = true;
+        UIManager.Instance?.StopScreenEcho();
         SaveManager.Instance?.UnlockTrueEnding();
     }
 
@@ -182,6 +183,10 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         RestoreDialogFadeOrder();
         RestoreCameraPriority();
 
+        PlayerMovement p = MapManager.Instance.Player.GetComponent<PlayerMovement>();
+        if (p.CurrentHeat > 20)
+            p.SetCurrentHeat(20f, true);
+
         _sunlightMap = MapManager.Instance?.CurrentMap;
         _sunlightAreaRoot.gameObject.SetActive(true);
     }
@@ -221,6 +226,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         _blood.sprite = null;
         _canInteractWithKuneKune = false;
+        UIManager.Instance?.StopScreenEcho();
 
         _sunlightAreaRoot?.Deactivate();
         _sunlightMap = null;
@@ -242,6 +248,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     protected override void OnDisable()
     {
+        UIManager.Instance?.StopScreenEcho();
         if (_dialogController != null)
         {
             _dialogController.DialogStarted -= OnDialogStarted;
@@ -293,6 +300,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         }
 
         _kuneKune.gameObject.SetActive(true);
+        UIManager.Instance?.PlayScreenEcho();
         _isMovingKuneKune = !_isKuneKunePausedForDialog;
         if (!_isKuneKunePausedForDialog)
             ResumeKuneKuneAnimation();
