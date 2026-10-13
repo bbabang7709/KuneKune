@@ -49,22 +49,39 @@ public class BackgroundManager : MonoBehaviour
         var bgData = backgroundDatabase.Find(x => x.chapter == currentChapter);
         if (bgData == null) return;
 
+        ApplyBackground(bgData.skySprite, bgData.sunMoonSprite, bgData.cloudSprites,
+            bgData.globalLightColor, bgData.globalLightIntensity, 2f);
+    }
+
+    public void SetMorningBackground(Sprite morningSky, Sprite[] brightClouds)
+    {
+        // 밤의 달과 조명을 남기지 않고 새벽 장면으로 전환합니다.
+        ApplyBackground(morningSky, null, brightClouds, Color.white, 1f, 0f, true);
+    }
+
+    private void ApplyBackground(Sprite sky, Sprite sunMoon, Sprite[] clouds,
+        Color lightColor, float lightIntensity, float lightFadeDuration, bool keepCloudsInCameraView = false)
+    {
         // 1. 단일 이미지 교체 (하늘, 달)
         if (skyRenderer != null) 
         {
-            skyRenderer.sprite = bgData.skySprite;
+            InfiniteParallax skyParallax = skyRenderer.GetComponent<InfiniteParallax>();
+            if (skyParallax != null)
+                skyParallax.ChangeSprite(sky);
+            else
+                skyRenderer.sprite = sky;
             ScaleSkyToFitCamera(); // 💡 스프라이트 교체 직후 카메라 화면에 맞게 스케일 조정
         }
         
-        if (sunMoonRenderer != null) sunMoonRenderer.sprite = bgData.sunMoonSprite;
+        if (sunMoonRenderer != null) sunMoonRenderer.sprite = sunMoon;
 
         // 2. 동적 구름 시스템에 배열 전달 (알아서 랜덤 생성/리스폰 시작)
-        if (cloudSystem != null) cloudSystem.SetCloudSprites(bgData.cloudSprites);
+        if (cloudSystem != null) cloudSystem.SetCloudSprites(clouds, keepCloudsInCameraView);
 
         // 3. 글로벌 라이트 변경
         if (LightingEventManager.Instance != null)
         {
-            LightingEventManager.Instance.FadeGlobalLight(bgData.globalLightColor, bgData.globalLightIntensity, 2f); 
+            LightingEventManager.Instance.FadeGlobalLight(lightColor, lightIntensity, lightFadeDuration);
         }
     }
 

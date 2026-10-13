@@ -19,6 +19,12 @@ MonoBehaviour:
   - soundID: BGM_KuneKune
     clip: {fileID: 8300000, guid: 4048d6c03a0ad6f4aae4c214ab46f7db, type: 3}
     volume: 0.3
+  - soundID: DontLeave
+    clip: {fileID: 8300000, guid: cacbd90646465b74897642da55f0ed7e, type: 3}
+    volume: 0.3
+  - soundID: Bird
+    clip: {fileID: 8300000, guid: 6b6e76056c81df8469859f706c4a813e, type: 3}
+    volume: 0.3
   sfxList:
   - soundID: DoorOpen_Sliding
     clip: {fileID: 8300000, guid: c9acd8ec190d9b8439cd9f3bab5a60f0, type: 3}
@@ -86,3 +92,6 @@ MonoBehaviour:
   - soundID: Laughing_Women
     clip: {fileID: 8300000, guid: 5126c3c677be62648862bed77a7c32ea, type: 3}
     volume: 0.4
+  - soundID: Hit
+    clip: {fileID: 8300000, guid: ecc2100816c16fc42a1cc520dc12d4af, type: 3}
+    volume: 1

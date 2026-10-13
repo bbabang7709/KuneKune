@@ -16,6 +16,8 @@ public enum ECharacterState
 
 public class KuneKune : MonoBehaviour
 {
+    public const float DefaultMoveSpeed = 5f;
+
     public SpriteRenderer SpriteRenderer { get; private set; }
     private Animator _animator;
     private Rigidbody2D _rigidbody;
@@ -44,7 +46,7 @@ public class KuneKune : MonoBehaviour
     }
 
     private float _direction;
-    [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _speed = DefaultMoveSpeed;
 
     private Queue<IKuneKuneMapRoute> _mapRoutes = new();
     private MapArea _currentMap;
@@ -179,7 +181,9 @@ public class KuneKune : MonoBehaviour
         //     SpawnObject.SetActive(true);
 
         gameObject.SetActive(true);
-        SoundManager.Instance?.PlayBGM("BGM_KuneKune", 0.01f);
+        bool isTrueEndingChase = MapManager.Instance.CurrentMapType == EMapType.Chase_Ricefield &&
+            SaveManager.Instance != null && SaveManager.Instance.IsTrueEndingUnlocked;
+        SoundManager.Instance?.PlayBGM(isTrueEndingChase ? "DontLeave" : "BGM_KuneKune", 0.01f);
 
         _currentMap = MapManager.Instance?.CurrentMap;
         _lastPlayerMap = _currentMap;

@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     
     private float _speedMultiplier = 1f;
     private Vector2 moveDirection;
+    private bool _isCutsceneMovementControlled;
 
     /// <summary>
     /// 현재 플레이어가 바라보는 방향을 반환한다.
@@ -198,6 +199,10 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
+        // 컷씬에서 MovePosition으로 이동할 때 일반 이동 코드가 속도를 덮어쓰지 않게 합니다.
+        if (_isCutsceneMovementControlled)
+            return;
+
         // 이동 잠금 또는 탈진 상태에서는 이동하지 않는다.
         if (IsMovementLocked || IsExhausted)
         {
@@ -276,6 +281,24 @@ public class PlayerMovement : MonoBehaviour
             : input < 0f
                 ? Vector2.left
                 : Vector2.zero;
+    }
+
+    /// <summary>
+    /// 이동 입력을 바꾸지 않고 바라보는 방향만 설정합니다. 컷씬 중에도 적용됩니다.
+    /// </summary>
+    public void SetFacingDirection(float direction)
+    {
+        if (direction == 0f)
+            return;
+
+        CurrentFacingDirection = Mathf.Sign(direction);
+        UpdateFacingDirection();
+    }
+
+    public void SetCutsceneMovementControlled(bool controlled)
+    {
+        StopImmediately();
+        _isCutsceneMovementControlled = controlled;
     }
 
     /// <summary>

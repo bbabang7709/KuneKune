@@ -99,19 +99,39 @@ public class CanvasEcho : MonoBehaviour
     public void Play()
     {
         Stop();
-        if (!isActiveAndEnabled || phrases == null || phrases.Length == 0)
+        if (phrases == null || phrases.Length == 0 || !PrepareEcho())
             return;
+
+        _echoRoutine = StartCoroutine(PlayEcho());
+    }
+
+    /// <summary>
+    /// 지정한 문구를 한 번씩 순서대로 표시합니다. 위치와 여백은 일반 메아리와 같습니다.
+    /// </summary>
+    public void PlaySequence(string[] sequence, System.Action onCompleted = null)
+    {
+        Stop();
+        if (sequence == null || sequence.Length == 0 || !PrepareEcho())
+            return;
+
+        _echoRoutine = StartCoroutine(PlayEchoSequence((string[])sequence.Clone(), onCompleted));
+    }
+
+    private bool PrepareEcho()
+    {
+        if (!isActiveAndEnabled)
+            return false;
 
         if (targetCanvas == null)
             targetCanvas = GetComponentInParent<Canvas>();
         if (targetCanvas == null || !targetCanvas.isActiveAndEnabled)
-            return;
+            return false;
 
         RectTransform container = echoContainer;
         if (container != null && container.GetComponentInParent<Canvas>() != targetCanvas)
         {
             Debug.LogWarning("CanvasEcho: Echo Container는 Target Canvas 아래에 있어야 합니다.", this);
-            return;
+            return false;
         }
 
         if (container == null)
@@ -140,13 +160,13 @@ public class CanvasEcho : MonoBehaviour
         _container = container;
 
         if (!CanShowEcho())
-            return;
+            return false;
 
         // 원본은 템플릿으로 유지하고, 별도의 복사본만 표시합니다.
         if (echoText != null && echoText.transform.parent == _container && echoText.gameObject != gameObject)
             echoText.gameObject.SetActive(false);
 
-        _echoRoutine = StartCoroutine(PlayEcho());
+        return true;
     }
 
     private void ClearEchoList()
@@ -319,6 +339,60 @@ public class CanvasEcho : MonoBehaviour
 
         HideEchoTexts();
         _echoRoutine = null;
+    }
+
+    private IEnumerator PlayEchoSequence(string[] sequence, System.Action onCompleted)
+    {
+        // 즉시 완료되는 경우에도 StartCoroutine의 핸들이 올바르게 정리되도록 합니다.
+        yield return null;
+        AddEchoList(1);
+        Echo echo = _echoList[0];
+
+        int i = 0;
+        for (; i < sequence.Length && CanShowEcho(); i++)
+        {
+            if (string.IsNullOrWhiteSpace(sequence[i]))
+                continue;
+
+            HideEchoTexts();
+            // 정해진 대사는 안전한 자리를 찾지 못해도 건너뛰지 않습니다.
+            bool hasPosition = false;
+            while (CanShowEcho())
+            {
+                _screenWidth = Screen.width;
+                _screenHeight = Screen.height;
+                echo.Text.text = sequence[i];
+                echo.Text.color = new Color(echoColor.r, echoColor.g, echoColor.b, 0f);
+                if (TryChoosePosition(echo))
+                {
+                    hasPosition = true;
+                    break;
+                }
+
+                yield return new WaitForSecondsRealtime(0.1f);
+            }
+
+            if (!hasPosition)
+                break;
+
+            echo.ElapsedTime = 0f;
+            echo.FadeInDuration = Mathf.Max(0f, fadeInDuration);
+            echo.HoldDuration = Mathf.Max(0f, holdDuration);
+            echo.FadeOutDuration = Mathf.Max(0f, fadeOutDuration);
+            echo.Text.rectTransform.anchoredPosition = echo.Position + echo.Slide;
+            echo.Text.gameObject.SetActive(true);
+
+            yield return AnimateEchoes();
+            HideEchoTexts();
+
+            if (i < sequence.Length - 1 && CanShowEcho())
+                yield return new WaitForSecondsRealtime(Mathf.Max(0f, Mathf.Min(delayRange.x, delayRange.y)));
+        }
+
+        HideEchoTexts();
+        _echoRoutine = null;
+        if (i == sequence.Length)
+            onCompleted?.Invoke();
     }
 
     private void AddEchoList(int count)
