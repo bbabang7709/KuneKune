@@ -1227,6 +1227,9 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: 60389233399217c40a4612bb810127f9, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &485124290
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2467,6 +2470,9 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1169166747
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2657,6 +2663,9 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: 9f9805cf68d318b4bb7c801011a3be3c, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1269755918
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3419,6 +3428,9 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: a8321a0874fd4544484399766e024163, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1719588029
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4321,6 +4333,9 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: e4c1b8e950e7bd84d9f2d023d7dcb2c7, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1973524053
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4775,6 +4790,9 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: e7e94924e702f4749992d433155372e5, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &2080988139
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4978,7 +4996,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2948278598789739297, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
       propertyPath: moveSpeed
-      value: 40
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948278598789739297, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
+      propertyPath: adultHeatIncreaseRate
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3022991992757690216, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
       propertyPath: promptUI

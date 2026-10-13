@@ -15,6 +15,8 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     private Animator _kuneKuneAnimator;
 
     private AudioSource _handScratchSource;
+    private AudioSource _laughingSource;
+    private AudioSource _laughingWomenSource;
 
     private float _kuneKuneAnimationSpeedBeforePause;
     private bool _isKuneKuneAnimationPaused;
@@ -53,9 +55,11 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     private bool _isKuneKunePausedForDialog;
     private bool _isPlayRequested;
     private bool _canInteractWithKuneKune;
+    private bool _isGameOver;
+    private PlayerMovement _heatPlayer;
 
     public bool CanInteractWithKuneKune =>
-        _canInteractWithKuneKune && !HasTrueFlagFailed && !HasTrueFlagSucceeded && _kuneKune != null &&
+        _canInteractWithKuneKune && !_isGameOver && !HasTrueFlagFailed && !HasTrueFlagSucceeded && _kuneKune != null &&
         _kuneKune.gameObject.activeInHierarchy && _sunlightMap != null &&
         MapManager.Instance != null && MapManager.Instance.CurrentMap == _sunlightMap &&
         (SaveManager.Instance == null || !SaveManager.Instance.IsLoading);
@@ -73,7 +77,8 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         _canInteractWithKuneKune = false;
         _trueFlagSucceededWithoutSaveManager = true;
-        UIManager.Instance?.StopScreenEcho();
+        StopMonitoringHeat();
+        StopToiletEcho();
         SaveManager.Instance?.UnlockTrueEnding();
     }
 
@@ -198,6 +203,57 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
             _handScratchSource = SoundManager.Instance.CreateSFXSource(transform);
 
         SoundManager.Instance.PlaySFXOnSource(_handScratchSource, "KuneKuneHand_Scratch", loop: true);
+
+        StopMonitoringHeat();
+        _heatPlayer = MapManager.Instance?.Player?.GetComponent<PlayerMovement>();
+        if (_heatPlayer != null)
+        {
+            _heatPlayer.OnHeatChanged += OnHeatChanged;
+            OnHeatChanged(_heatPlayer.CurrentHeat, _heatPlayer.MaxHeat);
+        }
+    }
+
+    private void StopMonitoringHeat()
+    {
+        if (_heatPlayer != null)
+            _heatPlayer.OnHeatChanged -= OnHeatChanged;
+        _heatPlayer = null;
+    }
+
+    private void OnHeatChanged(float currentHeat, float maxHeat)
+    {
+        if (_isGameOver || !_canInteractWithKuneKune || HasTrueFlagSucceeded || HasTrueFlagFailed ||
+            maxHeat <= 0f || currentHeat < maxHeat || _sunlightMap == null ||
+            MapManager.Instance?.CurrentMap != _sunlightMap ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading))
+            return;
+
+        _isGameOver = true;
+        _canInteractWithKuneKune = false;
+        StopMonitoringHeat();
+        StopKuneKune();
+        PauseKuneKuneAnimation();
+        _sunlightAreaRoot?.Deactivate();
+        StopToiletEcho();
+        HoldControls();
+        StartCoroutine(GameOverSequence());
+    }
+
+    private IEnumerator GameOverSequence()
+    {
+        SoundManager.Instance?.SetBGMVolume(0f);
+        SoundManager.Instance?.PlaySFX("KuneKune_Jumpscare");
+
+        if (UIManager.Instance != null)
+            yield return UIManager.Instance.ShowJumpscareRoutine(0.05f);
+
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        if (UIManager.Instance != null)
+            yield return UIManager.Instance.FadeOut(0.2f);
+
+        yield return new WaitForSecondsRealtime(1.5f);
+        SaveManager.Instance?.Load(true);
     }
 
     private void FixedUpdate()
@@ -206,7 +262,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         if (_isMovingKuneKune && _kuneKune != null)
         {
-            float moveSpeed = 1f;
+            float moveSpeed = 1.7f;
             _kuneKune.position += Vector3.left * moveSpeed * Time.fixedDeltaTime;
             
             // 목표 위치에 도달했는지 확인
@@ -226,7 +282,8 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         _blood.sprite = null;
         _canInteractWithKuneKune = false;
-        UIManager.Instance?.StopScreenEcho();
+        StopMonitoringHeat();
+        StopToiletEcho();
 
         _sunlightAreaRoot?.Deactivate();
         _sunlightMap = null;
@@ -248,7 +305,8 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     protected override void OnDisable()
     {
-        UIManager.Instance?.StopScreenEcho();
+        StopMonitoringHeat();
+        StopToiletEcho();
         if (_dialogController != null)
         {
             _dialogController.DialogStarted -= OnDialogStarted;
@@ -300,10 +358,36 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         }
 
         _kuneKune.gameObject.SetActive(true);
-        UIManager.Instance?.PlayScreenEcho();
+        PlayToiletEcho();
         _isMovingKuneKune = !_isKuneKunePausedForDialog;
         if (!_isKuneKunePausedForDialog)
             ResumeKuneKuneAnimation();
+    }
+
+    private void PlayToiletEcho()
+    {
+        UIManager.Instance?.PlayScreenEcho();
+        if (SoundManager.Instance == null) return;
+
+        if (_laughingSource == null)
+            _laughingSource = SoundManager.Instance.CreateSFXSource(transform);
+        if (_laughingWomenSource == null)
+            _laughingWomenSource = SoundManager.Instance.CreateSFXSource(transform);
+
+        // 컷씬에서 이벤트로 이어질 때 웃음소리를 처음부터 다시 재생하지 않습니다.
+        if (!_laughingSource.isPlaying)
+            SoundManager.Instance.PlaySFXOnSource(_laughingSource, "Laughing", loop: true);
+        if (!_laughingWomenSource.isPlaying)
+            SoundManager.Instance.PlaySFXOnSource(_laughingWomenSource, "Laughing_Women", loop: true);
+    }
+
+    private void StopToiletEcho()
+    {
+        UIManager.Instance?.StopScreenEcho();
+        if (_laughingSource != null)
+            _laughingSource.Stop();
+        if (_laughingWomenSource != null)
+            _laughingWomenSource.Stop();
     }
 
     public void StopKuneKune()
