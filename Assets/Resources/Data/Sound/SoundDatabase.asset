@@ -82,7 +82,7 @@ MonoBehaviour:
     volume: 0.8
   - soundID: Laughing
     clip: {fileID: 8300000, guid: 86b844a3367d86a42a781df2c8c37584, type: 3}
-    volume: 0.2
+    volume: 0.1
   - soundID: Laughing_Women
     clip: {fileID: 8300000, guid: 5126c3c677be62648862bed77a7c32ea, type: 3}
-    volume: 0.6
+    volume: 0.4

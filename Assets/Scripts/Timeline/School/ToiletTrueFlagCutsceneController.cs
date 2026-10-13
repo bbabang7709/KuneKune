@@ -14,6 +14,8 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     [SerializeField] private Transform _kuneKune;
     private Animator _kuneKuneAnimator;
 
+    public Transform KuneKuneActor => _kuneKune;
+
     private AudioSource _handScratchSource;
     private AudioSource _laughingSource;
     private AudioSource _laughingWomenSource;
@@ -28,6 +30,11 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     [SerializeField] private SpriteRenderer _blood;
     [SerializeField] private SpriteRenderer _water;
+
+    [Header("쿠네쿠네 접근 중 상호작용 제한")]
+    [SerializeField] private ToiletMirror _washstandInteraction;
+    private bool _isWashstandInteractionBlocked;
+    private bool _wasWashstandInteractionEnabled;
 
     [Header("화면 암전")]
     [Tooltip("시그널 호출 후 화면이 완전히 어두워지는 데 걸리는 시간(초).")]
@@ -77,6 +84,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         _canInteractWithKuneKune = false;
         _trueFlagSucceededWithoutSaveManager = true;
+        RestoreWashstandInteraction();
         StopMonitoringHeat();
         StopToiletEcho();
         SaveManager.Instance?.UnlockTrueEnding();
@@ -86,6 +94,13 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     {
         base.Awake();
         _dialogController = GetComponent<DialogTimelineController>();
+        if (_washstandInteraction == null)
+        {
+            MapArea map = GetComponentInParent<MapArea>();
+            Transform washstand = map != null ? map.transform.Find("school_toilet_washstand") : null;
+            if (washstand != null)
+                _washstandInteraction = washstand.GetComponent<ToiletMirror>();
+        }
         if (_kuneKune != null)
             _kuneKuneAnimator = _kuneKune.GetComponent<Animator>();
 
@@ -199,6 +214,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     protected override void OnCutsceneFinished()
     {
         _canInteractWithKuneKune = true;
+        BlockWashstandInteraction();
         if (_handScratchSource == null)
             _handScratchSource = SoundManager.Instance.CreateSFXSource(transform);
 
@@ -211,6 +227,24 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
             _heatPlayer.OnHeatChanged += OnHeatChanged;
             OnHeatChanged(_heatPlayer.CurrentHeat, _heatPlayer.MaxHeat);
         }
+    }
+
+    private void BlockWashstandInteraction()
+    {
+        if (_washstandInteraction == null || _isWashstandInteractionBlocked) return;
+
+        _wasWashstandInteractionEnabled = _washstandInteraction.enabled;
+        _isWashstandInteractionBlocked = true;
+        _washstandInteraction.enabled = false;
+    }
+
+    private void RestoreWashstandInteraction()
+    {
+        if (!_isWashstandInteractionBlocked) return;
+
+        if (_washstandInteraction != null)
+            _washstandInteraction.enabled = _wasWashstandInteractionEnabled;
+        _isWashstandInteractionBlocked = false;
     }
 
     private void StopMonitoringHeat()
@@ -230,6 +264,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         _isGameOver = true;
         _canInteractWithKuneKune = false;
+        RestoreWashstandInteraction();
         StopMonitoringHeat();
         StopKuneKune();
         PauseKuneKuneAnimation();
@@ -282,6 +317,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         _blood.sprite = null;
         _canInteractWithKuneKune = false;
+        RestoreWashstandInteraction();
         StopMonitoringHeat();
         StopToiletEcho();
 
@@ -305,6 +341,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     protected override void OnDisable()
     {
+        RestoreWashstandInteraction();
         StopMonitoringHeat();
         StopToiletEcho();
         if (_dialogController != null)

@@ -335,6 +335,10 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     private bool CanUseInteractable(IInteractable interactable)
     {
+        // 잠금 직후 아직 CurrentTarget으로 남아 있어도 F키 입력과 안내를 차단합니다.
+        if (interactable is MonoBehaviour mono && (mono == null || !mono.isActiveAndEnabled))
+            return false;
+
         // 일단 바닥으로 해둠
         if (interactable is WeakFloor weakFloor)
             return weakFloor.CanInteract;

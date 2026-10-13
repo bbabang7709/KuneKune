@@ -6,13 +6,22 @@ using UnityEngine;
 public class ToiletTrueFlagKuneKuneInteraction : InteractableBase
 {
     [SerializeField] private ToiletTrueFlagCutsceneController cutscene;
+    [SerializeField] private ToiletTrueFlagUnlockedCutsceneController unlockedCutscene;
 
-    public bool CanInteract => cutscene != null && cutscene.CanInteractWithKuneKune;
+    public bool CanInteract => cutscene != null && cutscene.CanInteractWithKuneKune &&
+        unlockedCutscene != null && unlockedCutscene.CanPlay;
 
     private void Awake()
     {
         if (cutscene == null)
             cutscene = GetComponentInParent<ToiletTrueFlagCutsceneController>();
+
+        if (unlockedCutscene == null)
+        {
+            MapArea map = GetComponentInParent<MapArea>();
+            if (map != null)
+                unlockedCutscene = map.GetComponentInChildren<ToiletTrueFlagUnlockedCutsceneController>(true);
+        }
     }
 
     public override void OnInteractPressed()
@@ -24,10 +33,6 @@ public class ToiletTrueFlagKuneKuneInteraction : InteractableBase
 
     private void PlayInteractionCutscene()
     {
-        // TODO: 쿠네쿠네 상호작용 후 재생할 컷씬을 연결합니다.
-        cutscene.StopKuneKune();
-        cutscene.PauseKuneKuneAnimation();
-        cutscene.CompleteTrueFlagInteraction();
-        Debug.Log("피닦기");
+        unlockedCutscene.TryPlay(cutscene);
     }
 }

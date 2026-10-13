@@ -1729,6 +1729,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1035407304}
     m_Modifications:
+    - target: {fileID: 567288581107958272, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_Size.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 567288581107958272, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_Size.y
+      value: 2.625
+      objectReference: {fileID: 0}
     - target: {fileID: 2052265290876247731, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
       propertyPath: imageAnim
       value: 
@@ -1817,18 +1825,54 @@ PrefabInstance:
       propertyPath: targetEntryPoint
       value: 
       objectReference: {fileID: 1618979714}
+    - target: {fileID: 6800859982991798165, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: dummyPlayer
+      value: 
+      objectReference: {fileID: 600629052}
+    - target: {fileID: 7369357051896171559, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369357051896171559, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_SceneBindings.Array.data[1].key
+      value: 
+      objectReference: {fileID: -1901970046124492485, guid: 5d492d27b1ac27d43b4537c52f41e009, type: 2}
+    - target: {fileID: 7369357051896171559, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_SceneBindings.Array.data[0].value
+      value: 
+      objectReference: {fileID: 600629053}
+    - target: {fileID: 7369357051896171559, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: m_SceneBindings.Array.data[1].value
+      value: 
+      objectReference: {fileID: 1814754569}
     - target: {fileID: 8427105954969264003, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
       propertyPath: dummyPlayer
       value: 
       objectReference: {fileID: 1482565961572817210}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4415834593751897231, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3676008958900276210, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+--- !u!4 &600629051 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1981447640871895515, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+  m_PrefabInstance: {fileID: 600629050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &600629052 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4402353669498386925, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+  m_PrefabInstance: {fileID: 600629050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &600629053 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3693017748877849701, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+  m_PrefabInstance: {fileID: 600629050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &617993033 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4996661568260384038, guid: 776e7ecc5b663c945a4f5fe2bbde6e72, type: 3}
@@ -3322,6 +3366,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2072995675}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1613765028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3152949018401806728, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+  m_PrefabInstance: {fileID: 600629050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1618979714 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3963164224253373803, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
@@ -3962,6 +4011,16 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!4 &1814754568 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6169772447956172525, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+  m_PrefabInstance: {fileID: 600629050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1814754569 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5192160434433674763, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+  m_PrefabInstance: {fileID: 600629050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1899753652
 GameObject:
   m_ObjectHideFlags: 0

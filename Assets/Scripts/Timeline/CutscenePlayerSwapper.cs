@@ -10,6 +10,9 @@ public class CutscenePlayerSwapper : MonoBehaviour
     private PlayableDirector _director;
     private GameObject _realPlayer;
     private SpriteRenderer _realPlayerSprite;
+    private bool _isSwapped;
+    private bool _restorePositionFromDummy = true;
+    private bool _restoreOnDirectorStopped = true;
 
     [SerializeField] private Vector3 offset;
 
@@ -28,6 +31,15 @@ public class CutscenePlayerSwapper : MonoBehaviour
     {
         _director.played -= OnCutsceneStart;
         _director.stopped -= OnCutsceneEnd;
+        RestorePlayer();
+    }
+
+    public void SetDummyPlayer(GameObject player, bool restorePositionFromDummy = true,
+        bool restoreOnDirectorStopped = true)
+    {
+        dummyPlayer = player;
+        _restorePositionFromDummy = restorePositionFromDummy;
+        _restoreOnDirectorStopped = restoreOnDirectorStopped;
     }
 
     private void OnCutsceneStart(PlayableDirector director)
@@ -39,6 +51,9 @@ public class CutscenePlayerSwapper : MonoBehaviour
                 _realPlayerSprite = _realPlayer.GetComponentInChildren<SpriteRenderer>();
         }
 
+        if (_realPlayer == null || dummyPlayer == null) return;
+
+        _isSwapped = true;
         if (_realPlayerSprite != null) _realPlayerSprite.enabled = false;
         _realPlayer.GetComponent<Collider2D>().enabled = false; // 충돌 무시 처리
 
@@ -53,7 +68,16 @@ public class CutscenePlayerSwapper : MonoBehaviour
 
     private void OnCutsceneEnd(PlayableDirector director)
     {
-        if (_realPlayer != null && dummyPlayer != null)
+        if (_restoreOnDirectorStopped)
+            RestorePlayer();
+    }
+
+    public void RestorePlayer()
+    {
+        if (!_isSwapped) return;
+        _isSwapped = false;
+
+        if (_restorePositionFromDummy && _realPlayer != null && dummyPlayer != null)
         {
             _realPlayer.transform.position = dummyPlayer.transform.position + offset;
         }
