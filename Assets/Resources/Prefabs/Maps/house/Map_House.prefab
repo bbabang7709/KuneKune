@@ -102,6 +102,7 @@ MonoBehaviour:
   fallCutscene: {fileID: 2816618703769883421}
   triggerCollider: {fileID: 8157466972607248048}
   doorBanging: {fileID: 6591040869143438506}
+  interactCooldownAfterEncounter: 0.5
 --- !u!1 &251943706510246459
 GameObject:
   m_ObjectHideFlags: 0
@@ -8397,6 +8398,8 @@ MonoBehaviour:
   - {fileID: 8404818835348205960}
   - {fileID: 3897060821844299798}
   _player: {fileID: 0}
+  caughtDialog: {fileID: 11400000, guid: 73aba763d021575459070000cc9945f6, type: 2}
+  firstVisitSchoolDialog: {fileID: 11400000, guid: dc0819650199dcc4490df8706b9d5e38, type: 2}
 --- !u!1 &8687226742852446918
 GameObject:
   m_ObjectHideFlags: 0
