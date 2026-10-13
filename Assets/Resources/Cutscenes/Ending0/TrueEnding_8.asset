@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
+  m_Name: TrueEnding_8
+  m_EditorClassIdentifier: Assembly-CSharp::DialogData
+  lines:
+  - "\uADF8\uB798\uC11C \uB2E4 \uC5C6\uB358 \uC77C\uB85C \uB9CC\uB4E4\uACE0 \uC2F6\uC5C8\uC5B4."
+  - "\uAE30\uC5B5\uB3C4."
+  - "\uADF8\uB54C\uC758 \uB098\uB3C4."
+  - "\u2026\u2026\uB108\uB3C4."
+  - "\uAD1C\uCC2E\uC544\uC9C4 \uCC99\uD588\uC744 \uBFD0\uC774\uC57C."
+  - "\uB2E4 \uB05D\uB09C \uC904 \uC54C\uC558\uB294\uB370\u2026\u2026"
+  - "\uACC4\uC18D \uC5EC\uAE30 \uC788\uC5C8\uB358 \uAC70\uC9C0."

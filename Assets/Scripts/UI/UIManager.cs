@@ -38,6 +38,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Screen Echo")]
     [SerializeField] private CanvasEcho screenEcho;
+    [SerializeField] private CanvasEcho kuneKuneScreenEcho;
+    private bool _isTrueEndingEchoActive;
 
     /// <summary>
     /// 플레이어 이동 컴포넌트.
@@ -208,6 +210,8 @@ public class UIManager : MonoBehaviour
     {
         RestoreDialogFadeOrder();
         StopScreenEcho();
+        kuneKuneScreenEcho?.Stop();
+        _isTrueEndingEchoActive = false;
 
         if (playerMovement != null)
         {
@@ -224,6 +228,43 @@ public class UIManager : MonoBehaviour
     public void StopScreenEcho()
     {
         screenEcho?.Stop();
+    }
+
+    public void PlayTrueEndingEcho(string[] sequence, System.Action onCompleted = null)
+    {
+        _isTrueEndingEchoActive = true;
+        kuneKuneScreenEcho?.PlaySequence(sequence, onCompleted);
+    }
+
+    public void StopTrueEndingEcho()
+    {
+        if (!_isTrueEndingEchoActive)
+            return;
+
+        _isTrueEndingEchoActive = false;
+        kuneKuneScreenEcho?.Stop();
+    }
+
+    private void LateUpdate()
+    {
+        if (kuneKuneScreenEcho == null || _isTrueEndingEchoActive)
+            return;
+
+        MapManager mapManager = MapManager.Instance;
+        SaveManager saveManager = SaveManager.Instance;
+        KuneKune kuneKune = mapManager != null ? mapManager.KuneKune : null;
+
+        // 진엔딩 조건을 달성한 마지막 추격에서만 재생하고, 포획·퇴장·로드 시 정리합니다.
+        bool shouldPlay = saveManager != null && !saveManager.IsLoading &&
+            saveManager.IsTrueEndingUnlocked && mapManager != null &&
+            mapManager.CurrentMapType == EMapType.Chase_Ricefield &&
+            kuneKune != null && kuneKune.isActiveAndEnabled && kuneKune.IsChaseActive;
+
+        // Play는 재생을 초기화하므로 매 프레임 다시 호출하지 않습니다.
+        if (shouldPlay && !kuneKuneScreenEcho.IsPlaying)
+            kuneKuneScreenEcho.Play();
+        else if (!shouldPlay && kuneKuneScreenEcho.IsPlaying)
+            kuneKuneScreenEcho.Stop();
     }
 
     // =========================================================
@@ -330,6 +371,24 @@ public class UIManager : MonoBehaviour
     // =========================================================
     // Fade UI
     // =========================================================
+
+    /// <summary>
+    /// 전체 화면 페이드 패널의 색상을 설정한다.
+    /// </summary>
+    public Color FadeColor
+    {
+        get
+        {
+            Image image = fadeCanvasGroup != null ? fadeCanvasGroup.GetComponent<Image>() : null;
+            return image != null ? image.color : Color.black;
+        }
+        set
+        {
+            Image image = fadeCanvasGroup != null ? fadeCanvasGroup.GetComponent<Image>() : null;
+            if (image != null)
+                image.color = value;
+        }
+    }
 
     /// <summary>
     /// 전체 화면 페이드 CanvasGroup의 알파(투명도) 값을 직접 설정한다.

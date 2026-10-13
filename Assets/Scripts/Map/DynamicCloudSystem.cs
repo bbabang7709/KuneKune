@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DefaultExecutionOrder(1000)]
 public class DynamicCloudSystem : MonoBehaviour
 {
     [Header("Cloud Settings")]
@@ -16,6 +17,8 @@ public class DynamicCloudSystem : MonoBehaviour
     [SerializeField] private Vector2 heightRange = new Vector2(1f, 5f);
 
     private Transform _cam;
+    private Camera _camera;
+    private bool _keepInCameraView;
     private Sprite[] _currentSprites;
     private float _lastCamX;
 
@@ -26,13 +29,15 @@ public class DynamicCloudSystem : MonoBehaviour
         public SpriteRenderer sr;
         public float parallaxFactor; // 멀리 있는 구름일수록 카메라를 더 잘 따라감(느림)
         public float speedOffset;    // 각 구름의 미세한 속도 차이
+        public Vector2 viewportPosition;
     }
     
     private Cloud[] _clouds;
 
     private void Awake()
     {
-        if (Camera.main != null) _cam = Camera.main.transform;
+        _camera = Camera.main;
+        if (_camera != null) _cam = _camera.transform;
         InitializeClouds();
     }
 
@@ -56,14 +61,20 @@ public class DynamicCloudSystem : MonoBehaviour
     /// <summary>
     /// BackgroundManager에서 챕터별 구름 스프라이트 배열을 넘겨줄 때 호출됩니다.
     /// </summary>
-    public void SetCloudSprites(Sprite[] sprites)
+    public void SetCloudSprites(Sprite[] sprites, bool keepInCameraView = false)
     {
         _currentSprites = sprites;
+        _keepInCameraView = keepInCameraView;
         if (sprites == null || sprites.Length == 0)
         {
             foreach (var c in _clouds) c.obj.SetActive(false);
             return;
         }
+
+        if (_camera == null)
+            _camera = Camera.main;
+        if (_camera == null) return;
+        _cam = _camera.transform;
 
         if (_cam != null) _lastCamX = _cam.position.x;
 
@@ -91,6 +102,19 @@ public class DynamicCloudSystem : MonoBehaviour
         cloud.parallaxFactor = Random.Range(0.85f, 0.98f); 
         cloud.speedOffset = Random.Range(0.8f, 1.2f); // 기준 바람 속도의 80~120%
 
+        if (_keepInCameraView)
+        {
+            // 실제 화면 크기와 구름 크기를 기준으로 상단 시야 안에 배치합니다.
+            Vector2 halfSize = GetCloudViewportHalfSize(cloud);
+            float marginX = Mathf.Min(0.5f, halfSize.x + 0.03f);
+            float top = Mathf.Max(0.5f, 1f - halfSize.y - 0.03f);
+            cloud.viewportPosition = new Vector2(
+                Random.Range(marginX, 1f - marginX),
+                Random.Range(Mathf.Min(0.65f, top), Mathf.Min(0.85f, top)));
+            ApplyViewportPosition(cloud);
+            return;
+        }
+
         // 4. 지정된 X 위치와 랜덤한 Y 높이로 스폰
         float randY = Random.Range(heightRange.x, heightRange.y);
         cloud.obj.transform.position = new Vector3(spawnX, _cam.position.y + randY, 0f);
@@ -99,6 +123,12 @@ public class DynamicCloudSystem : MonoBehaviour
     private void LateUpdate()
     {
         if (_cam == null || _currentSprites == null || _currentSprites.Length == 0) return;
+
+        if (_keepInCameraView)
+        {
+            UpdateViewportClouds();
+            return;
+        }
 
         float camDeltaX = _cam.position.x - _lastCamX;
         _lastCamX = _cam.position.x;
@@ -123,6 +153,42 @@ public class DynamicCloudSystem : MonoBehaviour
             {
                 ResetCloud(cloud, _cam.position.x - halfScreen);
             }
+        }
+    }
+
+    private Vector2 GetCloudViewportHalfSize(Cloud cloud)
+    {
+        float height = _camera.orthographicSize * 2f;
+        Vector3 extents = cloud.sr.bounds.extents;
+        return new Vector2(extents.x / (height * _camera.aspect), extents.y / height);
+    }
+
+    private void ApplyViewportPosition(Cloud cloud)
+    {
+        // 화면 좌표를 매 프레임 환산하므로 맵 이동과 카메라의 X/Y 이동을 함께 따라갑니다.
+        float depth = -_cam.position.z;
+        cloud.obj.transform.position = _camera.ViewportToWorldPoint(
+            new Vector3(cloud.viewportPosition.x, cloud.viewportPosition.y, depth));
+    }
+
+    private void UpdateViewportClouds()
+    {
+        float width = _camera.orthographicSize * 2f * _camera.aspect;
+        foreach (Cloud cloud in _clouds)
+        {
+            if (!cloud.obj.activeSelf) continue;
+
+            cloud.viewportPosition.x += windSpeed * cloud.speedOffset * Time.deltaTime / width;
+            float halfWidth = GetCloudViewportHalfSize(cloud).x;
+            if (cloud.viewportPosition.x < -halfWidth || cloud.viewportPosition.x > 1f + halfWidth)
+            {
+                bool passedLeft = cloud.viewportPosition.x < 0f;
+                ResetCloud(cloud, _cam.position.x);
+                halfWidth = GetCloudViewportHalfSize(cloud).x;
+                cloud.viewportPosition.x = passedLeft ? 1f + halfWidth : -halfWidth;
+            }
+
+            ApplyViewportPosition(cloud);
         }
     }
 }

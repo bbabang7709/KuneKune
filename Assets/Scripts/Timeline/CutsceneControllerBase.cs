@@ -86,7 +86,7 @@ public abstract class CutsceneControllerBase : MonoBehaviour
         EndCutscene();
     }
 
-    public void PlayCutscene()
+    public virtual void PlayCutscene()
     {
         if (!CanRunCutscene || _isEnding || (playOnlyOnce && hasPlayed))
         {
@@ -147,7 +147,7 @@ public abstract class CutsceneControllerBase : MonoBehaviour
         StartCoroutine(CutsceneEndRoutine());
     }
 
-    private IEnumerator CutsceneEndRoutine()
+    protected virtual IEnumerator CutsceneEndRoutine()
     {
 
         if (useFadeInOut && UIManager.Instance != null)
@@ -169,8 +169,16 @@ public abstract class CutsceneControllerBase : MonoBehaviour
         }
 
         if (!CanRunCutscene) yield break;
+        CompleteCutscene();
+    }
+
+    protected void CompleteCutscene()
+    {
+        if (!CanRunCutscene || !_isCutsceneRunning) return;
+
         _isCutsceneRunning = false;
         _isEnding = false;
+        _endRequested = false;
         CutsceneManager.Instance?.EndCutscene();
         OnCutsceneFinished();
     }

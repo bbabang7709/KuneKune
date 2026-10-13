@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour
     private Coroutine _volumeCoroutine;
     private Coroutine _crossFadeCoroutine;
     private float _bgmVolumeMultiplier = 1f;
+    private readonly HashSet<Object> _bgmPlaybackBlockers = new();
 
     private sealed class LoopSFX
     {
@@ -229,8 +230,34 @@ public class SoundManager : MonoBehaviour
         if (Instance == this) Instance = null;
     }
     
-    public void PlayBGM(string bgmID, float fadeDuration = 1f, float volumeMultiplier = 1f)
+    /// <summary>
+    /// 지정한 연출이 진행되는 동안 배경음 재생을 막습니다. 해제 시 자동 재생하지 않습니다.
+    /// </summary>
+    public void SetBGMPlaybackBlocked(Object owner, bool blocked)
     {
+        if (owner == null) return;
+
+        if (blocked)
+        {
+            _bgmPlaybackBlockers.Add(owner);
+            StopBGM(0f);
+        }
+        else
+        {
+            _bgmPlaybackBlockers.Remove(owner);
+        }
+    }
+
+    public void PlayBGM(string bgmID, float fadeDuration = 1f, float volumeMultiplier = 1f,
+        Object playbackOwner = null)
+    {
+        // 씬 전환으로 소유자가 사라지면 다음 씬의 음악을 막지 않습니다.
+        _bgmPlaybackBlockers.RemoveWhere(owner => owner == null);
+        // 차단을 소유한 컷씬은 지정한 연출 음악만 직접 재생할 수 있습니다.
+        if (_bgmPlaybackBlockers.Count > 0 &&
+            (playbackOwner == null || _bgmPlaybackBlockers.Count != 1 ||
+             !_bgmPlaybackBlockers.Contains(playbackOwner))) return;
+
         SoundData data = soundDatabase?.GetBGM(bgmID);
         if (data == null || data.clip == null) return;
 
