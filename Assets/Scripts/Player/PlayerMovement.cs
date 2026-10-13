@@ -155,6 +155,13 @@ public class PlayerMovement : MonoBehaviour
     public event Action<float, float> OnHeatChanged;    // Invoke(CurrentHeat, maxHeat);
     public event Action<bool> OnCrouchStateChanged;
 
+    private float _leftMoveLimitX = float.MinValue;
+
+    public void SetLeftMovementLimit(float limitX)
+    {
+        _leftMoveLimitX = limitX;
+    }
+
     // =========================================================
     // Unity Lifecycle
     // =========================================================
@@ -206,6 +213,20 @@ public class PlayerMovement : MonoBehaviour
                 : moveSpeed;
 
         rb.linearVelocity = moveDirection * speed * _speedMultiplier;
+        ClampLeftMovementLimit();
+    }
+
+    /// <summary>
+    /// 왼쪽 이동 한계선을 넘지 않도록 Rigidbody 위치와 속도를 보정한다.
+    /// Transform을 직접 옮기면 보간/카메라 추적이 튀므로 물리 스텝에서 처리한다.
+    /// </summary>
+    private void ClampLeftMovementLimit()
+    {
+        if (rb.position.x < _leftMoveLimitX)
+            rb.position = new Vector2(_leftMoveLimitX, rb.position.y);
+
+        if (rb.position.x <= _leftMoveLimitX && rb.linearVelocity.x < 0f)
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
     }
 
     // =========================================================

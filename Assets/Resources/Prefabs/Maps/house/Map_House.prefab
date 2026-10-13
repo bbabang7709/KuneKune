@@ -6756,6 +6756,9 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: ec9ff3b5c6bf7c04184316f1ef742c22, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6228173122782561011
 MonoBehaviour:
   m_ObjectHideFlags: 0
