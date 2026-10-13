@@ -112,12 +112,12 @@ TextureImporter:
       name: 2_Entry Ceremony_Animation_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 3
         y: 0
-        width: 13
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 26
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -131,59 +131,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_Entry Ceremony_Animation_1
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 0
-        width: 13
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7763918344a9471b0800000000000000
-      internalID: -5659729213908240777
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_Entry Ceremony_Animation_2
-      rect:
-        serializedVersion: 2
-        x: 34
-        y: 0
-        width: 13
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9a4b8aa5a0df650a0800000000000000
-      internalID: -6893043958731459415
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: 2_Entry Ceremony_Animation_3
       rect:
         serializedVersion: 2
-        x: 49
+        x: 35
         y: 0
-        width: 13
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 26
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,7 +156,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5471dbd694d8c0b4387b31d6984f59e1
     internalID: 0
     vertices: []
     indices: 
@@ -208,7 +164,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       2_Entry Ceremony_Animation_0: 6277620411585882825
       2_Entry Ceremony_Animation_1: -5659729213908240777

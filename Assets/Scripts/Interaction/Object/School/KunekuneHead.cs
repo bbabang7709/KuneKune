@@ -7,13 +7,11 @@ public class KunekuneHead : MonoBehaviour, IInteractable
     [SerializeField] private Sprite jumpScareIllustration;
 
     private Transform dropPoint;
-    private GameObject classroomKey;
     private bool isInteracted = false;
 
-    public void Setup(Transform targetDropPoint, GameObject key)
+    public void Setup(Transform targetDropPoint)
     {
         dropPoint = targetDropPoint;
-        classroomKey = key;
         gameObject.SetActive(true);
     }   
 
@@ -40,12 +38,6 @@ public class KunekuneHead : MonoBehaviour, IInteractable
             );
 
             yield return new WaitUntil(() => dialogFinished);
-
-            if (classroomKey != null && dropPoint != null)
-            {
-                classroomKey.transform.position = dropPoint.position;
-                classroomKey.SetActive(true);
-            }
 
             Destroy(gameObject);
         }

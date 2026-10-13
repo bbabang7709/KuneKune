@@ -159,4 +159,9 @@ public class Door : MapTransition, IInteractable
         if (dialogWhenLocked == null) return;
         DialogSystem.Instance?.PlayDialog(dialogWhenLocked);
     }
+
+    public void SetLockState(bool state)
+    {
+        isLocked = state;
+    }
 }

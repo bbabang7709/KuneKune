@@ -77957,7 +77957,7 @@ GameObject:
   - component: {fileID: 3619239069302883668}
   - component: {fileID: 8439594383357199669}
   m_Layer: 0
-  m_Name: Left
+  m_Name: chase_start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
