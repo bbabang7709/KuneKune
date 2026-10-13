@@ -3270,13 +3270,13 @@ Transform:
   m_GameObject: {fileID: 3115321430836084958}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.54, y: -43.42, z: 0}
+  m_LocalPosition: {x: 5.074562, y: -3.790003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2608368155205290727}
   - {fileID: 6439526386086452600}
-  m_Father: {fileID: 1447794948491049464}
+  m_Father: {fileID: 3410284599650147223}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2780384120548929500
 BoxCollider2D:
@@ -3343,6 +3343,21 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: e7e94924e702f4749992d433155372e5, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3908814912681346489}
+        m_TargetAssemblyTypeName: Locker, Assembly-CSharp
+        m_MethodName: EnableOpen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3123579600681161639
 GameObject:
   m_ObjectHideFlags: 0
@@ -8341,6 +8356,9 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6199211275771406697
 GameObject:
   m_ObjectHideFlags: 0
@@ -12824,6 +12842,9 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8995174687720840131
 GameObject:
   m_ObjectHideFlags: 0
@@ -13271,6 +13292,9 @@ MonoBehaviour:
   acquireDialog: {fileID: 11400000, guid: a776cd780fe8530418541dc6d8f03726, type: 2}
   holdDuration: 3
   collectSoundID: Item_Get
+  OnItemCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9163980704759112711
 GameObject:
   m_ObjectHideFlags: 0
@@ -13970,6 +13994,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4027323244535980723, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4087999581619757856}
+    - targetCorrespondingSourceObject: {fileID: 4027323244535980723, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7793719949613689846}
     - targetCorrespondingSourceObject: {fileID: 5955674115755589856, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9048219557440120323}
@@ -13982,9 +14009,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8385750490679640505, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7887314194254648676}
-    - targetCorrespondingSourceObject: {fileID: 911898887415234780, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7793719949613689846}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3570679321576782315, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       insertIndex: 3
@@ -14031,11 +14055,6 @@ MonoBehaviour:
   openSoundID: DoorOpen_Sliding
   transitionDelay: 0.2
   resetDelay: 0.1
---- !u!4 &1447794948491049464 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 911898887415234780, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
-  m_PrefabInstance: {fileID: 1778973398242457892}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2971732599396286671 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3570679321576782315, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
@@ -14953,10 +14972,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Locker
   isMyLocker: 0
-  defaultDialog: {fileID: 11400000, guid: b98fe2359ae01994ca9da205baa565b0, type: 2}
-  acquiredDialog: {fileID: 0}
-  passwordUIRoot: {fileID: 0}
-  shovel: {fileID: 0}
+  beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
+  afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
+  notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
+  acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
+  puzzleUIRoot: {fileID: 0}
+  closeDelay: 1.5
 --- !u!4 &261695773188070605 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6963884744338218642, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
@@ -14980,10 +15002,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Locker
   isMyLocker: 1
-  defaultDialog: {fileID: 11400000, guid: 2bd0032b38863a34bb27e8e10f7f6572, type: 2}
-  acquiredDialog: {fileID: 11400000, guid: 5a48fd0db73f84c4db93a85861f2a565, type: 2}
-  passwordUIRoot: {fileID: 0}
-  shovel: {fileID: 0}
+  beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
+  afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
+  notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
+  acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
+  puzzleUIRoot: {fileID: 0}
+  closeDelay: 1.5
 --- !u!1 &2402286556217144999 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4779348661779231992, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
@@ -15002,10 +15027,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Locker
   isMyLocker: 0
-  defaultDialog: {fileID: 11400000, guid: b98fe2359ae01994ca9da205baa565b0, type: 2}
-  acquiredDialog: {fileID: 0}
-  passwordUIRoot: {fileID: 0}
-  shovel: {fileID: 0}
+  beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
+  afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
+  notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
+  acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
+  puzzleUIRoot: {fileID: 0}
+  closeDelay: 1.5
 --- !u!1 &2445319248087456023 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4821822801474198344, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
@@ -15053,10 +15081,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Locker
   isMyLocker: 0
-  defaultDialog: {fileID: 11400000, guid: b98fe2359ae01994ca9da205baa565b0, type: 2}
-  acquiredDialog: {fileID: 0}
-  passwordUIRoot: {fileID: 0}
-  shovel: {fileID: 0}
+  beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
+  afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
+  notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
+  acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
+  puzzleUIRoot: {fileID: 0}
+  closeDelay: 1.5
 --- !u!1 &3126623102149745689 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5217127188678598214, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
@@ -15104,10 +15135,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Locker
   isMyLocker: 0
-  defaultDialog: {fileID: 11400000, guid: b98fe2359ae01994ca9da205baa565b0, type: 2}
-  acquiredDialog: {fileID: 0}
-  passwordUIRoot: {fileID: 0}
-  shovel: {fileID: 0}
+  beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
+  afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
+  notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
+  acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
+  puzzleUIRoot: {fileID: 0}
+  closeDelay: 1.5
 --- !u!1 &3207736172335957336 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5728897179155924743, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
@@ -15126,10 +15160,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Locker
   isMyLocker: 0
-  defaultDialog: {fileID: 11400000, guid: b98fe2359ae01994ca9da205baa565b0, type: 2}
-  acquiredDialog: {fileID: 0}
-  passwordUIRoot: {fileID: 0}
-  shovel: {fileID: 0}
+  beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
+  afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
+  notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
+  acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
+  puzzleUIRoot: {fileID: 0}
+  closeDelay: 1.5
 --- !u!114 &3271440899608296332 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5648486478133869011, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
@@ -15159,10 +15196,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Locker
   isMyLocker: 0
-  defaultDialog: {fileID: 11400000, guid: b98fe2359ae01994ca9da205baa565b0, type: 2}
-  acquiredDialog: {fileID: 0}
-  passwordUIRoot: {fileID: 0}
-  shovel: {fileID: 0}
+  beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
+  afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
+  notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
+  acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
+  puzzleUIRoot: {fileID: 0}
+  closeDelay: 1.5
 --- !u!1 &4374304097881327993 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6895482490997345062, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
@@ -15181,10 +15221,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Locker
   isMyLocker: 0
-  defaultDialog: {fileID: 11400000, guid: b98fe2359ae01994ca9da205baa565b0, type: 2}
-  acquiredDialog: {fileID: 0}
-  passwordUIRoot: {fileID: 0}
-  shovel: {fileID: 0}
+  beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
+  afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
+  notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
+  acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
+  puzzleUIRoot: {fileID: 0}
+  closeDelay: 1.5
 --- !u!4 &4770249933616199898 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2393205420242254469, guid: 0d8d180688ebb824d83a66a65d988339, type: 3}
