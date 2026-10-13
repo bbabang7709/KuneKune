@@ -13235,14 +13235,6 @@ PrefabInstance:
       propertyPath: _water
       value: 
       objectReference: {fileID: 8842447291626219269}
-    - target: {fileID: 3695904546128285201, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}
-      propertyPath: m_Events.m_Events.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3695904546128285201, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}
-      propertyPath: m_Events.m_Signals.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6196529720615069996, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

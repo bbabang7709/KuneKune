@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 
+[RequireComponent(typeof(DialogTimelineController))]
 public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 {
     private const string TrueFlagFailed = "HasTrueFlagFailed";
@@ -9,6 +10,16 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     private const int CutsceneCameraPriority = 20;
     [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
     private MapArea _sunlightMap;
+
+    [SerializeField] private Transform _kuneKune;
+    private Animator _kuneKuneAnimator;
+    private float _kuneKuneAnimationSpeedBeforePause;
+    private bool _isKuneKuneAnimationPaused;
+    private bool _resumeKuneKuneAnimationAfterDialog;
+
+    [Tooltip("이 대사가 진행되는 동안 컷씬용 쿠네쿠네의 이동을 멈춥니다.")]
+    [SerializeField] private DialogData _stopKuneKuneDialog;
+    private DialogTimelineController _dialogController;
 
     [SerializeField] private SpriteRenderer _blood;
     [SerializeField] private SpriteRenderer _water;
@@ -34,6 +45,10 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     private bool _trueFlagFailedWithoutSaveManager;
 
+    private bool _isMovingKuneKune;
+    private bool _isKuneKunePausedForDialog;
+    private bool _isPlayRequested;
+
     // 로드로 SaveData가 교체되어도 이전 실행의 실패 여부를 캐시하지 않는다.
     public bool HasTrueFlagFailed =>
         SaveManager.Instance?.GetFlag(TrueFlagFailed) ?? _trueFlagFailedWithoutSaveManager;
@@ -41,6 +56,9 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     protected override void Awake()
     {
         base.Awake();
+        _dialogController = GetComponent<DialogTimelineController>();
+        if (_kuneKune != null)
+            _kuneKuneAnimator = _kuneKune.GetComponent<Animator>();
 
         if (_blood == null)
             _blood = GetComponentInChildren<SpriteRenderer>(true);
@@ -58,12 +76,44 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         if (_bound == null && _cutsceneCamera != null)
             _bound = _cutsceneCamera.GetComponent<CinemachineConfiner2D>();
+
+        _kuneKune.gameObject.SetActive(false);
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        _dialogController.DialogStarted += OnDialogStarted;
+        _dialogController.DialogFinished += OnDialogFinished;
+    }
+
+    private void OnDialogStarted(DialogData dialog)
+    {
+        if (_stopKuneKuneDialog == null || dialog != _stopKuneKuneDialog) return;
+
+        _isKuneKunePausedForDialog = true;
+        StopKuneKune();
+        _resumeKuneKuneAnimationAfterDialog = !_isKuneKuneAnimationPaused;
+        PauseKuneKuneAnimation();
+    }
+
+    private void OnDialogFinished(DialogData dialog)
+    {
+        if (!_isKuneKunePausedForDialog || dialog != _stopKuneKuneDialog) return;
+
+        _isKuneKunePausedForDialog = false;
+        _isMovingKuneKune = _kuneKune != null && _kuneKune.gameObject.activeInHierarchy;
+        if (_resumeKuneKuneAnimationAfterDialog)
+            ResumeKuneKuneAnimation();
+        _resumeKuneKuneAnimationAfterDialog = false;
     }
 
     public void Play()
     {
-        if (playOnlyOnce && hasPlayed)
+        if (_isPlayRequested || IsCutsceneRunning || HasTrueFlagFailed || (playOnlyOnce && hasPlayed))
             return;
+
+        _isPlayRequested = true;
 
         if (_water != null)
             _water.sprite = null;
@@ -89,11 +139,16 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         // 직접 Play가 호출되어도 로드된 실패 기록을 확인한 뒤에만 재생한다.
         if (HasTrueFlagFailed || (playOnlyOnce && hasPlayed))
+        {
+            _isPlayRequested = false;
+            ReleaseControls();
             yield break;
+        }
 
         if (_water != null)
             _water.sprite = null;
 
+        _isPlayRequested = false;
         PlayCutscene();
     }
 
@@ -106,6 +161,21 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         _sunlightAreaRoot.gameObject.SetActive(true);
     }
 
+    private void FixedUpdate()
+    {
+        if (_isKuneKunePausedForDialog) return;
+
+        if (_isMovingKuneKune && _kuneKune != null)
+        {
+            float moveSpeed = 1f;
+            _kuneKune.position += Vector3.left * moveSpeed * Time.fixedDeltaTime;
+            
+            // 목표 위치에 도달했는지 확인
+            if (Vector3.Distance(_kuneKune.position, MapManager.Instance.Player.transform.position) < 0.1f)
+                _isMovingKuneKune = false; // 이동 완료
+        }
+    }
+
     private void LateUpdate()
     {
         // 같은 화장실 안에서 영역을 벗어나는 것과 문을 통해 맵을 나가는 것을 구분한다.
@@ -116,8 +186,12 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
             return;
 
         _blood.sprite = null;
+
         _sunlightAreaRoot?.Deactivate();
         _sunlightMap = null;
+
+        _isMovingKuneKune = false;
+        _kuneKune?.gameObject.SetActive(false);
 
         // 손수건으로 안 닦아주고 그냥 나감
         _trueFlagFailedWithoutSaveManager = true;
@@ -130,6 +204,16 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     protected override void OnDisable()
     {
+        if (_dialogController != null)
+        {
+            _dialogController.DialogStarted -= OnDialogStarted;
+            _dialogController.DialogFinished -= OnDialogFinished;
+        }
+        _isKuneKunePausedForDialog = false;
+        _isPlayRequested = false;
+        StopKuneKune();
+        ResumeKuneKuneAnimation();
+        _resumeKuneKuneAnimationAfterDialog = false;
         base.OnDisable();
         _sunlightAreaRoot?.Deactivate();
         _sunlightMap = null;
@@ -159,6 +243,49 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         if (UIManager.Instance == null)
             return;
         StartCoroutine(UIManager.Instance.FadeInKeepingDialog(Mathf.Max(0f, fadeOutDuration)));
+    }
+
+    public void SpawnKuneKune()
+    {
+        if (_kuneKune == null)
+        {
+            Debug.LogWarning("쿠네쿠네 오브젝트를 지정해주세요.", this);
+            return;
+        }
+
+        _kuneKune.gameObject.SetActive(true);
+        _isMovingKuneKune = !_isKuneKunePausedForDialog;
+        if (!_isKuneKunePausedForDialog)
+            ResumeKuneKuneAnimation();
+    }
+
+    public void StopKuneKune()
+    {
+        _isMovingKuneKune = false;
+    }
+
+    /// <summary>
+    /// 컷씬용 쿠네쿠네의 애니메이션을 현재 프레임에서 일시 정지합니다.
+    /// </summary>
+    public void PauseKuneKuneAnimation()
+    {
+        if (_kuneKuneAnimator == null || _isKuneKuneAnimationPaused) return;
+
+        _kuneKuneAnimationSpeedBeforePause = _kuneKuneAnimator.speed;
+        _kuneKuneAnimator.speed = 0f;
+        _isKuneKuneAnimationPaused = true;
+    }
+
+    /// <summary>
+    /// 일시 정지한 애니메이션을 기존 속도로 이어서 재생합니다.
+    /// </summary>
+    public void ResumeKuneKuneAnimation()
+    {
+        if (!_isKuneKuneAnimationPaused) return;
+
+        if (_kuneKuneAnimator != null)
+            _kuneKuneAnimator.speed = _kuneKuneAnimationSpeedBeforePause;
+        _isKuneKuneAnimationPaused = false;
     }
 
     #region 카메라 세팅

@@ -12,6 +12,7 @@ using UnityEngine.Playables;
 public class DialogTimelineController : MonoBehaviour
 {
     public event Action<DialogData> DialogStarted;
+    public event Action<DialogData> DialogFinished;
 
     // Timeline에서 교체 대상으로 지정한 원본 대사 (예: Toilet_0).
     private DialogData _overrideSource;
@@ -34,6 +35,7 @@ public class DialogTimelineController : MonoBehaviour
     /// 현재 대화가 진행 중인지 여부.
     /// </summary>
     private bool _waitingForDialog;
+    private DialogData _currentDialog;
 
     /// <summary>
     /// 대화가 끝난 후 Timeline을 재개할 시간.
@@ -86,6 +88,7 @@ public class DialogTimelineController : MonoBehaviour
             dialog = _overrideDialog;
 
         _waitingForDialog = true;
+        _currentDialog = dialog;
 
         _resumeTime = clipEndTime;
         _currentDirector = director;
@@ -104,9 +107,13 @@ public class DialogTimelineController : MonoBehaviour
         if (!_waitingForDialog) return;
         _waitingForDialog = false;
 
-        if (_currentDirector == null) return;
+        DialogData finishedDialog = _currentDialog;
+        _currentDialog = null;
 
-        _currentDirector.playableGraph.GetRootPlayable(0).SetSpeed(1d);
+        if (_currentDirector != null && _currentDirector.playableGraph.IsValid())
+            _currentDirector.playableGraph.GetRootPlayable(0).SetSpeed(1d);
         _currentDirector = null;
+
+        DialogFinished?.Invoke(finishedDialog);
     }
 }
