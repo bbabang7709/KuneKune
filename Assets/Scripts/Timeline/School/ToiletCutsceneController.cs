@@ -37,9 +37,29 @@ public class ToiletCutsceneController : CutsceneControllerBase
         _dialogController.DialogStarted += OnDialogStarted;
     }
 
+    private bool CanPlayTrueFlagCutscene()
+    {
+        if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasTrueFlagSucceeded)
+            return false;
+
+        // test
+        //if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false &&
+        //    !_toiletTrueFlagCutscene.HasTrueFlagFailed)
+        //{
+        //    return true;
+        //}
+
+        if (_toiletTrueFlagCutscene == null || _toiletTrueFlagCutscene.HasPlayed ||
+            _toiletTrueFlagCutscene.HasTrueFlagFailed || InventoryManager.Instance == null ||
+            !InventoryManager.Instance.HasKey("hanky")) 
+            return false;
+
+        return true;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player") || _isEntryPlaying || (playOnlyOnce && hasPlayed))
+        if (_isEntryPlaying || (playOnlyOnce && hasPlayed))
             return;
 
         _isEntryPlaying = true;
@@ -61,23 +81,14 @@ public class ToiletCutsceneController : CutsceneControllerBase
 
         // 진엔딩 플래그를 만족하면 화장실 진입 대사를 재생하지 않는다.
         // 진엔딩 플래그 컷씬이 재생된적이 있다면, 화장실 진입 대사가 다시 나온다.
-        if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false
-            && InventoryManager.Instance != null && InventoryManager.Instance.HasKey("hanky"))
+        if (CanPlayTrueFlagCutscene())
         {
             _toiletTrueFlagCutscene.Play();
-            // TrueFlag 컨트롤러가 자기 잠금을 먼저 걸었으므로 이쪽의 대기용 잠금은 넘겨줍니다.
+            _isEntryPlaying = false;
+
             ReleaseControls();
             yield break;
         }
-
-        // test
-        //if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false &&
-        //    !_toiletTrueFlagCutscene.HasTrueFlagFailed)
-        //{
-        //    _isEntryPlaying = false;
-        //    _toiletTrueFlagCutscene.Play();
-        //    yield break;
-        //}
 
         bool wasBeingChased = MapManager.Instance != null && MapManager.Instance.ConsumeChasedMapEntry();
         DialogData selectedDialog = SelectEntryDialog(wasBeingChased);

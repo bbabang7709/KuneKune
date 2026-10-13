@@ -26,6 +26,7 @@ public class Door : MapTransition, IInteractable
     [Header("Sound Settings")]
     [Tooltip("문이 열릴 때 재생할 SoundID")]
     [SerializeField] private string openSoundID = "DoorOpen";
+    private AudioSource _eventLockedSource;
 
     [Header("Transition Timing")]
     [Tooltip("문이 열린 후 맵 이동이 시작되기까지의 딜레이")]
@@ -37,6 +38,7 @@ public class Door : MapTransition, IInteractable
     private bool _isTransitioning = false;
 
     private bool _isLockedByChase;
+    private bool _isLockedByEvent;
 
     public bool LockDuringChase => _lockDuringChase;
 
@@ -49,6 +51,20 @@ public class Door : MapTransition, IInteractable
     public void OnInteractPressed()
     {
         if (_isTransitioning) return; 
+
+        // 이벤트 잠금은 열쇠나 기존 문 잠금 상태와 별개로 이동을 막습니다.
+        if (_isLockedByEvent)
+        {
+            if (SoundManager.Instance != null)
+            {
+                if (_eventLockedSource == null)
+                    _eventLockedSource = SoundManager.Instance.CreateSFXSource(transform);
+
+                if (SoundManager.Instance.PlaySFXOnSource(_eventLockedSource, "DoorOpen_Hinged"))
+                    _eventLockedSource.pitch = 3f;
+            }
+            return;
+        }
 
         // 추격 잠금은 열쇠 보유 여부와 상관없이 문을 열 수 없습니다.
         if (_isLockedByChase)
@@ -88,6 +104,8 @@ public class Door : MapTransition, IInteractable
 
     private IEnumerator OpenDoorRoutine()
     {
+        if (_isLockedByEvent) yield break;
+
         _isTransitioning = true;
 
         if (SoundManager.Instance != null && !string.IsNullOrEmpty(openSoundID))
@@ -102,7 +120,8 @@ public class Door : MapTransition, IInteractable
 
         yield return new WaitForSeconds(transitionDelay);
 
-        ExecuteTransition();
+        if (!_isLockedByEvent)
+            ExecuteTransition();
 
         yield return new WaitForSeconds(resetDelay);
 
@@ -117,6 +136,11 @@ public class Door : MapTransition, IInteractable
     public void SetHouseChaseLocked(bool isLocked)
     {
         _isLockedByChase = isLocked;
+    }
+
+    public void SetEventLocked(bool isLocked)
+    {
+        _isLockedByEvent = isLocked;
     }
 
     private bool CheckCanOpen()

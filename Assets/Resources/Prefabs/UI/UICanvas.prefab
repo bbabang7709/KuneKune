@@ -1158,6 +1158,7 @@ MonoBehaviour:
   heatGuage: {fileID: 2925690415183064649}
   heatGaugeEffect: {fileID: 664391827540182637}
   glitchUICanvas: {fileID: 2156444603922970853}
+  screenEcho: {fileID: 8200000000000000203}
   playerMovement: {fileID: 0}
   playerInput: {fileID: 0}
   dialogTextSystem: {fileID: 740537433241435756}
@@ -6806,6 +6807,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8200000000000000202}
   - {fileID: 5240026912667468396}
   - {fileID: 948445542904733963}
   - {fileID: 4198661799898801988}
@@ -7819,6 +7821,7 @@ MonoBehaviour:
   targetCanvas: {fileID: 2156444603922970853}
   echoContainer: {fileID: 1489140280234367110}
   echoText: {fileID: 8200000000000000104}
+  fontSize: 36
   echoColor: {r: 0.5411765, g: 0.15686275, b: 0.18039216, a: 0.65}
   delayRange: {x: 0.5, y: 1}
   echoCountRange: {x: 1, y: 6}
@@ -8494,3 +8497,140 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PasswordUI
   displayText: {fileID: 1869286916488517678}
+--- !u!1001 &8551913434526678498
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8100000000000000002}
+    m_Modifications:
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: targetCanvas
+      value: 
+      objectReference: {fileID: 2156444603922970853}
+    - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: 'excludedUI.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1239008841217627143}
+    - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: 'excludedUI.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1489140280234367110}
+    - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: 'excludedUI.Array.data[2]'
+      value: 
+      objectReference: {fileID: 3048905437761905897}
+    - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: 'excludedUI.Array.data[3]'
+      value: 
+      objectReference: {fileID: 5372297401379998810}
+    - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: 'excludedUI.Array.data[4]'
+      value: 
+      objectReference: {fileID: 61023531976930452}
+    - target: {fileID: 532057493177531691, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: m_Name
+      value: ToiletScreenEcho
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+--- !u!224 &8200000000000000202 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 532057493177531688, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+  m_PrefabInstance: {fileID: 8551913434526678498}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8200000000000000203 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+  m_PrefabInstance: {fileID: 8551913434526678498}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fc3015598a4cbeb5dc8441b6893e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanvasEcho

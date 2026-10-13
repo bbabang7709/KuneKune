@@ -19,6 +19,7 @@ public class CanvasEcho : MonoBehaviour
     [Header("Presentation")]
     [Tooltip("글꼴과 크기를 복사할 UI 텍스트 또는 프리팹. 비워 두면 게임 기본 도트 글꼴을 사용합니다.")]
     [SerializeField] private TMP_Text echoText;
+    [SerializeField] private float fontSize = 36f;
     [SerializeField] private Color echoColor = new Color(138f / 255f, 40f / 255f, 46f / 255f, 0.65f);
     [SerializeField] private Vector2 delayRange = new Vector2(0.5f, 1f);    // 0.5 ~ 1초마다 반복
     [Tooltip("반복할 때마다 동시에 표시할 메아리 수를 이 범위에서 추첨합니다. 1~8개까지 설정할 수 있습니다.")]
@@ -333,7 +334,7 @@ public class CanvasEcho : MonoBehaviour
                 instance.transform.SetParent(_container, false);
                 text = instance.GetComponent<TextMeshProUGUI>();
                 text.font = Resources.Load<TMP_FontAsset>("Fonts/NeoDunggeunmoPro-Regular") ?? TMP_Settings.defaultFontAsset;
-                text.fontSize = 36f;
+                text.fontSize = fontSize;
                 text.alignment = TextAlignmentOptions.Center;
             }
 

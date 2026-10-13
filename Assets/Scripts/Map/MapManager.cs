@@ -211,7 +211,7 @@ public class MapManager : MonoBehaviour
         if (_currentArea == null)
             return;
 
-        if (IsCoolZone(CurrentMapType))
+        if (IsCoolZone(CurrentMapType) || CurrentMapType == EMapType.School_WomanToilet)
         {
             SoundManager.Instance?.StopBGM();
             return;

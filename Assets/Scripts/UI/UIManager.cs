@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour
     [Tooltip("HUD와 메뉴처럼 전체 화면 글리치를 적용할 UI의 Canvas입니다.")]
     [SerializeField] private Canvas glitchUICanvas;
 
+    [Header("Screen Echo")]
+    [SerializeField] private CanvasEcho screenEcho;
+
     /// <summary>
     /// 플레이어 이동 컴포넌트.
     /// </summary>
@@ -204,12 +207,23 @@ public class UIManager : MonoBehaviour
     private void OnDisable()
     {
         RestoreDialogFadeOrder();
+        StopScreenEcho();
 
         if (playerMovement != null)
         {
             playerMovement.OnStaminaChanged -= UpdateStaminaUI;
             playerMovement.OnHeatChanged -= UpdateHeatUI;
         }
+    }
+
+    public void PlayScreenEcho()
+    {
+        screenEcho?.Play();
+    }
+
+    public void StopScreenEcho()
+    {
+        screenEcho?.Stop();
     }
 
     // =========================================================

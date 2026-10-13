@@ -12,6 +12,10 @@ public class KuneKuneHand : MonoBehaviour
 
     [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
 
+    [Header("이벤트 중 잠글 문")]
+    [Tooltip("이벤트 시작부터 완료 대사와 보상 획득이 끝날 때까지 잠글 이동용 문입니다.")]
+    [SerializeField] private Door _door;
+
     [Header("문과 손 이미지")]
     [Tooltip("손이 가장 적게 나온 이미지부터 가장 많이 나온 이미지 순서입니다.")]
     [SerializeField] private Sprite[] _handSprites;
@@ -156,6 +160,7 @@ public class KuneKuneHand : MonoBehaviour
 
     public void Init()
     {
+        _door?.SetEventLocked(false);
         // 정적 변수 초기화 (씬 재로드 시 정상 작동을 위함)
         IsPlaying = false;
         IsCleared = false;
@@ -247,6 +252,8 @@ public class KuneKuneHand : MonoBehaviour
         // 진행 중이거나 이미 끝났다면 다시 시작하지 않습니다.
         if (IsPlaying || IsCleared || IsGameOver)
             return;
+
+        _door?.SetEventLocked(true);
 
         // 클리어 시 복구할 더위 값은 실제 이벤트 시작 직전에 기록합니다.
         if (_playerMovement != null)
@@ -405,18 +412,28 @@ public class KuneKuneHand : MonoBehaviour
                 StartCoroutine(RewardRoutine())
             );
         }
+        else
+        {
+            StartCoroutine(RewardRoutine());
+        }
 
         _collider.enabled = true;
     }
 
     private IEnumerator RewardRoutine()
     {
-        if (rewardItem_key == null || rewardItem_dollArm == null) yield break;
+        if (rewardItem_key == null || rewardItem_dollArm == null)
+        {
+            _door?.SetEventLocked(false);
+            yield break;
+        }
         
         InventoryManager.Instance?.AcquireItem(rewardItem_dollArm, dollArmDialog);
-        yield return new WaitUntil(() => DialogSystem.Instance.IsDialogPlaying == false);
+        yield return new WaitUntil(() => DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying);
 
         InventoryManager.Instance?.AcquireItem(rewardItem_key, keyDialog);
+        yield return new WaitUntil(() => DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying);
+        _door?.SetEventLocked(false);
     }
 
     private IEnumerator GameOverSequence()
@@ -446,6 +463,7 @@ public class KuneKuneHand : MonoBehaviour
 
     private void OnDisable()
     {
+        _door?.SetEventLocked(false);
         _playerMovement?.SetHeatIncreaseRateOverride(null);
         _handScratchSource?.Stop();
         StopFlicker();
