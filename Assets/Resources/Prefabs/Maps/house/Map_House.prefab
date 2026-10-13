@@ -8391,7 +8391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10da12595e78ce418b098bc6d551404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HouseEscapingSequence
-  timeLimit: 22
+  timeLimit: 20
   _houseDoors:
   - {fileID: 2511211809067094331}
   - {fileID: 3024298534365240039}

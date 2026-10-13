@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +8,7 @@ using UnityEngine;
 public class HouseChase : MonoBehaviour
 {
     private Door[] _houseDoors;
-    private PlayerAppearance _player;
+    private HouseEscapingSequence _escapeSequence;
 
     [SerializeField] private Transform _playerFallPosition;
     [SerializeField] private Transform _kunekuneFallPosition;
@@ -27,7 +25,7 @@ public class HouseChase : MonoBehaviour
     {
         Instance = this;
         _houseDoors = GetComponentsInChildren<Door>(true);
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAppearance>();
+        _escapeSequence = GetComponentInChildren<HouseEscapingSequence>(true);
     }
 
     private void OnDestroy()
@@ -44,6 +42,12 @@ public class HouseChase : MonoBehaviour
         if (IsChaseActive)
             return;
 
+        if (_escapeSequence == null)
+        {
+            Debug.LogError("[HouseChase] 집 탈출 이벤트가 연결되지 않았습니다.", this);
+            return;
+        }
+
         IsChaseActive = true;
         SetChaseDoorsLocked(true);
 
@@ -56,6 +60,7 @@ public class HouseChase : MonoBehaviour
 
             Physics2D.SyncTransforms();
             MapManager.Instance.KuneKune.Spawn(_kunekuneFallPosition.position, true);
+            _escapeSequence.StartEscapeSequence();
 
             Debug.Log("[HouseChaseController] 집 안 추격을 시작했습니다.", this);
         });
@@ -66,41 +71,22 @@ public class HouseChase : MonoBehaviour
     /// </summary>
     public void EndChase()
     {
-        if (Instance != this)
+        if (Instance != this || !IsChaseActive)
             return;
 
-        if (ControlLockManager.Instance != null)
-        {
-            ControlLockManager.Instance.AddInputLock(this);
-            ControlLockManager.Instance.AddMovementLock(this);
-        }
-
-        IsChaseActive = false;
-        SetChaseDoorsLocked(false);
-        MapManager.Instance.KuneKune.Despawn();
-
-        // TODO: 플레이어 학교 1층으로 이동
-        // MapManager.Instance.ChangeMap(EMapType.School_Hallway, "school_hallway_0", () => _player.SetAge(EPlayerAge.Student));
-        StartCoroutine(ChangeChapterRoutine());
-
-        Debug.Log("[HouseChaseController] 집 안 추격을 끝냈습니다.", this);
+        _escapeSequence.CatchPlayer();
     }
 
-    private IEnumerator ChangeChapterRoutine()
+    /// <summary>
+    /// 시간 만료와 발각 모두 같은 종료 연출에 들어가기 전에 추격을 정리합니다.
+    /// </summary>
+    public void StopChase()
     {
-        yield return UIManager.Instance?.FadeOut(1.5f);
+        IsChaseActive = false;
+        SetChaseDoorsLocked(false);
+        MapManager.Instance?.KuneKune?.Despawn();
 
-        MapManager.Instance?.InitMap(EMapType.School_Hallway, "school_hallway_0");
-        _player.SetAge(EPlayerAge.Student);
-
-        yield return UIManager.Instance?.FadeIn(1.5f);
-        
-        SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter3_School);
-        if (ControlLockManager.Instance != null)
-        {
-            ControlLockManager.Instance.RemoveInputLock(this);
-            ControlLockManager.Instance.RemoveMovementLock(this);
-        }
+        Debug.Log("[HouseChaseController] 집 안 추격을 끝냈습니다.", this);
     }
 
     private void SetChaseDoorsLocked(bool isLocked)
