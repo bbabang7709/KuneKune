@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// 플레이어가 상호작용하여 획득할 수 있는 아이템을 관리한다.
@@ -27,6 +28,8 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
         holdDuration <= 0f
             ? 1f
             : Mathf.Clamp01(holdTimer / holdDuration);
+
+    public UnityEvent OnItemCollected;
 
     private float holdTimer;
     private bool isCollected;
@@ -121,6 +124,8 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
             acquireDialog,
             OnIllustrationFinished
         );
+
+        OnItemCollected?.Invoke();
     }
 
     /// <summary>
