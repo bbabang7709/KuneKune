@@ -55,6 +55,7 @@ public class HouseCutsceneController : CutsceneControllerBase
     {
         RestoreCameraPriority();
         //ReleaseCutsceneCamera();
+        BackgroundManager.Instance?.SetBackgroundForChapter(EChapter.Chapter2_House);
         SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter2_House);
         QuestManager.Instance?.StartQuest("HouseCleanup");
     }

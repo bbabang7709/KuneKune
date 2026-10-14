@@ -24,6 +24,7 @@ public class HangingRope : MonoBehaviour
                     ControlLockManager.Instance?.AddMovementLock(this);
 
                     // TODO: 효과음 재생
+                    if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX("Rope");
 
                     if (SaveManager.Instance != null) SaveManager.Instance.Load(true);
                 }

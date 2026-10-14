@@ -67,6 +67,7 @@ public class ToiletMirror : MonoBehaviour, IInteractable
     {
         if (UIManager.Instance != null)
         {
+            _isFadedOut = true;
             yield return UIManager.Instance.FadeOut(0.5f);
         }
 
@@ -83,11 +84,24 @@ public class ToiletMirror : MonoBehaviour, IInteractable
 
         if (UIManager.Instance != null) 
             yield return UIManager.Instance.FadeIn(0.5f);
+        _isFadedOut = false;
 
         if (ControlLockManager.Instance != null)
         {
             ControlLockManager.Instance.RemoveInputLock(this);
             ControlLockManager.Instance.RemoveMovementLock(this);
+        }
+    }
+
+    private bool _isFadedOut;
+
+    private void OnDisable()
+    {
+        // 암전 중 오브젝트가 꺼져 코루틴이 끊겨도 화면이 검게 남지 않게 합니다.
+        if (_isFadedOut)
+        {
+            _isFadedOut = false;
+            UIManager.Instance?.EnsureFadedIn();
         }
     }
 }

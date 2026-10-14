@@ -37,6 +37,19 @@ public class LightingEventManager : MonoBehaviour
         _fadeCoroutine = StartCoroutine(CoFadeGlobalLight(targetColor, targetIntensity, duration));
     }
 
+    /// <summary>글로벌 라이트의 색상만 즉시 바꿉니다. 밝기 코루틴에는 영향을 주지 않습니다.</summary>
+    public void SetGlobalLightColor(Color color)
+    {
+        if (_globalLight == null) return;
+
+        if (_fadeCoroutine != null)
+        {
+            StopCoroutine(_fadeCoroutine);
+            _fadeCoroutine = null;
+        }
+        _globalLight.color = color;
+    }
+
     public IEnumerator CoFadeGlobalLight(Color targetColor, float targetIntensity, float duration)
     {
         Color startColor = _globalLight.color;

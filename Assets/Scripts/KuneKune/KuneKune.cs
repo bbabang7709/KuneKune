@@ -65,6 +65,7 @@ public class KuneKune : MonoBehaviour
 
     private ECharacterState _preCutsceneState;  // 컷신 재생 중 이동을 멈추기 위해, 이전의 행동 상태를 저장해둘 변수
 
+    private bool _isInDeathSequence;
     private bool _isCatchingPlayer = false; // 공포 연출 중복 실행 방지용 플래그
 
     [SerializeField] private KuneKuneFirstEncounterCutsceneController _firstEncounterCutscene;
@@ -233,6 +234,10 @@ public class KuneKune : MonoBehaviour
 
     public void Despawn()
     {
+        // 잡힌 연출 중에 비활성화되면 코루틴이 끊겨 암전 후 복구되지 않습니다.
+        if (_isInDeathSequence)
+            return;
+
         _mapRoutes.Clear();
         _mapTransitionWaitRemaining = null;
         _currentMap = null;
@@ -436,6 +441,7 @@ public class KuneKune : MonoBehaviour
             if (HouseChase.Instance != null && HouseChase.Instance.IsChaseActive)
             {
                 HouseChase.Instance.EndChase();
+                _isCatchingPlayer = false;
                 return;
             }
 
@@ -462,6 +468,8 @@ public class KuneKune : MonoBehaviour
     {
         Debug.Log("플레이어가 쿠네쿠네에게 잡혔다! 데스씬 연출 시작");
 
+        _isInDeathSequence = true;
+
         IsChaseActive = false;
         State = ECharacterState.Idle;
 
@@ -486,6 +494,7 @@ public class KuneKune : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.5f);
 
         SaveManager.Instance?.Load(true);
+        _isInDeathSequence = false;
     }
 
     void OnEnable()

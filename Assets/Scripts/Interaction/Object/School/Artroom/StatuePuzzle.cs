@@ -36,6 +36,12 @@ public class StatuePuzzle : MonoBehaviour
     [SerializeField] private GameObject item;
 
     private bool _isSolved = false;
+    private PlayerLight playerLight;
+
+    private void Awake()
+    {
+        playerLight = FindFirstObjectByType<PlayerLight>();
+    }
 
     private void Start()
     {
@@ -125,6 +131,8 @@ public class StatuePuzzle : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         footprintSequence.PlayFootprintSequence();
+        if (playerLight != null) playerLight.TurnOn();
+        
         if (deskCollider != null) deskCollider.enabled = true;
 
         if (spotLight != null) spotLight.intensity = 5f;

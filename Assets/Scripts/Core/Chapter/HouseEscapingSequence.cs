@@ -10,6 +10,9 @@ public class HouseEscapingSequence : MonoBehaviour
     [Tooltip("이벤트 중 잠금 설정할 문")]
     [SerializeField] private Door[] _houseDoors;
 
+    [Tooltip("타이머 종료 후 쿠네쿠네가 등장할 위치")]
+    [SerializeField] private Transform _kuneKuneSpawnPoint;
+
     [SerializeField] private PlayerAppearance _player;
 
     [SerializeField] private DialogData caughtDialog;
@@ -17,6 +20,7 @@ public class HouseEscapingSequence : MonoBehaviour
 
     private bool _isCaught = false;
     private bool _isRunning;
+    private bool _isFadedOut;
 
     public void StartEscapeSequence()
     {
@@ -53,7 +57,24 @@ public class HouseEscapingSequence : MonoBehaviour
 
         EscapeTimerUI.Instance?.HideTimer();
 
-        if (!_isCaught) CatchPlayer();
+        if (_isCaught) yield break;
+
+        // 타이머 종료 후 쿠네쿠네가 등장해 쫓아옵니다. 잡히면 CatchPlayer가 호출됩니다.
+        SpawnKuneKune();
+    }
+
+    private void SpawnKuneKune()
+    {
+        KuneKune kuneKune = MapManager.Instance != null ? MapManager.Instance.KuneKune : null;
+        if (kuneKune == null || _kuneKuneSpawnPoint == null)
+        {
+            Debug.LogError("[HouseEscapingSequence] 쿠네쿠네 또는 스폰 위치가 없습니다.", this);
+            CatchPlayer();
+            return;
+        }
+
+        Physics2D.SyncTransforms();
+        kuneKune.Spawn(_kuneKuneSpawnPoint.position, true);
     }
 
     public void CatchPlayer()
@@ -87,6 +108,7 @@ public class HouseEscapingSequence : MonoBehaviour
     private IEnumerator ChangeChapterRoutine()
     {
         SoundManager.Instance?.PlaySFX("KuneKune_Jumpscare");
+        _isFadedOut = true;
         yield return UIManager.Instance?.FadeOutKeepingDialog(0.5f);
         yield return PlayDialogAndWait(caughtDialog);
         
@@ -94,8 +116,11 @@ public class HouseEscapingSequence : MonoBehaviour
         if (_player == null && MapManager.Instance?.Player != null)
             _player = MapManager.Instance.Player.GetComponent<PlayerAppearance>();
         if (_player != null) _player.SetAge(EPlayerAge.Student);
+        BackgroundManager.Instance?.SetBackgroundForChapter(EChapter.Chapter3_School);
 
+        yield return new WaitForSeconds(4f);
         yield return UIManager.Instance?.FadeIn(1.5f);
+        _isFadedOut = false;
 
         yield return PlayDialogAndWait(firstVisitSchoolDialog);
 
@@ -123,6 +148,13 @@ public class HouseEscapingSequence : MonoBehaviour
         {
             EscapeTimerUI.Instance?.HideTimer();
             UIManager.Instance?.RestoreDialogFadeOrder();
+        }
+
+        // 암전 중 코루틴이 끊겨도 화면이 검게 남지 않게 합니다.
+        if (_isFadedOut)
+        {
+            _isFadedOut = false;
+            UIManager.Instance?.EnsureFadedIn(1.5f);
         }
         _isRunning = false;
         _isCaught = false;

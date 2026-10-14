@@ -184,6 +184,13 @@ public class MapManager : MonoBehaviour
             }
 
             CameraManager.Instance?.ChangeCameraWithFollow(_currentArea.AreaCamera);
+
+            // 추격전 진입 즉시 해당 챕터로 체크포인트를 저장합니다.
+            if (targetMapType == EMapType.Chase_Ricefield)
+            {
+                BackgroundManager.Instance?.SetBackgroundForChapter(EChapter.Chapter5_Chase);
+                SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter5_Chase);
+            }
         }
         else
         {

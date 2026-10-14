@@ -17,6 +17,7 @@ public abstract class CutsceneControllerBase : MonoBehaviour
     private bool _endRequested;
     private bool _isEnding;
     private bool _isHoldingControls;
+    private bool _isFadedOut;
 
     protected bool IsCutsceneRunning => _isCutsceneRunning;
 
@@ -48,6 +49,13 @@ public abstract class CutsceneControllerBase : MonoBehaviour
         _isEnding = false;
         ReleaseControls();
         StopAllCoroutines();
+
+        // 암전 중에 오브젝트가 꺼져 코루틴이 끊기면 화면이 계속 검게 남으므로 복구합니다.
+        if (_isFadedOut)
+        {
+            _isFadedOut = false;
+            UIManager.Instance?.EnsureFadedIn();
+        }
     }
 
     /// <summary>
@@ -109,6 +117,7 @@ public abstract class CutsceneControllerBase : MonoBehaviour
         {
             yield return new WaitForSeconds(0.2f);
             yield return UIManager.Instance.FadeOutGameplayUI(0.5f);
+            _isFadedOut = true;
             yield return UIManager.Instance.FadeOut(0.5f);
         }
 
@@ -127,6 +136,7 @@ public abstract class CutsceneControllerBase : MonoBehaviour
         if (useFadeInOut && UIManager.Instance != null)
         {
             yield return UIManager.Instance.FadeIn(0.5f);
+            _isFadedOut = false;
         }
     }
 
@@ -152,6 +162,7 @@ public abstract class CutsceneControllerBase : MonoBehaviour
 
         if (useFadeInOut && UIManager.Instance != null)
         {
+            _isFadedOut = true;
             yield return UIManager.Instance.FadeOut(0.5f);
         }
 
@@ -164,6 +175,7 @@ public abstract class CutsceneControllerBase : MonoBehaviour
         if (useFadeInOut && UIManager.Instance != null)
         {
             yield return UIManager.Instance.FadeIn(0.5f);
+            _isFadedOut = false;
             if (!CanRunCutscene) yield break;
             yield return UIManager.Instance.FadeInGameplayUI(0.5f);
         }
