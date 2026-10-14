@@ -100,4 +100,4 @@ MonoBehaviour:
     volume: 0.8
   - soundID: Rope
     clip: {fileID: 8300000, guid: c75b8a06a41bf854c97f78d0315aca6f, type: 3}
-    volume: 0.8
+    volume: 0.6
