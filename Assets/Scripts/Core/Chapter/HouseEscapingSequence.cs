@@ -86,6 +86,7 @@ public class HouseEscapingSequence : MonoBehaviour
 
     private IEnumerator ChangeChapterRoutine()
     {
+        SoundManager.Instance?.PlaySFX("KuneKune_Jumpscare");
         yield return UIManager.Instance?.FadeOutKeepingDialog(0.5f);
         yield return PlayDialogAndWait(caughtDialog);
         
