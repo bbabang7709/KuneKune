@@ -103,4 +103,4 @@ MonoBehaviour:
     volume: 0.6
   - soundID: handkerchief
     clip: {fileID: 8300000, guid: b0df54e676ed959418005fa954ff5e9c, type: 3}
-    volume: 0.8
+    volume: 1
