@@ -77,6 +77,22 @@ MonoBehaviour:
     - {fileID: -7652693607967906131, guid: f8e369cecb5e01444a32d7c8e7c67f3c, type: 3}
     globalLightColor: {r: 1, g: 1, b: 1, a: 0}
     globalLightIntensity: 1
+  - chapter: 5
+    skySprite: {fileID: -5220808832720324463, guid: a18a60aba51b0d64585aeb381b44174a, type: 3}
+    sunMoonSprite: {fileID: 605162050437240712, guid: 4f592d144c3930346a7bb910a3976fd9, type: 3}
+    cloudSprites:
+    - {fileID: 5061314554923050318, guid: 3d1c957bb6b48544098326c8110e92c4, type: 3}
+    - {fileID: -7652693607967906131, guid: f8e369cecb5e01444a32d7c8e7c67f3c, type: 3}
+    globalLightColor: {r: 1, g: 0.6650944, b: 0.6650944, a: 0}
+    globalLightIntensity: 1
+  - chapter: 4
+    skySprite: {fileID: -5220808832720324463, guid: a18a60aba51b0d64585aeb381b44174a, type: 3}
+    sunMoonSprite: {fileID: 605162050437240712, guid: 4f592d144c3930346a7bb910a3976fd9, type: 3}
+    cloudSprites:
+    - {fileID: 5061314554923050318, guid: 3d1c957bb6b48544098326c8110e92c4, type: 3}
+    - {fileID: -7652693607967906131, guid: f8e369cecb5e01444a32d7c8e7c67f3c, type: 3}
+    globalLightColor: {r: 1, g: 1, b: 1, a: 0}
+    globalLightIntensity: 1
 --- !u!1 &1100253056069486969
 GameObject:
   m_ObjectHideFlags: 0

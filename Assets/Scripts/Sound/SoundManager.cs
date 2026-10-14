@@ -87,6 +87,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    /// <summary>효과음 클립의 길이(초)를 반환합니다. 찾을 수 없으면 0입니다.</summary>
+    public float GetSFXLength(string sfxID)
+    {
+        SoundData data = soundDatabase?.GetSFX(sfxID);
+        return data != null && data.clip != null ? data.clip.length : 0f;
+    }
+
     public void PlayFootstepSFX(string sfxID)
     {
         SoundData data = soundDatabase?.GetSFX(sfxID);

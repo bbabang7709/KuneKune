@@ -129,6 +129,9 @@ public class SaveManager : MonoBehaviour
             ControlLockManager.Instance.AddMovementLock(this);
         }
 
+        // 암전과 씬 재로드 동안 쿠네쿠네가 플레이어를 덮치지 못하게 먼저 치웁니다.
+        MapManager.Instance?.KuneKune?.Despawn();
+
         if (!skipFadeOut && UIManager.Instance != null) yield return UIManager.Instance.FadeOut(1.0f);
 
         UnityEngine.Events.UnityAction<Scene, LoadSceneMode> onSceneLoaded = (scene, mode) => 

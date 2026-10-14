@@ -416,6 +416,10 @@ public class KuneKune : MonoBehaviour
         if (State != ECharacterState.Run)
             return;
 
+        // 세이브 로드(재시작) 중에는 잡기 연출이 시작되지 않게 합니다.
+        if (SaveManager.Instance != null && SaveManager.Instance.IsLoading)
+            return;
+
         if (collision.gameObject.CompareTag("Player") && !_isCatchingPlayer)
         {
             _isCatchingPlayer = true;
@@ -433,6 +437,10 @@ public class KuneKune : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (State != ECharacterState.Run)
+            return;
+
+        // 세이브 로드(재시작) 중에는 잡기 연출이 시작되지 않게 합니다.
+        if (SaveManager.Instance != null && SaveManager.Instance.IsLoading)
             return;
 
         if (collision.gameObject.CompareTag("Player") && !_isCatchingPlayer)

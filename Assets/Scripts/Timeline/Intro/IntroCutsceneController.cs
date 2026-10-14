@@ -86,6 +86,9 @@ public class IntroCutsceneController : MonoBehaviour
         // 페이드가 끝난 후 잠시 대기
         yield return new WaitForSecondsRealtime(0.5f);
 
+        // StartMode는 static이라 이전 플레이의 None이 남아 있으면 게임 씬이 암전에서 풀리지 않습니다.
+        GameStartController.StartMode = EGameStartMode.NewGame;
+
         // 실제 게임 씬으로 이동
         SceneManager.LoadScene(targetSceneName);
     }
