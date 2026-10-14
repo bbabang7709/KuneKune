@@ -101,3 +101,6 @@ MonoBehaviour:
   - soundID: Rope
     clip: {fileID: 8300000, guid: c75b8a06a41bf854c97f78d0315aca6f, type: 3}
     volume: 0.6
+  - soundID: handkerchief
+    clip: {fileID: 8300000, guid: b0df54e676ed959418005fa954ff5e9c, type: 3}
+    volume: 0.8
