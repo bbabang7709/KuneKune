@@ -23,13 +23,18 @@ public class Blood : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isActiveAndEnabled || _kuneKune == null || collision != _kuneKune)
+        if (!isActiveAndEnabled)
             return;
 
-        if (_fadeCoroutine != null)
-            StopCoroutine(_fadeCoroutine);
+        if ((_kuneKune != null && collision == _kuneKune) || 
+            (MapManager.Instance.KuneKune != null && collision == MapManager.Instance.KuneKune))
+        {
 
-        _fadeCoroutine = StartCoroutine(FadeIn());
+            if (_fadeCoroutine != null)
+                StopCoroutine(_fadeCoroutine);
+
+            _fadeCoroutine = StartCoroutine(FadeIn());
+        }
     }
 
     private IEnumerator FadeIn()

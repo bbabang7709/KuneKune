@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
-  m_Name: KuneKuneHand_1
+  m_Name: Visit_Toilet_kunekune_1
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "\uC5EC\uC790 \uD654\uC7A5\uC2E4\u2026?"
-  - "\uBD84\uBA85 \uB0A8\uC790 \uD654\uC7A5\uC2E4\uC5D0 \uC788\uC5C8\uB294\uB370\u2026\u2026."
+  - "\uD5C9..\uD5C9.."
+  - "\uB354 \uC774\uC0C1 \uC548 \uCAD3\uC544\uC624\uB294 \uAC83 \uAC19\uB2E4."
