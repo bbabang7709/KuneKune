@@ -130,14 +130,20 @@ public abstract class CutsceneControllerBase : MonoBehaviour
         );
         director.Play();
 
-        yield return new WaitForSeconds(0.3f);
+        yield return WaitBeforeCutsceneReveal();
 
-        if (!CanRunCutscene) yield break;
+        if (!CanRunCutscene || !_isCutsceneRunning || _isEnding) yield break;
         if (useFadeInOut && UIManager.Instance != null)
         {
             yield return UIManager.Instance.FadeIn(0.5f);
             _isFadedOut = false;
         }
+    }
+
+    // 기본 컷씬은 짧게 기다리고, 대사를 암전 중에 보여주는 컷씬은 종료 이벤트까지 기다립니다.
+    protected virtual IEnumerator WaitBeforeCutsceneReveal()
+    {
+        yield return new WaitForSeconds(0.3f);
     }
 
     protected virtual void EndCutscene()
