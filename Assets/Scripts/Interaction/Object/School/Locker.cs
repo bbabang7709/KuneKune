@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Locker : MonoBehaviour, IInteractable
 {
+    private const string SewingHintShownFlag = "HasShownDollPartsSewingHint";
+
     [SerializeField] private bool isMyLocker = false;
     [SerializeField] private DialogData beforeDialog;
     [SerializeField] private DialogData afterDialog;
@@ -31,6 +33,10 @@ public class Locker : MonoBehaviour, IInteractable
         InventoryManager.Instance.HasKey("doll_arm") &&
         InventoryManager.Instance.HasKey("doll_leg");
 
+    private bool IsPlayerInSchool => MapManager.Instance != null &&
+        MapManager.Instance.CurrentMapType is EMapType.School_Hallway or EMapType.School_Classroom or
+            EMapType.School_ManToilet or EMapType.School_WomanToilet or EMapType.School_2F or EMapType.SchoolArtroom;
+
     private void Awake()
     {
         if (allDollPartsDialog == null)
@@ -45,13 +51,18 @@ public class Locker : MonoBehaviour, IInteractable
     {
         if (!isMyLocker || hasSolved) return;
         canOpen = HasAllDollParts;
-        if (!canOpen || hasShownSewingHint || allDollPartsDialog == null || DialogSystem.Instance == null ||
+        // 씬 재로드로 사물함 상태가 초기화돼도 학교 밖이나 도구 획득 이후에는 힌트를 재생하지 않습니다.
+        if (!canOpen || !IsPlayerInSchool || hasAcquired || hasShownSewingHint ||
+            (sewingTools != null && InventoryManager.Instance.HasKey(sewingTools.ItemID)) ||
+            (SaveManager.Instance != null && SaveManager.Instance.GetFlag(SewingHintShownFlag)) ||
+            allDollPartsDialog == null || DialogSystem.Instance == null ||
             DialogSystem.Instance.IsDialogPlaying || Time.timeScale <= 0f ||
             (SaveManager.Instance != null && SaveManager.Instance.IsLoading) ||
             (CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying) ||
             (ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked)) return;
 
         hasShownSewingHint = true;
+        SaveManager.Instance?.SetFlag(SewingHintShownFlag, true);
         DialogSystem.Instance.PlayDialog(allDollPartsDialog);
     }
 

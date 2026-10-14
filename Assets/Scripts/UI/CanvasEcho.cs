@@ -26,6 +26,8 @@ public class CanvasEcho : MonoBehaviour
     [SerializeField] private Vector2Int echoCountRange = new Vector2Int(1, 6);
     [SerializeField, Min(0f)] private float fadeInDuration = 0.8f;
     [SerializeField, Min(0f)] private float holdDuration = 0.4f;
+    [Tooltip("반복 메아리가 완전히 보이는 최소 시간. 최대 유지 시간이 더 짧으면 이 값을 우선합니다.")]
+    [SerializeField, Min(0f)] private float minHoldDuration = 0.2f;
     [Tooltip("각 메아리의 페이드아웃 시간은 이 값의 60~140% 범위에서 따로 정합니다.")]
     [SerializeField, Min(0f)] private float fadeOutDuration = 1f;
     [Tooltip("메아리 텍스트가 페이드인/페이드아웃할 때 화면 픽셀 기준으로 좌우로 얼마나 미끄러질지 결정합니다.")]
@@ -599,8 +601,9 @@ public class CanvasEcho : MonoBehaviour
     {
         echo.ElapsedTime = 0f;
         echo.FadeInDuration = Mathf.Max(0f, fadeInDuration);
-        float maxHold = Mathf.Max(0f, holdDuration);
-        echo.HoldDuration = Random.Range(Mathf.Min(0.2f, maxHold), maxHold);
+        float minHold = Mathf.Max(0f, minHoldDuration);
+        float maxHold = Mathf.Max(minHold, holdDuration);
+        echo.HoldDuration = Random.Range(minHold, maxHold);
         echo.FadeOutDuration = Mathf.Max(0f, fadeOutDuration) * Random.Range(0.6f, 1.4f);
 
         // 무작위 시간이 비슷해도 같은 순간에 끝나지 않도록 최소 간격을 확보합니다.
