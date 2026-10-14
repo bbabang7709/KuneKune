@@ -24,7 +24,7 @@ MonoBehaviour:
     volume: 0.3
   - soundID: Bird
     clip: {fileID: 8300000, guid: 6b6e76056c81df8469859f706c4a813e, type: 3}
-    volume: 0.3
+    volume: 0.2
   sfxList:
   - soundID: DoorOpen_Sliding
     clip: {fileID: 8300000, guid: c9acd8ec190d9b8439cd9f3bab5a60f0, type: 3}

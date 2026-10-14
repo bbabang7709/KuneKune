@@ -6839,6 +6839,7 @@ GameObject:
   - component: {fileID: 4732972992728915711}
   - component: {fileID: 4134967702620086181}
   - component: {fileID: 456143877939216995}
+  - component: {fileID: 8220000000000000201}
   m_Layer: 0
   m_Name: Girl
   m_TagString: Untagged
@@ -6910,7 +6911,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8569038882379057823, guid: 4db312cf3781257429433d04fa212551, type: 3}
+  m_Sprite: {fileID: 9174799488062244010, guid: b3f07e0d4ad80554f991d0a6d960ecd3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6955,6 +6956,7 @@ GameObject:
   - component: {fileID: 3422138289711201308}
   - component: {fileID: 230485471892540221}
   - component: {fileID: 482918255749195790}
+  - component: {fileID: 3130239683207929998}
   m_Layer: 0
   m_Name: SewingCutscene
   m_TagString: Untagged
@@ -7002,6 +7004,8 @@ PlayableDirector:
     value: {fileID: 1368980518821453061}
   - key: {fileID: 9010973976758133545, guid: fffe3a5a1d905834588cac0856cb11e8, type: 2}
     value: {fileID: 7892156511877672848}
+  - key: {fileID: 8220000000000000301, guid: fffe3a5a1d905834588cac0856cb11e8, type: 2}
+    value: {fileID: 482918255749195790}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &3422138289711201308
@@ -7035,6 +7039,14 @@ MonoBehaviour:
   useFadeInOut: 1
   cm: {fileID: 3710850988877185639}
   door: {fileID: 6319386260122442986}
+  girl: {fileID: 4906323422157105780}
+  gateClosedDialog: {fileID: 11400000, guid: 0fecf5d4dcc4ca84daa223598bef065d, type: 2}
+  encounterDialog: {fileID: 11400000, guid: e94b815b97aa22c4082e78b4f54dde46, type: 2}
+  lockedGateDialog: {fileID: 11400000, guid: efb45c3453ef4084596af6cfdb25c9d4, type: 2}
+  caughtDialog: {fileID: 11400000, guid: 97abeb969112cbb4e81fc691da63e36e, type: 2}
+  playerWalkTarget: {fileID: 8220000000000000402}
+  destinationMap: 15
+  destinationEntryID: flashback_0
 --- !u!114 &482918255749195790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7051,6 +7063,8 @@ MonoBehaviour:
     m_Signals:
     - {fileID: 11400000, guid: 3ceb1e57bc7a051408ad134036857127, type: 2}
     - {fileID: 11400000, guid: 906592220da1f334cb7861fa5ba90e2e, type: 2}
+    - {fileID: 11400000, guid: 23d58cd732114e52bd9b11f11e7a7854, type: 2}
+    - {fileID: 11400000, guid: c25868829f9b4378838dfe9a70ea5152, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -7080,6 +7094,46 @@ MonoBehaviour:
             m_StringArgument: "\uC774 \uCABD\uC73C\uB85C \uC640!"
             m_BoolArgument: 0
           m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 230485471892540221}
+          m_TargetAssemblyTypeName: SewingCutsceneController, Assembly-CSharp
+          m_MethodName: WalkPlayerToTarget
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument:
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 230485471892540221}
+          m_TargetAssemblyTypeName: SewingCutsceneController, Assembly-CSharp
+          m_MethodName: OpenGate
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument:
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &3130239683207929998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4908540429931569109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f74a03370dd2fd48afdcfd1d5284e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogTimelineController
 --- !u!1 &5004369191904384552
 GameObject:
   m_ObjectHideFlags: 0
@@ -11396,6 +11450,7 @@ Transform:
   m_Children:
   - {fileID: 172021971046959744}
   - {fileID: 3339965173512196122}
+  - {fileID: 8220000000000000402}
   m_Father: {fileID: 5004241712855271453}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5013566356275800425
@@ -14438,7 +14493,6 @@ MonoBehaviour:
   - {fileID: 4082003312503703105}
   - {fileID: 918387113294110225}
   kunekuneHeadPrefab: {fileID: 3549932041553112726, guid: 576d2d836b2946a47a85896f6b3a319a, type: 3}
-  classroomKey: {fileID: 8971055831166147574}
 --- !u!4 &7168217258894805001 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8322044217658669101, guid: ec3c2ade22b66954f97b1ecb1286af56, type: 3}
@@ -15587,6 +15641,7 @@ MonoBehaviour:
   beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
   afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
   notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  allDollPartsDialog: {fileID: 0}
   sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
   acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
   puzzleUIRoot: {fileID: 0}
@@ -15617,6 +15672,7 @@ MonoBehaviour:
   beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
   afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
   notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  allDollPartsDialog: {fileID: 0}
   sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
   acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
   puzzleUIRoot: {fileID: 0}
@@ -15642,6 +15698,7 @@ MonoBehaviour:
   beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
   afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
   notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  allDollPartsDialog: {fileID: 0}
   sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
   acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
   puzzleUIRoot: {fileID: 0}
@@ -15696,6 +15753,7 @@ MonoBehaviour:
   beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
   afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
   notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  allDollPartsDialog: {fileID: 0}
   sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
   acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
   puzzleUIRoot: {fileID: 0}
@@ -15750,6 +15808,7 @@ MonoBehaviour:
   beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
   afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
   notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  allDollPartsDialog: {fileID: 0}
   sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
   acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
   puzzleUIRoot: {fileID: 0}
@@ -15775,6 +15834,7 @@ MonoBehaviour:
   beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
   afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
   notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  allDollPartsDialog: {fileID: 0}
   sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
   acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
   puzzleUIRoot: {fileID: 0}
@@ -15811,6 +15871,7 @@ MonoBehaviour:
   beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
   afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
   notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  allDollPartsDialog: {fileID: 0}
   sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
   acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
   puzzleUIRoot: {fileID: 0}
@@ -15836,6 +15897,7 @@ MonoBehaviour:
   beforeDialog: {fileID: 11400000, guid: 9a8d453dc79920a43a8891be1220b8e7, type: 2}
   afterDialog: {fileID: 11400000, guid: b4a90604778ea3d489db2639247f205c, type: 2}
   notMyLockerDialog: {fileID: 11400000, guid: c316aad164b269145969e7b18592b602, type: 2}
+  allDollPartsDialog: {fileID: 0}
   sewingTools: {fileID: 11400000, guid: 9bc8bd2e72cf99742b3bb3239af64551, type: 2}
   acquireDialog: {fileID: 11400000, guid: faa5c7d8dce22bc47b92e5084a7cff27, type: 2}
   puzzleUIRoot: {fileID: 0}
@@ -16038,3 +16100,48 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4099087307697133821, guid: 8f1a6464d431b284385fa32c977e50fd, type: 3}
   m_PrefabInstance: {fileID: 9052128850811186320}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8220000000000000201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4906323422157105780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d7e052d7fd4a279d4c6f1feafed714, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::CutsceneFootstepEmitter
+  soundID: Footstep_Inside
+  cooldown: 0.2
+--- !u!1 &8220000000000000401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8220000000000000402}
+  m_Layer: 0
+  m_Name: PlayerWalkTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8220000000000000402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8220000000000000401}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9199554352671166400}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

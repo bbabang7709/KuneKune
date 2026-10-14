@@ -9,7 +9,28 @@ public class SaveManager : MonoBehaviour
     public static SaveManager Instance { get; private set; }
     public const string TrueEndingUnlockedFlag = "HasUnlockedTrueEnding";
 
-    public bool IsTrueEndingUnlocked => GetFlag(TrueEndingUnlockedFlag);
+    public bool IsTrueEndingUnlocked
+    {
+        get
+        {
+#if UNITY_EDITOR
+            if (_trueEndingChaseTestOwner != null)
+                return true;
+#endif
+            return GetFlag(TrueEndingUnlockedFlag);
+        }
+    }
+
+#if UNITY_EDITOR
+    // 테스트 통로가 씬 전환으로 파괴되면 기존 진엔딩 조건으로 돌아갑니다.
+    [System.NonSerialized] private Object _trueEndingChaseTestOwner;
+
+    public void EnableTrueEndingChaseTest(Object owner)
+    {
+        if (IsLoading || owner == null) return;
+        _trueEndingChaseTestOwner = owner;
+    }
+#endif
 
     public bool IsLoading { get; private set; }
 

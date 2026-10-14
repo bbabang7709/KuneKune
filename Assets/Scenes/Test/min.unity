@@ -443,7 +443,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameStartController
   screenFadeDuration: 1
   uiFadeDuration: 1
-  startWithTrueEndingPreview: 1
 --- !u!4 &162972609
 Transform:
   m_ObjectHideFlags: 0
@@ -6671,6 +6670,7 @@ MonoBehaviour:
   targetEntryPoint: {fileID: 638460506}
   canEnter: 1
   cantEnterDialog: {fileID: 0}
+  unlockTrueEndingForChaseTest: 1
 --- !u!4 &2025662143
 Transform:
   m_ObjectHideFlags: 0
@@ -7187,6 +7187,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2948278598789739297, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
+      propertyPath: moveSpeed
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 3022991992757690216, guid: 6c53b91435e595143b4a5089b0068d20, type: 3}
       propertyPath: promptUI
       value: 

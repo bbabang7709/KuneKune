@@ -211,6 +211,8 @@ public class WeakFloor : MonoBehaviour, IInteractable
             return;
 
         _state = EWeakFloorState.End;
-        HouseChase.Instance.BeginChase();
+        // 컨트롤러가 있으면 화면 복구와 컷씬 잠금 해제 후 추격을 시작합니다.
+        if (_fallCutsceneDirector == null || _fallCutsceneDirector.GetComponent<FallCutsceneController>() == null)
+            HouseChase.Instance?.BeginChase();
     }
 }
