@@ -19,6 +19,8 @@ public class TeleportTrigger : MapTransition
 
     private BoxCollider2D boxCollider;
 
+    public event System.Action<TeleportTrigger> PlayerEntered;
+
     public override bool CanKuneKuneUse => canEnter;
 
     void Awake()
@@ -55,6 +57,10 @@ public class TeleportTrigger : MapTransition
     {
         if (collision.CompareTag("Player"))
         {
+            // 맵 전환이 시작되기 전에 포털 도착 컷씬을 정리할 수 있게 알립니다.
+            if (canEnter && targetMap != null && targetEntryPoint != null && MapManager.Instance != null)
+                PlayerEntered?.Invoke(this);
+
 #if UNITY_EDITOR
             if (unlockTrueEndingForChaseTest && canEnter && targetMap != null && targetEntryPoint != null &&
                 targetMap.mapType == EMapType.Chase_Ricefield && MapManager.Instance != null &&

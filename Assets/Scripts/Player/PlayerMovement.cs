@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sprint Settings")]
     [SerializeField] private float sprintSpeed = 6f;
+    public float SprintingSpeed => sprintSpeed;
 
     [SerializeField] private float minStaminaToSprint = 20f;
 
