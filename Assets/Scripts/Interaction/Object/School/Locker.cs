@@ -7,6 +7,7 @@ public class Locker : MonoBehaviour, IInteractable
     [SerializeField] private DialogData beforeDialog;
     [SerializeField] private DialogData afterDialog;
     [SerializeField] private DialogData notMyLockerDialog;
+    [SerializeField] private DialogData allDollPartsDialog;
 
     [Header("Item")]
     [SerializeField] private ItemData sewingTools;
@@ -23,13 +24,35 @@ public class Locker : MonoBehaviour, IInteractable
     private bool hasSolved = false;
     private bool canOpen = false;
     private bool isPuzzleOpen = false;
+    private bool hasShownSewingHint;
+
+    private bool HasAllDollParts => InventoryManager.Instance != null &&
+        InventoryManager.Instance.HasKey("doll_head") &&
+        InventoryManager.Instance.HasKey("doll_arm") &&
+        InventoryManager.Instance.HasKey("doll_leg");
 
     private void Awake()
     {
+        if (allDollPartsDialog == null)
+            allDollPartsDialog = Resources.Load<DialogData>("Dialogs/School/Doll_Parts_Complete");
         if (puzzleUIRoot == null) return;
 
         puzzleManager = puzzleUIRoot.GetComponentInChildren<DollPuzzleManager>(true);
         puzzleUIRoot.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (!isMyLocker || hasSolved) return;
+        canOpen = HasAllDollParts;
+        if (!canOpen || hasShownSewingHint || allDollPartsDialog == null || DialogSystem.Instance == null ||
+            DialogSystem.Instance.IsDialogPlaying || Time.timeScale <= 0f ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading) ||
+            (CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying) ||
+            (ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked)) return;
+
+        hasShownSewingHint = true;
+        DialogSystem.Instance.PlayDialog(allDollPartsDialog);
     }
 
     private void OnEnable()
@@ -101,7 +124,7 @@ public class Locker : MonoBehaviour, IInteractable
 
     public void EnableOpen()
     {
-        canOpen = true;
+        canOpen = HasAllDollParts;
     }
 
     /// <summary>

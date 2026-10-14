@@ -41,6 +41,7 @@ public class Door : MapTransition, IInteractable
     private bool _isLockedByEvent;
 
     public bool LockDuringChase => _lockDuringChase;
+    public bool IsLocked => isLocked;
 
     void Awake()
     {
@@ -163,5 +164,12 @@ public class Door : MapTransition, IInteractable
     public void SetLockState(bool state)
     {
         isLocked = state;
+    }
+
+    /// <summary>맵 이동 없이 컷씬에서 문을 열고 닫습니다.</summary>
+    public void SetCutsceneOpen(bool isOpen)
+    {
+        if (sr == null) sr = GetComponent<SpriteRenderer>();
+        if (sr != null) sr.sprite = isOpen && openSprite != null ? openSprite : _closedSprite;
     }
 }

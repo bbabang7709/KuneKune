@@ -17,6 +17,8 @@ public class FloatingDialog : MonoBehaviour
 
     private void Start()
     {
+        if (dialogText == null) dialogText = GetComponentInChildren<TMP_Text>(true);
+        if (dialogText == null) return;
         Color c = dialogText.color;
         c.a = 0f;
         dialogText.color = c;    

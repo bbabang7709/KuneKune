@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Follow_Girl_1
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "\uC5B4\uB5A4 \uC18C\uB140\uAC00 \uB530\uB77C\uC624\uB77C\uB294 \uC190\uC9D3\uC744
-    \uD558\uACE0 \uC788\uB2E4."
+  - "어린 소녀가 따라오라는 손짓을 하고 있다."
