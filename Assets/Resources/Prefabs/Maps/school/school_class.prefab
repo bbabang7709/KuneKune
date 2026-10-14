@@ -918,7 +918,7 @@ GameObject:
   - component: {fileID: 7395216974666461968}
   - component: {fileID: 8481150447385879529}
   m_Layer: 0
-  m_Name: broomstick
+  m_Name: broomstick_kunekune_0
   m_TagString: KunekuneProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
