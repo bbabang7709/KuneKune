@@ -301,7 +301,7 @@ MonoBehaviour:
   _lockDuringChase: 0
   dialogWhenChase: {fileID: 0}
   openSprite: {fileID: 0}
-  openSoundID: DoorOpen
+  openSoundID: Stairs
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!1 &134782866131453840
@@ -6943,6 +6943,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8220000000000000201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4906323422157105780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d7e052d7fd4a279d4c6f1feafed714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CutsceneFootstepEmitter
+  soundID: Footstep_Inside
+  cooldown: 0.2
 --- !u!1 &4908540429931569109
 GameObject:
   m_ObjectHideFlags: 0
@@ -6953,7 +6967,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7673300305583511177}
   - component: {fileID: 2918381588503660069}
-  - component: {fileID: 3422138289711201308}
   - component: {fileID: 230485471892540221}
   - component: {fileID: 482918255749195790}
   - component: {fileID: 3130239683207929998}
@@ -7008,21 +7021,6 @@ PlayableDirector:
     value: {fileID: 482918255749195790}
   m_ExposedReferences:
     m_References: []
---- !u!114 &3422138289711201308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4908540429931569109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecb1251382057db4190fcf71e66e1be0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FloatingDialog
-  dialogText: {fileID: 0}
-  fadeDuration: 0.5
-  defaultDisplayTime: 2
 --- !u!114 &230485471892540221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7044,6 +7042,7 @@ MonoBehaviour:
   encounterDialog: {fileID: 11400000, guid: e94b815b97aa22c4082e78b4f54dde46, type: 2}
   lockedGateDialog: {fileID: 11400000, guid: efb45c3453ef4084596af6cfdb25c9d4, type: 2}
   caughtDialog: {fileID: 11400000, guid: 97abeb969112cbb4e81fc691da63e36e, type: 2}
+  firstVisitSanDialog: {fileID: 11400000, guid: 7aaea3132db46eb42acda90e5115f122, type: 2}
   playerWalkTarget: {fileID: 8220000000000000402}
   destinationMap: 15
   destinationEntryID: flashback_0
@@ -7068,7 +7067,7 @@ MonoBehaviour:
     m_Events:
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3422138289711201308}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: FloatingDialog, Assembly-CSharp
           m_MethodName: Speak
           m_Mode: 5
@@ -7082,7 +7081,7 @@ MonoBehaviour:
           m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3422138289711201308}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: FloatingDialog, Assembly-CSharp
           m_MethodName: Speak
           m_Mode: 5
@@ -7105,7 +7104,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument:
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
     - m_PersistentCalls:
@@ -7119,7 +7118,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument:
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!114 &3130239683207929998
@@ -10056,7 +10055,7 @@ MonoBehaviour:
   _lockDuringChase: 0
   dialogWhenChase: {fileID: 0}
   openSprite: {fileID: 0}
-  openSoundID: DoorOpen
+  openSoundID: Stairs
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!1 &6857221807513198737
@@ -12671,6 +12670,37 @@ MonoBehaviour:
   - {fileID: 6328376250113070697, guid: 2029356b165469448b360929846689ee, type: 3}
   - {fileID: -39295182939907041, guid: 834e5a087d6a0f248a5bb5b3fc7f2fec, type: 3}
   rotationDelay: 1
+--- !u!1 &8220000000000000401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8220000000000000402}
+  m_Layer: 0
+  m_Name: PlayerWalkTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8220000000000000402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8220000000000000401}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9199554352671166400}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8243972843211219232
 GameObject:
   m_ObjectHideFlags: 0
@@ -16100,48 +16130,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4099087307697133821, guid: 8f1a6464d431b284385fa32c977e50fd, type: 3}
   m_PrefabInstance: {fileID: 9052128850811186320}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8220000000000000201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4906323422157105780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48d7e052d7fd4a279d4c6f1feafed714, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::CutsceneFootstepEmitter
-  soundID: Footstep_Inside
-  cooldown: 0.2
---- !u!1 &8220000000000000401
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8220000000000000402}
-  m_Layer: 0
-  m_Name: PlayerWalkTarget
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8220000000000000402
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8220000000000000401}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9199554352671166400}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

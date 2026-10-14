@@ -13,16 +13,9 @@ public class FallCutsceneController : CutsceneControllerBase
         if (doorBanging != null) doorBanging.StopBanging();
     }
 
-    protected override void OnCutsceneFinished()
+    protected override void OnCutsceneEndSetup()
     {
-        if (HouseChase.Instance != null)
-        {
-            HouseChase.Instance.BeginChase();
-        }
-        else if (MapManager.Instance != null && escapeEvent != null)
-        {
-            MapManager.Instance.ChangeMap(EMapType.House_Hallway, "houseChase_playerFallPosition", () => escapeEvent.StartEscapeSequence());
-        }
+        MapManager.Instance.ChangeMap(EMapType.House_Hallway, "houseChase_playerFallPosition", () => escapeEvent.StartEscapeSequence());
     }
 
     public void FadeOut(float duration)

@@ -18,6 +18,9 @@ public class SewingCutsceneController : CutsceneControllerBase
     [SerializeField] private DialogData lockedGateDialog;
     [SerializeField] private DialogData caughtDialog;
 
+    [Header("산에 도착했을 때의 대사")]
+    [SerializeField] private DialogData firstVisitSanDialog;
+
     [Header("연출 이동")]
     [SerializeField] private Transform playerWalkTarget;
     [SerializeField] private EMapType destinationMap = EMapType.Flashback;
@@ -209,8 +212,10 @@ public class SewingCutsceneController : CutsceneControllerBase
         MapManager.Instance.Player.GetComponent<PlayerAppearance>()?.SetAge(EPlayerAge.Child);
         _playerMovement?.SetCurrentHeat(0f, true);
         BackgroundManager.Instance?.SetBackgroundForChapter(EChapter.Chapter4_Flashback);
-        yield return UIManager.Instance?.FadeIn(0.5f);
-        yield return UIManager.Instance?.FadeInGameplayUI(0.5f);
+
+        yield return new WaitForSeconds(4f);
+        yield return UIManager.Instance?.FadeIn(1.5f);
+        yield return UIManager.Instance?.FadeInGameplayUI(1f);
 
         // 에디터 미리보기는 실제 플레이의 체크포인트를 덮어쓰지 않습니다.
         if (!_isEditorPreview) SaveManager.Instance?.SaveChapterCheckpoint(EChapter.Chapter4_Flashback);
@@ -219,6 +224,9 @@ public class SewingCutsceneController : CutsceneControllerBase
         _isEditorPreview = false;
         ReleaseControls();
         CompleteCutscene();
+
+        if (DialogSystem.Instance != null && firstVisitSanDialog != null) 
+            DialogSystem.Instance.PlayDialog(firstVisitSanDialog);
     }
 
     /// <summary>Timeline 시그널에서 호출합니다. 학생의 걷기 속도로 지정된 목표까지 이동합니다.</summary>
@@ -265,7 +273,7 @@ public class SewingCutsceneController : CutsceneControllerBase
     private void SpawnEventKuneKune()
     {
         GameObject player = MapManager.Instance.Player;
-        Vector3 position = player.transform.position + Vector3.left * 3f;
+        Vector3 position = player.transform.position + Vector3.left * 6f;
         Collider2D playerCollider = player.GetComponent<Collider2D>();
         if (playerCollider != null) position.y = playerCollider.bounds.min.y;
         _eventKuneKune = MapManager.Instance.KuneKune;

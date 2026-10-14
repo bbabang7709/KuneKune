@@ -92,6 +92,8 @@ public class UIManager : MonoBehaviour
 
     private Coroutine _fadeCoroutine;
     private Coroutine _gameplayUIFadeCoroutine;
+    private int _fadeId;
+    private int _activeFadeId = -1;
     private Transform _dialogFadeLayer;
     private Transform _dialogFadeParent;
     private int _dialogFadeSiblingIndex;
@@ -403,6 +405,7 @@ public class UIManager : MonoBehaviour
             StopCoroutine(_fadeCoroutine);
             _fadeCoroutine = null;
         }
+        _activeFadeId = -1;
 
         fadeCanvasGroup.gameObject.SetActive(true);
         fadeCanvasGroup.alpha = alpha;
@@ -482,9 +485,7 @@ public class UIManager : MonoBehaviour
     /// <param name="duration">페이드 인에 걸리는 시간(초).</param>
     public IEnumerator FadeIn(float duration)
     {
-        if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
-        _fadeCoroutine = StartCoroutine(FadeRoutine(0f, duration));
-        yield return _fadeCoroutine;
+        return RunFade(0f, duration);
     }
 
     /// <summary>
@@ -493,9 +494,47 @@ public class UIManager : MonoBehaviour
     /// <param name="duration">페이드 아웃에 걸리는 시간(초).</param>
     public IEnumerator FadeOut(float duration)
     {
+        return RunFade(1f, duration);
+    }
+
+    /// <summary>
+    /// 페이드를 UIManager 위에서 실행하고 끝날 때까지 기다립니다.
+    /// 다른 페이드가 끼어들어 코루틴이 중단돼도 대기하던 쪽이 멈추지 않습니다.
+    /// </summary>
+    private IEnumerator RunFade(float targetAlpha, float duration)
+    {
+        if (fadeCanvasGroup == null) yield break;
+
         if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
-        _fadeCoroutine = StartCoroutine(FadeRoutine(1f, duration));
-        yield return _fadeCoroutine;
+        _fadeCoroutine = null;
+
+        // 중단된 Coroutine은 영원히 끝나지 않으므로 페이드 번호로 완료/중단을 판단합니다.
+        int id = ++_fadeId;
+        _activeFadeId = id;
+        Coroutine routine = StartCoroutine(FadeRoutine(targetAlpha, duration, id));
+        if (_activeFadeId == id)
+            _fadeCoroutine = routine;
+
+        while (_activeFadeId == id)
+            yield return null;
+    }
+
+    /// <summary>
+    /// 연출을 수행하던 코루틴이 도중에 중단되어 화면이 어두운 채로 남지 않도록 복구합니다.
+    /// 세이브 로드 중에는 SaveManager가 페이드를 직접 관리하므로 아무것도 하지 않습니다.
+    /// </summary>
+    public void EnsureFadedIn(float duration = 0.5f)
+    {
+        if (fadeCanvasGroup == null || !gameObject.activeInHierarchy) return;
+        if (SaveManager.Instance != null && SaveManager.Instance.IsLoading) return;
+        if (fadeCanvasGroup.alpha <= 0f && _fadeCoroutine == null) return;
+
+        if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
+        int id = ++_fadeId;
+        _activeFadeId = id;
+        Coroutine routine = StartCoroutine(FadeRoutine(0f, duration, id));
+        if (_activeFadeId == id)
+            _fadeCoroutine = routine;
     }
 
     /// <summary>
@@ -555,9 +594,13 @@ public class UIManager : MonoBehaviour
     /// <param name="startAlpha">시작 알파 값.</param>
     /// <param name="endAlpha">목표 알파 값.</param>
     /// <param name="duration">진행 시간(초).</param>
-    private IEnumerator FadeRoutine(float targetAlpha, float duration)
+    private IEnumerator FadeRoutine(float targetAlpha, float duration, int id)
     {
-        if (fadeCanvasGroup == null) yield break;
+        if (fadeCanvasGroup == null)
+        {
+            if (_activeFadeId == id) _activeFadeId = -1;
+            yield break;
+        }
 
         fadeCanvasGroup.gameObject.SetActive(true);
         fadeCanvasGroup.blocksRaycasts = true;
@@ -583,7 +626,17 @@ public class UIManager : MonoBehaviour
             RestoreDialogFadeOrder();
         }
 
-        _fadeCoroutine = null;
+        if (_activeFadeId == id)
+        {
+            _activeFadeId = -1;
+            _fadeCoroutine = null;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     private void InitializeLetterbox()

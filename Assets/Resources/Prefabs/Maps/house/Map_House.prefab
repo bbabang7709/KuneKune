@@ -399,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 318476187770845194}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.7398615, y: -3.41, z: 0}
+  m_LocalPosition: {x: 9.14, y: -3.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5890,7 +5890,7 @@ MonoBehaviour:
   _lockDuringChase: 1
   dialogWhenChase: {fileID: 11400000, guid: 85a427d162adcb044b137ae0c021a8e0, type: 2}
   openSprite: {fileID: 0}
-  openSoundID: DoorOpen
+  openSoundID: Stairs
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!1 &6184518799605427047
@@ -6752,6 +6752,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  _doorLight: {fileID: 0}
+  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 45cbaab58808233498d85d091f53adbf, type: 2}
   uniquePickupID: 
   acquireDialog: {fileID: 11400000, guid: ec9ff3b5c6bf7c04184316f1ef742c22, type: 2}
@@ -7715,7 +7717,7 @@ MonoBehaviour:
   _lockDuringChase: 0
   dialogWhenChase: {fileID: 0}
   openSprite: {fileID: 0}
-  openSoundID: DoorOpen
+  openSoundID: Stairs
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!1 &8141688297647086559
@@ -8397,6 +8399,7 @@ MonoBehaviour:
   - {fileID: 3024298534365240039}
   - {fileID: 8404818835348205960}
   - {fileID: 3897060821844299798}
+  _kuneKuneSpawnPoint: {fileID: 0}
   _player: {fileID: 0}
   caughtDialog: {fileID: 11400000, guid: 73aba763d021575459070000cc9945f6, type: 2}
   firstVisitSchoolDialog: {fileID: 11400000, guid: dc0819650199dcc4490df8706b9d5e38, type: 2}

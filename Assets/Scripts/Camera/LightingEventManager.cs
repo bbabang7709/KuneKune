@@ -25,16 +25,41 @@ public class LightingEventManager : MonoBehaviour
 
         Instance = this;
 
+        FindGlobalLight();
+    }
+
+    private void FindGlobalLight()
+    {
         _globalLight = FindObjectsByType<UnityEngine.Rendering.Universal.Light2D>(FindObjectsSortMode.None)
             .FirstOrDefault(light => light.lightType == UnityEngine.Rendering.Universal.Light2D.LightType.Global);
     }
 
+    /// <summary>Awake 시점에 글로벌 라이트가 없었다면 사용 직전에 다시 찾습니다.</summary>
+    private bool EnsureGlobalLight()
+    {
+        if (_globalLight == null) FindGlobalLight();
+        return _globalLight != null;
+    }
+
     public void FadeGlobalLight(Color targetColor, float targetIntensity, float duration = 1.0f)
     {
-        if (_globalLight == null) return;
+        if (!EnsureGlobalLight()) return;
 
         if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
         _fadeCoroutine = StartCoroutine(CoFadeGlobalLight(targetColor, targetIntensity, duration));
+    }
+
+    /// <summary>글로벌 라이트의 색상만 즉시 바꿉니다. 밝기 코루틴에는 영향을 주지 않습니다.</summary>
+    public void SetGlobalLightColor(Color color)
+    {
+        if (_globalLight == null) return;
+
+        if (_fadeCoroutine != null)
+        {
+            StopCoroutine(_fadeCoroutine);
+            _fadeCoroutine = null;
+        }
+        _globalLight.color = color;
     }
 
     public IEnumerator CoFadeGlobalLight(Color targetColor, float targetIntensity, float duration)
@@ -45,7 +70,8 @@ public class LightingEventManager : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            // 맵 전환 중 timeScale이 0이어도 배경 조명이 멈추지 않게 합니다.
+            elapsed += Time.unscaledDeltaTime;
             float t = elapsed / duration;
 
             _globalLight.color = Color.Lerp(startColor, targetColor, t);

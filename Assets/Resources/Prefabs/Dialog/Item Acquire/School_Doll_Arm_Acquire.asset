@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: School_Doll_Arm_Acquire
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "<color=orange>\uC778\uD615\uC758 \uB2E4\uB9AC</color>\uB97C \uD68D\uB4DD\uD588\uB2E4."
+  - "<color=orange>\uC778\uD615\uC758 \uD314</color>\uC744 \uD68D\uB4DD\uD588\uB2E4."

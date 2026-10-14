@@ -59,7 +59,7 @@ public class HouseChase : MonoBehaviour
                 return;
 
             Physics2D.SyncTransforms();
-            MapManager.Instance.KuneKune.Spawn(_kunekuneFallPosition.position, true);
+            // 쿠네쿠네는 타이머가 끝난 뒤에 등장합니다.
             _escapeSequence.StartEscapeSequence();
 
             Debug.Log("[HouseChaseController] 집 안 추격을 시작했습니다.", this);

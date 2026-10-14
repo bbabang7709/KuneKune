@@ -44,6 +44,32 @@ public class BackgroundManager : MonoBehaviour
         Instance = this;
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
+    private float _fittedOrthoSize;
+    private float _fittedAspect;
+    private Sprite _fittedSprite;
+
+    private void LateUpdate()
+    {
+        // 씬 재로드나 카메라 전환 직후에는 카메라 크기가 바뀔 수 있으므로 하늘을 계속 화면에 맞춥니다.
+        if (skyRenderer == null || skyRenderer.sprite == null) return;
+
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        if (Mathf.Approximately(_fittedOrthoSize, cam.orthographicSize) &&
+            Mathf.Approximately(_fittedAspect, cam.aspect) &&
+            _fittedSprite == skyRenderer.sprite)
+            return;
+
+        ScaleSkyToFitCamera();
+    }
+
     public void SetBackgroundForChapter(EChapter currentChapter) 
     {
         var bgData = backgroundDatabase.Find(x => x.chapter == currentChapter);
@@ -107,5 +133,11 @@ public class BackgroundManager : MonoBehaviour
 
         // 화면 밖으로 살짝 튀어나가게 여백을 주고 싶다면 (예: 카메라 흔들림 방지) scaleX, Y에 1.05f 정도를 곱해주면 됩니다.
         skyRenderer.transform.localScale = new Vector3(scaleX, scaleY, 1f);
+
+        _fittedOrthoSize = cam.orthographicSize;
+        _fittedAspect = cam.aspect;
+        _fittedSprite = skyRenderer.sprite;
+
+        skyRenderer.GetComponent<InfiniteParallax>()?.RefreshLayout();
     }
 }

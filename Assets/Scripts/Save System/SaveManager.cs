@@ -105,13 +105,15 @@ public class SaveManager : MonoBehaviour
 
     public void Load(bool skipFadeOut = false)
     {
+        if (IsLoading) return;
+
         if (!HasSaveFile())
         {
             Debug.LogWarning("[SaveManager] 불러올 세이브 파일이 없습니다.");
-            return;
-        }
 
-        if (IsLoading) return;
+            // 사망 연출처럼 이미 암전된 상태로 호출됐다면 씬을 다시 불러와 암전에서 빠져나옵니다.
+            if (!skipFadeOut) return;
+        }
 
         Time.timeScale = 1f;
         StartCoroutine(LoadRoutine(skipFadeOut));
@@ -126,6 +128,9 @@ public class SaveManager : MonoBehaviour
             ControlLockManager.Instance.AddInputLock(this);
             ControlLockManager.Instance.AddMovementLock(this);
         }
+
+        // 암전과 씬 재로드 동안 쿠네쿠네가 플레이어를 덮치지 못하게 먼저 치웁니다.
+        MapManager.Instance?.KuneKune?.Despawn();
 
         if (!skipFadeOut && UIManager.Instance != null) yield return UIManager.Instance.FadeOut(1.0f);
 
@@ -156,6 +161,9 @@ public class SaveManager : MonoBehaviour
 
         try
         {
+            if (!HasSaveFile())
+                throw new FileNotFoundException("세이브 파일이 없어 씬만 다시 불러옵니다.", SavePath);
+
             string json = File.ReadAllText(SavePath);
             _currentSaveData = JsonUtility.FromJson<SaveData>(json);
 
@@ -175,17 +183,33 @@ public class SaveManager : MonoBehaviour
             Debug.LogError($"[SaveManager] 세이브 로드 중 치명적 에러 발생!!!! 코루틴 즉사를 방지했습니다.\n {e}");
         }
         
-        if (BackgroundManager.Instance != null)
-            BackgroundManager.Instance.SetBackgroundForChapter(_currentSaveData.currentChapter);
+        try
+        {
+            if (BackgroundManager.Instance != null)
+                BackgroundManager.Instance.SetBackgroundForChapter(_currentSaveData.currentChapter);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"[SaveManager] 배경 복원 중 에러가 발생했습니다.{e}");
+        }
 
         yield return new WaitForSecondsRealtime(1.0f);
 
-        if (UIManager.Instance != null && UIManager.Instance.gameObject.activeInHierarchy) 
+        // 어떤 경우에도 암전 상태로 남지 않도록 페이드 인을 보장합니다.
+        if (UIManager.Instance != null)
         {
-            UIManager.Instance.StartCoroutine(UIManager.Instance.FadeIn(0.5f));
-            UIManager.Instance.StartCoroutine(UIManager.Instance.FadeInGameplayUI(0.5f));
+            if (UIManager.Instance.gameObject.activeInHierarchy)
+            {
+                UIManager.Instance.StartCoroutine(UIManager.Instance.FadeIn(0.5f));
+                UIManager.Instance.StartCoroutine(UIManager.Instance.FadeInGameplayUI(0.5f));
 
-            yield return new WaitForSecondsRealtime(1f);
+                yield return new WaitForSecondsRealtime(1f);
+            }
+            else
+            {
+                UIManager.Instance.SetFadeAlpha(0f);
+                UIManager.Instance.SetGameplayUIAlpha(1f);
+            }
         }
 
         if (ControlLockManager.Instance != null)

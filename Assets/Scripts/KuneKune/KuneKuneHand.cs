@@ -439,6 +439,7 @@ public class KuneKuneHand : MonoBehaviour
     private IEnumerator GameOverSequence()
     {
         Debug.Log("손이 끝까지 내려와 게임 오버되었습니다.", this);
+        _isGameOverSequence = true;
         ControlLockManager.Instance?.AddInputLock(this);
         ControlLockManager.Instance?.AddMovementLock(this);
 
@@ -459,10 +460,20 @@ public class KuneKuneHand : MonoBehaviour
             yield return _coFlicker;
 
         SaveManager.Instance?.Load(true);
+        _isGameOverSequence = false;
     }
+
+    private bool _isGameOverSequence;
 
     private void OnDisable()
     {
+        // 게임 오버 연출 중 비활성화되면 재시작이 누락되어 암전 상태로 남습니다.
+        if (_isGameOverSequence)
+        {
+            _isGameOverSequence = false;
+            SaveManager.Instance?.Load(true);
+        }
+
         _door?.SetEventLocked(false);
         _playerMovement?.SetHeatIncreaseRateOverride(null);
         _handScratchSource?.Stop();

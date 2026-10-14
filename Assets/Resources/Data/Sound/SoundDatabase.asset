@@ -95,3 +95,9 @@ MonoBehaviour:
   - soundID: Hit
     clip: {fileID: 8300000, guid: ecc2100816c16fc42a1cc520dc12d4af, type: 3}
     volume: 1
+  - soundID: Stairs
+    clip: {fileID: 8300000, guid: 2d2361bd6a5cc5347a3edda7c1350deb, type: 3}
+    volume: 0.8
+  - soundID: Rope
+    clip: {fileID: 8300000, guid: c75b8a06a41bf854c97f78d0315aca6f, type: 3}
+    volume: 0.8

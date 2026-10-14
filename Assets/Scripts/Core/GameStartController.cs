@@ -21,7 +21,13 @@ public class GameStartController : MonoBehaviour
 
     private IEnumerator Start()
     {
-        if (StartMode == EGameStartMode.None) yield break;
+        if (StartMode == EGameStartMode.None)
+        {
+            // 세이브 로드로 씬만 다시 불러온 경우는 SaveManager가 페이드 인을 맡습니다.
+            // 그 외(타이틀에서 재진입 등)는 암전에서 영원히 멈추지 않도록 새 게임으로 시작합니다.
+            if (SaveManager.Instance != null && SaveManager.Instance.IsLoading) yield break;
+            StartMode = EGameStartMode.NewGame;
+        }
 
         if (UIManager.Instance != null)
         {

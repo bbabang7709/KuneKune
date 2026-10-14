@@ -55,6 +55,27 @@ public class InfiniteParallax : MonoBehaviour
         cloneSr.sortingOrder = mySr.sortingOrder;
     }
 
+    /// <summary>
+    /// 스프라이트나 스케일이 바뀐 뒤 타일 길이와 복제본 위치를 현재 크기에 맞춥니다.
+    /// </summary>
+    public void RefreshLayout()
+    {
+        if (mySr == null) mySr = GetComponent<SpriteRenderer>();
+        if (mySr == null || mySr.sprite == null) return;
+
+        float localWidth = mySr.sprite.bounds.size.x;
+        spriteLength = localWidth * Mathf.Abs(transform.lossyScale.x);
+
+        foreach (Transform child in transform)
+        {
+            if (!child.name.Contains("_Clone")) continue;
+
+            // 복제본은 부모 스케일을 그대로 물려받으므로 로컬 폭만큼 떨어뜨리면 이음새가 맞습니다.
+            float direction = Mathf.Sign(child.localPosition.x == 0f ? 1f : child.localPosition.x);
+            child.localPosition = new Vector3(localWidth * direction, 0f, 0f);
+        }
+    }
+
     public void ChangeSprite(Sprite newSprite)
     {
         if (mySr == null) mySr = GetComponent<SpriteRenderer>();
@@ -71,6 +92,8 @@ public class InfiniteParallax : MonoBehaviour
                 }
             }
         }
+
+        RefreshLayout();
     }
 
     private void LateUpdate()
