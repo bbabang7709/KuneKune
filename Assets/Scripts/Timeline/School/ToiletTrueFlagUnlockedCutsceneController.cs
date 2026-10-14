@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.Timeline;
+#if UNITY_EDITOR
+using UnityEngine.InputSystem;
+#endif
 
 [RequireComponent(typeof(CutscenePlayerSwapper))]
 public class ToiletTrueFlagUnlockedCutsceneController : CutsceneControllerBase
@@ -38,6 +41,32 @@ public class ToiletTrueFlagUnlockedCutsceneController : CutsceneControllerBase
         if (_player == null && _kuneKune != null)
             _player = _kuneKune.Find("Player");
     }
+
+#if UNITY_EDITOR
+    private void LateUpdate()
+    {
+        if (Keyboard.current == null || !Keyboard.current.tKey.wasPressedThisFrame ||
+            IsCutsceneRunning || Time.timeScale <= 0f ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading) ||
+            (CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying) ||
+            (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) ||
+            (ControlLockManager.Instance != null &&
+                (ControlLockManager.Instance.IsInputLocked || ControlLockManager.Instance.IsMovementLocked)))
+            return;
+
+        // 에디터에서는 선행 이벤트와 1회 재생 제한 없이 컷씬을 확인합니다.
+        ResolveActors();
+        if (!BindActors()) return;
+
+        HoldControls();
+        _sourceCutscene?.StopKuneKune();
+        _sourceCutscene?.PauseKuneKuneAnimation();
+        _sourceCutscene?.CompleteTrueFlagInteraction();
+        _kuneKune.gameObject.SetActive(true);
+        hasPlayed = false;
+        PlayCutscene();
+    }
+#endif
 
     public bool TryPlay(ToiletTrueFlagCutsceneController sourceCutscene)
     {
