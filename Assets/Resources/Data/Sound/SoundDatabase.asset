@@ -104,3 +104,6 @@ MonoBehaviour:
   - soundID: handkerchief
     clip: {fileID: 8300000, guid: b0df54e676ed959418005fa954ff5e9c, type: 3}
     volume: 1
+  - soundID: mirrorHand
+    clip: {fileID: 8300000, guid: 41e69aa8597538541abad5c090b7d185, type: 3}
+    volume: 1

@@ -7,22 +7,16 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
     [Tooltip("청소를 끝내기 위해 F 키를 누르고 있어야 하는 시간입니다.")]
     [Min(0f)] [SerializeField] private float _cleaningDuration = 3f;
 
-    [Header("청소 연출")]
-    [Tooltip("청소하는 동안 좌우로 움직이는 거리입니다.")]
-    [Min(0f)] [SerializeField] private float _shakeDistance = 0.05f;
-
-    [Tooltip("청소 구간이 좌우로 움직이는 빠르기입니다.")]
-    [Min(0f)] [SerializeField] private float _shakeSpeed = 12f;
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _collider;
 
+    [Header("청소 연출")]
     [Tooltip("청소를 진행하는 동안 발생시킬 파티클입니다.")]
     [SerializeField] private ParticleSystem dustEffect;
 
     private bool _isCleaned;
     private float _cleaningTimer;
     private float _initialAlpha;
-    private Vector3 _initialLocalPosition;
 
     /// <summary>
     /// 청소를 끝내기 위해 F 키를 누르고 있어야 하는 시간입니다.
@@ -40,7 +34,6 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _spriteRenderer.sortingLayerName = "Foreground";
         _initialAlpha = _spriteRenderer.color.a;
-        _initialLocalPosition = transform.localPosition;
 
         _collider = GetComponent<BoxCollider2D>();
         _collider.isTrigger = true;
@@ -67,7 +60,6 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
 
         // 남은 청소 지점의 모습은 유지하고 상호작용만 끕니다.
         _isCleaned = true;
-        ResetShakePosition();
         _collider.enabled = false;
         enabled = false;
     }
@@ -85,7 +77,6 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
 
         _cleaningTimer = Mathf.Min(_cleaningTimer + Time.deltaTime, _cleaningDuration);
         UpdateCleaningVisual();
-        UpdateCleaningShake();
 
         if (HoldProgress >= 1f)
             CompleteCleaning();
@@ -94,7 +85,6 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
     public void OnInteractReleased()
     {
         // F 키를 놓아도 청소 시간과 투명도를 그대로 유지합니다.
-        ResetShakePosition();
         dustEffect.Stop();
     }
 
@@ -108,27 +98,12 @@ public class CleaningSpot : QuestObjective, IHoldInteractable
         _spriteRenderer.color = color;
     }
 
-    /// <summary>
-    /// 청소하는 동안 원래 위치를 중심으로 좌우로 작게 움직입니다.
-    /// </summary>
-    private void UpdateCleaningShake()
-    {
-        float horizontalOffset = Mathf.Sin(Time.time * _shakeSpeed) * _shakeDistance;
-        transform.localPosition = _initialLocalPosition + Vector3.right * horizontalOffset;
-    }
-
-    private void ResetShakePosition()
-    {
-        transform.localPosition = _initialLocalPosition;
-    }
-
     private void CompleteCleaning()
     {
         if (TryReportCompleted() == false)
             return;
 
         _isCleaned = true;
-        ResetShakePosition();
         dustEffect.Stop();
 
         // 청소가 끝난 지점을 화면에서 숨깁니다.
