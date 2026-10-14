@@ -8593,7 +8593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
       propertyPath: holdDuration
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
       propertyPath: targetCanvas
@@ -8601,7 +8601,7 @@ PrefabInstance:
       objectReference: {fileID: 2156444603922970853}
     - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
       propertyPath: echoCountRange.y
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
       propertyPath: phrases.Array.size
@@ -8609,7 +8609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
       propertyPath: screenPaddingRatio
-      value: 0.15
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
       propertyPath: excludedUI.Array.size
@@ -8814,7 +8814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
       propertyPath: holdDuration
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
       propertyPath: targetCanvas

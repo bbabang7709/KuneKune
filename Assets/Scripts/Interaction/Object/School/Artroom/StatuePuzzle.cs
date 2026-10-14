@@ -31,6 +31,10 @@ public class StatuePuzzle : MonoBehaviour
     [SerializeField] private SpriteRenderer[] portraits = new SpriteRenderer[4];
     [SerializeField] private Sprite[] originalSprites = new Sprite[4];
 
+    [Header("정전 후 화장실 조명")]
+    [SerializeField] private GameObject _doorLight;
+    [SerializeField] private GameObject _toiletLight;
+
     [Tooltip("진엔딩")]
     [SerializeField] private Light2D spotLight;
     [SerializeField] private GameObject item;
@@ -129,6 +133,9 @@ public class StatuePuzzle : MonoBehaviour
         yield return new WaitForSeconds(1f);
         LightingEventManager.Instance?.SetBlackout(fadeIntensity, 0.2f);
         yield return new WaitForSeconds(1f);
+
+        if (_doorLight != null) _doorLight.SetActive(true);
+        if (_toiletLight != null) _toiletLight.SetActive(true);
 
         footprintSequence.PlayFootprintSequence();
         if (playerLight != null) playerLight.TurnOn();

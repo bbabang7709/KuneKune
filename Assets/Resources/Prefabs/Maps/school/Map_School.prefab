@@ -455,6 +455,8 @@ MonoBehaviour:
   - {fileID: 4325092901798357145, guid: dce1ffa489086934d824a77813499340, type: 3}
   - {fileID: -4584343221979975397, guid: dce1ffa489086934d824a77813499340, type: 3}
   - {fileID: 4653342854108514253, guid: dce1ffa489086934d824a77813499340, type: 3}
+  _doorLight: {fileID: 5399348227702931390}
+  _toiletLight: {fileID: 8102380079917558857}
   spotLight: {fileID: 3944526223169598098}
   item: {fileID: 9159426968717172477}
 --- !u!1 &201522873667219632
@@ -3454,8 +3456,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  _doorLight: {fileID: 0}
-  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 6a9637fba730bf14a920f4caee999f9e, type: 2}
   uniquePickupID: key_doll_leg
   acquireDialog: {fileID: 11400000, guid: e7e94924e702f4749992d433155372e5, type: 2}
@@ -8983,8 +8983,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  _doorLight: {fileID: 0}
-  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 0222b2bdb1ee40245a4f910da704ead5, type: 2}
   uniquePickupID: 
   acquireDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
@@ -13525,8 +13523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  _doorLight: {fileID: 0}
-  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 0222b2bdb1ee40245a4f910da704ead5, type: 2}
   uniquePickupID: 
   acquireDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
@@ -13975,8 +13971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  _doorLight: {fileID: 5399348227702931390}
-  _toiletLight: {fileID: 8102380079917558857}
   itemData: {fileID: 11400000, guid: 06cb5b8bc2a86834a8bf2ebf1779f5d5, type: 2}
   uniquePickupID: hanky
   acquireDialog: {fileID: 11400000, guid: a776cd780fe8530418541dc6d8f03726, type: 2}
@@ -14086,6 +14080,10 @@ PrefabInstance:
       propertyPath: BoundingShape2D
       value: 
       objectReference: {fileID: 6276129656822671601}
+    - target: {fileID: 8798366791721109377, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8919649905412007303, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}
       propertyPath: m_Name
       value: Cutscene_ToiletTrueFlag
@@ -14590,6 +14588,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -43.07
       objectReference: {fileID: 0}
+    - target: {fileID: 1617005600749971135, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
+      propertyPath: m_Name
+      value: fire_extinguisher_kunekune
+      objectReference: {fileID: 0}
     - target: {fileID: 2658583058790017903, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       propertyPath: m_Offset.y
       value: 1.3
@@ -14658,9 +14660,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5357522525953377047, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
+      propertyPath: m_Name
+      value: broomstick_kunekune
+      objectReference: {fileID: 0}
     - target: {fileID: 5661161346238673137, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       propertyPath: m_TagString
       value: KunekuneProp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7141773062962814721, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1744921728391940866, guid: 01bdc119abe8c744c89a23c7dfe9464e, type: 3}
+    - target: {fileID: 7141773062962814721, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7289433475598535627, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}
       propertyPath: m_Sprite

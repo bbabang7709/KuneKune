@@ -2737,8 +2737,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5026221708691801274}
   - component: {fileID: 5795246498513678114}
-  - component: {fileID: 2927024448769443109}
   - component: {fileID: 4412135081231203844}
+  - component: {fileID: 5405874399709424905}
   m_Layer: 0
   m_Name: CleaningSpot_01
   m_TagString: Untagged
@@ -2755,8 +2755,8 @@ Transform:
   m_GameObject: {fileID: 1772027104161956407}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.43, y: -2.37, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -15.43, y: -2.87, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6743482805940298227}
@@ -2811,7 +2811,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4809991847268174841, guid: 9fd09b60169bca641817edfa7afa70a4, type: 3}
+  m_Sprite: {fileID: 1670660276820739667, guid: b9bc4dbcf04b869408d396c13610b2e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2821,7 +2821,25 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &2927024448769443109
+--- !u!114 &4412135081231203844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772027104161956407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f5208d4e4a7e64aaeac41af178e525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
+  _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
+  _objectiveID: CleaningSpot_01
+  _cleaningDuration: 3
+  _shakeDistance: 0.05
+  _shakeSpeed: 12
+  dustEffect: {fileID: 4650598821883667102}
+--- !u!61 &5405874399709424905
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2837,7 +2855,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -2859,32 +2877,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 7.625, y: 2.1875}
+    oldSize: {x: 3.8125, y: 1.0625}
     newSize: {x: 7.625, y: 2.1875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 7.625, y: 2.1875}
+  m_Size: {x: 3.8125, y: 1.0625}
   m_EdgeRadius: 0
---- !u!114 &4412135081231203844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1772027104161956407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4f5208d4e4a7e64aaeac41af178e525, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
-  _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
-  _objectiveID: CleaningSpot_01
-  _cleaningDuration: 3
-  _shakeDistance: 0.05
-  _shakeSpeed: 12
-  dustEffect: {fileID: 4650598821883667102}
 --- !u!1 &1813972840155911824
 GameObject:
   m_ObjectHideFlags: 0
@@ -8156,8 +8156,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6256301861145254826}
   - component: {fileID: 8060938877884975890}
-  - component: {fileID: 2639583313848991996}
   - component: {fileID: 8029148762170172006}
+  - component: {fileID: 8121489611340276653}
   m_Layer: 0
   m_Name: CleaningSpot_02
   m_TagString: Untagged
@@ -8174,8 +8174,8 @@ Transform:
   m_GameObject: {fileID: 8521949796336529044}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.25, y: -2.37, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -4.25, y: -2.81, z: 0}
+  m_LocalScale: {x: -1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 796390359374437165}
@@ -8230,7 +8230,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4809991847268174841, guid: 9fd09b60169bca641817edfa7afa70a4, type: 3}
+  m_Sprite: {fileID: 1670660276820739667, guid: b9bc4dbcf04b869408d396c13610b2e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -8240,7 +8240,25 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &2639583313848991996
+--- !u!114 &8029148762170172006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521949796336529044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f5208d4e4a7e64aaeac41af178e525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
+  _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
+  _objectiveID: CleaningSpot_02
+  _cleaningDuration: 3
+  _shakeDistance: 0.05
+  _shakeSpeed: 12
+  dustEffect: {fileID: 1590562114017187904}
+--- !u!61 &8121489611340276653
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8256,7 +8274,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -8278,32 +8296,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 7.625, y: 2.1875}
+    oldSize: {x: 3.8125, y: 1.0625}
     newSize: {x: 7.625, y: 2.1875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 7.625, y: 2.1875}
+  m_Size: {x: 3.8125, y: 1.0625}
   m_EdgeRadius: 0
---- !u!114 &8029148762170172006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521949796336529044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4f5208d4e4a7e64aaeac41af178e525, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
-  _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
-  _objectiveID: CleaningSpot_02
-  _cleaningDuration: 3
-  _shakeDistance: 0.05
-  _shakeSpeed: 12
-  dustEffect: {fileID: 1590562114017187904}
 --- !u!1 &8528504960880786559
 GameObject:
   m_ObjectHideFlags: 0
@@ -8629,8 +8629,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5323585112220687551}
   - component: {fileID: 8782430193668581500}
-  - component: {fileID: 1622980645861414663}
   - component: {fileID: 1970803281075940411}
+  - component: {fileID: 2796322794892806882}
   m_Layer: 0
   m_Name: CleaningSpot_03
   m_TagString: Untagged
@@ -8647,8 +8647,8 @@ Transform:
   m_GameObject: {fileID: 8693952642320598001}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.92, y: -16.48, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -13.92, y: -17.33, z: 0}
+  m_LocalScale: {x: 1, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6577968459873831947}
@@ -8703,7 +8703,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4809991847268174841, guid: 9fd09b60169bca641817edfa7afa70a4, type: 3}
+  m_Sprite: {fileID: 1670660276820739667, guid: b9bc4dbcf04b869408d396c13610b2e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -8713,7 +8713,25 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &1622980645861414663
+--- !u!114 &1970803281075940411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8693952642320598001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f5208d4e4a7e64aaeac41af178e525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
+  _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
+  _objectiveID: CleaningSpot_03
+  _cleaningDuration: 3
+  _shakeDistance: 0.05
+  _shakeSpeed: 12
+  dustEffect: {fileID: 5068296057515904870}
+--- !u!61 &2796322794892806882
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8729,7 +8747,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -8751,32 +8769,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 7.625, y: 2.1875}
+    oldSize: {x: 3.8125, y: 1.0625}
     newSize: {x: 7.625, y: 2.1875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 7.625, y: 2.1875}
+  m_Size: {x: 3.8125, y: 1.0625}
   m_EdgeRadius: 0
---- !u!114 &1970803281075940411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8693952642320598001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4f5208d4e4a7e64aaeac41af178e525, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CleaningSpot
-  _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
-  _objectiveID: CleaningSpot_03
-  _cleaningDuration: 3
-  _shakeDistance: 0.05
-  _shakeSpeed: 12
-  dustEffect: {fileID: 5068296057515904870}
 --- !u!1 &8727487889549449749
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f38805353322914aa04bcc415fee5d6, type: 3}
-  m_Name: Toilet_1
+  m_Name: Visit_Girl_Toilet_1
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "\uC73C, \uCC28\uAC00\uC6CC\u2026"
-  - "\u2026\u2026\uC548 \uB530\uB77C\uC640."
-  - "\uC5EC\uAE34\u2026\u2026 \uC548\uC804\uD55C \uAC74\uAC00?"
+  - "\uAC70\uC6B8 \uC18D\uC73C\uB85C \uBE68\uB824 \uB4E4\uC5B4\uAC04 \uAE30\uBD84\uC774\uB2E4."
