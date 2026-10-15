@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -8,6 +7,7 @@ public class SGuide : MonoBehaviour
     [SerializeField] private GameObject guideSprite;
 
     private InteractionPromptUI _promptUI;
+    private PlayerMovement _playerMovement;
 
     private void Awake()
     {
@@ -20,6 +20,9 @@ public class SGuide : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        _playerMovement = collision.GetComponentInParent<PlayerMovement>();
+        if (_playerMovement == null) return;
+
         if (_promptUI == null)
         {
             GameObject prefab = Resources.Load<GameObject>("Prefabs/UI/Interaction Prompt");
@@ -37,25 +40,46 @@ public class SGuide : MonoBehaviour
             (SaveManager.Instance != null && SaveManager.Instance.IsLoading))
             return;
 
-        _promptUI.SetPosition(promptPoint != null ? promptPoint.position : transform.position);
-        _promptUI.ShowHint("S : 앉기");
-        guideSprite.gameObject.SetActive(true);
+        RefreshPrompt();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision.GetComponentInParent<PlayerMovement>() != _playerMovement) return;
+        _playerMovement = null;
         if (_promptUI == null) return;
-
-        if ((ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked) ||
-            (SaveManager.Instance != null && SaveManager.Instance.IsLoading))
-            return;
 
         _promptUI.Hide();
         guideSprite.gameObject.SetActive(false);
     }
 
+    private void LateUpdate()
+    {
+        RefreshPrompt();
+    }
+
+    private void RefreshPrompt()
+    {
+        if (_promptUI == null) return;
+
+        if (_playerMovement == null || _playerMovement.IsCrouching ||
+            (ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked) ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading))
+        {
+            _promptUI.Hide();
+            guideSprite.SetActive(false);
+            return;
+        }
+
+        _promptUI.SetPosition(promptPoint != null ? promptPoint.position : transform.position);
+        _promptUI.ShowHint("S : 앉기");
+        guideSprite.SetActive(true);
+    }
+
     private void OnDisable()
     {
+        _playerMovement = null;
         _promptUI?.Hide();
+        guideSprite.SetActive(false);
     }
 }
