@@ -55,7 +55,11 @@ public class GameStartController : MonoBehaviour
             StartMode = EGameStartMode.None;
 
             if (SaveManager.Instance != null)
+            {
+                // 이전 회차의 획득 기록이 새 게임의 손수건을 숨기지 않도록 초기화합니다.
+                SaveManager.Instance.SetFlag("hanky", false);
                 SaveManager.Instance.SaveChapterCheckpoint(EChapter.Chapter1_Outside);
+            }
             if (MapManager.Instance != null)
                 MapManager.Instance.InitMap(EMapType.Outside_Busstop, "outside_gamestart");
             if (BackgroundManager.Instance != null)
