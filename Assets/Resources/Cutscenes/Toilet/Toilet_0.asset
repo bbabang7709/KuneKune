@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Toilet_0
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - "<color=blue>\uC73C, \uCC28\uAC00\uC6CC\u2026</color>"
+  - "\uC73C, <color=blue>\uCC28\uAC00\uC6CC\u2026</color>"
