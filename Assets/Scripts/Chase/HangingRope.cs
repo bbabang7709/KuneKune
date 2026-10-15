@@ -12,9 +12,10 @@ public class HangingRope : MonoBehaviour
     /// <summary>쿠네쿠네를 멈추고 암전한 뒤, 밧줄 효과음이 끝나면 사망(재시작) 처리를 합니다.</summary>
     private IEnumerator DieAfterSoundRoutine()
     {
+        // 퇴장 시 맵 음악 복원과 진행 중인 페이드가 밧줄 소리를 덮지 않게 먼저 차단합니다.
+        SoundManager.Instance?.SetBGMPlaybackBlocked(this, true);
         // 암전 중 쿠네쿠네가 플레이어를 덮치지 않도록 먼저 치웁니다.
         MapManager.Instance?.KuneKune?.Despawn();
-        SoundManager.Instance?.SetBGMVolume(0f);
 
         if (UIManager.Instance != null)
             yield return UIManager.Instance.FadeOut(0.2f);
@@ -41,6 +42,12 @@ public class HangingRope : MonoBehaviour
             _deathRoutine = null;
             SaveManager.Instance?.Load(true);
         }
+    }
+
+    private void OnDestroy()
+    {
+        // 씬 재시작 후에는 새 추격의 배경음이 정상적으로 재생되게 합니다.
+        SoundManager.Instance?.SetBGMPlaybackBlocked(this, false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

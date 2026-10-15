@@ -1,16 +1,26 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Timeline;
+#if UNITY_EDITOR
+using UnityEngine.InputSystem;
+#endif
 
 [RequireComponent(typeof(CutscenePlayerSwapper))]
+[RequireComponent(typeof(DialogTimelineController))]
 public class ToiletTrueFlagUnlockedCutsceneController : CutsceneControllerBase
 {
-    private const string HallwayExitEntryID = "school_hallway_3";
-
     [SerializeField] private Transform _kuneKune;
     [SerializeField] private Transform _player;
+    [SerializeField] private DialogData openingDialog;
+
+    [Header("시그널 암전")]
+    [SerializeField, Min(0f)] private float fadeOutDuration = 2f;
 
     private ToiletTrueFlagCutsceneController _sourceCutscene;
     private CutscenePlayerSwapper _playerSwapper;
+    private DialogTimelineController _dialogController;
+    private bool _openingDialogFinished;
+    private float? _playerHeightBeforeCutscene;
 
     public bool CanPlay => isActiveAndEnabled && gameObject.activeInHierarchy &&
         !IsCutsceneRunning && !(playOnlyOnce && hasPlayed) &&
@@ -22,6 +32,7 @@ public class ToiletTrueFlagUnlockedCutsceneController : CutsceneControllerBase
     {
         base.Awake();
         _playerSwapper = GetComponent<CutscenePlayerSwapper>();
+        _dialogController = GetComponent<DialogTimelineController>();
         MapArea map = GetComponentInParent<MapArea>();
         if (map != null)
             _sourceCutscene = map.GetComponentInChildren<ToiletTrueFlagCutsceneController>(true);
@@ -31,6 +42,18 @@ public class ToiletTrueFlagUnlockedCutsceneController : CutsceneControllerBase
             _player.gameObject.SetActive(false);
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        _dialogController.DialogFinished += OnDialogFinished;
+    }
+
+    private void OnDialogFinished(DialogData dialog)
+    {
+        if (IsCutsceneRunning && openingDialog != null && dialog == openingDialog)
+            _openingDialogFinished = true;
+    }
+
     private void ResolveActors()
     {
         if (_kuneKune == null && _sourceCutscene != null)
@@ -38,6 +61,32 @@ public class ToiletTrueFlagUnlockedCutsceneController : CutsceneControllerBase
         if (_player == null && _kuneKune != null)
             _player = _kuneKune.Find("Player");
     }
+
+#if UNITY_EDITOR
+    private void LateUpdate()
+    {
+        if (Keyboard.current == null || !Keyboard.current.tKey.wasPressedThisFrame ||
+            IsCutsceneRunning || Time.timeScale <= 0f ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading) ||
+            (CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying) ||
+            (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) ||
+            (ControlLockManager.Instance != null &&
+                (ControlLockManager.Instance.IsInputLocked || ControlLockManager.Instance.IsMovementLocked)))
+            return;
+
+        // 에디터에서는 선행 이벤트와 1회 재생 제한 없이 컷씬을 확인합니다.
+        ResolveActors();
+        if (!BindActors()) return;
+
+        HoldControls();
+        _sourceCutscene?.StopKuneKune();
+        _sourceCutscene?.PauseKuneKuneAnimation();
+        _sourceCutscene?.CompleteTrueFlagInteraction();
+        _kuneKune.gameObject.SetActive(true);
+        hasPlayed = false;
+        PlayCutscene();
+    }
+#endif
 
     public bool TryPlay(ToiletTrueFlagCutsceneController sourceCutscene)
     {
@@ -106,23 +155,82 @@ public class ToiletTrueFlagUnlockedCutsceneController : CutsceneControllerBase
 
     protected override void OnCutsceneStartSetup()
     {
+        _openingDialogFinished = false;
+        _playerHeightBeforeCutscene = MapManager.Instance?.Player?.transform.position.y;
         // 이벤트에서 멈춰 둔 Animator를 Timeline이 재생할 수 있게 복구합니다.
         _sourceCutscene?.ResumeKuneKuneAnimation();
     }
 
+    protected override IEnumerator WaitBeforeCutsceneReveal()
+    {
+        if (!useFadeInOut || UIManager.Instance == null || openingDialog == null)
+        {
+            yield return base.WaitBeforeCutsceneReveal();
+            yield break;
+        }
+
+        // 시작 암전을 유지한 채 손수건 대사를 화면 앞에 표시합니다.
+        yield return UIManager.Instance.FadeOutKeepingDialog(0f);
+        yield return new WaitUntil(() => _openingDialogFinished || !IsCutsceneRunning ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading));
+        // 지정한 대사가 끝난 뒤 기본 시작 루틴이 화면을 페이드 인합니다.
+    }
+
+    /// <summary>Timeline 시그널에서 호출하여 화면을 다시 암전시킵니다.</summary>
+    public void FadeOut()
+    {
+        if (!isActiveAndEnabled || UIManager.Instance == null) return;
+
+        StartCoroutine(UIManager.Instance.FadeOutKeepingDialog(Mathf.Max(0f, fadeOutDuration)));
+    }
+
     protected override void OnCutsceneEndSetup()
     {
+        UIManager.Instance?.RestoreDialogFadeOrder();
         _sourceCutscene?.PauseKuneKuneAnimation();
 
-        // 배우의 좌표로 옮기지 않고 암전 중 실제 플레이어의 표시와 충돌만 복원합니다.
-        _playerSwapper?.RestorePlayer();
+        // 충돌체 복원을 새 진입으로 처리하지 않도록 먼저 진입 트리거를 억제합니다.
+        MapArea currentMap = MapManager.Instance?.CurrentMap;
+        if (currentMap != null)
+        {
+            foreach (ToiletCutsceneController entryCutscene in
+                currentMap.GetComponentsInChildren<ToiletCutsceneController>(true))
+                entryCutscene.SuppressEntryUntilExit();
+        }
 
-        // 종료 페이드로 완전히 암전된 뒤 남자 화장실 문 앞의 복도 엔트리로 이동합니다.
-        MapManager.Instance?.InitMap(EMapType.School_Hallway, HallwayExitEntryID);
+        // 배우의 X좌표만 사용하고 실제 플레이어의 시작 높이와 Z좌표를 유지합니다.
+        GameObject realPlayer = MapManager.Instance?.Player;
+        realPlayer?.GetComponent<PlayerMovement>()?.StopImmediately();
+        if (realPlayer != null && _player != null && _playerHeightBeforeCutscene.HasValue)
+        {
+            Vector3 position = realPlayer.transform.position;
+            position.x = _player.position.x;
+            position.y = _playerHeightBeforeCutscene.Value;
+            realPlayer.transform.position = position;
+            Rigidbody2D body = realPlayer.GetComponent<Rigidbody2D>();
+            if (body != null) body.position = new Vector2(position.x, position.y);
+        }
+
+        // 충돌체를 켜기 전에 좌표를 맞추며, 배우용 높이 오프셋은 적용하지 않습니다.
+        if (_player != null)
+            _playerSwapper?.SetDummyPlayer(_player.gameObject,
+                restorePositionFromDummy: false, restoreOnDirectorStopped: false);
+        _playerSwapper?.RestorePlayer();
+        _playerHeightBeforeCutscene = null;
+        Physics2D.SyncTransforms();
+
+        // 화장실에 남은 상태에서 쿠네쿠네와 이벤트 전용 더위 영역을 정리합니다.
+        _sourceCutscene?.HideKuneKune();
+        _kuneKune?.gameObject.SetActive(false);
     }
 
     protected override void OnDisable()
     {
+        if (_dialogController != null)
+            _dialogController.DialogFinished -= OnDialogFinished;
+        _openingDialogFinished = false;
+        _playerHeightBeforeCutscene = null;
+        UIManager.Instance?.RestoreDialogFadeOrder();
         _playerSwapper?.RestorePlayer();
         _sourceCutscene?.PauseKuneKuneAnimation();
         base.OnDisable();

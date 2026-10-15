@@ -19,6 +19,7 @@ public class PlayerInteraction : MonoBehaviour
     private InteractionPromptUI promptUI;
 
     private KuneKuneHand handEvent;
+    private ToiletTrueFlagKuneKuneInteraction _choiceTarget;
 
     [Header("Interaction")]
     [SerializeField]
@@ -66,6 +67,31 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         UpdateInteractionUI();
+    }
+
+    private void OnDisable()
+    {
+        CancelInteraction();
+        _choiceTarget = null;
+        promptUI?.Hide();
+    }
+
+    private void SelectWipeChoice()
+    {
+        ToiletTrueFlagKuneKuneInteraction selectedTarget = _choiceTarget;
+        _choiceTarget = null;
+        if (selectedTarget == null || activeTarget != null || Time.timeScale <= 0f ||
+            (ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked)) return;
+
+        // 클릭 직전에 이동하거나 다른 대상이 가까워졌어도 표시했던 쿠네쿠네만 선택합니다.
+        UpdateCurrentTarget();
+        if (!ReferenceEquals(currentTarget, selectedTarget) || !CanUseInteractable(selectedTarget)) return;
+        PlayerMovement movement = GetComponent<PlayerMovement>();
+        if (movement != null && movement.IsCrouching) return;
+
+        StartInteraction();
+        // 마우스 선택에는 F키를 놓는 이벤트가 없으므로 일회성 상호작용을 바로 정리합니다.
+        ReleaseInteraction();
     }
 
     /// <summary>
@@ -258,10 +284,12 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     private void UpdateInteractionUI()
     {
+        _choiceTarget = null;
         if (promptUI == null)
             return;
 
-        if (ControlLockManager.Instance.IsInputLocked)
+        if (Time.timeScale <= 0f ||
+            (ControlLockManager.Instance != null && ControlLockManager.Instance.IsInputLocked))
         {
             promptUI.Hide();
             return;
@@ -302,7 +330,12 @@ public class PlayerInteraction : MonoBehaviour
             );
         }
 
-        if (currentTarget is IHoldInteractable holdTarget)
+        if (currentTarget is ToiletTrueFlagKuneKuneInteraction wipeTarget)
+        {
+            _choiceTarget = wipeTarget;
+            promptUI.ShowChoice(wipeTarget.ChoiceText, SelectWipeChoice);
+        }
+        else if (currentTarget is IHoldInteractable holdTarget)
         {
             promptUI.ShowHold(
                 holdTarget.HoldProgress

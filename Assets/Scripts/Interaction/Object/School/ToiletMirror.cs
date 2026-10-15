@@ -55,6 +55,10 @@ public class ToiletMirror : MonoBehaviour, IInteractable
 
         if (imageAnim != null)
         {
+            // 애니메이션 이벤트는 Animator와 같은 오브젝트의 컴포넌트로 전달됩니다.
+            if (imageAnim.GetComponent<MirrorHandSoundEmitter>() == null)
+                imageAnim.gameObject.AddComponent<MirrorHandSoundEmitter>();
+
             if (imageAnim != null) imageAnim.enabled = true;
             imageAnim?.SetTrigger("Mirror");
         }

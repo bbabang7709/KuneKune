@@ -315,17 +315,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         if (MapManager.Instance.CurrentMap == _sunlightMap)
             return;
 
-        _blood.sprite = null;
-        _canInteractWithKuneKune = false;
-        RestoreWashstandInteraction();
-        StopMonitoringHeat();
-        StopToiletEcho();
-
-        _sunlightAreaRoot?.Deactivate();
-        _sunlightMap = null;
-
-        StopKuneKune();
-        _kuneKune?.gameObject.SetActive(false);
+        HideKuneKune();
 
         // 손수건으로 안 닦아주고 그냥 나감
         if (!HasTrueFlagSucceeded)
@@ -337,6 +327,22 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         PlayerMovement p = MapManager.Instance?.Player.GetComponent<PlayerMovement>();
         if (p.CurrentHeat >= p.MaxHeat)
             p.SetCurrentHeat(p.MaxHeat * 0.95f);
+    }
+
+    /// <summary>화장실을 나가지 않아도 쿠네쿠네와 이벤트의 효과를 정리합니다.</summary>
+    public void HideKuneKune()
+    {
+        if (_blood != null) _blood.sprite = null;
+        _canInteractWithKuneKune = false;
+        RestoreWashstandInteraction();
+        StopMonitoringHeat();
+        StopToiletEcho();
+
+        _sunlightAreaRoot?.Deactivate();
+        _sunlightMap = null;
+
+        StopKuneKune();
+        _kuneKune?.gameObject.SetActive(false);
     }
 
     protected override void OnDisable()

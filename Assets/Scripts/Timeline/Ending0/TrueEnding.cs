@@ -1,77 +1,91 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Animations;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using Unity.Cinemachine;
+#if UNITY_EDITOR
+using UnityEngine.InputSystem;
+#endif
 
 [RequireComponent(typeof(DialogTimelineController))]
 public class TrueEnding : CutsceneControllerBase
 {
     private const int CutsceneCameraPriority = 20;
     private const string TitleSceneName = "Scene_Intro";
-    private static readonly string[] ApproachEchoPhrases =
-    {
-        "가지 마……",
-        "그때는……",
-        "곁에 있어줬잖아……",
-        "나 아직 아파……",
-        "아직도…… 아파……"
-    };
-    private static readonly string[] PainEchoPhrases =
-    {
-        "아파……",
-        "무서워……",
-        "외로워……"
-    };
-    private static readonly string[] LonelyEchoPhrases = { "외로워……" };
+    private const string EndingPianoBgmId = "TrueEnding_Piano";
+    private static readonly string[] ApproachEchoPhrases = { "가지 마……", "외로워……" };
 
     [SerializeField] private AnimationClip playerSweatIdleClip;
     [SerializeField] private AnimationClip playerSweatIdleSideClip;
-    [SerializeField] private AnimationClip playerSweatWalkClip;
+    [SerializeField] private AnimationClip playerWalkClip;
+    [SerializeField] private AnimationClip playerHugClip;
+    [SerializeField] private AnimationClip kuneKuneTrueEndingIdleClip;
+    [SerializeField] private AnimationClip kuneKuneHugClip;
+    [Tooltip("쿠네쿠네의 도착과 메아리 종료 후, 서로 바라보다 접근 전 대사를 시작하기까지의 시간입니다.")]
+    [SerializeField, Min(0f)] private float playerHugDelay = 3f;
+    [Tooltip("접근 전 마지막 대사가 끝난 뒤, 서로 바라보며 여운을 유지하는 시간입니다.")]
+    [SerializeField, Min(0f)] private float playerApproachPause = 2f;
+    [Tooltip("Cutscene_TrueEnding의 자식인 쿠네쿠네가 도착할 로컬 X좌표입니다.")]
+    [SerializeField] private float kuneKuneArrivalLocalX = 115f;
+    [SerializeField, Min(0.01f)] private float kuneKuneAdvanceSpeed = 1.5f;
+    [SerializeField, Min(0.01f)] private float playerHugMoveSpeed = 1f;
+    [Tooltip("기존 월드 X 33.3에서 확인한 포옹 간격을 쿠네쿠네의 위치에 맞춰 유지합니다.")]
+    [SerializeField, Min(0f)] private float playerHugStopDistance = 3.7f;
+    [SerializeField, Min(0f)] private float hugHoldDuration = 1f;
+    [Tooltip("포옹 대사의 마지막 문장이 끝난 뒤, 흰 화면 전환 전까지 포옹을 유지하는 시간입니다.")]
+    [SerializeField, Min(0f)] private float whiteFadeDelay = 2f;
+    [Tooltip("짧은 장면에 맞춰 피아노 곡을 재생하기 시작할 위치(초)입니다.")]
+    [SerializeField, Min(0f)] private float endingMusicStartTime = 21.5f;
+    [SerializeField, Min(0.01f)] private float endingMusicFadeInDuration = 0.6f;
+    [Tooltip("포옹 장면을 흰 화면으로 덮고 음악을 함께 줄이는 시간입니다.")]
+    [SerializeField, Min(0.01f)] private float whiteFadeDuration = 2f;
+    [SerializeField, Min(0.01f)] private float morningFadeDuration = 1f;
+    [SerializeField, Min(0f)] private float morningDialogDelay = 2f;
+    [SerializeField, Min(0f)] private float landscapeHoldDuration = 3f;
+    [SerializeField, Min(0.01f)] private float endingFadeDuration = 1f;
+    [SerializeField] private string endingTitle = "fin.";
+    [SerializeField, Min(0.01f)] private float endingTitleFadeDuration = 1f;
+    [SerializeField, Min(0f)] private float endingTitleHoldDuration = 3f;
+    [SerializeField, Min(0f)] private float endingBlackHoldDuration = 2f;
     [SerializeField] private DialogData firstDialog;
     [SerializeField] private DialogData playerApproachDialog;
-    [SerializeField] private DialogData playerPromiseDialog;
-    [SerializeField] private DialogData playerUnderstandingDialog;
-    [SerializeField] private DialogData playerEmpathyDialog;
-    [SerializeField] private DialogData playerInvitationDialog;
-    [SerializeField] private DialogData playerConfessionDialog;
-    [SerializeField] private DialogData playerReflectionDialog;
-    [SerializeField] private DialogData playerDenialDialog;
-    [SerializeField] private DialogData playerAcceptanceDialog;
-    [SerializeField] private DialogData playerDepartureDialog;
+    [SerializeField] private DialogData playerHugDialog;
     [SerializeField] private DialogData playerEpilogueDialog;
     [SerializeField] private UnityEvent onTrueEndingFinished = new UnityEvent();
     [SerializeField] private Sprite morningSky;
     [SerializeField] private Sprite[] brightCloudSprites;
 
     [SerializeField] Transform kunekKune;
-    [SerializeField, Min(0f)] private float playerApproachDelay = 0.5f;
-    [SerializeField, Min(0.01f)] private float playerApproachSpeed = 1f;
-    [SerializeField, Min(0f)] private float playerApproachStopDistance = 3f;
-    [SerializeField, Min(0.01f)] private float playerWalkAnimationSpeed = 0.5f;
-    [SerializeField, Min(0f)] private float laughingWomenGain = 10f;
     [SerializeField] private CinemachineCamera trueEndingCamera;
+#if UNITY_EDITOR
+    [Header("에디터 O키 미리보기")]
+    [SerializeField] private Transform editorPreviewStartPoint;
+    private Vector3 _editorKuneKuneStartPosition;
+    private bool _isEditorPreview;
+#endif
 
     private PlayableGraph _playerAnimationGraph;
-    private Coroutine _delayedDialogRoutine;
-    private Coroutine _memorySoundRoutine;
-    private Coroutine _busstopTransitionRoutine;
+    private AnimationClipPlayable _playerAnimationPlayable;
+    private PlayableGraph _kuneKuneAnimationGraph;
+    private AnimationClipPlayable _kuneKuneAnimationPlayable;
+    private bool _hugRequested;
+    private Coroutine _delayedHugRoutine;
     private Coroutine _titleReturnRoutine;
     private bool _narrativeCompleted;
+    private bool _endingBlackoutCompleted;
     private UIManager _transitionUI;
     private Color _fadeColorBeforeTransition;
     private bool _hasFadeColorOverride;
-    private AudioSource _memorySoundSource;
     private AudioSource _kuneKuneScratchSource;
     private SoundManager _bgmSoundManager;
+    private bool _isEndingMusicPlaying;
     private DialogTimelineController _dialogController;
     private bool _isKuneKuneAdvancing;
-    private float _kuneKuneAdvanceDirection;
-    private float _playerApproachWaitRemaining;
-    private bool _isPlayerApproaching;
-    private bool _isPlayerWalking;
-    private PlayerMovement _approachingPlayerMovement;
+    private bool _approachEchoFinished;
+    private bool _kuneKuneAtApproachStop;
+    private PlayerMovement _hugPlayerMovement;
     private PrioritySettings _cameraPriorityBeforeCutscene;
     private bool _cameraWasActive;
     private bool _cameraWasEnabled;
@@ -83,6 +97,10 @@ public class TrueEnding : CutsceneControllerBase
         _dialogController = GetComponent<DialogTimelineController>();
         if (trueEndingCamera == null)
             trueEndingCamera = GetComponentInChildren<CinemachineCamera>(true);
+#if UNITY_EDITOR
+        if (kunekKune != null)
+            _editorKuneKuneStartPosition = kunekKune.position;
+#endif
     }
 
     protected override void OnEnable()
@@ -93,10 +111,66 @@ public class TrueEnding : CutsceneControllerBase
 
     public override void PlayCutscene()
     {
+        if (IsCutsceneRunning) return;
         base.PlayCutscene();
         if (IsCutsceneRunning)
             BlockBackgroundMusic();
     }
+
+#if UNITY_EDITOR
+    private void LateUpdate()
+    {
+        if (Keyboard.current == null || !Keyboard.current.oKey.wasPressedThisFrame ||
+            IsCutsceneRunning || Time.timeScale <= 0f ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading) ||
+            (CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying) ||
+            (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) ||
+            (ControlLockManager.Instance != null &&
+                (ControlLockManager.Instance.IsInputLocked || ControlLockManager.Instance.IsMovementLocked)))
+            return;
+
+        if (MapManager.Instance?.Player == null || kunekKune == null ||
+            editorPreviewStartPoint == null || director.playableAsset == null)
+        {
+            Debug.LogWarning("진엔딩 O키 미리보기의 플레이어, 쿠네쿠네, 시작 위치와 Timeline을 확인해주세요.", this);
+            return;
+        }
+
+        // 선행 플래그와 1회 재생 제한 없이, 기존 컷씬 시작 절차로 진입합니다.
+        _isEditorPreview = true;
+        hasPlayed = false;
+        HoldControls();
+        MapManager.Instance.KuneKune?.Despawn();
+        StopPlayerMovement();
+        director.time = 0d;
+        PlayCutscene();
+    }
+
+    private void PrepareEditorPreview()
+    {
+        _isEditorPreview = false;
+        MapManager mapManager = MapManager.Instance;
+        mapManager.InitMap(EMapType.Chase_Ricefield, "chase_start");
+        kunekKune.position = _editorKuneKuneStartPosition;
+        kunekKune.gameObject.SetActive(false);
+
+        GameObject player = mapManager.Player;
+        PlayerMovement movement = player.GetComponent<PlayerMovement>();
+        movement?.StopImmediately();
+        movement?.SetCurrentHeat(0f, true);
+        player.GetComponent<PlayerAppearance>()?.SetAge(EPlayerAge.Child);
+        Transform playerVisual = player.GetComponentInChildren<Animator>()?.transform;
+        Vector3 visualOffset = playerVisual != null ? playerVisual.position - player.transform.position : Vector3.zero;
+        Vector3 position = editorPreviewStartPoint.position;
+        Collider2D startTrigger = editorPreviewStartPoint.GetComponent<Collider2D>();
+        if (startTrigger != null)
+            position.x = startTrigger.bounds.min.x;
+        position.y = kunekKune.position.y - visualOffset.y;
+        position.z = player.transform.position.z;
+        player.transform.position = position;
+        Physics2D.SyncTransforms();
+    }
+#endif
 
     private void BlockBackgroundMusic()
     {
@@ -116,6 +190,13 @@ public class TrueEnding : CutsceneControllerBase
         _bgmSoundManager = null;
     }
 
+    private void StopEndingMusic()
+    {
+        if (!_isEndingMusicPlaying) return;
+        _isEndingMusicPlaying = false;
+        SoundManager.Instance?.StopBGM(0f);
+    }
+
     private void OnDialogFinished(DialogData dialog)
     {
         if (firstDialog != null && dialog == firstDialog)
@@ -127,52 +208,40 @@ public class TrueEnding : CutsceneControllerBase
     /// </summary>
     public void PlayPlayerSweatIdle()
     {
-        if (!isActiveAndEnabled)
-            return;
-
-        GameObject player = MapManager.Instance != null ? MapManager.Instance.Player : null;
-        Animator playerAnimator = player != null ? player.GetComponentInChildren<Animator>() : null;
-        if (playerAnimator == null || playerSweatIdleClip == null)
-        {
-            Debug.LogWarning("진엔딩의 실제 플레이어 Animator와 땀 흘리는 대기 클립을 확인해주세요.", this);
-            return;
-        }
-
-        StopPlayerAnimation();
-
-        // 이동·탈진 파라미터에 따른 상태 전환 대신 지정한 클립을 직접 출력합니다.
-        AnimationPlayableUtilities.PlayClip(playerAnimator, playerSweatIdleClip, out _playerAnimationGraph);
-        _playerAnimationGraph.Evaluate(0f);
+        if (_hugRequested) return;
+        PlayPlayerAnimation(playerSweatIdleClip);
     }
 
     public void PlayPlayerSweatIdleSide()
     {
-        if (!isActiveAndEnabled)
-            return;
+        if (!isActiveAndEnabled || _hugRequested) return;
+        MapManager.Instance?.Player?.GetComponent<PlayerMovement>()?.SetFacingDirection(-1f);
+        PlayPlayerAnimation(playerSweatIdleSideClip);
+    }
 
-        GameObject player = MapManager.Instance != null ? MapManager.Instance.Player : null;
-        Animator playerAnimator = player != null ? player.GetComponentInChildren<Animator>() : null;
-        if (playerAnimator == null || playerSweatIdleSideClip == null)
+    private bool PlayPlayerAnimation(AnimationClip clip, float speed = 1f)
+    {
+        if (!isActiveAndEnabled) return false;
+        Animator animator = MapManager.Instance?.Player?.GetComponentInChildren<Animator>();
+        if (animator == null || clip == null)
         {
-            Debug.LogWarning("진엔딩의 실제 플레이어 Animator와 땀 흘리는 대기 클립을 확인해주세요.", this);
-            return;
+            Debug.LogWarning("진엔딩의 실제 플레이어 Animator와 애니메이션 클립을 확인해주세요.", this);
+            return false;
         }
 
         StopPlayerAnimation();
-
-        player.GetComponent<PlayerMovement>()?.SetFacingDirection(-1f);
-
-        // 이동·탈진 파라미터에 따른 상태 전환 대신 지정한 클립을 직접 출력합니다.
-        AnimationPlayableUtilities.PlayClip(playerAnimator, playerSweatIdleSideClip, out _playerAnimationGraph);
+        _playerAnimationPlayable = AnimationPlayableUtilities.PlayClip(animator, clip, out _playerAnimationGraph);
+        _playerAnimationPlayable.SetSpeed(speed);
         _playerAnimationGraph.Evaluate(0f);
+        return true;
     }
 
     /// <summary>
-    /// 타임라인 시그널에서 쿠네쿠네의 대사가 끝날 때까지 처음 정한 방향으로 직진시킵니다.
+    /// 타임라인 시그널에서 쿠네쿠네를 지정한 로컬 X까지 이동시키고 메아리가 끝나면 다음 연출로 이어갑니다.
     /// </summary>
     public void MoveKuneKuneForward()
     {
-        if (!isActiveAndEnabled)
+        if (!isActiveAndEnabled || _hugRequested)
             return;
 
         GameObject player = MapManager.Instance != null ? MapManager.Instance.Player : null;
@@ -182,20 +251,21 @@ public class TrueEnding : CutsceneControllerBase
             return;
         }
 
-        StopPlayerApproach();
-        StopDelayedDialog();
-        StopMemorySounds();
+        StopDelayedHug();
+        StopPlayerMovement();
+        StopKuneKuneAnimation();
         kunekKune.gameObject.SetActive(true);
         Animator animator = kunekKune.GetComponent<Animator>();
         if (animator != null)
             animator.Play("Cutscene_ToiletTrueFlag", 0, 0f);
 
         SpriteRenderer spriteRenderer = kunekKune.GetComponent<SpriteRenderer>();
-        _kuneKuneAdvanceDirection = player.transform.position.x < kunekKune.position.x ? -1f : 1f;
         if (spriteRenderer != null)
             spriteRenderer.flipX = true;
 
         _isKuneKuneAdvancing = true;
+        _approachEchoFinished = false;
+        _kuneKuneAtApproachStop = false;
         PlayKuneKuneScratch();
         UIManager.Instance?.PlayTrueEndingEcho(ApproachEchoPhrases, OnApproachEchoCompleted);
     }
@@ -214,15 +284,25 @@ public class TrueEnding : CutsceneControllerBase
     private void StopKuneKuneAdvance()
     {
         _isKuneKuneAdvancing = false;
-        _kuneKuneScratchSource?.Stop();
+        if (_kuneKuneScratchSource != null)
+            _kuneKuneScratchSource.Stop();
     }
 
     private void OnApproachEchoCompleted()
     {
+        _approachEchoFinished = true;
+        if (_kuneKuneAtApproachStop)
+            CompleteKuneKuneApproach();
+    }
+
+    private void CompleteKuneKuneApproach()
+    {
         StopKuneKuneAdvance();
-        if (!isActiveAndEnabled)
+        if (!isActiveAndEnabled || _hugRequested)
             return;
 
+        StopPlayerMovement();
+        StopKuneKuneAnimation();
         Animator animator = kunekKune != null ? kunekKune.GetComponent<Animator>() : null;
         if (animator != null)
             animator.Play("Cutscene_ToiletTrueFlag_Idle", 0, 0f);
@@ -232,209 +312,179 @@ public class TrueEnding : CutsceneControllerBase
             spriteRenderer.flipX = true;
 
         MapManager.Instance?.Player?.GetComponent<PlayerMovement>()?.StopImmediately();
-        _playerApproachWaitRemaining = playerApproachDelay;
-        _isPlayerApproaching = true;
+        // 도착과 메아리가 끝나면 서로 3초 바라보고, 종료 루틴에서 대사를 마친 뒤 다가갑니다.
+        PlayPlayerSweatIdleSide();
+        StopDelayedHug();
+        _delayedHugRoutine = StartCoroutine(RequestHugAfterDelay());
     }
 
-    private void UpdatePlayerApproach()
+    private IEnumerator RequestHugAfterDelay()
     {
-        if (!_isPlayerApproaching)
+        yield return new WaitForSeconds(playerHugDelay);
+        _delayedHugRoutine = null;
+        PlayHugAndTransitionToMorning();
+    }
+
+    private void StopDelayedHug()
+    {
+        if (_delayedHugRoutine == null) return;
+        StopCoroutine(_delayedHugRoutine);
+        _delayedHugRoutine = null;
+    }
+
+    /// <summary>
+    /// 시그널에서 쿠네쿠네의 TrueEnding_Idle 대기 애니메이션을 재생합니다.
+    /// </summary>
+    public void PlayKuneKuneTrueEndingIdle()
+    {
+        StopKuneKuneAdvance();
+        PlayKuneKuneAnimation(kuneKuneTrueEndingIdleClip);
+    }
+
+    private bool PlayKuneKuneAnimation(AnimationClip clip)
+    {
+        if (!isActiveAndEnabled || kunekKune == null || clip == null)
+            return false;
+
+        Animator animator = kunekKune.GetComponent<Animator>();
+        if (animator == null) return false;
+
+        StopKuneKuneAnimation();
+        kunekKune.gameObject.SetActive(true);
+        _kuneKuneAnimationPlayable = AnimationPlayableUtilities.PlayClip(animator, clip, out _kuneKuneAnimationGraph);
+        _kuneKuneAnimationGraph.Evaluate(0f);
+        return true;
+    }
+
+    /// <summary>
+    /// 시그널에서 호출하면 접근 전 대사, 걷기, 두 캐릭터의 포옹, 여운, 흰 화면, 새벽 순서로 이어집니다.
+    /// </summary>
+    public void PlayHugAndTransitionToMorning()
+    {
+        if (!isActiveAndEnabled || !IsCutsceneRunning || _hugRequested || _narrativeCompleted)
             return;
 
-        GameObject player = MapManager.Instance != null ? MapManager.Instance.Player : null;
-        if (player == null || kunekKune == null || !kunekKune.gameObject.activeInHierarchy)
+        // 기존 씬 인스턴스에 새 클립 필드가 비어 있어도 제작된 리소스로 연결합니다.
+        if (playerWalkClip == null)
+            playerWalkClip = Resources.Load<AnimationClip>("Animations/Player/Child/PC_Child_Walk");
+        if (playerHugClip == null)
+            playerHugClip = Resources.Load<AnimationClip>("Animations/Player/Child/PC_Hug");
+        if (kuneKuneTrueEndingIdleClip == null)
+            kuneKuneTrueEndingIdleClip = Resources.Load<AnimationClip>("Animations/KuneKune/TrueEnding_Idle");
+        if (kuneKuneHugClip == null)
+            kuneKuneHugClip = Resources.Load<AnimationClip>("Animations/KuneKune/TrueEnding_Hug");
+
+        if (MapManager.Instance?.Player?.GetComponentInChildren<Animator>() == null ||
+            kunekKune == null || kunekKune.GetComponent<Animator>() == null ||
+            playerWalkClip == null || playerWalkClip.length <= 0f ||
+            playerHugClip == null || playerHugClip.length <= 0f ||
+            kuneKuneTrueEndingIdleClip == null || kuneKuneHugClip == null || kuneKuneHugClip.length <= 0f)
         {
-            StopPlayerApproach();
+            Debug.LogWarning("진엔딩의 배우 Animator와 PC_Child_Walk, PC_Hug, TrueEnding_Idle, TrueEnding_Hug 클립을 확인해주세요.", this);
             return;
         }
 
-        if (_playerApproachWaitRemaining > 0f)
-        {
-            _playerApproachWaitRemaining = Mathf.Max(0f, _playerApproachWaitRemaining - Time.fixedDeltaTime);
-            return;
-        }
+        StopDelayedHug();
+        StopPlayerMovement();
+        StopKuneKuneAdvance();
+        UIManager.Instance?.StopTrueEndingEcho();
+        _hugRequested = true;
+        // 시그널 콜백에서는 Timeline을 멈춰두고, 종료 루틴에서 포옹과 새벽 전환을 한 번만 실행합니다.
+        director.Pause();
+        EndCutscene();
+    }
 
-        float xDifference = kunekKune.position.x - player.transform.position.x;
-        if (Mathf.Abs(xDifference) <= playerApproachStopDistance + 0.01f)
-        {
-            StopPlayerApproach();
-            player.GetComponent<PlayerMovement>()?.SetFacingDirection(xDifference);
-            DialogSystem.Instance?.PlayDialog(playerApproachDialog, OnPlayerApproachDialogFinished);
-            return;
-        }
-
-        if (!_isPlayerWalking)
-        {
-            Animator animator = player.GetComponentInChildren<Animator>();
-            if (animator == null || playerSweatWalkClip == null)
-            {
-                Debug.LogWarning("진엔딩의 플레이어 걷기 애니메이션을 확인해주세요.", this);
-                StopPlayerApproach();
-                return;
-            }
-
-            StopPlayerAnimation();
-            var playable = AnimationPlayableUtilities.PlayClip(animator, playerSweatWalkClip, out _playerAnimationGraph);
-            playable.SetSpeed(playerWalkAnimationSpeed);
-            _playerAnimationGraph.Evaluate(0f);
-            _approachingPlayerMovement = player.GetComponent<PlayerMovement>();
-            _approachingPlayerMovement?.SetCutsceneMovementControlled(true);
-            _isPlayerWalking = true;
-        }
-
-        float direction = Mathf.Sign(xDifference);
-        player.GetComponent<PlayerMovement>()?.SetFacingDirection(direction);
+    private IEnumerator PlayHugRoutine()
+    {
+        GameObject player = MapManager.Instance.Player;
+        PlayerMovement movement = player.GetComponent<PlayerMovement>();
         Rigidbody2D body = player.GetComponent<Rigidbody2D>();
-        Vector2 position = body != null ? body.position : (Vector2)player.transform.position;
-        Vector2 target = new Vector2(kunekKune.position.x - direction * playerApproachStopDistance, position.y);
-        Vector2 nextPosition = Vector2.MoveTowards(position, target, playerApproachSpeed * Time.fixedDeltaTime);
-        // 컷씬의 조작 잠금은 유지하면서 물리 스텝에서 실제 플레이어만 이동합니다.
-        if (body != null)
-            body.MovePosition(nextPosition);
-        else
-            player.transform.position = new Vector3(nextPosition.x, nextPosition.y, player.transform.position.z);
-    }
+        Vector2 start = body != null ? body.position : (Vector2)player.transform.position;
+        float direction = kunekKune.position.x < start.x ? -1f : 1f;
+        movement?.SetFacingDirection(direction);
+        Transform playerVisual = player.GetComponentInChildren<Animator>().transform;
+        Vector3 visualOffset = playerVisual.position - player.transform.position;
+        // 쿠네쿠네가 이동해도 포옹 간격을 유지하고, Visual 오프셋으로 발 높이를 맞춥니다.
+        Vector2 target = new Vector2(kunekKune.position.x - direction * playerHugStopDistance - visualOffset.x,
+            kunekKune.position.y - visualOffset.y);
+        float approachDuration = Vector2.Distance(start, target) / Mathf.Max(0.01f, playerHugMoveSpeed);
 
-    private void OnPlayerApproachDialogFinished()
-    {
-        StartDelayedDialog(playerPromiseDialog, 1f, OnPlayerPromiseDialogFinished);
-    }
+        movement?.SetCutsceneMovementControlled(true);
+        _hugPlayerMovement = movement;
+        PlayKuneKuneTrueEndingIdle();
+        if (!PlayPlayerAnimation(playerWalkClip)) yield break;
 
-    private void StartDelayedDialog(DialogData dialog, float delay, System.Action onFinished = null)
-    {
-        if (!isActiveAndEnabled || !IsCutsceneRunning)
-            return;
-
-        StopDelayedDialog();
-        _delayedDialogRoutine = StartCoroutine(PlayDelayedDialog(dialog, delay, onFinished));
-    }
-
-    private IEnumerator PlayDelayedDialog(DialogData dialog, float delay, System.Action onFinished)
-    {
-        yield return new WaitForSeconds(delay);
-        _delayedDialogRoutine = null;
-        if (isActiveAndEnabled && IsCutsceneRunning)
-            DialogSystem.Instance?.PlayDialog(dialog, onFinished);
-    }
-
-    private void OnPlayerPromiseDialogFinished()
-    {
-        if (!isActiveAndEnabled || !IsCutsceneRunning)
-            return;
-
-        UIManager.Instance?.PlayTrueEndingEcho(PainEchoPhrases, OnPainEchoCompleted);
-    }
-
-    private void OnPainEchoCompleted()
-    {
-        if (isActiveAndEnabled && IsCutsceneRunning)
-            DialogSystem.Instance?.PlayDialog(playerUnderstandingDialog, OnPlayerUnderstandingDialogFinished);
-    }
-
-    private void OnPlayerUnderstandingDialogFinished()
-    {
-        StartDelayedDialog(playerEmpathyDialog, 1f, OnPlayerEmpathyDialogFinished);
-    }
-
-    private void OnPlayerEmpathyDialogFinished()
-    {
-        StartDelayedDialog(playerInvitationDialog, 2f, OnPlayerInvitationDialogFinished);
-    }
-
-    private void OnPlayerInvitationDialogFinished()
-    {
-        StartDelayedDialog(playerConfessionDialog, 0.5f, OnPlayerConfessionDialogFinished);
-    }
-
-    private void OnPlayerConfessionDialogFinished()
-    {
-        StartDelayedDialog(playerReflectionDialog, 1f, OnPlayerReflectionDialogFinished);
-    }
-
-    private void OnPlayerReflectionDialogFinished()
-    {
-        if (!isActiveAndEnabled || !IsCutsceneRunning)
-            return;
-
-        StopMemorySounds();
-        _memorySoundRoutine = StartCoroutine(PlayMemorySounds());
-    }
-
-    private IEnumerator PlayMemorySounds()
-    {
-        SoundManager soundManager = SoundManager.Instance;
-        if (soundManager != null && _memorySoundSource == null)
-            _memorySoundSource = soundManager.CreateSFXSource(transform);
-
-        soundManager?.PlaySFXOnSource(_memorySoundSource, "Hit");
-        yield return new WaitForSeconds(4f);
-
-        // 같은 채널을 사용해 Hit를 끊고 웃음소리로 전환합니다.
-        if (soundManager != null && soundManager.PlaySFXOnSource(_memorySoundSource, "Laughing_Women"))
+        // 쿠네쿠네의 위치는 유지하고, 플레이어만 PC_Child_Walk를 반복하며 일정한 속도로 접근합니다.
+        float elapsed = 0f;
+        while (elapsed < approachDuration)
         {
-            AudioClip laughter = _memorySoundSource.clip;
-            _memorySoundSource.Stop();
-            // 원음의 앞부분이 작으므로 이 컷씬에서만 신호를 증폭합니다.
-            _memorySoundSource.PlayOneShot(laughter, laughingWomenGain);
-        }
-        yield return new WaitForSeconds(4f);
-
-        _memorySoundSource?.Stop();
-        _memorySoundRoutine = null;
-        if (isActiveAndEnabled && IsCutsceneRunning)
-            DialogSystem.Instance?.PlayDialog(playerDenialDialog, OnPlayerDenialDialogFinished);
-    }
-
-    private void OnPlayerDenialDialogFinished()
-    {
-        if (!isActiveAndEnabled || !IsCutsceneRunning)
-            return;
-
-        UIManager.Instance?.PlayTrueEndingEcho(LonelyEchoPhrases, OnLonelyEchoCompleted);
-    }
-
-    private void OnLonelyEchoCompleted()
-    {
-        if (isActiveAndEnabled && IsCutsceneRunning)
-            DialogSystem.Instance?.PlayDialog(playerAcceptanceDialog, OnPlayerAcceptanceDialogFinished);
-    }
-
-    private void OnPlayerAcceptanceDialogFinished()
-    {
-        StartDelayedDialog(playerDepartureDialog, 1f, OnPlayerDepartureDialogFinished);
-    }
-
-    private void OnPlayerDepartureDialogFinished()
-    {
-        if (!isActiveAndEnabled || !IsCutsceneRunning || _busstopTransitionRoutine != null)
-            return;
-
-        if (MapManager.Instance == null || MapManager.Instance.Player == null)
-        {
-            Debug.LogWarning("진엔딩의 버스 정류장 이동에 필요한 실제 플레이어를 확인해주세요.", this);
-            return;
+            yield return new WaitForFixedUpdate();
+            elapsed += Time.fixedDeltaTime;
+            Vector2 position = Vector2.Lerp(start, target, Mathf.Clamp01(elapsed / approachDuration));
+            if (body != null)
+                body.MovePosition(position);
+            else
+                player.transform.position = new Vector3(position.x, position.y, player.transform.position.z);
         }
 
-        _busstopTransitionRoutine = StartCoroutine(TransitionToMorningBusstop());
+        // 마지막 MovePosition을 반영하고 이동을 멈춘 같은 프레임에 두 포옹 클립을 시작합니다.
+        yield return new WaitForFixedUpdate();
+        StopPlayerMovement();
+        if (!PlayPlayerAnimation(playerHugClip) || !PlayKuneKuneAnimation(kuneKuneHugClip))
+            yield break;
+
+        // 걷기와 같은 자동 재생 경로를 사용하고, 각 클립이 끝나면 마지막 포즈를 고정합니다.
+        float hugDuration = Mathf.Max(playerHugClip.length, kuneKuneHugClip.length);
+        float playerLastFrameTime = Mathf.Max(0f, playerHugClip.length - 0.0001f);
+        float kuneKuneLastFrameTime = Mathf.Max(0f, kuneKuneHugClip.length - 0.0001f);
+        elapsed = 0f;
+        while (elapsed < hugDuration)
+        {
+            yield return null;
+            elapsed = Mathf.Min(hugDuration, elapsed + Time.deltaTime);
+            if (elapsed >= playerLastFrameTime)
+            {
+                _playerAnimationPlayable.SetTime(playerLastFrameTime);
+                _playerAnimationPlayable.SetSpeed(0f);
+                _playerAnimationGraph.Evaluate(0f);
+            }
+            if (elapsed >= kuneKuneLastFrameTime)
+            {
+                _kuneKuneAnimationPlayable.SetTime(kuneKuneLastFrameTime);
+                _kuneKuneAnimationPlayable.SetSpeed(0f);
+                _kuneKuneAnimationGraph.Evaluate(0f);
+            }
+        }
+
+        // 흰 화면이 완전히 덮일 때까지 두 캐릭터의 포옹 포즈를 유지합니다.
+        yield return new WaitForSeconds(hugHoldDuration);
     }
 
     private IEnumerator TransitionToMorningBusstop()
     {
         StopKuneKuneAdvance();
-        StopPlayerApproach();
-        StopPlayerAnimation();
-        StopMemorySounds();
+        StopPlayerMovement();
         UIManager.Instance?.StopTrueEndingEcho();
 
+        // 흰 화면이 올라오는 동안 피아노를 줄이고, 새벽 전에는 완전히 멈춥니다.
+        if (_isEndingMusicPlaying)
+            SoundManager.Instance?.StopBGM(whiteFadeDuration);
         _transitionUI = UIManager.Instance;
         if (_transitionUI != null)
         {
             _fadeColorBeforeTransition = _transitionUI.FadeColor;
             _hasFadeColorOverride = true;
             _transitionUI.FadeColor = Color.white;
-            yield return _transitionUI.FadeOut(1f);
+            yield return _transitionUI.FadeOut(whiteFadeDuration);
         }
+        else if (_isEndingMusicPlaying)
+            yield return new WaitForSecondsRealtime(whiteFadeDuration);
 
+        StopEndingMusic();
+
+        director.Stop();
+        StopPlayerAnimation();
+        StopKuneKuneAnimation();
         MapManager mapManager = MapManager.Instance;
         GameObject player = mapManager.Player;
         PlayerMovement movement = player.GetComponent<PlayerMovement>();
@@ -458,38 +508,89 @@ public class TrueEnding : CutsceneControllerBase
         yield return new WaitForSecondsRealtime(0.5f);
 
         if (_transitionUI != null)
-            yield return _transitionUI.FadeIn(1f);
+            yield return _transitionUI.FadeIn(morningFadeDuration);
 
         RestoreTransitionFade(false);
-        _busstopTransitionRoutine = null;
-        // 흰 화면이 완전히 걷힌 뒤 새벽 하늘을 3초 동안 보여줍니다.
-        StartDelayedDialog(playerEpilogueDialog, 3f, OnPlayerEpilogueDialogFinished);
     }
 
-    private void OnPlayerEpilogueDialogFinished()
+    private IEnumerator PlayEndingDialog(DialogData dialog)
     {
-        if (!isActiveAndEnabled || !IsCutsceneRunning || _narrativeCompleted)
-            return;
+        DialogSystem dialogSystem = DialogSystem.Instance;
+        if (dialog == null || dialogSystem == null)
+        {
+            Debug.LogWarning("진엔딩의 대사 에셋과 DialogSystem을 확인해주세요.", this);
+            yield break;
+        }
 
-        _narrativeCompleted = true;
-        EndCutscene();
+        yield return new WaitUntil(() => dialogSystem == null || !dialogSystem.IsDialogPlaying);
+        if (dialogSystem == null) yield break;
+        if (dialog == playerApproachDialog && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayBGM(EndingPianoBgmId, endingMusicFadeInDuration,
+                playbackOwner: this, startTime: endingMusicStartTime, loop: false);
+            _isEndingMusicPlaying = true;
+        }
+        dialogSystem.PlayDialog(dialog);
+        yield return new WaitUntil(() => dialogSystem == null || !dialogSystem.IsDialogPlaying);
     }
 
-    protected override void EndCutscene()
+    private IEnumerator FadeEndingToBlack()
     {
-        // 타임라인 길이와 무관하게 마지막 대사까지 모든 연출을 유지합니다.
-        if (!_narrativeCompleted)
-            return;
-
-        base.EndCutscene();
+        UIManager ui = UIManager.Instance;
+        if (ui != null)
+        {
+            ui.FadeColor = Color.black;
+            yield return ui.FadeOut(endingFadeDuration);
+        }
+        _endingBlackoutCompleted = true;
     }
 
     protected override IEnumerator CutsceneEndRoutine()
     {
+        // Timeline이 먼저 끝나도 메아리와 3초 응시 뒤의 포옹 요청까지 기다립니다.
+        yield return new WaitUntil(() => !_isKuneKuneAdvancing && _delayedHugRoutine == null &&
+            (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
+
+        if (MapManager.Instance?.Player == null)
+        {
+            Debug.LogWarning("진엔딩의 새벽 전환에 필요한 실제 플레이어를 확인해주세요.", this);
+            OnCutsceneEndSetup();
+            CompleteCutscene();
+            yield break;
+        }
+
+        if (playerApproachDialog == null)
+            playerApproachDialog = Resources.Load<DialogData>("Cutscenes/Ending0/TrueEnding_BeforeApproach");
+        if (playerHugDialog == null)
+            playerHugDialog = Resources.Load<DialogData>("Cutscenes/Ending0/TrueEnding_10");
+        if (playerEpilogueDialog == null)
+            playerEpilogueDialog = Resources.Load<DialogData>("Cutscenes/Ending0/TrueEnding_11");
+
+        if (_hugRequested)
+        {
+            // 마지막 대사까지 모두 끝나면 서로 바라보며 여운을 둔 뒤 다가갑니다.
+            yield return PlayEndingDialog(playerApproachDialog);
+            yield return new WaitForSeconds(playerApproachPause);
+            yield return PlayHugRoutine();
+            // 포옹 완료 후 1초 여운은 PlayHugRoutine에서 유지합니다.
+            yield return PlayEndingDialog(playerHugDialog);
+            // '너도..... 나도.....'를 마친 뒤에도 포옹한 채 여운을 유지합니다.
+            yield return new WaitForSeconds(whiteFadeDelay);
+        }
+        yield return TransitionToMorningBusstop();
+        yield return new WaitForSeconds(morningDialogDelay);
+        yield return PlayEndingDialog(playerEpilogueDialog);
+        // 대사 UI가 닫힌 뒤에는 풍경과 새소리만 3초간 유지합니다.
+        yield return new WaitForSeconds(landscapeHoldDuration);
+        yield return FadeEndingToBlack();
+        // 문구가 나타나기 시작할 때부터 사라질 때까지 새소리를 함께 줄입니다.
+        float endingTitleDuration = endingTitleFadeDuration * 2f + endingTitleHoldDuration;
+        SoundManager.Instance?.StopBGM(endingTitleDuration);
+        if (UIManager.Instance != null)
+            yield return UIManager.Instance.ShowEndingTitle(endingTitle, endingTitleFadeDuration, endingTitleHoldDuration);
+        _narrativeCompleted = true;
         OnCutsceneEndSetup();
-        director.Stop();
         CompleteCutscene();
-        yield break;
     }
 
     protected override void OnCutsceneFinished()
@@ -511,23 +612,17 @@ public class TrueEnding : CutsceneControllerBase
 
     private IEnumerator ReturnToTitle()
     {
-        SoundManager.Instance?.StopBGM(1.5f);
-        if (UIManager.Instance != null)
+        // 문구가 사라진 뒤에는 소리 없는 검은 화면을 유지합니다.
+        SoundManager.Instance?.StopBGM(0f);
+        if (!_endingBlackoutCompleted && UIManager.Instance != null)
+        {
+            UIManager.Instance.FadeColor = Color.black;
             yield return UIManager.Instance.FadeOut(1.5f);
-
-        yield return new WaitForSecondsRealtime(1f);
+        }
+        yield return new WaitForSecondsRealtime(endingBlackHoldDuration);
 
         Time.timeScale = 1f;
         SceneManager.LoadScene(TitleSceneName);
-    }
-
-    private void StopTitleReturn()
-    {
-        if (_titleReturnRoutine == null)
-            return;
-
-        StopCoroutine(_titleReturnRoutine);
-        _titleReturnRoutine = null;
     }
 
     private void RestoreTransitionFade(bool clearScreen)
@@ -542,55 +637,20 @@ public class TrueEnding : CutsceneControllerBase
         _transitionUI = null;
     }
 
-    private void StopBusstopTransition()
+    private void StopPlayerMovement()
     {
-        if (_busstopTransitionRoutine != null)
+        if (_hugPlayerMovement != null)
         {
-            StopCoroutine(_busstopTransitionRoutine);
-            _busstopTransitionRoutine = null;
+            _hugPlayerMovement.SetCutsceneMovementControlled(false);
+            _hugPlayerMovement = null;
         }
-        RestoreTransitionFade(true);
-    }
-
-    private void StopMemorySounds()
-    {
-        if (_memorySoundRoutine != null)
-        {
-            StopCoroutine(_memorySoundRoutine);
-            _memorySoundRoutine = null;
-        }
-
-        _memorySoundSource?.Stop();
-    }
-
-    private void StopDelayedDialog()
-    {
-        if (_delayedDialogRoutine == null)
-            return;
-
-        StopCoroutine(_delayedDialogRoutine);
-        _delayedDialogRoutine = null;
-    }
-
-    private void StopPlayerApproach()
-    {
-        if (_approachingPlayerMovement != null)
-        {
-            _approachingPlayerMovement.SetCutsceneMovementControlled(false);
-            _approachingPlayerMovement = null;
-        }
-        if (_isPlayerApproaching)
-            MapManager.Instance?.Player?.GetComponent<PlayerMovement>()?.StopImmediately();
-        if (_isPlayerWalking)
-            PlayPlayerSweatIdleSide();
-        _isPlayerApproaching = false;
-        _isPlayerWalking = false;
-        _playerApproachWaitRemaining = 0f;
+        GameObject player = MapManager.Instance != null ? MapManager.Instance.Player : null;
+        if (player != null)
+            player.GetComponent<PlayerMovement>()?.StopImmediately();
     }
 
     private void FixedUpdate()
     {
-        UpdatePlayerApproach();
         if (!_isKuneKuneAdvancing)
             return;
 
@@ -600,8 +660,27 @@ public class TrueEnding : CutsceneControllerBase
             return;
         }
 
-        kunekKune.position += Vector3.right *
-            (_kuneKuneAdvanceDirection * KuneKune.DefaultMoveSpeed * 0.2f * Time.fixedDeltaTime);
+        if (MapManager.Instance?.Player == null)
+        {
+            StopKuneKuneAdvance();
+            return;
+        }
+
+        Vector3 position = kunekKune.localPosition;
+        position.x = Mathf.MoveTowards(position.x, kuneKuneArrivalLocalX, kuneKuneAdvanceSpeed * Time.fixedDeltaTime);
+        kunekKune.localPosition = position;
+        if (!Mathf.Approximately(position.x, kuneKuneArrivalLocalX))
+            return;
+
+        if (!_kuneKuneAtApproachStop)
+        {
+            _kuneKuneAtApproachStop = true;
+            if (_kuneKuneScratchSource != null)
+                _kuneKuneScratchSource.Stop();
+            kunekKune.GetComponent<Animator>()?.Play("Cutscene_ToiletTrueFlag_Idle", 0, 0f);
+        }
+        if (_approachEchoFinished)
+            CompleteKuneKuneApproach();
     }
 
     private void StopPlayerAnimation()
@@ -610,13 +689,27 @@ public class TrueEnding : CutsceneControllerBase
             _playerAnimationGraph.Destroy();
     }
 
+    private void StopKuneKuneAnimation()
+    {
+        if (_kuneKuneAnimationGraph.IsValid())
+            _kuneKuneAnimationGraph.Destroy();
+    }
+
     protected override void OnCutsceneStartSetup()
     {
         base.OnCutsceneStartSetup();
         BlockBackgroundMusic();
         _narrativeCompleted = false;
-        // 타임라인 끝에서도 마지막 대사까지 모든 후속 연출을 유지합니다.
-        director.extrapolationMode = DirectorWrapMode.Hold;
+        _endingBlackoutCompleted = false;
+        _hugRequested = false;
+        StopDelayedHug();
+#if UNITY_EDITOR
+        // 시작 암전 중에 배우를 배치하여 O키를 누른 장소와 관계없이 컷씬을 확인합니다.
+        if (_isEditorPreview)
+            PrepareEditorPreview();
+#endif
+        // Timeline의 마지막 연출이 끝나면 종료 루틴에서 흰 화면과 새벽으로 이어집니다.
+        director.extrapolationMode = DirectorWrapMode.None;
         if (trueEndingCamera == null)
         {
             Debug.LogWarning("진엔딩의 CM_TrueEnding 카메라를 지정해주세요.", this);
@@ -652,35 +745,37 @@ public class TrueEnding : CutsceneControllerBase
         _hasCameraOverride = false;
     }
 
-    protected override void OnCutsceneEndSetup()
+    private void RestoreCutsceneState()
     {
-        StopTitleReturn();
-        StopBusstopTransition();
-        StopMemorySounds();
-        StopDelayedDialog();
-        StopPlayerApproach();
+        StopDelayedHug();
+        StopEndingMusic();
+        RestoreTransitionFade(true);
+        StopPlayerMovement();
         UIManager.Instance?.StopTrueEndingEcho();
+        UIManager.Instance?.HideEndingTitle();
         RestoreCamera();
         StopKuneKuneAdvance();
         StopPlayerAnimation();
+        StopKuneKuneAnimation();
+    }
+
+    protected override void OnCutsceneEndSetup()
+    {
+        RestoreCutsceneState();
         base.OnCutsceneEndSetup();
     }
 
     protected override void OnDisable()
     {
-        ReleaseBackgroundMusic();
-        StopTitleReturn();
-        _narrativeCompleted = false;
-        StopBusstopTransition();
-        StopMemorySounds();
-        StopDelayedDialog();
-        StopPlayerApproach();
-        UIManager.Instance?.StopTrueEndingEcho();
-        RestoreCamera();
-        StopKuneKuneAdvance();
         if (_dialogController != null)
             _dialogController.DialogFinished -= OnDialogFinished;
-        StopPlayerAnimation();
+        _narrativeCompleted = false;
+        _titleReturnRoutine = null;
+#if UNITY_EDITOR
+        _isEditorPreview = false;
+#endif
+        RestoreCutsceneState();
+        ReleaseBackgroundMusic();
         base.OnDisable();
     }
 }

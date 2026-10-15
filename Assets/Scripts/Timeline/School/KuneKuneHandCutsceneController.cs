@@ -20,6 +20,8 @@ public class KuneKuneHandCutsceneController : CutsceneControllerBase
     {
         if (collision.CompareTag("Player"))
         {   
+            // 여자 화장실도 손 컷씬을 기다리기 전에 실제 추격 적부터 없앱니다.
+            MapManager.Instance?.KuneKune?.Despawn();
             Init();
             StartCoroutine(WaitAndPlayCutscene());
         }

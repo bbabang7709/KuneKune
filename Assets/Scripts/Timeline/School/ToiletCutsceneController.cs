@@ -20,6 +20,8 @@ public class ToiletCutsceneController : CutsceneControllerBase
     private Collider2D _collider;
     private DialogTimelineController _dialogController;
     private bool _isEntryPlaying;
+    private bool _suppressEntryUntilExit;
+    private Coroutine _entryWaitRoutine;
     private bool _firstEscapeShownWithoutSaveManager;
     private bool _firstTrueFlagFailShownWithoutSaveManager;
 
@@ -59,13 +61,42 @@ public class ToiletCutsceneController : CutsceneControllerBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_isEntryPlaying || (playOnlyOnce && hasPlayed))
+        if (!collision.CompareTag("Player")) return;
+
+        // 진입 즉시 추격 적을 없앱니다. 대사 대기나 더위 감소를 기다리지 않습니다.
+        MapManager.Instance?.KuneKune?.Despawn();
+
+        if (_suppressEntryUntilExit || _isEntryPlaying || (playOnlyOnce && hasPlayed))
             return;
 
         _isEntryPlaying = true;
         // 대기 코루틴이 PlayCutscene을 호출할 때까지의 프레임 틈에 조작이 새지 않게 먼저 잠급니다.
         HoldControls();
-        StartCoroutine(WaitAndPlayCutscene());
+        _entryWaitRoutine = StartCoroutine(WaitAndPlayCutscene());
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+            _suppressEntryUntilExit = false;
+    }
+
+    /// <summary>같은 화장실에서 컷씬 배우를 실제 플레이어로 복원할 때 진입 대사를 억제합니다.</summary>
+    public void SuppressEntryUntilExit()
+    {
+        _suppressEntryUntilExit = true;
+        if (_entryWaitRoutine != null)
+        {
+            StopCoroutine(_entryWaitRoutine);
+            _entryWaitRoutine = null;
+        }
+
+        if (!IsCutsceneRunning)
+        {
+            _dialogController.ClearDialogOverride();
+            _isEntryPlaying = false;
+            ReleaseControls();
+        }
     }
 
     private IEnumerator WaitAndPlayCutscene()
@@ -75,6 +106,14 @@ public class ToiletCutsceneController : CutsceneControllerBase
             (SaveManager.Instance == null || !SaveManager.Instance.IsLoading) &&
             (CutsceneManager.Instance == null || !CutsceneManager.Instance.IsCutscenePlaying) &&
             (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
+
+        _entryWaitRoutine = null;
+        if (_suppressEntryUntilExit)
+        {
+            _isEntryPlaying = false;
+            ReleaseControls();
+            yield break;
+        }
 
         // 로드가 끝나며 잠금이 모두 지워질 수 있으므로 다시 잠급니다.
         HoldControls();
@@ -166,6 +205,8 @@ public class ToiletCutsceneController : CutsceneControllerBase
         StopAllCoroutines();
         _dialogController.ClearDialogOverride();
         _isEntryPlaying = false;
+        _suppressEntryUntilExit = false;
+        _entryWaitRoutine = null;
     }
 
     private void OnDestroy()

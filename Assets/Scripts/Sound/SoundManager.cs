@@ -256,7 +256,7 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlayBGM(string bgmID, float fadeDuration = 1f, float volumeMultiplier = 1f,
-        Object playbackOwner = null)
+        Object playbackOwner = null, float startTime = 0f, bool loop = true)
     {
         // 씬 전환으로 소유자가 사라지면 다음 씬의 음악을 막지 않습니다.
         _bgmPlaybackBlockers.RemoveWhere(owner => owner == null);
@@ -273,6 +273,7 @@ public class SoundManager : MonoBehaviour
         //  StopBGM 중에는 _currentBGMData가 null이라 같은 곡이어도 다시 재생됩니다.)
         if (_currentBGMData == data && _bgmSource.isPlaying)
         {
+            _bgmSource.loop = loop;
             FadeBGMVolume(volumeMultiplier, fadeDuration);
             return;
         }
@@ -280,7 +281,7 @@ public class SoundManager : MonoBehaviour
         CancelBGMRoutines();
         _currentBGMData = data;
         _bgmVolumeMultiplier = Mathf.Max(0f, volumeMultiplier);
-        _crossFadeCoroutine = StartCoroutine(CrossFadeBGM(data, fadeDuration, volumeMultiplier));
+        _crossFadeCoroutine = StartCoroutine(CrossFadeBGM(data, fadeDuration, volumeMultiplier, startTime, loop));
     } 
 
     public void FadeBGMVolume(float multiplier, float fadeDuration = 1f)
@@ -321,7 +322,8 @@ public class SoundManager : MonoBehaviour
         _bgmSource.volume = targetVolume;
     }
 
-    private IEnumerator CrossFadeBGM(SoundData nextData, float duration, float volumeMultiplier)
+    private IEnumerator CrossFadeBGM(SoundData nextData, float duration, float volumeMultiplier,
+        float startTime, bool loop)
     {
         float targetVolume = nextData.volume * Mathf.Max(0f, volumeMultiplier);
         float currentTime = 0f;
@@ -338,6 +340,9 @@ public class SoundManager : MonoBehaviour
         }
 
         _bgmSource.clip = nextData.clip;
+        _bgmSource.loop = loop;
+        _bgmSource.volume = 0f;
+        _bgmSource.time = Mathf.Clamp(startTime, 0f, Mathf.Max(0f, nextData.clip.length - 0.01f));
         _bgmSource.Play();
         currentTime = 0f;
 

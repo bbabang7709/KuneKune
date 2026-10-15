@@ -3655,6 +3655,7 @@ GameObject:
   - component: {fileID: 284478488834072425}
   - component: {fileID: 6800859982991798165}
   - component: {fileID: 8200000000000000301}
+  - component: {fileID: 2013883308809408756}
   m_Layer: 0
   m_Name: Cutscene_ToiletTrueFlagUnlocked
   m_TagString: Untagged
@@ -3695,6 +3696,10 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 1550715664861554905, guid: 5d492d27b1ac27d43b4537c52f41e009, type: 2}
     value: {fileID: 4380211742358813857}
+  - key: {fileID: -1901970046124492485, guid: 5d492d27b1ac27d43b4537c52f41e009, type: 2}
+    value: {fileID: 5192160434433674763}
+  - key: {fileID: -5167197836358926159, guid: 5d492d27b1ac27d43b4537c52f41e009, type: 2}
+    value: {fileID: 2013883308809408756}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &284478488834072425
@@ -3737,8 +3742,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ToiletTrueFlagUnlockedCutsceneController
   playOnlyOnce: 1
   useFadeInOut: 1
-  _kuneKune: {fileID: 0}
+  _kuneKune: {fileID: 6169772447956172525}
   _player: {fileID: 0}
+  openingDialog: {fileID: 11400000, guid: 424ba2f965c649e4fb4d2c10df9f3d8c, type: 2}
+  fadeOutDuration: 2
+--- !u!114 &2013883308809408756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3152949018401806728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalReceiver
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: eba5d249be6df2645ae0dcb9e564a6be, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8200000000000000301}
+          m_TargetAssemblyTypeName: ToiletTrueFlagUnlockedCutsceneController, Assembly-CSharp
+          m_MethodName: FadeOut
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &3245423510090635855
 GameObject:
   m_ObjectHideFlags: 0
@@ -6068,7 +6105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6288598352072795739
 Transform:
   m_ObjectHideFlags: 0
@@ -6129,16 +6166,16 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1882975713
+  m_SortingLayer: 3
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.25, y: 2.625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -14093,6 +14130,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}
+--- !u!95 &5192160434433674763 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4784298752562128323, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}
+  m_PrefabInstance: {fileID: 750830351882824648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6169772447956172525 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6914172632500131109, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}
+  m_PrefabInstance: {fileID: 750830351882824648}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6887414269053747940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6196529720615069996, guid: 983a4346d3d067a4ca0b280608d20d23, type: 3}

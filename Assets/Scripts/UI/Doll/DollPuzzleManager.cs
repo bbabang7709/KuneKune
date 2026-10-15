@@ -23,8 +23,7 @@ public class DollPuzzleManager : MonoBehaviour
         if (hasCompleted) return;
         matchedPieces++;
         
-        // 바느질 소리 효과음을 여기서 호출하면 좋습니다.
-        // SoundManager.Instance?.PlaySFX("Sewing_Sound");
+        SoundManager.Instance?.PlaySFX("handkerchief");
 
         if (matchedPieces >= totalPieces)
         {

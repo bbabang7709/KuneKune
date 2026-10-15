@@ -40,6 +40,9 @@ public class QuestUI : UIBase
 
     private void HandleQuestStarted(string questID)
     {
+        // 집 청소는 목표 안내와 진행도 UI를 표시하지 않습니다.
+        if (questID == "HouseCleanup") return;
+
         _currentTrackingQuestID = questID;
         ShowUI();
 

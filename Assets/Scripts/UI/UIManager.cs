@@ -94,6 +94,7 @@ public class UIManager : MonoBehaviour
     private Coroutine _gameplayUIFadeCoroutine;
     private int _fadeId;
     private int _activeFadeId = -1;
+    private TextMeshProUGUI _endingTitle;
     private Transform _dialogFadeLayer;
     private Transform _dialogFadeParent;
     private int _dialogFadeSiblingIndex;
@@ -210,6 +211,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
+        HideEndingTitle();
         RestoreDialogFadeOrder();
         StopScreenEcho();
         kuneKuneScreenEcho?.Stop();
@@ -495,6 +497,62 @@ public class UIManager : MonoBehaviour
     public IEnumerator FadeOut(float duration)
     {
         return RunFade(1f, duration);
+    }
+
+    /// <summary>
+    /// 완전히 암전된 패널 위에 엔딩 문구를 중앙 정렬로 표시하고 다시 지웁니다.
+    /// </summary>
+    public IEnumerator ShowEndingTitle(string title, float fadeDuration, float holdDuration)
+    {
+        HideEndingTitle();
+        if (fadeCanvasGroup == null || string.IsNullOrWhiteSpace(title)) yield break;
+
+        GameObject titleObject = new GameObject("Ending Title", typeof(RectTransform));
+        titleObject.layer = fadeCanvasGroup.gameObject.layer;
+        titleObject.transform.SetParent(fadeCanvasGroup.transform, false);
+        TextMeshProUGUI label = titleObject.AddComponent<TextMeshProUGUI>();
+        _endingTitle = label;
+        RectTransform rect = label.rectTransform;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+        label.font = Resources.Load<TMP_FontAsset>("Fonts/NeoDunggeunmoPro-Regular") ?? TMP_Settings.defaultFontAsset;
+        label.text = title;
+        label.fontSize = 48f;
+        label.alignment = TextAlignmentOptions.Center;
+        label.color = Color.white;
+        label.alpha = 0f;
+        label.raycastTarget = false;
+
+        yield return FadeEndingTitle(label, 1f, fadeDuration);
+        yield return new WaitForSecondsRealtime(Mathf.Max(0f, holdDuration));
+        yield return FadeEndingTitle(label, 0f, fadeDuration);
+        if (_endingTitle == label)
+            HideEndingTitle();
+    }
+
+    private IEnumerator FadeEndingTitle(TextMeshProUGUI label, float targetAlpha, float duration)
+    {
+        if (label == null) yield break;
+        float startAlpha = label.alpha;
+        float elapsed = 0f;
+        while (elapsed < duration && label != null)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            label.alpha = Mathf.Lerp(startAlpha, targetAlpha, Mathf.Clamp01(elapsed / duration));
+            yield return null;
+        }
+        if (label != null)
+            label.alpha = targetAlpha;
+    }
+
+    public void HideEndingTitle()
+    {
+        if (_endingTitle == null) return;
+        _endingTitle.gameObject.SetActive(false);
+        Destroy(_endingTitle.gameObject);
+        _endingTitle = null;
     }
 
     /// <summary>
