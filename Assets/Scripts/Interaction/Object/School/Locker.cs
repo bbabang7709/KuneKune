@@ -27,6 +27,7 @@ public class Locker : MonoBehaviour, IInteractable
     private bool canOpen = false;
     private bool isPuzzleOpen = false;
     private bool hasShownSewingHint;
+    private float _timeScaleBeforePuzzle = 1f;
 
     private bool HasAllDollParts => InventoryManager.Instance != null &&
         InventoryManager.Instance.HasKey("doll_head") &&
@@ -114,6 +115,8 @@ public class Locker : MonoBehaviour, IInteractable
         if (puzzleUIRoot == null || isPuzzleOpen || hasSolved) return;
 
         isPuzzleOpen = true;
+        _timeScaleBeforePuzzle = Time.timeScale;
+        Time.timeScale = 0f;
         if (ControlLockManager.Instance != null)
         {
             ControlLockManager.Instance.AddInputLock(this);
@@ -125,7 +128,10 @@ public class Locker : MonoBehaviour, IInteractable
 
     private void ReleaseLock()
     {
+        if (!isPuzzleOpen) return;
+
         isPuzzleOpen = false;
+        Time.timeScale = _timeScaleBeforePuzzle;
         if (ControlLockManager.Instance != null)
         {
             ControlLockManager.Instance.RemoveInputLock(this);
@@ -152,7 +158,7 @@ public class Locker : MonoBehaviour, IInteractable
 
     private IEnumerator ClosePuzzleRoutine()
     {
-        yield return new WaitForSeconds(closeDelay);
+        yield return new WaitForSecondsRealtime(closeDelay);
 
         if (puzzleUIRoot != null) puzzleUIRoot.SetActive(false);
         ReleaseLock();
