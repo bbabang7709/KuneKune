@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
   - "\uBB34\uC5B8\uAC00 \uC4F0\uC5EC\uC788\uB294 \uCE60\uD310\uC774\uB2E4."
-  - "\uB208...? \uBB34\uC5B8\uAC00 \uC54C\uB824\uC8FC\uB824 \uD558\uB294 \uAC83 \uAC19\uB2E4."
+  - "<color=red>\uB208...?</color> \uBB34\uC5B8\uAC00 \uC54C\uB824\uC8FC\uB824 \uD558\uB294
+    \uAC83 \uAC19\uB2E4."

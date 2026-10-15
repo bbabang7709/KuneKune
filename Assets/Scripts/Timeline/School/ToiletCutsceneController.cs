@@ -52,7 +52,7 @@ public class ToiletCutsceneController : CutsceneControllerBase
         //}
 
         if (_toiletTrueFlagCutscene == null || _toiletTrueFlagCutscene.HasPlayed ||
-            _toiletTrueFlagCutscene.HasTrueFlagFailed || _toiletTrueFlagCutscene.HasFinalDollPart ||
+            _toiletTrueFlagCutscene.HasTrueFlagFailed || _toiletTrueFlagCutscene.HasSeenDirtyDeskCutscene ||
             InventoryManager.Instance == null ||
             !InventoryManager.Instance.HasKey("hanky")) 
             return false;

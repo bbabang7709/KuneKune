@@ -8,7 +8,7 @@ using UnityEngine.Rendering.Universal;
 public class KuneKuneHand : MonoBehaviour
 {
     private const int DoorCount = 5;
-    private const float EventHeatIncreaseRate = 7f;
+    private const float EventHeatIncreaseRate = 5f;
 
     [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
 

@@ -79,7 +79,8 @@ public class PlayerController : MonoBehaviour
             // 💡 입력이 잠기지 않았을 때만 상호작용 업데이트
             if (!isInputLocked)
             {
-                if (movement != null && !movement.IsCrouching)
+                // 책상 조사로 수그린 상태에서는 F 홀드를 계속 처리합니다.
+                if (movement != null && (!movement.IsCrouching || interaction.IsCrouchingForInteraction))
                 {
                     if (input.IsInteractPressed)
                     {

@@ -287,19 +287,27 @@ public class KuneKune : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // HasPlayed는 시작 시점에 true가 됩니다. 컷씬 중에는 변신이 끝나도 추적하지 않습니다.
-        // Animator는 계속 재생되며, 첫 조우의 추적 시작은 OnCutsceneFinished에서 처리합니다.
-        if (CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying)
+        bool isCutscenePlaying = CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying;
+
+        if (_state == ECharacterState.Spawning)
+        {
+            // Animator.Play 직후에는 이전 상태를 읽을 수 있으므로 변신 상태인지도 확인합니다.
+            var animationState = _animator.GetCurrentAnimatorStateInfo(0);
+            if (animationState.IsName(SpawnAnimationName) && animationState.normalizedTime >= 1f)
+            {
+                // 첫 조우 컷씬에서는 달리기 연출만 시작하고, 추격 상태는 OnCutsceneFinished에서 전환합니다.
+                if (isCutscenePlaying)
+                    _animator.Play("Run", 0, 0f);
+                else
+                    State = ECharacterState.Run;
+            }
             return;
+        }
+
+        if (isCutscenePlaying) return;
 
         switch (_state)
         {
-            case ECharacterState.Spawning:
-                // Animator.Play 직후에는 이전 상태를 읽을 수 있으므로 변신 상태인지도 확인합니다.
-                var animationState = _animator.GetCurrentAnimatorStateInfo(0);
-                if (animationState.IsName(SpawnAnimationName) && animationState.normalizedTime >= 1f)
-                    State = ECharacterState.Run;
-                break;
             case ECharacterState.Idle:
                 break;
             case ECharacterState.Run:

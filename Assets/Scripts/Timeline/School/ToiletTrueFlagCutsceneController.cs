@@ -64,6 +64,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     private bool _canInteractWithKuneKune;
     private bool _isGameOver;
     private PlayerMovement _heatPlayer;
+    private DirtyDeskCutsceneController _dirtyDeskCutscene;
 
     public bool CanInteractWithKuneKune =>
         _canInteractWithKuneKune && !_isGameOver && !HasTrueFlagFailed && !HasTrueFlagSucceeded && _kuneKune != null &&
@@ -78,9 +79,19 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     public bool HasTrueFlagSucceeded =>
         SaveManager.Instance?.IsTrueEndingUnlocked ?? _trueFlagSucceededWithoutSaveManager;
 
-    public bool HasFinalDollPart =>
-        (InventoryManager.Instance != null && InventoryManager.Instance.HasKey("doll_leg")) ||
-        (SaveManager.Instance != null && SaveManager.Instance.GetFlag("key_doll_leg"));
+    public bool HasSeenDirtyDeskCutscene
+    {
+        get
+        {
+            if (SaveManager.Instance != null)
+                return SaveManager.Instance.GetFlag(DirtyDeskCutsceneController.CompletedFlag);
+
+            if (_dirtyDeskCutscene == null)
+                _dirtyDeskCutscene = FindFirstObjectByType<DirtyDeskCutsceneController>(FindObjectsInactive.Include);
+
+            return _dirtyDeskCutscene != null && _dirtyDeskCutscene.HasCompleted;
+        }
+    }
 
     public void CompleteTrueFlagInteraction()
     {
@@ -158,7 +169,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     public void Play()
     {
-        if (_isPlayRequested || IsCutsceneRunning || HasTrueFlagFailed || HasTrueFlagSucceeded || HasFinalDollPart ||
+        if (_isPlayRequested || IsCutsceneRunning || HasTrueFlagFailed || HasTrueFlagSucceeded || HasSeenDirtyDeskCutscene ||
             (playOnlyOnce && hasPlayed))
             return;
 
@@ -188,7 +199,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
             (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
 
         // 직접 Play가 호출되어도 로드된 실패 기록을 확인한 뒤에만 재생한다.
-        if (HasTrueFlagFailed || HasTrueFlagSucceeded || HasFinalDollPart || (playOnlyOnce && hasPlayed))
+        if (HasTrueFlagFailed || HasTrueFlagSucceeded || HasSeenDirtyDeskCutscene || (playOnlyOnce && hasPlayed))
         {
             _isPlayRequested = false;
             ReleaseControls();

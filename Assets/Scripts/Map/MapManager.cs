@@ -117,6 +117,7 @@ public class MapManager : MonoBehaviour
             Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
             if (spawnPoint != null && Player != null)
             {
+                ApplyMapEntryHeat();
                 Player.transform.position = spawnPoint.position;
 
                 Physics2D.SyncTransforms();
@@ -172,6 +173,7 @@ public class MapManager : MonoBehaviour
             Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
             if (spawnPoint != null && Player != null)
             {
+                ApplyMapEntryHeat();
                 Player.transform.position = spawnPoint.position;
 
                 Physics2D.SyncTransforms();
@@ -208,6 +210,17 @@ public class MapManager : MonoBehaviour
         Time.timeScale = 1f;
 
         onComplete?.Invoke();
+    }
+
+    private void ApplyMapEntryHeat()
+    {
+        if (CurrentMapType != EMapType.House_Hallway || Player == null ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading))
+            return;
+
+        PlayerMovement movement = Player.GetComponent<PlayerMovement>();
+        if (movement != null && movement.CurrentHeat > 50f)
+            movement.SetCurrentHeat(50f);
     }
 
     /// <summary>

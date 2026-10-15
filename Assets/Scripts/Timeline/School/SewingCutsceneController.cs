@@ -141,6 +141,7 @@ public class SewingCutsceneController : CutsceneControllerBase
         _hasStartedPlayerWalk = false;
         _isPlayerWalking = false;
         _hasOpenedGate = false;
+        // 시작 암전이 완료된 상태에서 디스폰하여 사라지는 모습이 화면에 보이지 않게 합니다.
         MapManager.Instance.KuneKune.Despawn();
         MapManager.Instance.InitMap(EMapType.School_Hallway, "school_hallway_0");
         GameObject player = MapManager.Instance.Player;
