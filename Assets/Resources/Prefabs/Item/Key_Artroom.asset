@@ -15,7 +15,7 @@ MonoBehaviour:
   itemType: 1
   itemID: key_artroom
   itemName: "\uBBF8\uC220\uC2E4 \uC5F4\uC1E0"
-  description: "\uBBF8\uC220\uC2E4 \uC5F4\uC1E0\uC774\uB2E4. "
+  description: "2\uCE35\uC758 \uBBF8\uC220\uC2E4\uC744 \uC5F4 \uC218 \uC788\uB2E4."
   itemCount: 1
   illustration: {fileID: 5884227263795012068, guid: 17fdb4791e3c27246a9c7be3f21ce45b, type: 3}
   icon: {fileID: 5884227263795012068, guid: 17fdb4791e3c27246a9c7be3f21ce45b, type: 3}
