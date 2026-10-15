@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float crouchSpeed = 1.5f;
 
     private bool isCrouchPressed;
+    private bool _isInteractionCrouching;
 
     /// <summary>
     /// 현재 Crouch 상태인지 반환한다.
@@ -362,7 +363,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateCrawlingState()
     {
         bool shouldCrouch =
-            isCrouchPressed &&
+            (isCrouchPressed || _isInteractionCrouching) &&
             !IsExhausted &&
             !IsMovementLocked;
 
@@ -536,6 +537,15 @@ public class PlayerMovement : MonoBehaviour
     public void SetCrouchState(bool state)
     {
         isCrouchPressed = state;
+    }
+
+    /// <summary>상호작용 자세를 즉시 반영하고 일반 수그리기 입력과 별도로 유지합니다.</summary>
+    public void SetInteractionCrouching(bool state)
+    {
+        if (_isInteractionCrouching == state) return;
+        _isInteractionCrouching = state;
+        if (state) StopImmediately();
+        UpdateCrawlingState();
     }
 
     // =========================================================

@@ -11149,7 +11149,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.069374084, y: 0.18830967}
+  m_Offset: {x: -0.069374084, y: 0.35726643}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -11159,7 +11159,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 12.318375, y: 2.407362}
+  m_Size: {x: 12.318375, y: 2.0694485}
   m_EdgeRadius: 0
 --- !u!1 &7502043204725904979
 GameObject:
@@ -14823,6 +14823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtyDesk
   cutscene: {fileID: 3802379274086816598}
+  holdDuration: 3
 --- !u!4 &3410284599650147223 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4027323244535980723, guid: 55ce2bfe9b72175438634839d199ec65, type: 3}

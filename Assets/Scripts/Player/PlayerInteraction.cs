@@ -20,6 +20,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private KuneKuneHand handEvent;
     private ToiletTrueFlagKuneKuneInteraction _choiceTarget;
+    private PlayerMovement _movement;
 
     [Header("Interaction")]
     [SerializeField]
@@ -52,11 +53,18 @@ public class PlayerInteraction : MonoBehaviour
     public bool IsHolding =>
         activeTarget is IHoldInteractable;
 
+    public bool IsCrouchingForInteraction => activeTarget is DirtyDesk;
+
     /// <summary>
     /// 현재 상호작용이 진행 중인지 여부입니다.
     /// </summary>
     public bool IsInteracting =>
         activeTarget != null;
+
+    private void Awake()
+    {
+        _movement = GetComponent<PlayerMovement>();
+    }
 
     private void Update()
     {
@@ -217,6 +225,10 @@ public class PlayerInteraction : MonoBehaviour
 
         // 현재 대상을 고정합니다.
         activeTarget = currentTarget;
+        if (_movement != null && activeTarget is DirtyDesk desk)
+            _movement.SetFacingDirection(desk.transform.position.x - transform.position.x);
+
+        _movement?.SetInteractionCrouching(IsCrouchingForInteraction);
 
         activeTarget.OnInteractPressed();
     }
@@ -233,7 +245,7 @@ public class PlayerInteraction : MonoBehaviour
             return;
 
         // 상호작용 대상과 너무 멀어지면 Hold를 취소합니다.
-        if (!IsActiveTargetInRange())
+        if (!IsActiveTargetInRange() || !CanUseInteractable(activeTarget))
         {
             CancelInteraction();
             return;
@@ -255,6 +267,7 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         activeTarget = null;
+        _movement?.SetInteractionCrouching(false);
     }
 
     /// <summary>
@@ -267,12 +280,7 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     public void CancelInteraction()
     {
-        if (activeTarget is IHoldInteractable holdTarget)
-        {
-            holdTarget.OnInteractReleased();
-        }
-
-        activeTarget = null;
+        ReleaseInteraction();
     }
 
     /// <summary>
