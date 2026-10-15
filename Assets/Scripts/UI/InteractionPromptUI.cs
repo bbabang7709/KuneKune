@@ -14,9 +14,12 @@ public class InteractionPromptUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI choiceText;
 
     private Action _onChoiceSelected;
+    private Vector2 _choiceAnchoredPosition;
 
     void Awake()
     {
+        if (choiceButton != null)
+            _choiceAnchoredPosition = ((RectTransform)choiceButton.transform).anchoredPosition;
         choiceButton?.onClick.AddListener(SelectChoice);
         Hide();
     }
@@ -54,6 +57,16 @@ public class InteractionPromptUI : MonoBehaviour
 
     public void ShowChoice(string text, Action onSelected)
     {
+        ShowChoiceContent(text, onSelected, false);
+    }
+
+    public void ShowHint(string text)
+    {
+        ShowChoiceContent(text, null, true);
+    }
+
+    private void ShowChoiceContent(string text, Action onSelected, bool isHint)
+    {
         promptRoot?.SetActive(false);
         promptFillImage.fillAmount = 0f;
 
@@ -61,6 +74,12 @@ public class InteractionPromptUI : MonoBehaviour
 
         _onChoiceSelected = onSelected;
         choiceText.text = text;
+        if (choiceButton.targetGraphic != null)
+            choiceButton.targetGraphic.raycastTarget = !isHint;
+
+        // 키 안내는 지정한 월드 위치에 중앙 정렬하고, 선택지는 기존 오프셋을 유지합니다.
+        ((RectTransform)choiceButton.transform).anchoredPosition =
+            isHint ? Vector2.zero : _choiceAnchoredPosition;
         Canvas canvas = choiceButton.GetComponentInParent<Canvas>();
         if (canvas != null && canvas.renderMode == RenderMode.WorldSpace)
             canvas.worldCamera = Camera.main;
