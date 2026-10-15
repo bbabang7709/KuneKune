@@ -74746,19 +74746,33 @@ MonoBehaviour:
   playOnlyOnce: 1
   useFadeInOut: 1
   playerSweatIdleClip: {fileID: 7400000, guid: 28bd92cd61f321b4f9e4da282a13a05b, type: 2}
-  playerSweatIdleSideClip: {fileID: 7400000, guid: 766065fb83433fc4aa6a537669aa083a, type: 2}
-  playerSweatWalkClip: {fileID: 7400000, guid: 0a651fbaa40e8cf41b79ac291d870e01, type: 2}
+  playerSweatIdleSideClip: {fileID: 7400000, guid: 9ebce3cd2b16ab14ebe460d1c0ab16e8, type: 2}
+  playerHugClip: {fileID: 7400000, guid: 49cf9ed2345812342935f0d7963ffa85, type: 2}
+  playerWalkClip: {fileID: 7400000, guid: e69f520932a67fb42a6b51d967f64a08, type: 2}
+  kuneKuneTrueEndingIdleClip: {fileID: 7400000, guid: ea48887b5e244d94cbd1cdb8d5ae3b97, type: 2}
+  kuneKuneHugClip: {fileID: 7400000, guid: 48b6119019e193841961f1fabc981b31, type: 2}
+  playerHugDelay: 3
+  playerApproachPause: 2
+  kuneKuneArrivalLocalX: 115
+  kuneKuneAdvanceSpeed: 1.5
+  playerHugMoveSpeed: 1
+  playerHugStopDistance: 3.7
+  hugHoldDuration: 1
+  whiteFadeDelay: 2
+  endingMusicStartTime: 21.5
+  endingMusicFadeInDuration: 0.6
+  whiteFadeDuration: 2
+  morningFadeDuration: 1
+  morningDialogDelay: 2
+  landscapeHoldDuration: 3
+  endingFadeDuration: 1
+  endingTitle: fin.
+  endingTitleFadeDuration: 1
+  endingTitleHoldDuration: 3
+  endingBlackHoldDuration: 2
   firstDialog: {fileID: 11400000, guid: 59aa4ff882eb7fb4395868121ecac2ab, type: 2}
-  playerApproachDialog: {fileID: 11400000, guid: 241e0cd326c401e45b79020221bf38ac, type: 2}
-  playerPromiseDialog: {fileID: 11400000, guid: 0ad030ef3fddd52448fb0fed359ba3d2, type: 2}
-  playerUnderstandingDialog: {fileID: 11400000, guid: 8ece9cfea8dbac24891a8cf441740567, type: 2}
-  playerEmpathyDialog: {fileID: 11400000, guid: d5e798865b209c744aad59e2a99bd4f2, type: 2}
-  playerInvitationDialog: {fileID: 11400000, guid: 877fdd8ebebae664f885c4f7af12ff5c, type: 2}
-  playerConfessionDialog: {fileID: 11400000, guid: 5781aeed7667b0b48831cb228fbf6bfc, type: 2}
-  playerReflectionDialog: {fileID: 11400000, guid: 2ba8f422c40ea07438506de038b2492c, type: 2}
-  playerDenialDialog: {fileID: 11400000, guid: db5a5077665474740886563965d3101f, type: 2}
-  playerAcceptanceDialog: {fileID: 11400000, guid: 3cee2253129cd2e42b5f07b54f0d9353, type: 2}
-  playerDepartureDialog: {fileID: 11400000, guid: 7c585dc467dfc524ebad35e3947524e3, type: 2}
+  playerApproachDialog: {fileID: 11400000, guid: 5b96a22ad7c741deaf4bb0eae049661a, type: 2}
+  playerHugDialog: {fileID: 11400000, guid: 7c585dc467dfc524ebad35e3947524e3, type: 2}
   playerEpilogueDialog: {fileID: 11400000, guid: dc3833ebea2486e429de784a30391c18, type: 2}
   onTrueEndingFinished:
     m_PersistentCalls:
@@ -74781,12 +74795,8 @@ MonoBehaviour:
   - {fileID: -9204250724025480985, guid: e38725aaa3e22d84aad98fb7204fe872, type: 3}
   - {fileID: 8697136028626323763, guid: c71358ecb9d3946439bd7edb722d11e2, type: 3}
   kunekKune: {fileID: 3716883676957604267}
-  playerApproachDelay: 0.5
-  playerApproachSpeed: 1
-  playerApproachStopDistance: 3
-  playerWalkAnimationSpeed: 0.5
-  laughingWomenGain: 10
   trueEndingCamera: {fileID: 2046778465026472950}
+  editorPreviewStartPoint: {fileID: 2599664952808896713}
 --- !u!114 &6411123090683835897
 MonoBehaviour:
   m_ObjectHideFlags: 0

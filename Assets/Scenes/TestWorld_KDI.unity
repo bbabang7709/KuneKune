@@ -1506,8 +1506,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  _doorLight: {fileID: 0}
-  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 3e944ca7dd93b9a4f89264f81f383b22, type: 2}
   uniquePickupID: key_artroom
   acquireDialog: {fileID: 11400000, guid: 60389233399217c40a4612bb810127f9, type: 2}
@@ -3946,8 +3944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  _doorLight: {fileID: 0}
-  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 0222b2bdb1ee40245a4f910da704ead5, type: 2}
   uniquePickupID: key_classroom
   acquireDialog: {fileID: 11400000, guid: 85e7bc4c8fceb264bb992c4bdd78e443, type: 2}
@@ -4235,8 +4231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  _doorLight: {fileID: 0}
-  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 092abdb8f0a3ca142913cb5821d450ee, type: 2}
   uniquePickupID: doll_head
   acquireDialog: {fileID: 11400000, guid: 9f9805cf68d318b4bb7c801011a3be3c, type: 2}
@@ -5678,8 +5672,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  _doorLight: {fileID: 0}
-  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 55d3ddfb0ddb37b46bb53e0e0e18b951, type: 2}
   uniquePickupID: doll_arm
   acquireDialog: {fileID: 11400000, guid: a8321a0874fd4544484399766e024163, type: 2}
@@ -6115,6 +6107,10 @@ PrefabInstance:
     - target: {fileID: 2333654330674898206, guid: 825eecfcfddeaa64abbb663fe64a2639, type: 3}
       propertyPath: m_Name
       value: Interaction Prompt
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000000000001011, guid: 825eecfcfddeaa64abbb663fe64a2639, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000015258789
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6953,8 +6949,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  _doorLight: {fileID: 0}
-  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 61b2777b54d8cb944a0d0fea9002e7d2, type: 2}
   uniquePickupID: water_bottle
   acquireDialog: {fileID: 11400000, guid: e4c1b8e950e7bd84d9f2d023d7dcb2c7, type: 2}
@@ -7548,8 +7542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04905c68ab72f245b5d1f2434f97e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  _doorLight: {fileID: 0}
-  _toiletLight: {fileID: 0}
   itemData: {fileID: 11400000, guid: 6a9637fba730bf14a920f4caee999f9e, type: 2}
   uniquePickupID: doll_leg
   acquireDialog: {fileID: 11400000, guid: e7e94924e702f4749992d433155372e5, type: 2}
