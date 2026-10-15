@@ -31,7 +31,8 @@ public class InteractionPromptUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        choiceButton?.onClick.RemoveListener(SelectChoice);
+        if (choiceButton != null)
+            choiceButton.onClick.RemoveListener(SelectChoice);
     }
 
     public void Show()
@@ -51,8 +52,8 @@ public class InteractionPromptUI : MonoBehaviour
     public void Hide()
     {
         HideChoice();
-        promptRoot?.SetActive(false);
-        promptFillImage.fillAmount = 0f;
+        if (promptRoot != null) promptRoot.SetActive(false);
+        if (promptFillImage != null) promptFillImage.fillAmount = 0f;
     }
 
     public void ShowChoice(string text, Action onSelected)
@@ -89,7 +90,8 @@ public class InteractionPromptUI : MonoBehaviour
     private void HideChoice()
     {
         _onChoiceSelected = null;
-        choiceButton?.gameObject.SetActive(false);
+        if (choiceButton != null)
+            choiceButton.gameObject.SetActive(false);
     }
 
     private void SelectChoice()

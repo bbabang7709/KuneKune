@@ -81,7 +81,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         CancelInteraction();
         _choiceTarget = null;
-        promptUI?.Hide();
+        if (promptUI != null) promptUI.Hide();
     }
 
     private void SelectWipeChoice()
