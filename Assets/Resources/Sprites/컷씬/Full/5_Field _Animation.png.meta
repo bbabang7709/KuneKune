@@ -1,0 +1,593 @@
+fileFormatVersion: 2
+guid: 992795df464560b4da5f60b911466155
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5969151819388505214
+    second: 5_Field _Animation_0
+  - first:
+      213: -7057230048501724306
+    second: 5_Field _Animation_1
+  - first:
+      213: 5033423500782775843
+    second: 5_Field _Animation_2
+  - first:
+      213: 3898029027932823347
+    second: 5_Field _Animation_3
+  - first:
+      213: -8262258626271220575
+    second: 5_Field _Animation_4
+  - first:
+      213: 6541547834241246544
+    second: 5_Field _Animation_5
+  - first:
+      213: 5723669243513239544
+    second: 5_Field _Animation_6
+  - first:
+      213: 4191415468352173391
+    second: 5_Field _Animation_7
+  - first:
+      213: -9097356645995583724
+    second: 5_Field _Animation_8
+  - first:
+      213: -8981436056229322647
+    second: 5_Field _Animation_9
+  - first:
+      213: 4641624055514278288
+    second: 5_Field _Animation_10
+  - first:
+      213: -4016597683472900977
+    second: 5_Field _Animation_11
+  - first:
+      213: 1631390947729969520
+    second: 5_Field _Animation_12
+  - first:
+      213: -7091686064865602263
+    second: 5_Field _Animation_13
+  - first:
+      213: 2479296990941564550
+    second: 5_Field _Animation_14
+  - first:
+      213: 2325395296433371375
+    second: 5_Field _Animation_15
+  - first:
+      213: 7256800969926097756
+    second: 5_Field _Animation_16
+  - first:
+      213: -3313632489905353167
+    second: 5_Field _Animation_17
+  - first:
+      213: 5546045247810343967
+    second: 5_Field _Animation_18
+  - first:
+      213: -3998276716827288967
+    second: 5_Field _Animation_19
+  - first:
+      213: -3929680090593823390
+    second: 5_Field _Animation_20
+  - first:
+      213: -864714066698279930
+    second: 5_Field _Animation_21
+  - first:
+      213: 4882051718824963022
+    second: 5_Field _Animation_22
+  - first:
+      213: -4068037355613073859
+    second: 5_Field _Animation_23
+  - first:
+      213: -7135667284753394359
+    second: 5_Field _Animation_24
+  - first:
+      213: 3564300926918092788
+    second: 5_Field _Animation_25
+  - first:
+      213: 7881381611189908909
+    second: 5_Field _Animation_26
+  - first:
+      213: -7128034226402439855
+    second: 5_Field _Animation_27
+  - first:
+      213: -5504658261699120159
+    second: 5_Field _Animation_28
+  - first:
+      213: -7825560380184451249
+    second: 5_Field _Animation_29
+  - first:
+      213: -1362029937073203285
+    second: 5_Field _Animation_30
+  - first:
+      213: -5118811192606643146
+    second: 5_Field _Animation_31
+  - first:
+      213: 8625046792588782661
+    second: 5_Field _Animation_32
+  - first:
+      213: -6984972479863058742
+    second: 5_Field _Animation_33
+  - first:
+      213: 4721077672831628763
+    second: 5_Field _Animation_34
+  - first:
+      213: -1516120163592841457
+    second: 5_Field _Animation_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 5_Field _Animation_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 0
+        width: 41
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c4fad90088550e479bf98500212b6da
+      internalID: 775255671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_2
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 41
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a7610db603c8df49ba53d9b8b024be5
+      internalID: -711890738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_4
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 0
+        width: 44
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 645b5fc7268907e45bf0c4a236b22921
+      internalID: -1645136554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_6
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 0
+        width: 44
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35d6e27f8e61b644d9e4fa00452a33df
+      internalID: -2141903582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_8
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 0
+        width: 43
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 561bb8d3f17f4f648b33515c4e839d75
+      internalID: 1648445794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_10
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 43
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f2d9ac94019d404e9c4aae0e459b459
+      internalID: -29465615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_12
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 0
+        width: 43
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74b128c622f7a8945abd444342e7f1e9
+      internalID: -1507069724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_14
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 0
+        width: 46
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9112471d5f6bba44bb638cca142ddb7c
+      internalID: 1169269134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_16
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 0
+        width: 54
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc78f971014a9ca419eb599118370871
+      internalID: 932115621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_18
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 0
+        width: 56
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cde2a9b58c74881449c68a0f5001b62a
+      internalID: -270275323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_21
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 0
+        width: 60
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 112262a8b7116b343ab45d9848023568
+      internalID: -1861777427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_24
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 0
+        width: 67
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f491cca20fb31314980c64effe2ef8b2
+      internalID: 555066537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_27
+      rect:
+        serializedVersion: 2
+        x: 1145
+        y: 0
+        width: 69
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33657bd2912764e4098b024eeded0af9
+      internalID: 1523029040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_30
+      rect:
+        serializedVersion: 2
+        x: 1240
+        y: 0
+        width: 71
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99f62b3c57bf6a241a368448f6f1ac19
+      internalID: 1823099250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 5_Field _Animation_33
+      rect:
+        serializedVersion: 2
+        x: 1335
+        y: 0
+        width: 80
+        height: 37
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 422db458e2214094baa73649b5846fc7
+      internalID: -575631714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 4df76f02ab788ad4ea24e39409835257
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":4,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      5_Field _Animation_0: 775255671
+      5_Field _Animation_1: -7057230048501724306
+      5_Field _Animation_10: -29465615
+      5_Field _Animation_11: -4016597683472900977
+      5_Field _Animation_12: -1507069724
+      5_Field _Animation_13: -7091686064865602263
+      5_Field _Animation_14: 1169269134
+      5_Field _Animation_15: 2325395296433371375
+      5_Field _Animation_16: 932115621
+      5_Field _Animation_17: -3313632489905353167
+      5_Field _Animation_18: -270275323
+      5_Field _Animation_19: -3998276716827288967
+      5_Field _Animation_2: -711890738
+      5_Field _Animation_20: -3929680090593823390
+      5_Field _Animation_21: -1861777427
+      5_Field _Animation_22: 4882051718824963022
+      5_Field _Animation_23: -4068037355613073859
+      5_Field _Animation_24: 555066537
+      5_Field _Animation_25: 3564300926918092788
+      5_Field _Animation_26: 7881381611189908909
+      5_Field _Animation_27: 1523029040
+      5_Field _Animation_28: -5504658261699120159
+      5_Field _Animation_29: -7825560380184451249
+      5_Field _Animation_3: 3898029027932823347
+      5_Field _Animation_30: 1823099250
+      5_Field _Animation_31: -5118811192606643146
+      5_Field _Animation_32: 8625046792588782661
+      5_Field _Animation_33: -575631714
+      5_Field _Animation_34: 4721077672831628763
+      5_Field _Animation_35: -1516120163592841457
+      5_Field _Animation_4: -1645136554
+      5_Field _Animation_5: 6541547834241246544
+      5_Field _Animation_6: -2141903582
+      5_Field _Animation_7: 4191415468352173391
+      5_Field _Animation_8: 1648445794
+      5_Field _Animation_9: -8981436056229322647
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

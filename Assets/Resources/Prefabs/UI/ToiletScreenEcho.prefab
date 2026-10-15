@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &532057493177531691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 532057493177531688}
+  - component: {fileID: 532057493177531689}
+  m_Layer: 5
+  m_Name: ToiletScreenEcho
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &532057493177531688
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532057493177531691}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &532057493177531689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532057493177531691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fc3015598a4cbeb5dc8441b6893e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanvasEcho
+  targetCanvas: {fileID: 0}
+  echoContainer: {fileID: 532057493177531688}
+  echoText: {fileID: 0}
+  fontSize: 50
+  echoColor: {r: 0.5411765, g: 0.15686275, b: 0.18039216, a: 0.65}
+  delayRange: {x: 0.5, y: 1}
+  echoCountRange: {x: 1, y: 3}
+  fadeInDuration: 0.8
+  holdDuration: 0.6
+  fadeOutDuration: 1
+  slidePixels: 4
+  excludedUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  excludedUIPaddingPixels: 16
+  screenPaddingPixels: 12
+  screenPaddingRatio: 0.1
+  phrases:
+  - "\uC544\uD30C... \uC544\uD30C..."
+  - "\uC81C\uBC1C \uADF8\uB9CC\u2026\u2026"
+  - "\uB3C4\uC640\uC918\u2026\u2026"
+  - "\uC73C..\uC73C\uC5B4..."
+  - "\uB204\uAC00 \uC880\u2026\u2026"
+  - "\uC65C \uC544\uBB34\uB3C4 \uC548 \uC640\u2026\u2026"

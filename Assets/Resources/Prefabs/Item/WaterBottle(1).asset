@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe6c09b35713b4b429d99c6a0ac92cad, type: 3}
+  m_Name: WaterBottle(1)
+  m_EditorClassIdentifier: Assembly-CSharp::ConsumableItemData
+  itemType: 2
+  itemID: water_bottle(1)
+  itemName: "\uBB3C\uBCD1"
+  description: "\uC2DC\uC6D0\uD55C \uBB3C\uC774 \uB2F4\uAE34 \uBB3C\uBCD1\uC774\uB2E4\n\n\uB9C8\uC2DC\uBA74
+    \uC57D\uAC04 \n\uC2DC\uC6D0\uD574\uC9C8 \uAC83 \uAC19\uB2E4.\n\n<color=blue>\uB354\uC704
+    -10</color>"
+  itemCount: 1
+  illustration: {fileID: 4523649996240726951, guid: 1526e7c8e25d1864883a681e8f41bfaf, type: 3}
+  icon: {fileID: 4523649996240726951, guid: 1526e7c8e25d1864883a681e8f41bfaf, type: 3}
+  keyAcquiredNormal: {fileID: 0}
+  keyAcquiredSelected: {fileID: 0}
+  keyUnacquiredNormal: {fileID: 0}
+  keyUnacquiredSelected: {fileID: 0}
+  heatRecovery: 10

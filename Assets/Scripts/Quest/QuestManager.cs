@@ -1,0 +1,319 @@
+using System;
+using System.Collections.Generic;
+using Unity.Collections;
+using UnityEngine;
+
+[DisallowMultipleComponent]
+public class QuestManager : MonoBehaviour, ISaveable
+{
+    public static QuestManager Instance { get; private set; }
+
+    [Header("Quest Data")]
+    [Tooltip("게임에서 사용할 퀘스트 데이터를 등록합니다.")]
+    [SerializeField] private List<QuestData> _questDataList = new();
+
+    private readonly Dictionary<string, QuestProgress> _questProgresses = new(StringComparer.Ordinal);
+
+    /// <summary>
+    /// 퀘스트를 시작했을 때 퀘스트 ID를 전달합니다.
+    /// </summary>
+    public event Action<string> OnQuestStarted;
+
+    /// <summary>
+    /// 진행 수가 바뀌었을 때 퀘스트 ID, 완료한 수, 전체 수를 전달합니다.
+    /// </summary>
+    public event Action<string, int, int> OnQuestProgressChanged;
+
+    /// <summary>
+    /// 퀘스트를 완료했을 때 퀘스트 ID를 전달합니다.
+    /// </summary>
+    public event Action<string> OnQuestCompleted;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        CreateQuestProgresses();
+    }
+
+    private void Start() => SaveManager.Instance?.Register(this);
+
+#if UNITY_EDITOR
+    private void Update()
+    {
+        // 에디터에서 R 키를 누르면 집 청소를 모두 완료하고 내 방 열쇠를 지급합니다.
+        var keyboard = UnityEngine.InputSystem.Keyboard.current;
+        if (keyboard != null && keyboard.rKey.wasPressedThisFrame)
+        {
+            CompleteQuest("HouseCleanup");
+            InventoryManager.Instance?.AddKeyItem("key_myroom");
+        }
+    }
+#endif
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+
+        SaveManager.Instance?.Unregister(this);
+    }
+
+    public string GetUniqueID() => "QuestManager_Main";
+
+    public void SaveState(SaveData data)
+    {
+        data.completedQuestIDs.Clear();
+        data.activeQuestIDs.Clear();
+
+        foreach (var kvp in _questProgresses)
+        {
+            if (kvp.Value.IsCompleted)
+            {
+                data.completedQuestIDs.Add(kvp.Key);
+            }
+            else if (kvp.Value.CompletedCount > 0 || kvp.Value.Status == EQuestStatus.InProgress)
+            {
+                data.activeQuestIDs.Add(kvp.Key);
+            }
+        }
+    }
+
+    public void LoadState(SaveData data)
+    {
+        CreateQuestProgresses();
+
+        foreach (string activeID in data.activeQuestIDs) StartQuest(activeID);
+
+        foreach (var kvp in _questProgresses)
+        {
+            QuestProgress progress = kvp.Value;
+            if (progress.Status == EQuestStatus.NotStarted) continue;
+
+            foreach (string objID in progress.Data.ObjectiveIDs)
+            {
+                if (SaveManager.Instance != null && SaveManager.Instance.GetFlag($"QuestObj_{objID}"))
+                {
+                    progress.TryCompleteObjective(objID);
+                }
+            }
+        }
+
+        // 일괄 완료한 퀘스트도 저장된 완료 목록을 기준으로 복원합니다.
+        foreach (string completedID in data.completedQuestIDs) CompleteQuest(completedID);
+    }
+
+    public static QuestManager Instantiate()
+    {
+        if (Instance != null)
+            return Instance;
+
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/Etc/QuestManager");
+        QuestManager q = Instantiate(prefab).GetComponent<QuestManager>();
+        return q;
+    }
+
+    /// <summary>
+    /// Inspector에 등록한 데이터마다 실행 중 진행 상태를 만듭니다.
+    /// </summary>
+    private void CreateQuestProgresses()
+    {
+        _questProgresses.Clear();
+
+        foreach (QuestData questData in _questDataList)
+        {
+            if (questData == null)
+            {
+                Debug.LogWarning($"[{nameof(QuestManager)}] 비어 있는 퀘스트 데이터가 있습니다.", this);
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(questData.QuestID))
+            {
+                Debug.LogWarning($"[{nameof(QuestManager)}] ID가 비어 있는 퀘스트 데이터가 있습니다: {questData.name}", questData);
+                continue;
+            }
+
+            if (_questProgresses.ContainsKey(questData.QuestID))
+            {
+                Debug.LogWarning($"[{nameof(QuestManager)}] 같은 퀘스트 ID가 두 번 등록되었습니다: {questData.QuestID}", questData);
+                continue;
+            }
+
+            _questProgresses.Add(questData.QuestID, new QuestProgress(questData));
+        }
+    }
+
+    /// <summary>
+    /// 등록된 퀘스트를 시작합니다.
+    /// </summary>
+    public bool StartQuest(string questID)
+    {
+        if (TryGetQuestProgress(questID, out QuestProgress progress) == false)
+        {
+            Debug.LogWarning($"[{nameof(QuestManager)}] 등록되지 않은 퀘스트입니다: {questID}", this);
+            return false;
+        }
+
+        if (progress.Start() == false)
+        {
+            if (progress.ObjectiveCount <= 0)
+                Debug.LogWarning($"[{nameof(QuestManager)}] 완료할 대상이 없어 퀘스트를 시작할 수 없습니다: {questID}", progress.Data);
+
+            return false;
+        }
+
+        Debug.Log($"[Quest] 퀘스트 시작: {questID}", this);
+
+        OnQuestStarted?.Invoke(questID);
+        OnQuestProgressChanged?.Invoke(questID, progress.CompletedCount, progress.ObjectiveCount);
+        return true;
+    }
+
+    /// <summary>
+    /// 퀘스트 대상 하나를 완료했다고 보고합니다.
+    /// 완료된 대상은 보고를 실패합니다. (중복 방지)
+    /// </summary>
+    public bool ReportObjectiveCompleted(string questID, string objectiveID)
+    {
+        if (TryGetQuestProgress(questID, out QuestProgress progress) == false)
+        {
+            Debug.LogWarning($"[{nameof(QuestManager)}] 등록되지 않은 퀘스트입니다: {questID}", this);
+            return false;
+        }
+
+        if (progress.TryCompleteObjective(objectiveID) == false)
+            return false;
+
+        Debug.Log($"[Quest] 진행: {questID} / {progress.CompletedCount} / {progress.ObjectiveCount}", this);
+        OnQuestProgressChanged?.Invoke(questID, progress.CompletedCount, progress.ObjectiveCount);
+
+        if (progress.IsCompleted)
+        {
+            Debug.Log($"[Quest] 퀘스트 완료: {questID}", this);
+            OnQuestCompleted?.Invoke(questID);
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// 남은 대상을 모두 완료하고 진행 변경과 완료 이벤트를 알립니다.
+    /// 이미 완료된 퀘스트는 다시 알리지 않습니다.
+    /// </summary>
+    public bool CompleteQuest(string questID)
+    {
+        if (TryGetQuestProgress(questID, out QuestProgress progress) == false)
+        {
+            Debug.LogWarning($"[{nameof(QuestManager)}] 등록되지 않은 퀘스트입니다: {questID}", this);
+            return false;
+        }
+
+        if (progress.IsCompleted)
+            return false;
+
+        if (progress.Status == EQuestStatus.NotStarted && StartQuest(questID) == false)
+            return false;
+
+        foreach (string objectiveID in progress.Data.ObjectiveIDs)
+        {
+            SaveManager.Instance?.SetFlag($"QuestObj_{objectiveID}", true);
+
+            if (progress.IsObjectiveCompleted(objectiveID) == false)
+                ReportObjectiveCompleted(questID, objectiveID);
+        }
+
+        return progress.IsCompleted;
+    }
+
+    #region Util
+    /// <summary>
+    /// 퀘스트가 현재 진행 중인지 확인합니다.
+    /// </summary>
+    public bool IsQuestInProgress(string questID)
+    {
+        return TryGetQuestProgress(questID, out QuestProgress progress) && progress.Status == EQuestStatus.InProgress;
+    }
+
+    /// <summary>
+    /// 퀘스트가 완료되었는지 확인합니다.
+    /// </summary>
+    public bool IsQuestCompleted(string questID)
+    {
+        return TryGetQuestProgress(questID, out QuestProgress progress) && progress.IsCompleted;
+    }
+
+    /// <summary>
+    /// 퀘스트 대상 하나가 완료되었는지 확인합니다.
+    /// </summary>
+    public bool IsObjectiveCompleted(string questID, string objectiveID)
+    {
+        return TryGetQuestProgress(questID, out QuestProgress progress) && progress.IsObjectiveCompleted(objectiveID);
+    }
+
+    /// <summary>
+    /// 전달받은 퀘스트 대상이 모두 완료되었는지 확인합니다.
+    /// </summary>
+    public bool AreObjectivesCompleted(string questID, params string[] objectiveIDs)
+    {
+        if (TryGetQuestProgress(questID, out QuestProgress progress) == false)
+            return false;
+
+        if (objectiveIDs == null || objectiveIDs.Length == 0)
+            return false;
+
+        foreach (string id in objectiveIDs)
+        {
+            if (progress.IsObjectiveCompleted(id) == false)
+                return false;
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// 현재까지 완료한 대상의 개수를 반환합니다.
+    /// 등록되지 않은 퀘스트라면 0을 반환합니다.
+    /// </summary>
+    public int GetCompletedCount(string questID)
+    {
+        return TryGetQuestProgress(questID, out QuestProgress progress) ? progress.CompletedCount : 0;
+    }
+
+    /// <summary>
+    /// 완료해야 하는 대상의 전체 개수를 반환합니다.
+    /// 등록되지 않은 퀘스트라면 0을 반환합니다.
+    /// </summary>
+    public int GetObjectiveCount(string questID)
+    {
+        return TryGetQuestProgress(questID, out QuestProgress progress) ? progress.ObjectiveCount : 0;
+    }
+
+    /// <summary>
+    /// 플레이어에게 보여줄 퀘스트 이름을 반환합니다.
+    /// 등록되지 않은 퀘스트라면 전달받은 ID를 그대로 반환합니다.
+    /// </summary>
+    public string GetQuestName(string questID)
+    {
+        return TryGetQuestProgress(questID, out QuestProgress progress)
+            ? progress.Data.QuestName
+            : questID;
+    }
+
+    private bool TryGetQuestProgress(string questID, out QuestProgress progress)
+    {
+        if (string.IsNullOrWhiteSpace(questID))
+        {
+            progress = null;
+            return false;
+        }
+
+        return _questProgresses.TryGetValue(questID, out progress);
+    }
+    #endregion
+}

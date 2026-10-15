@@ -136,12 +136,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_0
       rect:
         serializedVersion: 2
-        x: 7
+        x: 8
         y: 0
-        width: 22
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 20
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -158,12 +158,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_1
       rect:
         serializedVersion: 2
-        x: 39
+        x: 40
         y: 0
-        width: 22
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 20
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -180,12 +180,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_2
       rect:
         serializedVersion: 2
-        x: 71
+        x: 72
         y: 0
-        width: 22
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 20
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -202,12 +202,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_3
       rect:
         serializedVersion: 2
-        x: 103
+        x: 104
         y: 0
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 21
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -224,12 +224,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_4
       rect:
         serializedVersion: 2
-        x: 135
+        x: 136
         y: 0
-        width: 22
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 20
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -246,12 +246,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_5
       rect:
         serializedVersion: 2
-        x: 167
+        x: 168
         y: 0
-        width: 22
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 20
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -268,12 +268,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_6
       rect:
         serializedVersion: 2
-        x: 197
+        x: 198
         y: 0
-        width: 22
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 20
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -290,12 +290,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_7
       rect:
         serializedVersion: 2
-        x: 226
+        x: 227
         y: 0
-        width: 24
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 22
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -312,12 +312,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_8
       rect:
         serializedVersion: 2
-        x: 259
+        x: 260
         y: 0
-        width: 23
-        height: 72
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 21
+        height: 71
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -334,12 +334,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_9
       rect:
         serializedVersion: 2
-        x: 288
+        x: 289
         y: 0
-        width: 26
-        height: 79
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 24
+        height: 78
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -356,12 +356,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_10
       rect:
         serializedVersion: 2
-        x: 320
+        x: 321
         y: 0
-        width: 26
-        height: 79
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 24
+        height: 78
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -378,12 +378,12 @@ TextureImporter:
       name: clothes_hanger_kunekune_11
       rect:
         serializedVersion: 2
-        x: 352
+        x: 353
         y: 0
-        width: 26
-        height: 79
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 24
+        height: 78
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -400,7 +400,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4d3300eb0e57db94eb1d64312bd05508
     internalID: 0
     vertices: []
     indices: 
@@ -408,7 +408,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       clothes_hanger_kunekune_0: -1243206456684473926
       clothes_hanger_kunekune_1: -7861740421648709453

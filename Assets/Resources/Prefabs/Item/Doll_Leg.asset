@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7e8cf8f341b5046a748074db262f4b, type: 3}
+  m_Name: Doll_Leg
+  m_EditorClassIdentifier: Assembly-CSharp::KeyItemData
+  itemType: 1
+  itemID: doll_leg
+  itemName: "\uC778\uD615\uC758 \uB2E4\uB9AC"
+  description: "\uCC22\uC5B4\uC9C4 \uC778\uD615\uC758 \uB2E4\uB9AC \uBD80\uBD84\uC774\uB2E4."
+  itemCount: 1
+  illustration: {fileID: -1917290171846243027, guid: 28919a076831dfa4599f1c5934a7f3da, type: 3}
+  icon: {fileID: -1917290171846243027, guid: 28919a076831dfa4599f1c5934a7f3da, type: 3}
+  keyAcquiredNormal: {fileID: -1917290171846243027, guid: 28919a076831dfa4599f1c5934a7f3da, type: 3}
+  keyAcquiredSelected: {fileID: 7968557316341622916, guid: aadaceda00699734382ee32edf5497a9, type: 3}
+  keyUnacquiredNormal: {fileID: 5721274132747094303, guid: 6740c56ad7bbe8141a81900a28d708f8, type: 3}
+  keyUnacquiredSelected: {fileID: -8158096081007035830, guid: bac7b904447a53a488ea2177cc4f99db, type: 3}

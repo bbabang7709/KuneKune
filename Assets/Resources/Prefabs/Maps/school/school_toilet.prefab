@@ -276,6 +276,97 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.125, y: 2.375}
   m_EdgeRadius: 0
+--- !u!1 &1655272702578742638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3440064640407015061}
+  - component: {fileID: 4346642257927693019}
+  m_Layer: 0
+  m_Name: ShadowArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3440064640407015061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655272702578742638}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.1356, y: -3.9199984, z: 0}
+  m_LocalScale: {x: 1.7106221, y: 0.085599996, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7684215281781736710}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!331 &4346642257927693019
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655272702578742638}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: -278262451
+  m_SortingLayer: 2
+  m_SortingOrder: 1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 7111810508140216828, guid: 55fe05bf5009eca45b2da1d45ca33b73, type: 3}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: -278262451
+  m_BackSortingLayerID: -278262451
+  m_FrontSortingLayer: 2
+  m_BackSortingLayer: 2
+  m_FrontSortingOrder: 1
+  m_BackSortingOrder: -2
+  m_IsCustomRangeActive: 1
+  m_SpriteSortPoint: 0
+  m_MaskSource: 0
 --- !u!1 &1993526175599937168
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +378,7 @@ GameObject:
   - component: {fileID: 6416356460604190070}
   - component: {fileID: 7678960373851179330}
   - component: {fileID: 8045060678906114559}
+  - component: {fileID: 1700977118654492324}
   m_Layer: 0
   m_Name: school_toilet_bulkhead_2
   m_TagString: Untagged
@@ -414,6 +506,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.25, y: 3.8125}
   m_EdgeRadius: 0
+--- !u!114 &1700977118654492324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993526175599937168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &2093236830787325896
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +668,7 @@ GameObject:
   - component: {fileID: 4567146201598776975}
   - component: {fileID: 3766158842921693854}
   - component: {fileID: 7841283391903733109}
+  - component: {fileID: 2138667397262586376}
   m_Layer: 0
   m_Name: school_toilet_bulkhead_0
   m_TagString: Untagged
@@ -690,6 +796,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.25, y: 3.8125}
   m_EdgeRadius: 0
+--- !u!114 &2138667397262586376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2344798170823635679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &3159127818984542223
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,6 +820,7 @@ GameObject:
   - component: {fileID: 7682292899904128032}
   - component: {fileID: 1143336685728267252}
   - component: {fileID: 6196245560888652562}
+  - component: {fileID: 3781815996499621148}
   m_Layer: 0
   m_Name: school_toilet_bulkhead_3
   m_TagString: Untagged
@@ -828,6 +948,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.25, y: 3.8125}
   m_EdgeRadius: 0
+--- !u!114 &3781815996499621148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159127818984542223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6259147934544780428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,6 +1248,7 @@ GameObject:
   - component: {fileID: 5824996401649267128}
   - component: {fileID: 9149007916498535472}
   - component: {fileID: 1930131958530629722}
+  - component: {fileID: 6794899560146407133}
   m_Layer: 0
   m_Name: school_toilet_washstand
   m_TagString: Untagged
@@ -1242,6 +1376,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.625, y: 3.1875}
   m_EdgeRadius: 0
+--- !u!114 &6794899560146407133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6812618570884346756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6832583070591403946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,6 +1399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3052583466612722651}
   - component: {fileID: 1838319612723093247}
+  - component: {fileID: 1521766614288782404}
   m_Layer: 0
   m_Name: school_toilet_sobyeongi_0
   m_TagString: Untagged
@@ -1333,6 +1481,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1521766614288782404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6832583070591403946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &6850840575132973223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,6 +1536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5022417744338063803}
   - component: {fileID: 2264107088307035836}
+  - component: {fileID: 8602681714309775271}
   m_Layer: 0
   m_Name: school_toilet_sobyeongi_1
   m_TagString: Untagged
@@ -1456,6 +1618,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8602681714309775271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407481172581550000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8183782153079832581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,7 +1641,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7684215281781736710}
   - component: {fileID: 7807183682303313111}
-  - component: {fileID: 3149447005596264344}
+  - component: {fileID: 8901414458246833804}
   m_Layer: 0
   m_Name: school_toilet
   m_TagString: Untagged
@@ -1500,6 +1675,7 @@ Transform:
   - {fileID: 6416356460604190070}
   - {fileID: 7682292899904128032}
   - {fileID: 1756654525512517889}
+  - {fileID: 3440064640407015061}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7807183682303313111
@@ -1561,52 +1737,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &3149447005596264344
-BoxCollider2D:
+--- !u!114 &8901414458246833804
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8183782153079832581}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -4.67103}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 33, y: 11.25}
-    newSize: {x: 33, y: 11.25}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 33, y: 1.9079399}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16737d2d2ab743c448d2b3827b231b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapArea
+  _mapID: school_toilet
+  _mapType: 3
+  _kuneKune_ables: {fileID: 0}
 --- !u!1 &8584313894855488791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,6 +1762,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3867908258822841318}
   - component: {fileID: 384276762960909086}
+  - component: {fileID: 6333050811675567076}
   m_Layer: 0
   m_Name: school_toilet_sobyeongi_2
   m_TagString: Untagged
@@ -1698,6 +1844,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6333050811675567076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8584313894855488791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5
 --- !u!1 &8836310193807945553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1709,6 +1868,7 @@ GameObject:
   - component: {fileID: 2735476519751879055}
   - component: {fileID: 3957735178052283847}
   - component: {fileID: 4148909248030822810}
+  - component: {fileID: 9143793480392073996}
   m_Layer: 0
   m_Name: school_toilet_bulkhead_1
   m_TagString: Untagged
@@ -1836,3 +1996,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.25, y: 3.8125}
   m_EdgeRadius: 0
+--- !u!114 &9143793480392073996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8836310193807945553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d3a1c6b37f8b41b91c1566da4832a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shadow
+  Alpah: 0.5

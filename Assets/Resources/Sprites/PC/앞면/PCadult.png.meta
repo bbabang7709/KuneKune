@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b3db5221708b5ae4d81faa9c2b156fce
+guid: bd1e49a8d97bbd54e924cd68f2b1b879
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,12 +103,12 @@ TextureImporter:
       name: PCadult_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 3
         y: 0
-        width: 17
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 15
+        height: 47
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 28371e2bf5973e0449c7e0a29c6a6046
     internalID: 0
     vertices: []
     indices: 
@@ -133,7 +133,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       PCadult_0: 1427235302808994159
   mipmapLimitGroupName: 
