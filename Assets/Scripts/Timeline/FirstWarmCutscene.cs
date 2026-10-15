@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FirstWarmCutscene : CutsceneControllerBase
 {
-    private const float HeatThreshold = 30f;
+    private const float HeatThreshold = 40f;
     private const string PlayedFlag = "FirstWarmCutscene_Played";
 
     private PlayerMovement _playerMovement;
