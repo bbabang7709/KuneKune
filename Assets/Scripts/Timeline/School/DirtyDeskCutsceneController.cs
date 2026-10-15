@@ -2,14 +2,24 @@ using UnityEngine;
 
 public class DirtyDeskCutsceneController : CutsceneControllerBase
 {
+    public const string CompletedFlag = "HasCompletedDirtyDeskCutscene";
+
     [SerializeField] private FootprintSequence footprintSequence;
     [SerializeField] private GameObject rewardItem;
     private PlayerLight playerLight;
+
+    public bool HasCompleted { get; private set; }
 
     private void Start()
     {
         if (rewardItem != null) rewardItem.SetActive(false);
         playerLight = FindFirstObjectByType<PlayerLight>();
+    }
+
+    protected override void OnCutsceneFinished()
+    {
+        HasCompleted = true;
+        SaveManager.Instance?.SetFlag(CompletedFlag, true);
     }
 
     public void Flicker()
