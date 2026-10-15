@@ -28,12 +28,6 @@ public class RisingScareImage : MonoBehaviour
         _rect = (RectTransform)transform;
     }
 
-    private void Start()
-    {
-        // Awake에서 끄면 Play()의 첫 SetActive(true) 직후 다시 꺼지므로 Start에서 숨긴다.
-        if (!_isPlaying) gameObject.SetActive(false);
-    }
-
     public void Play(Action onFinished = null)
     {
         if (_isPlaying) return;

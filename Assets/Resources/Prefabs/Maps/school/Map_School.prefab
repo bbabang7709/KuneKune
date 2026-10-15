@@ -15269,6 +15269,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToiletEvent
   interactionDialog: {fileID: 11400000, guid: 9775b83f2de981542bac217945c36bfe, type: 2}
+  eventDialog: {fileID: 11400000, guid: fa7dbeb668497d24f9e822785a0b61a3, type: 2}
+  kunekuneHeadPrefab: {fileID: 3549932041553112726, guid: 576d2d836b2946a47a85896f6b3a319a, type: 3}
+  scareImage: {fileID: 0}
 --- !u!4 &7168217258894805001 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8322044217658669101, guid: ec3c2ade22b66954f97b1ecb1286af56, type: 3}
