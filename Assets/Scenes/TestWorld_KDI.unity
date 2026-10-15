@@ -1930,10 +1930,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.0022271716
-    y: 0
-    width: 0.9955457
-    height: 0.9980198
+    x: 0.0025873221
+    y: 0.0022988506
+    width: 0.9935317
+    height: 0.99310344
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -7139,7 +7139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2025662142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7156,7 +7156,7 @@ MonoBehaviour:
   targetEntryPoint: {fileID: 638460506}
   canEnter: 1
   cantEnterDialog: {fileID: 0}
-  unlockTrueEndingForChaseTest: 1
+  unlockTrueEndingForChaseTest: 0
 --- !u!4 &2025662143
 Transform:
   m_ObjectHideFlags: 0
