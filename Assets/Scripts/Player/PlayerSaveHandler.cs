@@ -33,6 +33,11 @@ public class PlayerSaveHandler : MonoBehaviour, ISaveable
     public void LoadState(SaveData data)
     {
         _appearance?.SetAge(data.playerAge);
-        _movement?.SetCurrentHeat(data.currentHeat, isLoad: true);
+
+        float heat = data.currentHeat;
+        if (MapManager.Instance != null && MapManager.Instance.CurrentMapType == EMapType.House_Hallway)
+            heat = Mathf.Min(heat, 50f);
+
+        _movement?.SetCurrentHeat(heat, isLoad: true);
     }
 }

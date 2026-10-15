@@ -2836,8 +2836,6 @@ MonoBehaviour:
   _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
   _objectiveID: CleaningSpot_01
   _cleaningDuration: 3
-  _shakeDistance: 0.05
-  _shakeSpeed: 12
   dustEffect: {fileID: 4650598821883667102}
 --- !u!61 &5405874399709424905
 BoxCollider2D:
@@ -8253,8 +8251,6 @@ MonoBehaviour:
   _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
   _objectiveID: CleaningSpot_02
   _cleaningDuration: 3
-  _shakeDistance: 0.05
-  _shakeSpeed: 12
   dustEffect: {fileID: 1590562114017187904}
 --- !u!61 &8121489611340276653
 BoxCollider2D:
@@ -8726,8 +8722,6 @@ MonoBehaviour:
   _questData: {fileID: 11400000, guid: e4be2f79b2bb5d9459613505bbdae56e, type: 2}
   _objectiveID: CleaningSpot_03
   _cleaningDuration: 3
-  _shakeDistance: 0.05
-  _shakeSpeed: 12
   dustEffect: {fileID: 5068296057515904870}
 --- !u!61 &2796322794892806882
 BoxCollider2D:
@@ -9633,6 +9627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SunlightAreaRoot
       objectReference: {fileID: 0}
+    - target: {fileID: 4438554728170599029, guid: f7c55971b90ca7e478fd5bdd8c2bffaa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -9701,6 +9699,10 @@ PrefabInstance:
     - target: {fileID: 4438554728170599029, guid: f7c55971b90ca7e478fd5bdd8c2bffaa, type: 3}
       propertyPath: m_Name
       value: SunlightAreaRoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438554728170599029, guid: f7c55971b90ca7e478fd5bdd8c2bffaa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
