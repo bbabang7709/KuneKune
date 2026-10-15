@@ -8,12 +8,19 @@ public class Blackboard : InteractableBase
     [SerializeField] private DialogData acquireDialog;
     [SerializeField] private KeyItemData artroomKey;
 
+    [SerializeField] private GameObject[] glowingEyes;
+
     private bool _dialogPlayed = false;
     private BoxCollider2D boxCollider;
 
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
+
+        foreach (GameObject glowingEye in glowingEyes)
+        {
+            if (glowingEye != null) glowingEye.SetActive(false);
+        }
     }
     
     public override void OnInteractPressed()
@@ -41,6 +48,14 @@ public class Blackboard : InteractableBase
         if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.AcquireItem(artroomKey, acquireDialog);
+        }
+
+        foreach (GameObject glowingEye in glowingEyes)
+        {
+            if (glowingEye != null)
+            {
+                glowingEye.SetActive(true);
+            }
         }
 
         if (boxCollider != null) boxCollider.enabled = true;

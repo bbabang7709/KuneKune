@@ -2259,6 +2259,22 @@ PrefabInstance:
       propertyPath: displayImage
       value: 
       objectReference: {fileID: 1649895694}
+    - target: {fileID: 3170513496659283178, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: 'glowingEyes.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1139103368}
+    - target: {fileID: 3170513496659283178, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: 'glowingEyes.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1722597218}
+    - target: {fileID: 3170513496659283178, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: 'glowingEyes.Array.data[2]'
+      value: 
+      objectReference: {fileID: 771882064}
+    - target: {fileID: 3170513496659283178, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+      propertyPath: 'glowingEyes.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1148931621}
     - target: {fileID: 3908814912681346489, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
       propertyPath: puzzleUIRoot
       value: 
@@ -2949,6 +2965,11 @@ PlayableDirector:
   m_SceneBindings: []
   m_ExposedReferences:
     m_References: []
+--- !u!1 &771882064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2080635634950910530, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+  m_PrefabInstance: {fileID: 600629050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &772921494 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3960359206242196450, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
@@ -3781,6 +3802,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.4388885, y: 4.280675}
   m_EdgeRadius: 0
+--- !u!1 &1139103368 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6235411090819138095, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+  m_PrefabInstance: {fileID: 600629050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1148931621 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8982270890377915813, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+  m_PrefabInstance: {fileID: 600629050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1152372950
 GameObject:
   m_ObjectHideFlags: 0
@@ -5743,6 +5774,11 @@ Transform:
   - {fileID: 1344146831}
   m_Father: {fileID: 2143723250}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1722597218 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3740842415863484577, guid: 2ccaedd36150e9a49a2590437c21eebd, type: 3}
+  m_PrefabInstance: {fileID: 600629050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1725160955 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6216366239217735608, guid: b574424e7fefe1943b11cfeef8e7151b, type: 3}
@@ -7128,7 +7164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2025662142
 MonoBehaviour:
   m_ObjectHideFlags: 0

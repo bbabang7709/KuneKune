@@ -28,8 +28,7 @@ public class StatuePuzzle : MonoBehaviour
     [Tooltip("1층 교실의 더러운 책상 활성화")]
     [SerializeField] private Collider2D deskCollider;
     [Tooltip("힌트 초상화 되돌리기")]
-    [SerializeField] private SpriteRenderer[] portraits = new SpriteRenderer[4];
-    [SerializeField] private Sprite[] originalSprites = new Sprite[4];
+    [SerializeField] private GameObject[] glowingEyes = new GameObject[4];
 
     [Header("정전 후 화장실 조명")]
     [SerializeField] private GameObject _doorLight;
@@ -90,9 +89,9 @@ public class StatuePuzzle : MonoBehaviour
             if (col != null) col.enabled = false;
         }
 
-        for (int i = 0; i < portraits.Length; i++)
+        foreach (GameObject glowingEye in glowingEyes)
         {
-            portraits[i].sprite = originalSprites[i];
+            if (glowingEye != null) glowingEye.SetActive(false);
         }
 
         if (SoundManager.Instance != null)
