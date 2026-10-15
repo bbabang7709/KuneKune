@@ -446,10 +446,10 @@ MonoBehaviour:
   footprintSequence: {fileID: 4689861159625055557}
   deskCollider: {fileID: 6245642996714864307}
   glowingEyes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6235411090819138095}
+  - {fileID: 3740842415863484577}
+  - {fileID: 2080635634950910530}
+  - {fileID: 8982270890377915813}
   _doorLight: {fileID: 5399348227702931390}
   _toiletLight: {fileID: 8102380079917558857}
   spotLight: {fileID: 3944526223169598098}
