@@ -9,6 +9,9 @@ public class LightingEventManager : MonoBehaviour
     public static LightingEventManager Instance { get; private set; }
 
     private Light2D _globalLight;
+    private static readonly Color HouseLightColor = new Color32(0x33, 0x33, 0x33, 0xFF);
+    private bool _isHouseLightingActive;
+    private Color _colorBeforeHouse;
 
     private Coroutine _lightCoroutine;
     private Coroutine _fadeCoroutine;
@@ -52,19 +55,40 @@ public class LightingEventManager : MonoBehaviour
     /// <summary>글로벌 라이트의 색상만 즉시 바꿉니다. 밝기 코루틴에는 영향을 주지 않습니다.</summary>
     public void SetGlobalLightColor(Color color)
     {
-        if (_globalLight == null) return;
+        if (!EnsureGlobalLight()) return;
 
         if (_fadeCoroutine != null)
         {
             StopCoroutine(_fadeCoroutine);
             _fadeCoroutine = null;
         }
-        _globalLight.color = color;
+        ApplyGlobalLightColor(color);
+    }
+
+    /// <summary>맵 전환의 암전 중 집 조명을 적용하거나 원래 색으로 복구합니다.</summary>
+    public void SetHouseLighting(bool isInsideHouse)
+    {
+        if (!EnsureGlobalLight() || _isHouseLightingActive == isInsideHouse) return;
+
+        if (isInsideHouse)
+            _colorBeforeHouse = _globalLight.color;
+
+        _isHouseLightingActive = isInsideHouse;
+        _globalLight.color = isInsideHouse ? HouseLightColor : _colorBeforeHouse;
+    }
+
+    private void ApplyGlobalLightColor(Color color)
+    {
+        // 집 안에서 챕터 조명이 갱신돼도 집 색은 유지하고, 나갈 때 복구할 색만 갱신합니다.
+        if (_isHouseLightingActive)
+            _colorBeforeHouse = color;
+
+        _globalLight.color = _isHouseLightingActive ? HouseLightColor : color;
     }
 
     public IEnumerator CoFadeGlobalLight(Color targetColor, float targetIntensity, float duration)
     {
-        Color startColor = _globalLight.color;
+        Color startColor = _isHouseLightingActive ? _colorBeforeHouse : _globalLight.color;
         float startIntensity = _globalLight.intensity;
         float elapsed = 0f;
 
@@ -74,13 +98,13 @@ public class LightingEventManager : MonoBehaviour
             elapsed += Time.unscaledDeltaTime;
             float t = elapsed / duration;
 
-            _globalLight.color = Color.Lerp(startColor, targetColor, t);
+            ApplyGlobalLightColor(Color.Lerp(startColor, targetColor, t));
             _globalLight.intensity = Mathf.Lerp(startIntensity, targetIntensity, t);
 
             yield return null;
         }
 
-        _globalLight.color = targetColor;
+        ApplyGlobalLightColor(targetColor);
         _globalLight.intensity = targetIntensity;
         _fadeCoroutine = null;
     }
