@@ -12,7 +12,10 @@ public class EndingSetupTrigger : MonoBehaviour
     [Tooltip("진엔딩 조건을 달성한 상태로 도착하면 재생할 컷씬")]
     [SerializeField] private CutsceneControllerBase trueEndingCutscene;
 
-    private void Setup(Collider2D playerCollider)
+    [Tooltip("노멀 루트에서 즉시 이동할 기존 출구입니다. 출구의 목적지와 진입점을 사용합니다.")]
+    [SerializeField] private MapTransition normalRouteExit;
+
+    private void Setup()
     {
         if (MapManager.Instance != null)
             MapManager.Instance.KuneKune?.Despawn();
@@ -32,9 +35,13 @@ public class EndingSetupTrigger : MonoBehaviour
         if (endingInteractObject != null) 
             endingInteractObject.SetActive(true);
 
-        PlayerAppearance playerApp = playerCollider.gameObject.GetComponent<PlayerAppearance>();
-        if (playerApp != null)
-            playerApp.RefreshCollider();
+        if (normalRouteExit == null || normalRouteExit.TargetMap == null || normalRouteExit.TargetEntryPoint == null)
+        {
+            Debug.LogWarning("노멀 엔딩의 출구와 목적지 설정을 확인해주세요.", this);
+            return;
+        }
+
+        MapManager.Instance?.ChangeMap(normalRouteExit.TargetMap.mapType, normalRouteExit.TargetEntryPoint.EntryID);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,7 +50,7 @@ public class EndingSetupTrigger : MonoBehaviour
         {
             // 중복 실행 방지
             this.enabled = false; 
-            Setup(collision);
+            Setup();
         }
     }
 }
