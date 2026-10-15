@@ -78,6 +78,10 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     public bool HasTrueFlagSucceeded =>
         SaveManager.Instance?.IsTrueEndingUnlocked ?? _trueFlagSucceededWithoutSaveManager;
 
+    public bool HasFinalDollPart =>
+        (InventoryManager.Instance != null && InventoryManager.Instance.HasKey("doll_leg")) ||
+        (SaveManager.Instance != null && SaveManager.Instance.GetFlag("key_doll_leg"));
+
     public void CompleteTrueFlagInteraction()
     {
         if (!CanInteractWithKuneKune) return;
@@ -154,7 +158,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     public void Play()
     {
-        if (_isPlayRequested || IsCutsceneRunning || HasTrueFlagFailed || HasTrueFlagSucceeded ||
+        if (_isPlayRequested || IsCutsceneRunning || HasTrueFlagFailed || HasTrueFlagSucceeded || HasFinalDollPart ||
             (playOnlyOnce && hasPlayed))
             return;
 
@@ -184,7 +188,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
             (DialogSystem.Instance == null || !DialogSystem.Instance.IsDialogPlaying));
 
         // 직접 Play가 호출되어도 로드된 실패 기록을 확인한 뒤에만 재생한다.
-        if (HasTrueFlagFailed || HasTrueFlagSucceeded || (playOnlyOnce && hasPlayed))
+        if (HasTrueFlagFailed || HasTrueFlagSucceeded || HasFinalDollPart || (playOnlyOnce && hasPlayed))
         {
             _isPlayRequested = false;
             ReleaseControls();
