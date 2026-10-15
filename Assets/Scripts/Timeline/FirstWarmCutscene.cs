@@ -7,6 +7,11 @@ public class FirstWarmCutscene : CutsceneControllerBase
     private const string PlayedFlag = "FirstWarmCutscene_Played";
 
     private PlayerMovement _playerMovement;
+    private bool _isMonitoringHeat;
+
+    private bool IsAllowedMap => MapManager.Instance != null &&
+        MapManager.Instance.CurrentMapType is EMapType.Outside_School or
+            EMapType.Outside_Ricefield or EMapType.Outside_House;
 
     protected override void Awake()
     {
@@ -40,8 +45,16 @@ public class FirstWarmCutscene : CutsceneControllerBase
             yield break;
         }
 
+        _isMonitoringHeat = true;
         _playerMovement.OnHeatChanged += OnHeatChanged;
         OnHeatChanged(_playerMovement.CurrentHeat, _playerMovement.MaxHeat);
+    }
+
+    private void LateUpdate()
+    {
+        // 맵 진입 후 더위 값이 그대로여도 허용된 야외 맵에서는 다시 확인합니다.
+        if (_isMonitoringHeat && _playerMovement != null)
+            OnHeatChanged(_playerMovement.CurrentHeat, _playerMovement.MaxHeat);
     }
 
     private void OnHeatChanged(float currentHeat, float maxHeat)
@@ -55,18 +68,20 @@ public class FirstWarmCutscene : CutsceneControllerBase
 
     public override void PlayCutscene()
     {
-        if (hasPlayed) return;
+        if (hasPlayed || !IsAllowedMap || Time.timeScale <= 0f) return;
 
         base.PlayCutscene();
         if (!hasPlayed) return;
 
         SaveManager.Instance?.SetFlag(PlayedFlag, true);
+        _isMonitoringHeat = false;
         if (_playerMovement != null)
             _playerMovement.OnHeatChanged -= OnHeatChanged;
     }
 
     protected override void OnDisable()
     {
+        _isMonitoringHeat = false;
         if (_playerMovement != null)
             _playerMovement.OnHeatChanged -= OnHeatChanged;
 
