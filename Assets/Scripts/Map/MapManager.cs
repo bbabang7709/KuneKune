@@ -109,6 +109,7 @@ public class MapManager : MonoBehaviour
         if (_currentArea != null)
         {
             CurrentMapType = targetMapType;
+            ApplyMapLighting();
             
             RefreshMapBGM();
 
@@ -165,6 +166,7 @@ public class MapManager : MonoBehaviour
         {
             CurrentMapType = targetMapType;
             _wasChasedOnMapEntry = wasChased;
+            ApplyMapLighting();
             
             RefreshMapBGM();
 
@@ -210,6 +212,13 @@ public class MapManager : MonoBehaviour
         Time.timeScale = 1f;
 
         onComplete?.Invoke();
+    }
+
+    private void ApplyMapLighting()
+    {
+        bool isInsideHouse = CurrentMapType is EMapType.House_Hallway or EMapType.House_Bedroom or
+            EMapType.House_Toilet or EMapType.House_2F or EMapType.House_MyRoom;
+        LightingEventManager.Instance?.SetHouseLighting(isInsideHouse);
     }
 
     private void ApplyMapEntryHeat()

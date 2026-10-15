@@ -112,7 +112,7 @@ MonoBehaviour:
     volume: 1
   - soundID: scarecrow
     clip: {fileID: 8300000, guid: bcadeadb376c339489f44d3d548b9dd9, type: 3}
-    volume: 1
+    volume: 0.3
   - soundID: scarecrow_finish
     clip: {fileID: 8300000, guid: ff171319ad954bc449e0d1a207fe787b, type: 3}
-    volume: 0.8
+    volume: 0.2

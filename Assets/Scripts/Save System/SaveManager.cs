@@ -62,6 +62,17 @@ public class SaveManager : MonoBehaviour
     public void SetFlag(string uniqueID, bool isCompleted) => _currentSaveData.SetFlag(uniqueID, isCompleted);
     public bool GetFlag(string uniqueID, bool defaultValue = false) => _currentSaveData.GetFlag(uniqueID, defaultValue);
 
+    /// <summary>새 회차의 아이템, 컷씬, 이벤트와 퀘스트 진행 기록을 비웁니다.</summary>
+    public void ResetForNewGame()
+    {
+        if (IsLoading) return;
+
+        _currentSaveData = new SaveData();
+#if UNITY_EDITOR
+        _trueEndingChaseTestOwner = null;
+#endif
+    }
+
     /// <summary>
     /// 진엔딩 조건을 달성했음을 기록하고 현재 진행도를 즉시 저장합니다.
     /// </summary>

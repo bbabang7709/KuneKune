@@ -9,6 +9,8 @@ public enum EGameStartMode
     EditorPlay
 }
 
+// 아이템과 퀘스트의 Start가 이전 회차 플래그를 읽기 전에 새 게임 데이터를 준비합니다.
+[DefaultExecutionOrder(-1000)]
 public class GameStartController : MonoBehaviour
 {
     [Header("Settings")]
@@ -28,6 +30,9 @@ public class GameStartController : MonoBehaviour
             if (SaveManager.Instance != null && SaveManager.Instance.IsLoading) yield break;
             StartMode = EGameStartMode.NewGame;
         }
+
+        if (StartMode == EGameStartMode.NewGame || StartMode == EGameStartMode.EditorPlay)
+            SaveManager.Instance?.ResetForNewGame();
 
         if (UIManager.Instance != null)
         {

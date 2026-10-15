@@ -16,10 +16,25 @@ public class DirtyDeskCutsceneController : CutsceneControllerBase
         playerLight = FindFirstObjectByType<PlayerLight>();
     }
 
+    protected override void OnCutsceneStartSetup()
+    {
+        // 시작 암전이 완료된 뒤 기존 쿠네쿠네를 디스폰합니다.
+        if (MapManager.Instance != null && MapManager.Instance.KuneKune != null)
+            MapManager.Instance.KuneKune.Despawn();
+    }
+
     protected override void OnCutsceneFinished()
     {
         HasCompleted = true;
         SaveManager.Instance?.SetFlag(CompletedFlag, true);
+    }
+
+    protected override void OnCutsceneEndSetup()
+    {
+        // 조작 잠금이 풀리기 전에 즉시 낮춰 종료 직후 최대 더위로 재소환되지 않게 합니다.
+        PlayerMovement player = MapManager.Instance?.Player?.GetComponent<PlayerMovement>();
+        if (player != null && player.CurrentHeat > 95f)
+            player.SetCurrentHeat(95f, isLoad: true);
     }
 
     public void Flicker()

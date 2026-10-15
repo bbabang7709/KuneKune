@@ -15,8 +15,8 @@ MonoBehaviour:
   itemType: 1
   itemID: key_classroom
   itemName: "\uAD50\uC2E4 \uC5F4\uC1E0"
-  description: "\uC6B0\uB9AC \uBC18 \uAD50\uC2E4 \uBB38\uC744 \uC5F4 \uC218 \uC788\uB294
-    \uC5F4\uC1E0\uC774\uB2E4."
+  description: "1\uCE35\uC758 \uC6B0\uB9AC \uBC18 \uAD50\uC2E4 \uBB38\uC744 \uC5F4
+    \uC218 \uC788\uB2E4."
   itemCount: 1
   illustration: {fileID: 8038760031730268249, guid: e456865d7b6f8b848984d33f044c3fb4, type: 3}
   icon: {fileID: 8038760031730268249, guid: e456865d7b6f8b848984d33f044c3fb4, type: 3}

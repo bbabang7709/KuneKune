@@ -83,6 +83,7 @@ public class PlayerAppearance : MonoBehaviour
 
         CurrentAge = age;
         ApplyAnimationProfile();
+        ApplyColliderProfile(movement != null && movement.IsCrouching);
     }
 
     public void SetSweatyState(bool isSweaty)
@@ -116,17 +117,23 @@ public class PlayerAppearance : MonoBehaviour
     // Collider 적용 메서드
     private void ApplyColliderProfile(bool isCrouching)
     {
-        if (currentProfile == null) return;
+        if (bodyCollider == null) return;
 
-        if (isCrouching)
+        if (currentProfile != null)
         {
-            bodyCollider.size = currentProfile.crouchingColliderSize;
-            bodyCollider.offset = currentProfile.crouchingColliderOffset;
+            bodyCollider.size = isCrouching ? currentProfile.crouchingColliderSize : currentProfile.standingColliderSize;
+            bodyCollider.offset = isCrouching ? currentProfile.crouchingColliderOffset : currentProfile.standingColliderOffset;
         }
-        else
+
+        // 추격전에서는 서 있을 때만 Y 판정을 보정하고, 수그릴 때는 나이별 기존 설정을 사용합니다.
+        if (!isCrouching && MapManager.Instance != null && MapManager.Instance.CurrentMapType == EMapType.Chase_Ricefield)
         {
-            bodyCollider.size = currentProfile.standingColliderSize;
-            bodyCollider.offset = currentProfile.standingColliderOffset;
+            Vector2 size = bodyCollider.size;
+            Vector2 offset = bodyCollider.offset;
+            size.y = 2.2f;
+            offset.y = -0.37f;
+            bodyCollider.size = size;
+            bodyCollider.offset = offset;
         }
     }
 
@@ -137,6 +144,8 @@ public class PlayerAppearance : MonoBehaviour
     {
         if (bodyCollider != null)
         {
+            // 일반 맵 이동과 사망 후 InitMap 로드가 모두 이 경로를 사용합니다.
+            ApplyColliderProfile(movement != null && movement.IsCrouching);
             bodyCollider.enabled = false;
             bodyCollider.enabled = true;
         }

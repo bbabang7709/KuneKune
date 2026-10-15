@@ -70781,6 +70781,7 @@ MonoBehaviour:
   normalInteractObject: {fileID: 6889841319699072565}
   endingInteractObject: {fileID: 8291185081417828325}
   trueEndingCutscene: {fileID: 3792247624700980279}
+  normalRouteExit: {fileID: 6825630471938797285}
 --- !u!61 &5527854732235553144
 BoxCollider2D:
   m_ObjectHideFlags: 0

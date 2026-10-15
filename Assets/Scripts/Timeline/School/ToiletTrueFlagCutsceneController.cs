@@ -58,6 +58,9 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     private bool _trueFlagFailedWithoutSaveManager;
     private bool _trueFlagSucceededWithoutSaveManager;
 
+    [Header("쿠네쿠네 이동")]
+    [SerializeField, Min(0f)] private float crawlSpeed = 1.4f;
+
     public bool _isMovingKuneKune;
     private bool _isKuneKunePausedForDialog;
     private bool _isPlayRequested;
@@ -312,8 +315,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
         if (_isMovingKuneKune && _kuneKune != null)
         {
-            float moveSpeed = 1.7f;
-            _kuneKune.position += Vector3.left * moveSpeed * Time.fixedDeltaTime;
+            _kuneKune.position += Vector3.left * crawlSpeed * Time.fixedDeltaTime;
             
             // 목표 위치에 도달했는지 확인
             if (Vector3.Distance(_kuneKune.position, MapManager.Instance.Player.transform.position) < 0.1f)
