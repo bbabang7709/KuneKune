@@ -110,3 +110,9 @@ MonoBehaviour:
   - soundID: mirrorHand
     clip: {fileID: 8300000, guid: 41e69aa8597538541abad5c090b7d185, type: 3}
     volume: 1
+  - soundID: scarecrow
+    clip: {fileID: 8300000, guid: bcadeadb376c339489f44d3d548b9dd9, type: 3}
+    volume: 1
+  - soundID: scarecrow_finish
+    clip: {fileID: 8300000, guid: ff171319ad954bc449e0d1a207fe787b, type: 3}
+    volume: 0.8

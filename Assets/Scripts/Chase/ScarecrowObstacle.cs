@@ -20,19 +20,16 @@ public class ScarecrowObstacle : InteractableBase
         if (_interactCount >= maxInteractCount) return;
 
         _interactCount++;
+        if (SoundManager.Instance != null && _interactCount < maxInteractCount)
+            SoundManager.Instance.PlaySFX("scarecrow");
         StartCoroutine(SquashRoutine());
 
         if (_interactCount == maxInteractCount)
         {
             if (_blockCollider != null) _blockCollider.enabled = false;
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlaySFX("scarecrow_finish");
 
-            KuneKune kunekune = FindFirstObjectByType<KuneKune>();
-            if (kunekune != null)
-            {
-                // TODO: 쿠네쿠네가 살짝 멈칫하게 만들기
-            }
-
-            // TODO: 기괴한 소리 재생
             StartCoroutine(FadeOutRoutine());
         }
     }

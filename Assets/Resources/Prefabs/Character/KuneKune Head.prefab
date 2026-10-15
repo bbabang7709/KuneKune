@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 6768467393013012028, guid: 74e864883ac09964ea2ea00f503f015e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -142,7 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0f8134e58d2bc409618506e4d6a834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KunekuneHead
-  jumpScareIllustration: {fileID: -8617954776695447323, guid: 319d9e14df929cd47819179f0b86b9f2, type: 3}
 --- !u!1 &4255033331422481303
 GameObject:
   m_ObjectHideFlags: 0
