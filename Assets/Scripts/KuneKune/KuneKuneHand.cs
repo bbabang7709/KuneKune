@@ -5,8 +5,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
-public class KuneKuneHand : MonoBehaviour
+public class KuneKuneHand : MonoBehaviour, ISaveable
 {
+    public const string ClearedFlag = "KuneKuneHand_Cleared";
+    public const string ExitCheckpointFlag = "KuneKuneHand_ExitCheckpoint";
+    public static readonly Color EventLightColor = new Color32(19, 12, 12, 255);
     private const int DoorCount = 5;
     private const float EventHeatIncreaseRate = 5f;
 
@@ -156,6 +159,24 @@ public class KuneKuneHand : MonoBehaviour
     private void Start()
     {
         Init();
+        SaveManager.Instance?.Register(this);
+    }
+
+    private void OnDestroy()
+    {
+        SaveManager.Instance?.Unregister(this);
+    }
+
+    public string GetUniqueID() => ClearedFlag;
+
+    public void SaveState(SaveData data)
+    {
+        data.SetFlag(ClearedFlag, IsCleared);
+    }
+
+    public void LoadState(SaveData data)
+    {
+        IsCleared = data.GetFlag(ClearedFlag);
     }
 
     public void Init()
@@ -264,7 +285,7 @@ public class KuneKuneHand : MonoBehaviour
 
         _sunlightAreaRoot.gameObject.SetActive(true);
         _collider.enabled = false;
-        _globalLight.color = new Color32(19, 12, 12, 255);
+        _globalLight.color = EventLightColor;
 
         _remainingDoors.Clear();
         for (int i = 0; i < DoorCount; i++)

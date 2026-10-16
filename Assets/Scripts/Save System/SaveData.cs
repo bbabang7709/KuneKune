@@ -7,9 +7,13 @@ public class SaveData
     [Header("Chapter Info")]
     public EChapter currentChapter = EChapter.Chapter1_Outside;
 
-    // [Header("Checkpoint Info")]
-    // public EMapType respawnMapType = EMapType.Outside_Busstop;
-    // public string respawnEntryPointID = "outside_gamestart";
+    [Header("Checkpoint Info")]
+    public EMapType respawnMapType;
+    // 비어 있으면 기존 세이브와 동일하게 챕터 시작 위치에서 재개합니다.
+    public string respawnEntryPointID;
+    public bool hasCheckpointLighting;
+    public Color checkpointLightColor = Color.white;
+    public float checkpointLightIntensity = 1f;
 
     [Header("Player State")]
     public EPlayerAge playerAge;

@@ -68,6 +68,10 @@ public class KuneKune : MonoBehaviour
     private bool _isInDeathSequence;
     private bool _isCatchingPlayer = false; // 공포 연출 중복 실행 방지용 플래그
 
+    private bool IsGameplayPaused => Time.timeScale <= 0f ||
+        (PauseMenuUI.Instance != null && PauseMenuUI.Instance.IsPaused) ||
+        (MapManager.Instance != null && MapManager.Instance.IsChangingMap);
+
     [SerializeField] private KuneKuneFirstEncounterCutsceneController _firstEncounterCutscene;
 
     private void Awake()
@@ -287,6 +291,8 @@ public class KuneKune : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (IsGameplayPaused) return;
+
         bool isCutscenePlaying = CutsceneManager.Instance != null && CutsceneManager.Instance.IsCutscenePlaying;
 
         if (_state == ECharacterState.Spawning)
@@ -421,6 +427,8 @@ public class KuneKune : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (IsGameplayPaused) return;
+
         if (State != ECharacterState.Run)
             return;
 
@@ -444,6 +452,8 @@ public class KuneKune : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (IsGameplayPaused) return;
+
         if (State != ECharacterState.Run)
             return;
 

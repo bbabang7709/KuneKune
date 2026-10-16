@@ -84,7 +84,8 @@ public class PauseMenuUI : UIBase
         ControlLockManager.Instance.RemoveMovementLock(true);
         ControlLockManager.Instance.RemoveInputLock(true);
 
-        Time.timeScale = 1f;
+        // 메뉴를 닫아도 진행 중인 맵 전환의 정지는 해제하지 않습니다.
+        Time.timeScale = MapManager.Instance != null && MapManager.Instance.IsChangingMap ? 0f : 1f;
     }
 
     public void OnClickLoadGame()

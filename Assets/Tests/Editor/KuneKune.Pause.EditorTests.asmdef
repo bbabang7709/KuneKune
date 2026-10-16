@@ -1,0 +1,5 @@
+{
+    "name": "KuneKune.Pause.EditorTests",
+    "includePlatforms": ["Editor"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

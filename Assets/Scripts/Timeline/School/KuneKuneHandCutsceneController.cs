@@ -22,6 +22,11 @@ public class KuneKuneHandCutsceneController : CutsceneControllerBase
         {   
             // 여자 화장실도 손 컷씬을 기다리기 전에 실제 추격 적부터 없앱니다.
             MapManager.Instance?.KuneKune?.Despawn();
+            // 저장된 완료 상태는 손 이벤트의 LoadState가 호출되기 전에도 확인합니다.
+            if (KuneKuneHand.IsCleared || (SaveManager.Instance != null &&
+                (SaveManager.Instance.IsLoading || SaveManager.Instance.GetFlag(KuneKuneHand.ClearedFlag))))
+                return;
+
             Init();
             StartCoroutine(WaitAndPlayCutscene());
         }
@@ -32,7 +37,7 @@ public class KuneKuneHandCutsceneController : CutsceneControllerBase
         _globalLight = FindObjectsByType<Light2D>(FindObjectsSortMode.None)
         .FirstOrDefault(light => light.lightType == Light2D.LightType.Global);
 
-        _globalLight.color = new Color32(19, 12, 12, 255);
+        _globalLight.color = KuneKuneHand.EventLightColor;
     }
     
     protected override void Awake()

@@ -96,21 +96,36 @@ public class SaveManager : MonoBehaviour
             obj.SaveState(_currentSaveData);
         }
 
+        if (!string.IsNullOrEmpty(_currentSaveData.respawnEntryPointID))
+            LightingEventManager.Instance?.SaveCheckpointLighting(_currentSaveData);
+
         string json = JsonUtility.ToJson(_currentSaveData, true);
         File.WriteAllText(SavePath, json);
     }
 
     public void SaveChapterCheckpoint(EChapter newChapter)
     {
-        if (chapterDatabase == null) return;
+        if (IsLoading || chapterDatabase == null) return;
 
         ChapterStartInfo info = chapterDatabase.GetChapterInfo(newChapter);
 
         _currentSaveData.currentChapter = info.chapter;
         _currentSaveData.playerAge = info.playerAge;
+        _currentSaveData.respawnEntryPointID = null;
+        _currentSaveData.hasCheckpointLighting = false;
 
         SaveCurrentProgress();
         Debug.Log($"[SaveManager] {newChapter} 체크포인트 저장 완료");
+    }
+
+    /// <summary>현재 챕터와 진행도를 유지하며 지정한 맵 입구를 체크포인트로 저장합니다.</summary>
+    public void SaveMapCheckpoint(EMapType mapType, string entryPointID)
+    {
+        if (IsLoading || string.IsNullOrEmpty(entryPointID)) return;
+
+        _currentSaveData.respawnMapType = mapType;
+        _currentSaveData.respawnEntryPointID = entryPointID;
+        SaveCurrentProgress();
     }
 
 
@@ -178,7 +193,11 @@ public class SaveManager : MonoBehaviour
             string json = File.ReadAllText(SavePath);
             _currentSaveData = JsonUtility.FromJson<SaveData>(json);
 
-            if (chapterDatabase != null)
+            if (!string.IsNullOrEmpty(_currentSaveData.respawnEntryPointID))
+            {
+                MapManager.Instance?.InitMap(_currentSaveData.respawnMapType, _currentSaveData.respawnEntryPointID);
+            }
+            else if (chapterDatabase != null)
             {
                 ChapterStartInfo info = chapterDatabase.GetChapterInfo(_currentSaveData.currentChapter);
                 if (MapManager.Instance != null) MapManager.Instance.InitMap(info.startMapType, info.startEntryPointID);
@@ -198,6 +217,8 @@ public class SaveManager : MonoBehaviour
         {
             if (BackgroundManager.Instance != null)
                 BackgroundManager.Instance.SetBackgroundForChapter(_currentSaveData.currentChapter);
+            // 배경의 기본 조명 페이드가 이벤트 이후의 체크포인트 조명을 덮어쓰지 않게 합니다.
+            LightingEventManager.Instance?.RestoreCheckpointLighting(_currentSaveData);
         }
         catch (System.Exception e)
         {

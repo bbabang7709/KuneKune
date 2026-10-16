@@ -65,6 +65,46 @@ public class LightingEventManager : MonoBehaviour
         ApplyGlobalLightColor(color);
     }
 
+    public void SaveCheckpointLighting(SaveData data)
+    {
+        data.hasCheckpointLighting = EnsureGlobalLight();
+        if (!data.hasCheckpointLighting) return;
+
+        data.checkpointLightColor = _globalLight.color;
+        data.checkpointLightIntensity = _globalLight.intensity;
+    }
+
+    public void RestoreCheckpointLighting(SaveData data)
+    {
+        Color color;
+        float intensity;
+        if (data.hasCheckpointLighting)
+        {
+            color = data.checkpointLightColor;
+            intensity = data.checkpointLightIntensity;
+        }
+        else if (data.currentChapter == EChapter.Chapter3_School &&
+            data.GetFlag(KuneKuneHand.ExitCheckpointFlag) && !data.GetFlag(DirtyDeskCutsceneController.CompletedFlag))
+        {
+            // 조명 필드가 없던 버전에서 저장한 여자 화장실 출구 체크포인트도 복구합니다.
+            color = KuneKuneHand.EventLightColor;
+            intensity = 1f;
+        }
+        else
+        {
+            return;
+        }
+
+        if (!EnsureGlobalLight()) return;
+        if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
+        if (_lightCoroutine != null) StopCoroutine(_lightCoroutine);
+        _fadeCoroutine = null;
+        _lightCoroutine = null;
+        _isPowerOutageActive = false;
+        ApplyGlobalLightColor(color);
+        _globalLight.intensity = intensity;
+    }
+
     /// <summary>맵 전환의 암전 중 집 조명을 적용하거나 원래 색으로 복구합니다.</summary>
     public void SetHouseLighting(bool isInsideHouse)
     {

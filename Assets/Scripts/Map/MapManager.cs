@@ -32,6 +32,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private List<MapArea> allCoolZones = new List<MapArea>();
 
     public EMapType CurrentMapType { get; private set; } = EMapType.Outside_Busstop;
+    public bool IsChangingMap { get; private set; }
     private bool _wasChasedOnMapEntry;
 
     public bool ConsumeChasedMapEntry()
@@ -143,11 +144,15 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public void ChangeMap(EMapType targetMapType, string entryID, Action onComplete = null)
     {
+        if (IsChangingMap) return;
+
         StartCoroutine(ChangeMapRoutine(targetMapType, entryID, onComplete));
     }
 
     private IEnumerator ChangeMapRoutine(EMapType targetMapType, string entryID, Action onComplete)
     {
+        IsChangingMap = true;
+        EMapType previousMapType = CurrentMapType;
         // 도착 후 더위 감소로 Despawn되어도, 이동 직전의 추격 상황을 보존합니다.
         bool wasChased = KuneKune != null && KuneKune.IsChaseActive;
         Time.timeScale = 0f;
@@ -189,6 +194,17 @@ public class MapManager : MonoBehaviour
 
             CameraManager.Instance?.ChangeCameraWithFollow(_currentArea.AreaCamera);
 
+            // 보상 수령 후 여자 화장실을 처음 나왔을 때 도착한 복도 입구에서 재개합니다.
+            SaveManager saveManager = SaveManager.Instance;
+            if (previousMapType == EMapType.School_WomanToilet &&
+                targetMapType == EMapType.School_Hallway && spawnPoint != null && Player != null &&
+                KuneKuneHand.IsCleared && saveManager != null && !saveManager.IsLoading &&
+                !saveManager.GetFlag(KuneKuneHand.ExitCheckpointFlag))
+            {
+                saveManager.SetFlag(KuneKuneHand.ExitCheckpointFlag, true);
+                saveManager.SaveMapCheckpoint(targetMapType, entryID);
+            }
+
             // 추격전 진입 즉시 해당 챕터로 체크포인트를 저장합니다.
             if (targetMapType == EMapType.Chase_Ricefield)
             {
@@ -209,7 +225,9 @@ public class MapManager : MonoBehaviour
             ControlLockManager.Instance.RemoveInputLock(this);
         }
 
-        Time.timeScale = 1f;
+        // 페이드가 실제 시간으로 끝나도 열린 일시 정지 메뉴의 정지는 유지합니다.
+        IsChangingMap = false;
+        Time.timeScale = PauseMenuUI.Instance != null && PauseMenuUI.Instance.IsPaused ? 0f : 1f;
 
         onComplete?.Invoke();
     }
