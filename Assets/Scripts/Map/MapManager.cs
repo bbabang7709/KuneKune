@@ -101,7 +101,7 @@ public class MapManager : MonoBehaviour
     /// <summary>
     /// 게임 시작 및 세이브 로드 시 화면 연출(페이드) 없이 즉시 맵을 세팅합니다.
     /// </summary>
-    public void InitMap(EMapType targetMapType, string entryID)
+    public void InitMap(EMapType targetMapType, string entryID, Vector3? localPosition = null)
     {
         // 저장 로드는 피신으로 취급하지 않고, 거울 등 인게임 즉시 이동은 추격 상황을 보존합니다.
         _wasChasedOnMapEntry = (SaveManager.Instance == null || !SaveManager.Instance.IsLoading) &&
@@ -119,9 +119,9 @@ public class MapManager : MonoBehaviour
             UpdateKunekuneSpawns(_currentArea);
 
             Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
-            if (spawnPoint != null && Player != null)
+            if ((localPosition.HasValue || spawnPoint != null) && Player != null)
             {
-                // 거울 앞 부활은 화장실 신규 진입이 아니므로 충돌체 복원 전에 진입 컷씬을 억제합니다.
+                // 화장실 체크포인트 부활은 신규 진입이 아니므로 충돌체 복원 전에 진입 컷씬을 억제합니다.
                 if (targetMapType == EMapType.School_ManToilet && entryID == ToiletMirror.CheckpointEntryID &&
                     SaveManager.Instance != null && SaveManager.Instance.IsLoading)
                 {
@@ -131,7 +131,9 @@ public class MapManager : MonoBehaviour
                 }
 
                 ApplyMapEntryHeat();
-                Player.transform.position = spawnPoint.position;
+                Player.transform.position = localPosition.HasValue
+                    ? _currentArea.transform.TransformPoint(localPosition.Value)
+                    : spawnPoint.position;
 
                 Physics2D.SyncTransforms();
 

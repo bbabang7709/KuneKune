@@ -232,6 +232,21 @@ public class ToiletTrueFlagUnlockedCutsceneController : CutsceneControllerBase
         _kuneKune?.gameObject.SetActive(false);
     }
 
+    protected override void OnCutsceneFinished()
+    {
+        SaveManager saveManager = SaveManager.Instance;
+        MapArea currentMap = MapManager.Instance?.CurrentMap;
+        GameObject realPlayer = MapManager.Instance?.Player;
+        if (saveManager == null || !saveManager.GetFlag(SaveManager.TrueEndingUnlockedFlag) ||
+            currentMap == null || realPlayer == null || currentMap.mapType != EMapType.School_ManToilet ||
+            currentMap.GetEntryPoint(ToiletMirror.CheckpointEntryID) == null)
+            return;
+
+        // 배우·글리치 정리와 실제 플레이어 복원, 화면 페이드가 모두 끝난 뒤 진행도를 저장합니다.
+        Vector3 localPosition = currentMap.transform.InverseTransformPoint(realPlayer.transform.position);
+        saveManager.SaveMapCheckpoint(EMapType.School_ManToilet, ToiletMirror.CheckpointEntryID, localPosition);
+    }
+
     protected override void OnDisable()
     {
         if (IsCutsceneRunning)

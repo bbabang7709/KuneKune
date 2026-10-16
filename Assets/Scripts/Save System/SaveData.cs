@@ -11,6 +11,9 @@ public class SaveData
     public EMapType respawnMapType;
     // 비어 있으면 기존 세이브와 동일하게 챕터 시작 위치에서 재개합니다.
     public string respawnEntryPointID;
+    // 지정되어 있으면 입구 대신 해당 맵 기준의 좌표에서 재개합니다.
+    public bool hasCheckpointPosition;
+    public Vector3 checkpointLocalPosition;
     public bool hasCheckpointLighting;
     public Color checkpointLightColor = Color.white;
     public float checkpointLightIntensity = 1f;

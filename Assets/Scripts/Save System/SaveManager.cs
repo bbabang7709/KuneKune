@@ -112,19 +112,23 @@ public class SaveManager : MonoBehaviour
         _currentSaveData.currentChapter = info.chapter;
         _currentSaveData.playerAge = info.playerAge;
         _currentSaveData.respawnEntryPointID = null;
+        _currentSaveData.hasCheckpointPosition = false;
+        _currentSaveData.checkpointLocalPosition = Vector3.zero;
         _currentSaveData.hasCheckpointLighting = false;
 
         SaveCurrentProgress();
         Debug.Log($"[SaveManager] {newChapter} 체크포인트 저장 완료");
     }
 
-    /// <summary>현재 챕터와 진행도를 유지하며 지정한 맵 입구를 체크포인트로 저장합니다.</summary>
-    public void SaveMapCheckpoint(EMapType mapType, string entryPointID)
+    /// <summary>지정한 맵 입구 또는 맵 기준 좌표를 체크포인트로 저장합니다.</summary>
+    public void SaveMapCheckpoint(EMapType mapType, string entryPointID, Vector3? localPosition = null)
     {
         if (IsLoading || string.IsNullOrEmpty(entryPointID)) return;
 
         _currentSaveData.respawnMapType = mapType;
         _currentSaveData.respawnEntryPointID = entryPointID;
+        _currentSaveData.hasCheckpointPosition = localPosition.HasValue;
+        _currentSaveData.checkpointLocalPosition = localPosition.GetValueOrDefault();
         SaveCurrentProgress();
     }
 
@@ -195,7 +199,8 @@ public class SaveManager : MonoBehaviour
 
             if (!string.IsNullOrEmpty(_currentSaveData.respawnEntryPointID))
             {
-                MapManager.Instance?.InitMap(_currentSaveData.respawnMapType, _currentSaveData.respawnEntryPointID);
+                MapManager.Instance?.InitMap(_currentSaveData.respawnMapType, _currentSaveData.respawnEntryPointID,
+                    _currentSaveData.hasCheckpointPosition ? _currentSaveData.checkpointLocalPosition : (Vector3?)null);
             }
             else if (chapterDatabase != null)
             {
