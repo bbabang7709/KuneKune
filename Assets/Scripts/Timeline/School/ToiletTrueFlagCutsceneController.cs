@@ -1,11 +1,15 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Playables;
 
 [RequireComponent(typeof(DialogTimelineController))]
 public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 {
     private const string TrueFlagFailed = "HasTrueFlagFailed";
+    private const float InjuredBreathingHoldSeconds = 1.5f;
+    private static readonly int InjuredBreathingState =
+        Animator.StringToHash("Base Layer.Cutscene_ToiletTrueFlag_Idle");
 
     private const int CutsceneCameraPriority = 20;
     [SerializeField] private SunlightAreaRoot _sunlightAreaRoot;
@@ -23,6 +27,10 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     private float _kuneKuneAnimationSpeedBeforePause;
     private bool _isKuneKuneAnimationPaused;
     private bool _resumeKuneKuneAnimationAfterDialog;
+    private AnimatorStateInfo _kuneKuneAnimationBeforeDialog;
+    private bool _isPlayingInjuredBreathing;
+    private Coroutine _injuredBreathingHoldRoutine;
+    private Playable _injuredBreathingHoldPlayable = Playable.Null;
 
     [Tooltip("이 대사가 진행되는 동안 컷씬용 쿠네쿠네의 이동을 멈춥니다.")]
     [SerializeField] private DialogData _stopKuneKuneDialog;
@@ -160,23 +168,77 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     private void OnDialogStarted(DialogData dialog)
     {
-        if (_stopKuneKuneDialog == null || dialog != _stopKuneKuneDialog) return;
+        if (_stopKuneKuneDialog == null || dialog != _stopKuneKuneDialog || _isKuneKunePausedForDialog) return;
 
         _isKuneKunePausedForDialog = true;
         StopKuneKune();
         _resumeKuneKuneAnimationAfterDialog = !_isKuneKuneAnimationPaused;
-        PauseKuneKuneAnimation();
+        if (_kuneKuneAnimator != null && _resumeKuneKuneAnimationAfterDialog)
+        {
+            // 위치는 멈추되 수그린 자세로 힘겹게 숨 쉬는 동작은 반복합니다.
+            _kuneKuneAnimationBeforeDialog = _kuneKuneAnimator.GetCurrentAnimatorStateInfo(0);
+            _isPlayingInjuredBreathing = true;
+            _kuneKuneAnimator.Play(InjuredBreathingState, 0, 0f);
+        }
     }
 
     private void OnDialogFinished(DialogData dialog)
     {
-        if (!_isKuneKunePausedForDialog || dialog != _stopKuneKuneDialog) return;
+        if (!_isKuneKunePausedForDialog || dialog != _stopKuneKuneDialog ||
+            _injuredBreathingHoldRoutine != null) return;
+
+        _injuredBreathingHoldRoutine = StartCoroutine(ResumeAfterInjuredBreathingHold());
+    }
+
+    private IEnumerator ResumeAfterInjuredBreathingHold()
+    {
+        // 다음 타임라인 연출도 기다리게 하되, 배우의 숨쉬기 Animator는 계속 재생합니다.
+        if (director != null && director.playableGraph.IsValid() && director.playableGraph.GetRootPlayableCount() > 0)
+        {
+            _injuredBreathingHoldPlayable = director.playableGraph.GetRootPlayable(0);
+            _injuredBreathingHoldPlayable.SetSpeed(0d);
+        }
+
+        yield return new WaitForSeconds(InjuredBreathingHoldSeconds);
+
+        _injuredBreathingHoldRoutine = null;
+        ReleaseInjuredBreathingTimelineHold();
 
         _isKuneKunePausedForDialog = false;
+        RestoreKuneKuneAnimationAfterDialog();
         _isMovingKuneKune = _kuneKune != null && _kuneKune.gameObject.activeInHierarchy;
         if (_resumeKuneKuneAnimationAfterDialog)
             ResumeKuneKuneAnimation();
         _resumeKuneKuneAnimationAfterDialog = false;
+    }
+
+    private void CancelInjuredBreathingHold()
+    {
+        if (_injuredBreathingHoldRoutine != null)
+        {
+            StopCoroutine(_injuredBreathingHoldRoutine);
+            _injuredBreathingHoldRoutine = null;
+        }
+
+        ReleaseInjuredBreathingTimelineHold();
+        _isKuneKunePausedForDialog = false;
+    }
+
+    private void ReleaseInjuredBreathingTimelineHold()
+    {
+        if (_injuredBreathingHoldPlayable.IsValid())
+            _injuredBreathingHoldPlayable.SetSpeed(1d);
+        _injuredBreathingHoldPlayable = Playable.Null;
+    }
+
+    private void RestoreKuneKuneAnimationAfterDialog()
+    {
+        if (!_isPlayingInjuredBreathing) return;
+        _isPlayingInjuredBreathing = false;
+
+        if (_kuneKuneAnimator != null && _kuneKuneAnimator.isActiveAndEnabled)
+            _kuneKuneAnimator.Play(_kuneKuneAnimationBeforeDialog.fullPathHash, 0,
+                _kuneKuneAnimationBeforeDialog.normalizedTime);
     }
 
     public void Play()
@@ -412,6 +474,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     /// <summary>화장실을 나가지 않아도 쿠네쿠네와 이벤트의 효과를 정리합니다.</summary>
     public void HideKuneKune()
     {
+        CancelInjuredBreathingHold();
         if (_blood != null) _blood.sprite = null;
         _canInteractWithKuneKune = false;
         RestoreWashstandInteraction();
@@ -422,11 +485,13 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         _sunlightMap = null;
 
         StopKuneKune();
+        RestoreKuneKuneAnimationAfterDialog();
         _kuneKune?.gameObject.SetActive(false);
     }
 
     protected override void OnDisable()
     {
+        CancelInjuredBreathingHold();
         StopToiletGlitch();
         RestoreWashstandInteraction();
         StopMonitoringHeat();
@@ -440,6 +505,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         _isPlayRequested = false;
         _canInteractWithKuneKune = false;
         StopKuneKune();
+        RestoreKuneKuneAnimationAfterDialog();
         ResumeKuneKuneAnimation();
         _resumeKuneKuneAnimationAfterDialog = false;
         base.OnDisable();

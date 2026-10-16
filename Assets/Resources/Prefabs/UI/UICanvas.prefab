@@ -8839,6 +8839,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
+      propertyPath: echoColor.a
+      value: 0.85882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 532057493177531689, guid: 6b2c1c08c679ee6449893670e0fd1eac, type: 3}
       propertyPath: holdDuration
       value: 2
       objectReference: {fileID: 0}
