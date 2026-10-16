@@ -23,9 +23,22 @@ public class ToiletMirror : MonoBehaviour, IInteractable
     
     public void OnInteractPressed()
     {
-        if (displayImage == null) return;
         if (_isWatching) return;
         if (SaveManager.Instance != null && SaveManager.Instance.IsLoading) return;
+        if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) return;
+
+        // 씬을 다시 불러오면 _hasInteracted는 초기화되므로 손 이벤트의 완료 기록도 확인합니다.
+        SaveManager saveManager = SaveManager.Instance;
+        bool handEventCompleted = KuneKuneHand.IsCleared || (saveManager != null &&
+            (saveManager.GetFlag(KuneKuneHand.ClearedFlag) ||
+             saveManager.GetFlag(KuneKuneHand.ExitCheckpointFlag)));
+        if (_hasInteracted || handEventCompleted)
+        {
+            DialogSystem.Instance?.PlayDialog(dialogAfterFirstInteraction);
+            return;
+        }
+
+        if (displayImage == null || imageRoot == null) return;
 
         // 거울 연출로 여자 화장실로 이동하기 전에 남자 화장실 거울 앞을 저장합니다.
         MapArea map = GetComponentInParent<MapArea>();
@@ -36,22 +49,14 @@ public class ToiletMirror : MonoBehaviour, IInteractable
             SaveManager.Instance?.SaveMapCheckpoint(EMapType.School_ManToilet, CheckpointEntryID);
         }
 
-        if (!_hasInteracted)
+        _hasInteracted = true;
+        if (ControlLockManager.Instance != null)
         {
-            _hasInteracted = true;
-            if (ControlLockManager.Instance != null)
-            {
-                ControlLockManager.Instance.AddInputLock(this);
-                ControlLockManager.Instance.AddMovementLock(this);
-            }
+            ControlLockManager.Instance.AddInputLock(this);
+            ControlLockManager.Instance.AddMovementLock(this);
+        }
 
-            StartCoroutine(InteractionRoutine());
-        }
-        else
-        {
-            if (DialogSystem.Instance != null)
-                DialogSystem.Instance.PlayDialog(dialogAfterFirstInteraction);
-        }
+        StartCoroutine(InteractionRoutine());
     }
 
     private IEnumerator InteractionRoutine()

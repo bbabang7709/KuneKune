@@ -12,18 +12,25 @@ public enum ECharacterState
     Spawning,   // 쿠네쿠네가 사물에서 나타나는 상태
     Idle,
     Run,
+    WaitingAfterSpawn, // 일어난 뒤 추격을 시작하기 전 대기
 }
 
 public class KuneKune : MonoBehaviour
 {
     public const float DefaultMoveSpeed = 5f;
+    private const float PostSpawnWaitSeconds = 0.2f;
 
     public SpriteRenderer SpriteRenderer { get; private set; }
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
+    private Bounds _spawnColliderBounds;
     private PlayerController _player;
     private Collider2D _playerCollider;
+
+    [Header("Spawn")]
+    [Tooltip("스폰 시 플레이어와 쿠네쿠네의 콜라이더 사이에 확보할 최소 간격입니다.")]
+    [SerializeField, Min(0.01f)] private float _spawnClearance = 0.1f;
 
     private ECharacterState _state;
     // 대사나 컷씬으로 잠시 Idle이 되어도 추격 중이라는 사실은 유지합니다.
@@ -52,6 +59,7 @@ public class KuneKune : MonoBehaviour
     private MapArea _currentMap;
     private MapArea _lastPlayerMap;
     private float? _mapTransitionWaitRemaining;
+    private float _postSpawnWaitRemaining;
 
     public string SpawnAnimationName { get; private set; } = "";
 
@@ -99,6 +107,9 @@ public class KuneKune : MonoBehaviour
         int allowedLayerMask = LayerMask.GetMask("Player");
         _collider.excludeLayers = ~allowedLayerMask;
 
+        // 비활성 콜라이더의 bounds는 비어 있으므로 숨기기 전에 몸체 기준 영역을 보관합니다.
+        _spawnColliderBounds = _collider.bounds;
+        _spawnColliderBounds.center -= transform.position;
         Despawn();
 
         if (_firstEncounterCutscene == null)
@@ -116,33 +127,29 @@ public class KuneKune : MonoBehaviour
     {
         if (State != ECharacterState.Unspawned)
             return;
+        if (MapManager.Instance == null || _player == null || _playerCollider == null)
+            return;
 
-        #region 플레이어랑 가까운 사물 찾기
+        #region 플레이어와 떨어진 사물 중 가장 가까운 사물 찾기
         if (MapManager.Instance.KunekuneSpawnPoints.Count == 0)
         {
             Debug.Log("현재 맵에서 쿠네쿠네가 소환될 수 있는 사물이 없네요.");
             return;
-            // TEST용 폴백 로직 유지
-            //Transform tr = GameObject.Find("KuneKune_ables")?.transform;
-            //if (tr != null)
-            //{
-            //    Debug.Log("테스트를 위해 아무 KuneKune_ables에서 소환할게요");
-            //    Transform[] spawnPoints = tr.GetComponentsInChildren<Transform>();
-            //    foreach (Transform sp in spawnPoints)
-            //    {
-            //        if (sp == tr) continue;
-            //        SpawnObject = sp.gameObject;
-            //        MapManager.Instance.KunekuneSpawnPoints.Add(sp);
-            //    }
-            //}
         }
-        
+
+        // 같은 프레임에 바뀐 위치와 나이별 콜라이더 크기도 선택에 반영합니다.
+        Physics2D.SyncTransforms();
+        Bounds playerBounds = _playerCollider.bounds;
         GameObject closest = null;
         float closestDistance = Mathf.Infinity;
         float closestRightValue = Mathf.NegativeInfinity;
 
         foreach (Transform child in MapManager.Instance.KunekuneSpawnPoints)
         {
+            if (child == null || !child.gameObject.activeInHierarchy ||
+                !IsSpawnPositionSafe(child.position, playerBounds))
+                continue;
+
             Vector3 direction = child.position - _player.transform.position;
             float distance = direction.magnitude;
             float rightValue = Vector3.Dot(direction, _player.transform.right); 
@@ -162,7 +169,7 @@ public class KuneKune : MonoBehaviour
 
         if (closest == null)
         {
-            Debug.LogError("쿠네쿠네가 플레이어와 가까운 사물을 못 찾았습니다.");
+            // 안전한 후보가 생기면 다음 스폰 요청에서 다시 선택합니다.
             return;
         }
         #endregion
@@ -194,6 +201,7 @@ public class KuneKune : MonoBehaviour
         _lastPlayerMap = _currentMap;
         _mapRoutes.Clear();
         _mapTransitionWaitRemaining = null;
+        _postSpawnWaitRemaining = 0f;
 
         SetPositionAndDirection(position);
 
@@ -224,9 +232,21 @@ public class KuneKune : MonoBehaviour
 
     private Vector3 GetFloorAlignedPosition(Vector3 floorPosition)
     {
-        float bottomOffset = transform.position.y - _collider.bounds.min.y;
-        floorPosition.y += bottomOffset;
+        floorPosition.y -= _spawnColliderBounds.min.y;
         return floorPosition;
+    }
+
+    private bool IsSpawnPositionSafe(Vector3 floorPosition, Bounds playerBounds)
+    {
+        Bounds spawnBounds = _spawnColliderBounds;
+        spawnBounds.center += GetFloorAlignedPosition(floorPosition);
+        float clearance = Mathf.Max(0.01f, _spawnClearance);
+
+        // 2D 판정이므로 Z는 무시합니다. 경계가 맞닿는 후보도 제외합니다.
+        return spawnBounds.max.x + clearance < playerBounds.min.x ||
+            spawnBounds.min.x - clearance > playerBounds.max.x ||
+            spawnBounds.max.y + clearance < playerBounds.min.y ||
+            spawnBounds.min.y - clearance > playerBounds.max.y;
     }
 
     private Vector3 GetFloorPositionFromDoorSpawnPoint(Vector3 spawnPosition)
@@ -259,6 +279,14 @@ public class KuneKune : MonoBehaviour
         if (amount < 0) return;
 
         _speed = amount;
+    }
+
+    public void BeginPostSpawnWait()
+    {
+        if (State == ECharacterState.Unspawned) return;
+
+        _postSpawnWaitRemaining = PostSpawnWaitSeconds;
+        State = ECharacterState.WaitingAfterSpawn;
     }
 
     private void UpdateAnimation()
@@ -301,11 +329,11 @@ public class KuneKune : MonoBehaviour
             var animationState = _animator.GetCurrentAnimatorStateInfo(0);
             if (animationState.IsName(SpawnAnimationName) && animationState.normalizedTime >= 1f)
             {
-                // 첫 조우 컷씬에서는 달리기 연출만 시작하고, 추격 상태는 OnCutsceneFinished에서 전환합니다.
+                // 첫 조우 컷씬에서는 달리기 연출만 시작하고, 종료 후 0.2초 대기를 시작합니다.
                 if (isCutscenePlaying)
                     _animator.Play("Run", 0, 0f);
                 else
-                    State = ECharacterState.Run;
+                    BeginPostSpawnWait();
             }
             return;
         }
@@ -315,6 +343,13 @@ public class KuneKune : MonoBehaviour
         switch (_state)
         {
             case ECharacterState.Idle:
+                break;
+            case ECharacterState.WaitingAfterSpawn:
+                // 메뉴·맵 이동·컷씬·대사 중에는 남은 대기 시간도 유지합니다.
+                if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) break;
+                _postSpawnWaitRemaining = Mathf.Max(0f, _postSpawnWaitRemaining - Time.fixedDeltaTime);
+                if (_postSpawnWaitRemaining <= 0f)
+                    State = ECharacterState.Run;
                 break;
             case ECharacterState.Run:
                 ChasePlayerAcrossMaps();
@@ -539,6 +574,7 @@ public class KuneKune : MonoBehaviour
     void OnDisable()
     {
         _mapTransitionWaitRemaining = null;
+        _postSpawnWaitRemaining = 0f;
         // 공유 머티리얼의 런타임 값이 타이틀 등 다음 씬에 남지 않게 합니다.
         ResetFullScreenGlitch();
 #if UNITY_EDITOR

@@ -17,6 +17,9 @@ MonoBehaviour:
   itemName: "\uC190\uC218\uAC74"
   description: "\uB204\uAD70\uAC00\uC758 \uC774\uB2C8\uC15C\uC774 \uC801\uD78C \uC190\uC218\uAC74\uC774\uB2E4.\n\n...
     \uC65C\uC778\uC9C0 \uADF8\uB9AC\uC6B4 \uB290\uB08C\uC774 \uB4E0\uB2E4."
+  revealedDisplayFlag: HasUnlockedTrueEnding
+  revealedItemName: "소꿉친구의 손수건"
+  revealedDescription: "소꿉친구의 이니셜이 적힌 손수건이다.\n\n그 얼굴을 닦아주던 손을 한동안 거두지 못했다.\n어쩐지 내 뺨에도 같은 감촉이 남아 있다."
   itemCount: 1
   illustration: {fileID: -6560618423535854421, guid: a50ab319c0301184496fc4f1b1836dc4, type: 3}
   icon: {fileID: -6560618423535854421, guid: a50ab319c0301184496fc4f1b1836dc4, type: 3}

@@ -12,6 +12,13 @@ public abstract class ItemData : ScriptableObject
     [TextArea(3, 5)]
     [SerializeField] private string description;
 
+    [Header("Story Progress Display")]
+    [Tooltip("이 저장 플래그를 달성하면 아래 이름과 설명을 표시합니다. 비워두면 기본 표시를 유지합니다.")]
+    [SerializeField] private string revealedDisplayFlag;
+    [SerializeField] private string revealedItemName;
+    [TextArea(3, 5)]
+    [SerializeField] private string revealedDescription;
+
     [SerializeField] [Min(1)] private int itemCount = 1;
     [SerializeField] private Sprite illustration;
 
@@ -33,8 +40,13 @@ public abstract class ItemData : ScriptableObject
 
     public EItemType ItemType => itemType;
     public string ItemID => itemID;
-    public string ItemName => itemName;
-    public string Description => description;
+    private bool HasRevealedDisplay => !string.IsNullOrEmpty(revealedDisplayFlag) &&
+        SaveManager.Instance != null && SaveManager.Instance.GetFlag(revealedDisplayFlag);
+
+    public string ItemName => HasRevealedDisplay && !string.IsNullOrEmpty(revealedItemName)
+        ? revealedItemName : itemName;
+    public string Description => HasRevealedDisplay && !string.IsNullOrEmpty(revealedDescription)
+        ? revealedDescription : description;
     public int ItemCount => itemCount;
     public Sprite Illustration => illustration;
     public Sprite Icon => icon;

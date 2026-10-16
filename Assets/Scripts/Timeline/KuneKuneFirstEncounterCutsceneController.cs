@@ -160,7 +160,7 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
     protected override void OnCutsceneFinished()
     {
         base.OnCutsceneFinished();
-        _kuneKune.State = ECharacterState.Run;
+        _kuneKune.BeginPostSpawnWait();
     }
 
     public void Play()
