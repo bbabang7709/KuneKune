@@ -16806,12 +16806,14 @@ MonoBehaviour:
   targetEntryPoint: {fileID: 0}
   isLocked: 1
   requiredKeyID: CANNOT_OPEN
-  dialogWhenLocked: {fileID: 0}
+  dialogWhenLocked: {fileID: 11400000, guid: de5779fc88fc4df398e485ae61b2107d, type: 2}
   dialogWhenUnlock: {fileID: 0}
   _lockDuringChase: 0
   dialogWhenChase: {fileID: 0}
   openSprite: {fileID: -6957731453196824917, guid: 7470d7a79ca3b96428874bdc6f3b8446, type: 3}
   openSoundID: DoorOpen_Sliding
+  lockedSoundID: StallDoor_Open
+  lockedSoundPitch: 1.5
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!1001 &9052128850811186320

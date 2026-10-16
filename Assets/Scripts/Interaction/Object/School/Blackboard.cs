@@ -27,9 +27,12 @@ public class Blackboard : InteractableBase
     {
         if (DialogSystem.Instance != null)
         {
+            // 체크포인트에서 인벤토리를 복원한 뒤에도 열쇠 지급과 초상화 힌트를 반복하지 않습니다.
+            bool hasReceivedKey = _dialogPlayed || (artroomKey != null &&
+                InventoryManager.Instance != null && InventoryManager.Instance.HasKey(artroomKey.ItemID));
             DialogSystem.Instance.PlayDialog(
                 dialog1, 
-                _dialogPlayed ? null 
+                hasReceivedKey ? null
                               : () => StartCoroutine(KeyAcquireRoutine()));
         }
     }

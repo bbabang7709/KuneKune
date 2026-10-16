@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class ToiletMirror : MonoBehaviour, IInteractable
 {
+    public const string CheckpointEntryID = "school_man_toilet_mirror";
+
     [Header("Interaction Settings")]
     [Tooltip("첫 상호작용 이벤트 설정")]
     [SerializeField] private Sprite startSprite;
@@ -23,6 +25,16 @@ public class ToiletMirror : MonoBehaviour, IInteractable
     {
         if (displayImage == null) return;
         if (_isWatching) return;
+        if (SaveManager.Instance != null && SaveManager.Instance.IsLoading) return;
+
+        // 거울 연출로 여자 화장실로 이동하기 전에 남자 화장실 거울 앞을 저장합니다.
+        MapArea map = GetComponentInParent<MapArea>();
+        if (map != null && map.mapType == EMapType.School_ManToilet &&
+            MapManager.Instance != null && MapManager.Instance.CurrentMap == map &&
+            map.GetEntryPoint(CheckpointEntryID) != null)
+        {
+            SaveManager.Instance?.SaveMapCheckpoint(EMapType.School_ManToilet, CheckpointEntryID);
+        }
 
         if (!_hasInteracted)
         {

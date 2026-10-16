@@ -8,11 +8,14 @@ using UnityEngine.Rendering.Universal;
 public class KuneKuneHandCutsceneController : CutsceneControllerBase
 {
     private const int CutsceneCameraPriority = 20;
+    // LookAround 클립의 최대 X 이동량을 실제 화면의 좌우 경계에 맞춰 환산합니다.
+    private const float CameraPanClipDistance = 26f;
 
     [Header("KuneKune Hand")]
     [SerializeField] private KuneKuneHand _event;
     private Light2D _globalLight;
     private CinemachineCamera _cutsceneCamera;
+    private Transform _cameraPanRoot;
     private PrioritySettings _cameraPriorityBeforeCutscene;
     private bool _hasCameraPriorityOverride;
 
@@ -44,6 +47,13 @@ public class KuneKuneHandCutsceneController : CutsceneControllerBase
     {
         base.Awake();
         _cutsceneCamera = GetComponentInChildren<CinemachineCamera>(true);
+        if (_cutsceneCamera != null)
+        {
+            // Timeline이 기록하는 로컬 좌표는 유지하고, 이동 범위만 별도 부모에서 조절합니다.
+            _cameraPanRoot = new GameObject("Camera Pan Range").transform;
+            _cameraPanRoot.SetParent(_cutsceneCamera.transform.parent, false);
+            _cutsceneCamera.transform.SetParent(_cameraPanRoot, false);
+        }
         if (_event == null)
             _event = FindFirstObjectByType<KuneKuneHand>();
     }
@@ -57,10 +67,37 @@ public class KuneKuneHandCutsceneController : CutsceneControllerBase
         }
 
         // 우선순위는 애니메이션 클립 대신 컷씬 전체 재생 구간에서 관리합니다.
+        ConfigureCameraPanRange();
         _cameraPriorityBeforeCutscene = _cutsceneCamera.Priority;
         _hasCameraPriorityOverride = true;
         _cutsceneCamera.PreviousStateIsValid = false;
         _cutsceneCamera.Priority = CutsceneCameraPriority;
+    }
+
+    private void ConfigureCameraPanRange()
+    {
+        CinemachineConfiner2D confiner = _cutsceneCamera.GetComponent<CinemachineConfiner2D>();
+        Camera outputCamera = Camera.main;
+        if (_cameraPanRoot == null || confiner == null || confiner.BoundingShape2D == null ||
+            outputCamera == null)
+            return;
+
+        Bounds roomBounds = confiner.BoundingShape2D.bounds;
+        float halfWidth = _cutsceneCamera.Lens.OrthographicSize * outputCamera.aspect;
+        float leftX = Mathf.Min(roomBounds.center.x, roomBounds.min.x + halfWidth);
+        float rightX = Mathf.Max(roomBounds.center.x, roomBounds.max.x - halfWidth);
+
+        _cameraPanRoot.localPosition = Vector3.zero;
+        Vector3 start = _cameraPanRoot.position;
+        start.x = Mathf.Clamp(start.x, leftX, rightX);
+        _cameraPanRoot.position = start;
+
+        Vector3 end = start;
+        end.x = rightX;
+        float localDistance = _cameraPanRoot.parent.InverseTransformPoint(end).x -
+            _cameraPanRoot.localPosition.x;
+        // 경계를 넘는 목표를 조기에 제한하는 대신, 클립의 2초 키가 정확히 끝에 닿게 합니다.
+        _cameraPanRoot.localScale = new Vector3(Mathf.Max(0f, localDistance) / CameraPanClipDistance, 1f, 1f);
     }
 
     protected override void OnCutsceneEndSetup()

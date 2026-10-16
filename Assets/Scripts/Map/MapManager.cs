@@ -119,6 +119,15 @@ public class MapManager : MonoBehaviour
             Transform spawnPoint = _currentArea.GetEntryPoint(entryID);
             if (spawnPoint != null && Player != null)
             {
+                // 거울 앞 부활은 화장실 신규 진입이 아니므로 충돌체 복원 전에 진입 컷씬을 억제합니다.
+                if (targetMapType == EMapType.School_ManToilet && entryID == ToiletMirror.CheckpointEntryID &&
+                    SaveManager.Instance != null && SaveManager.Instance.IsLoading)
+                {
+                    foreach (ToiletCutsceneController entryCutscene in
+                        _currentArea.GetComponentsInChildren<ToiletCutsceneController>(true))
+                        entryCutscene.SuppressEntryUntilExit();
+                }
+
                 ApplyMapEntryHeat();
                 Player.transform.position = spawnPoint.position;
 

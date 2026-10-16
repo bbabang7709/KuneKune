@@ -1,10 +1,13 @@
 using System.Collections;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class StatuePuzzle : MonoBehaviour
+public class StatuePuzzle : MonoBehaviour, ISaveable
 {
+    public const string RewardReceivedFlag = "StatuePuzzle_RewardReceived";
+    private const string RewardEventFinishedFlag = "StatuePuzzle_RewardEventFinished";
+    private const string CheckpointEntryID = "school_artroom_0";
+
     [System.Serializable]
     public struct StatueSetting
     {
@@ -39,6 +42,9 @@ public class StatuePuzzle : MonoBehaviour
     [SerializeField] private GameObject item;
 
     private bool _isSolved = false;
+    private bool _hasReceivedReward;
+    private bool _hasFinishedRewardEvent;
+    private Coroutine _finishRoutine;
     private PlayerLight playerLight;
 
     private void Awake()
@@ -60,6 +66,8 @@ public class StatuePuzzle : MonoBehaviour
 
         if (spotLight != null) spotLight.intensity = 0f;
         if (item != null) item.SetActive(false);
+
+        SaveManager.Instance?.Register(this);
     }
 
     private void CheckPuzzleCompletion()
@@ -81,18 +89,7 @@ public class StatuePuzzle : MonoBehaviour
     {
         _isSolved = true;
 
-        foreach (var setting in statues)
-        {
-            setting.statue.enabled = false;
-
-            Collider2D col = setting.statue.GetComponent<Collider2D>();
-            if (col != null) col.enabled = false;
-        }
-
-        foreach (GameObject glowingEye in glowingEyes)
-        {
-            if (glowingEye != null) glowingEye.SetActive(false);
-        }
+        ApplySolvedState();
 
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySFX("PuzzleComplete_Statue");
@@ -104,17 +101,82 @@ public class StatuePuzzle : MonoBehaviour
         }
     }
 
+    private void ApplySolvedState()
+    {
+        foreach (var setting in statues)
+        {
+            if (setting.statue == null) continue;
+            setting.statue.SetDirection(setting.correctDirection);
+            setting.statue.enabled = false;
+
+            Collider2D col = setting.statue.GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
+        }
+
+        foreach (GameObject glowingEye in glowingEyes)
+        {
+            if (glowingEye != null) glowingEye.SetActive(false);
+        }
+    }
+
     private void GetReward()
     {
         if (InventoryManager.Instance != null)
-        InventoryManager.Instance.AcquireItem(
-            rewardItem, rewardDialog, 
-            () => StartCoroutine(FinishPuzzleRoutine())
-        );
+        {
+            InventoryManager.Instance.AcquireItem(rewardItem, rewardDialog, OnRewardReceived);
+        }
+    }
+
+    private void OnRewardReceived()
+    {
+        _hasReceivedReward = true;
+        // 획득 대사가 끝난 뒤 저장하여 열쇠와 연출 시작 전 상태를 함께 남깁니다.
+        SaveManager.Instance?.SaveMapCheckpoint(EMapType.SchoolArtroom, CheckpointEntryID);
+        _finishRoutine = StartCoroutine(FinishPuzzleRoutine());
+    }
+
+    public string GetUniqueID() => RewardReceivedFlag;
+
+    public void SaveState(SaveData data)
+    {
+        data.SetFlag(RewardReceivedFlag, _hasReceivedReward);
+        data.SetFlag(RewardEventFinishedFlag, _hasFinishedRewardEvent);
+    }
+
+    public void LoadState(SaveData data)
+    {
+        if (_finishRoutine != null) StopCoroutine(_finishRoutine);
+        _finishRoutine = null;
+        _hasReceivedReward = data.GetFlag(RewardReceivedFlag);
+        _hasFinishedRewardEvent = data.GetFlag(RewardEventFinishedFlag);
+        _isSolved = _hasReceivedReward;
+        if (!_isSolved) return;
+
+        ApplySolvedState();
+        if (_hasFinishedRewardEvent)
+        {
+            // 이후 체크포인트에서는 연출 대신 그 시점의 오브젝트만 복원합니다.
+            ApplyRewardEventState(data);
+        }
+        else
+        {
+            // 사망 직전 이미 주웠더라도 저장 당시 미획득이면 다시 주울 수 있게 준비합니다.
+            if (item != null)
+                item.GetComponent<ItemPickup>()?.RestorePickupState(data, showIfUncollected: false);
+            _finishRoutine = StartCoroutine(ResumeRewardEventRoutine());
+        }
+    }
+
+    private IEnumerator ResumeRewardEventRoutine()
+    {
+        // SaveManager의 배경/조명 복원과 화면 페이드가 끝난 뒤 깜빡임을 재생합니다.
+        yield return new WaitUntil(() => SaveManager.Instance == null || !SaveManager.Instance.IsLoading);
+        yield return FinishPuzzleRoutine();
     }
 
     private void OnDestroy()
     {
+        SaveManager.Instance?.Unregister(this);
         foreach (var setting in statues)
         {
             if (setting.statue != null)
@@ -133,15 +195,35 @@ public class StatuePuzzle : MonoBehaviour
         LightingEventManager.Instance?.SetBlackout(fadeIntensity, 0.2f);
         yield return new WaitForSeconds(1f);
 
+        ApplyRewardEventState();
+        _hasFinishedRewardEvent = true;
+        _finishRoutine = null;
+    }
+
+    private void ApplyRewardEventState(SaveData data = null)
+    {
         if (_doorLight != null) _doorLight.SetActive(true);
         if (_toiletLight != null) _toiletLight.SetActive(true);
 
-        footprintSequence.PlayFootprintSequence();
-        if (playerLight != null) playerLight.TurnOn();
+        bool deskCompleted = data != null && data.GetFlag(DirtyDeskCutsceneController.CompletedFlag);
+        if (deskCompleted) footprintSequence?.HideFootprint();
+        else if (data == null) footprintSequence?.PlayFootprintSequence();
+        else footprintSequence?.ShowFootprints();
+
+        if (playerLight != null)
+        {
+            if (deskCompleted) playerLight.TurnOff(false);
+            else playerLight.TurnOn();
+        }
         
-        if (deskCollider != null) deskCollider.enabled = true;
+        if (deskCollider != null) deskCollider.enabled = !deskCompleted;
 
         if (spotLight != null) spotLight.intensity = 5f;
-        if (item != null) item.SetActive(true);
+        if (item != null)
+        {
+            ItemPickup pickup = item.GetComponent<ItemPickup>();
+            if (pickup != null && data != null) pickup.RestorePickupState(data);
+            else item.SetActive(true);
+        }
     }
 }

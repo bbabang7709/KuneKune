@@ -52,4 +52,11 @@ public class StatuePuzzlePiece : InteractableBase
         OnRotated?.Invoke();
         _timer = rotationDelay;
     }
+
+    public void SetDirection(EDirection direction)
+    {
+        CurrentDirection = direction;
+        if (_sr != null && sprites != null && sprites.Length > (int)direction)
+            _sr.sprite = sprites[(int)direction];
+    }
 }

@@ -49,6 +49,20 @@ public class ItemPickup : MonoBehaviour, IHoldInteractable
         }
     }
 
+    /// <summary>이벤트가 다시 활성화하는 아이템을 체크포인트의 획득 상태로 되돌립니다.</summary>
+    public void RestorePickupState(SaveData data, bool showIfUncollected = true)
+    {
+        isCollected = !string.IsNullOrWhiteSpace(uniquePickupID) && data.GetFlag(uniquePickupID);
+        holdTimer = 0f;
+
+        Collider2D col2D = GetComponent<Collider2D>();
+        if (col2D != null) col2D.enabled = !isCollected;
+        Collider col = GetComponent<Collider>();
+        if (col != null) col.enabled = !isCollected;
+
+        gameObject.SetActive(showIfUncollected && !isCollected);
+    }
+
     /// <summary>
     /// 상호작용 버튼을 처음 눌렀을 때 호출된다.
     /// 아이템 획득 진행 시간을 초기화한다.

@@ -26,6 +26,10 @@ public class Door : MapTransition, IInteractable
     [Header("Sound Settings")]
     [Tooltip("문이 열릴 때 재생할 SoundID")]
     [SerializeField] private string openSoundID = "DoorOpen";
+    [Tooltip("잠긴 문과 상호작용할 때 재생할 SoundID입니다. 비어 있으면 재생하지 않습니다.")]
+    [SerializeField] private string lockedSoundID;
+    [SerializeField, Range(0.1f, 3f)] private float lockedSoundPitch = 1f;
+    private AudioSource _lockedSource;
     private AudioSource _eventLockedSource;
 
     [Header("Transition Timing")]
@@ -75,16 +79,16 @@ public class Door : MapTransition, IInteractable
             return;
         }
 
-        // 부모 클래스(MapTransition)의 프로퍼티를 확인
-        if (TargetEntryPoint == null || TargetMap == null)
-        {
-            Debug.LogWarning($"[{nameof(Door)}] Target Map 또는 Entry Point가 설정되지 않았습니다.", this);
-            return;
-        }
-
         if (isLocked && !CheckCanOpen())
         {
             PlayLockedDialog();
+            return;
+        }
+
+        // 잠긴 문은 이동 목적지가 없어도 잠금 효과음과 나레이션을 표시합니다.
+        if (TargetEntryPoint == null || TargetMap == null)
+        {
+            Debug.LogWarning($"[{nameof(Door)}] Target Map 또는 Entry Point가 설정되지 않았습니다.", this);
             return;
         }
 
@@ -157,7 +161,17 @@ public class Door : MapTransition, IInteractable
 
     private void PlayLockedDialog()
     {
-        if (dialogWhenLocked == null) return;
+        if (DialogSystem.Instance != null && DialogSystem.Instance.IsDialogPlaying) return;
+
+        if (SoundManager.Instance != null && !string.IsNullOrEmpty(lockedSoundID))
+        {
+            if (_lockedSource == null)
+                _lockedSource = SoundManager.Instance.CreateSFXSource(transform);
+
+            if (SoundManager.Instance.PlaySFXOnSource(_lockedSource, lockedSoundID))
+                _lockedSource.pitch = lockedSoundPitch;
+        }
+
         DialogSystem.Instance?.PlayDialog(dialogWhenLocked);
     }
 
