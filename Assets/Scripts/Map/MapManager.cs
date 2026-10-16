@@ -157,7 +157,8 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public void ChangeMap(EMapType targetMapType, string entryID, Action onComplete = null)
     {
-        if (IsChangingMap) return;
+        // 문 열기 딜레이 등에서 예약된 이동도 첫 조우의 맵을 바꾸지 못하게 합니다.
+        if (IsChangingMap || (KuneKune != null && KuneKune.IsFirstEncounterInProgress)) return;
 
         StartCoroutine(ChangeMapRoutine(targetMapType, entryID, onComplete));
     }

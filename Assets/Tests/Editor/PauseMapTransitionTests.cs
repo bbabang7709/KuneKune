@@ -134,6 +134,73 @@ public class PauseMapTransitionTests
         Assert.That(GetField(kune, "_isInDeathSequence"), Is.False);
     }
 
+    [TestCase(true)]
+    [TestCase(false)]
+    public void FirstEncounterPendingOrPlaying_RejectsDelayedMapChange(bool pending)
+    {
+        Component kune = CreateComponent("KuneKune");
+        Component encounter = CreateComponent("KuneKuneFirstEncounterCutsceneController");
+        SetField(kune, "_firstEncounterCutscene", encounter);
+        SetField(_map, "<KuneKune>k__BackingField", kune);
+        SetField(encounter, "_isPlayRequested", pending);
+        encounter.GetType().BaseType.GetField("_isCutsceneRunning", InstanceFlags)
+            .SetValue(encounter, !pending);
+
+        Invoke(_map, "ChangeMap", Enum.ToObject(RuntimeType("EMapType"), 0), "test-entry", null);
+
+        Assert.That(GetProperty(_map, "IsChangingMap"), Is.False);
+        Assert.That(Time.timeScale, Is.EqualTo(1f));
+    }
+
+    [Test]
+    public void SpawnDuringMapTransition_DoesNotConsumeSourceMapObject()
+    {
+        Component kune = CreateComponent("KuneKune");
+        Component player = CreateComponent("PlayerController");
+        SetField(kune, "_player", player);
+        SetField(kune, "_playerCollider", player.gameObject.AddComponent<BoxCollider2D>());
+        SetField(_map, "_currentArea", ((IList)GetField(_map, "allMapAreas"))[0]);
+        SetField(_map, "<IsChangingMap>k__BackingField", true);
+        GameObject sourceObject = CreateObject("Source map spawn");
+        sourceObject.transform.position = new Vector3(4f, 0f, 0f);
+        sourceObject.SetActive(true);
+        ((HashSet<Transform>)GetProperty(_map, "KunekuneSpawnPoints")).Add(sourceObject.transform);
+
+        Assert.DoesNotThrow(() => kune.GetType()
+            .GetMethod("Spawn", InstanceFlags, null, Type.EmptyTypes, null).Invoke(kune, null));
+
+        Assert.That(sourceObject.activeSelf, Is.True);
+        Assert.That(GetProperty(kune, "SpawnObject"), Is.Null);
+        Assert.That(GetProperty(kune, "State").ToString(), Is.EqualTo("Unspawned"));
+    }
+
+    [Test]
+    public void PendingFirstEncounter_AfterMapChangedCancelsWithoutConsumingFirstEncounter()
+    {
+        Component kune = CreateComponent("KuneKune");
+        Component encounter = CreateComponent("KuneKuneFirstEncounterCutsceneController");
+        object sourceMap = ((IList)GetField(_map, "allMapAreas"))[0];
+        SetField(kune, "_currentMap", sourceMap);
+        SetField(kune, "_state", Enum.Parse(RuntimeType("ECharacterState"), "Idle"));
+        SetField(encounter, "_kuneKune", kune);
+        SetField(encounter, "_encounterMap", sourceMap);
+        SetField(encounter, "_isPlayRequested", true);
+        Invoke(encounter, "HoldControls");
+        IEnumerator waiting = (IEnumerator)Invoke(encounter, "WaitAndPlayCutscene");
+        Assert.That(waiting.MoveNext(), Is.True);
+        SetField(_map, "_currentArea", CreateComponent("MapArea"));
+
+        Assert.That(waiting.MoveNext(), Is.False);
+
+        Assert.That(GetProperty(encounter, "HasPlayed"), Is.False);
+        Assert.That(GetProperty(encounter, "IsPendingOrPlaying"), Is.False);
+        Assert.That(GetProperty(kune, "State").ToString(), Is.EqualTo("Unspawned"));
+        Assert.That(GetProperty(ControlLockSingleton(), "IsInputLocked"), Is.False);
+    }
+
+    private static object ControlLockSingleton() =>
+        RuntimeType("ControlLockManager").GetProperty("Instance").GetValue(null);
+
     private IEnumerator StartTransition(Action onComplete = null)
     {
         object mapType = Enum.ToObject(RuntimeType("EMapType"), 0);

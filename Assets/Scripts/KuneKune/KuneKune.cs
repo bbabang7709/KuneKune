@@ -57,6 +57,9 @@ public class KuneKune : MonoBehaviour
 
     private Queue<IKuneKuneMapRoute> _mapRoutes = new();
     private MapArea _currentMap;
+    public MapArea CurrentMap => _currentMap;
+    public bool IsFirstEncounterInProgress =>
+        _firstEncounterCutscene != null && _firstEncounterCutscene.IsPendingOrPlaying;
     private MapArea _lastPlayerMap;
     private float? _mapTransitionWaitRemaining;
     private float _postSpawnWaitRemaining;
@@ -129,6 +132,10 @@ public class KuneKune : MonoBehaviour
             return;
         if (MapManager.Instance == null || _player == null || _playerCollider == null)
             return;
+        // 전환 중에는 이전 맵의 사물을 고르지 않고, 도착 후 더위 갱신에서 다시 요청합니다.
+        if (IsGameplayPaused || MapManager.Instance.CurrentMap == null ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading))
+            return;
 
         #region 플레이어와 떨어진 사물 중 가장 가까운 사물 찾기
         if (MapManager.Instance.KunekuneSpawnPoints.Count == 0)
@@ -183,6 +190,10 @@ public class KuneKune : MonoBehaviour
 
     public void Spawn(Vector3 position, bool runImmediately = false)
     {
+        if (!runImmediately && (IsGameplayPaused ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading)))
+            return;
+
         // 즉시 등장하는 이벤트는 첫 조우 연출을 건너뛰고 호출한 컷씬의 흐름을 유지합니다.
         bool playFirstEncounter = !runImmediately && MapManager.Instance.CurrentMapType != EMapType.Chase_Ricefield
             && _firstEncounterCutscene != null && !_firstEncounterCutscene.HasPlayed;

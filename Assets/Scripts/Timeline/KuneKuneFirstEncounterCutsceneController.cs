@@ -7,6 +7,9 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
     private const int CutsceneCameraPriority = 20;
 
     [SerializeField] private KuneKune _kuneKune;
+    private MapArea _encounterMap;
+    private bool _isPlayRequested;
+    public bool IsPendingOrPlaying => _isPlayRequested || IsCutsceneRunning;
 
     [Header("첫 조우 컷씬 카메라")]
     [SerializeField] private CinemachineCamera _cutsceneCamera;
@@ -40,6 +43,8 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
 
     protected override void OnDisable()
     {
+        _isPlayRequested = false;
+        _encounterMap = null;
         base.OnDisable();
         ReleaseCutsceneCamera();
     }
@@ -88,20 +93,12 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
         if (_bound == null)
             _bound = _cutsceneCamera.GetComponent<CinemachineConfiner2D>();
 
-        if (_bound != null && _bound.BoundingShape2D != null)
-            return;
+        if (_bound == null) return;
 
-        if (CameraManager.Instance == null || CameraManager.Instance.CurrentCamera == null)
-            return;
-
-        if (CameraManager.Instance.CurrentCamera == _cutsceneCamera)
-            return;
-
-        var playerConfiner = CameraManager.Instance.CurrentCamera.GetComponent<CinemachineConfiner2D>();
-        if (playerConfiner == null || playerConfiner.BoundingShape2D == null)
-            return;
-
-        _bound.BoundingShape2D = playerConfiner.BoundingShape2D;
+        // 현재 활성 카메라가 아니라 첫 조우가 확정된 맵의 카메라에서 경계를 다시 가져옵니다.
+        var mapCamera = _encounterMap != null ? _encounterMap.AreaCamera : null;
+        var playerConfiner = mapCamera != null ? mapCamera.GetComponent<CinemachineConfiner2D>() : null;
+        _bound.BoundingShape2D = playerConfiner != null ? playerConfiner.BoundingShape2D : null;
         _bound.InvalidateBoundingShapeCache();
     }
 
@@ -165,7 +162,14 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
 
     public void Play()
     {
-        if (HasPlayed || !isActiveAndEnabled) return;
+        if (HasPlayed || IsPendingOrPlaying || !isActiveAndEnabled || _kuneKune == null) return;
+
+        _encounterMap = _kuneKune.CurrentMap;
+        if (_encounterMap == null) return;
+
+        // 첫 대기 프레임부터 잠그고, 예약된 문 이동은 MapManager에서도 차단합니다.
+        _isPlayRequested = true;
+        HoldControls();
 
         // 코루틴이 저장 로딩을 기다리는 동안에도 쿠네쿠네는 보이지 않아야 합니다.
         _kuneKune.SpriteRenderer.enabled = false;
@@ -177,11 +181,22 @@ public class KuneKuneFirstEncounterCutsceneController : CutsceneControllerBase
 
     private IEnumerator WaitAndPlayCutscene()
     {
-        if (SaveManager.Instance != null)
+        yield return new WaitUntil(() =>
+            (SaveManager.Instance == null || !SaveManager.Instance.IsLoading) &&
+            (MapManager.Instance == null || !MapManager.Instance.IsChangingMap));
+
+        // 로드나 즉시 이동으로 맵이 바뀌었다면 이전 맵의 위치에서 첫 조우를 소비하지 않습니다.
+        if (MapManager.Instance == null || _encounterMap == null ||
+            MapManager.Instance.CurrentMap != _encounterMap || _kuneKune.CurrentMap != _encounterMap)
         {
-            yield return new WaitUntil(() => SaveManager.Instance.IsLoading == false);
+            _isPlayRequested = false;
+            ReleaseControls();
+            _kuneKune.Despawn();
+            yield break;
         }
 
+        HoldControls();
         PlayCutscene();
+        _isPlayRequested = false;
     }
 }
