@@ -41,23 +41,7 @@ public class ToiletCutsceneController : CutsceneControllerBase
 
     private bool CanPlayTrueFlagCutscene()
     {
-        if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasTrueFlagSucceeded)
-            return false;
-
-        // test
-        //if (_toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.HasPlayed == false &&
-        //    !_toiletTrueFlagCutscene.HasTrueFlagFailed)
-        //{
-        //    return true;
-        //}
-
-        if (_toiletTrueFlagCutscene == null || _toiletTrueFlagCutscene.HasPlayed ||
-            _toiletTrueFlagCutscene.HasTrueFlagFailed || _toiletTrueFlagCutscene.HasSeenDirtyDeskCutscene ||
-            InventoryManager.Instance == null ||
-            !InventoryManager.Instance.HasKey("hanky")) 
-            return false;
-
-        return true;
+        return _toiletTrueFlagCutscene != null && _toiletTrueFlagCutscene.CanPlayOnEntry;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

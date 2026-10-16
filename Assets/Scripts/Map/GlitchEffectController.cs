@@ -57,6 +57,13 @@ public class GlitchEffectController : MonoBehaviour
         if (glitchMaterial == null) return;
 
         if (_rampRoutine != null) StopCoroutine(_rampRoutine);
+        if (duration <= 0f)
+        {
+            _rampRoutine = null;
+            Apply(Mathf.Clamp01(target));
+            return;
+        }
+
         _rampRoutine = StartCoroutine(RampRoutine(Mathf.Clamp01(target), Mathf.Max(0f, duration)));
     }
 

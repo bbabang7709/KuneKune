@@ -33,6 +33,8 @@ public class MapManager : MonoBehaviour
 
     public EMapType CurrentMapType { get; private set; } = EMapType.Outside_Busstop;
     public bool IsChangingMap { get; private set; }
+    /// <summary>맵 이동 암전을 시작하기 직전에 목적지와 함께 알립니다.</summary>
+    public event Action<EMapType> OnMapChangeStarted;
     private bool _wasChasedOnMapEntry;
 
     public bool ConsumeChasedMapEntry()
@@ -164,6 +166,8 @@ public class MapManager : MonoBehaviour
         EMapType previousMapType = CurrentMapType;
         // 도착 후 더위 감소로 Despawn되어도, 이동 직전의 추격 상황을 보존합니다.
         bool wasChased = KuneKune != null && KuneKune.IsChaseActive;
+        OnMapChangeStarted?.Invoke(targetMapType);
+
         Time.timeScale = 0f;
 
         if (ControlLockManager.Instance != null)
@@ -202,6 +206,14 @@ public class MapManager : MonoBehaviour
             }
 
             CameraManager.Instance?.ChangeCameraWithFollow(_currentArea.AreaCamera);
+
+            // 진입 암전 중에 적용하여 화장실이 처음 보일 때부터 글리치를 유지합니다.
+            if (previousMapType != targetMapType && targetMapType == EMapType.School_ManToilet)
+            {
+                foreach (ToiletTrueFlagCutsceneController cutscene in
+                    _currentArea.GetComponentsInChildren<ToiletTrueFlagCutsceneController>(true))
+                    cutscene.PrepareEntryGlitch(_currentArea);
+            }
 
             // 보상 수령 후 여자 화장실을 처음 나왔을 때 도착한 복도 입구에서 재개합니다.
             SaveManager saveManager = SaveManager.Instance;

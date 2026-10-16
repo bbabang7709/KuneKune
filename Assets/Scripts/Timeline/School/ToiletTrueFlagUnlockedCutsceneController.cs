@@ -181,11 +181,19 @@ public class ToiletTrueFlagUnlockedCutsceneController : CutsceneControllerBase
     {
         if (!isActiveAndEnabled || UIManager.Instance == null) return;
 
-        StartCoroutine(UIManager.Instance.FadeOutKeepingDialog(Mathf.Max(0f, fadeOutDuration)));
+        StartCoroutine(FadeOutAndStopGlitch());
+    }
+
+    private IEnumerator FadeOutAndStopGlitch()
+    {
+        yield return UIManager.Instance?.FadeOutKeepingDialog(Mathf.Max(0f, fadeOutDuration));
+        _sourceCutscene?.StopToiletGlitch();
     }
 
     protected override void OnCutsceneEndSetup()
     {
+        // 타임라인 암전 시그널이 생략되어도 종료 암전 중에 글리치를 정리합니다.
+        _sourceCutscene?.StopToiletGlitch();
         UIManager.Instance?.RestoreDialogFadeOrder();
         _sourceCutscene?.PauseKuneKuneAnimation();
 
@@ -226,6 +234,8 @@ public class ToiletTrueFlagUnlockedCutsceneController : CutsceneControllerBase
 
     protected override void OnDisable()
     {
+        if (IsCutsceneRunning)
+            _sourceCutscene?.StopToiletGlitch();
         if (_dialogController != null)
             _dialogController.DialogFinished -= OnDialogFinished;
         _openingDialogFinished = false;

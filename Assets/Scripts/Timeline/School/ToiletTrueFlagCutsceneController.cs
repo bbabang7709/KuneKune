@@ -40,6 +40,12 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
     [Tooltip("시그널 호출 후 화면이 완전히 어두워지는 데 걸리는 시간(초).")]
     [SerializeField, Min(0f)] private float fadeOutDuration = 2f;
 
+    [Header("화장실 글리치")]
+    [SerializeField, Range(0f, 1f)] private float glitchIntensity = 0.5f;
+    private GlitchEffectController _glitchController;
+    private MapManager _glitchMapManager;
+    private MapArea _glitchMap;
+
     [Header("컷씬 카메라")]
     [SerializeField] private CinemachineCamera _cutsceneCamera;
     [SerializeField] private CinemachineConfiner2D _bound;
@@ -81,6 +87,9 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     public bool HasTrueFlagSucceeded =>
         SaveManager.Instance?.IsTrueEndingUnlocked ?? _trueFlagSucceededWithoutSaveManager;
+
+    public bool CanPlayOnEntry => !HasPlayed && !HasTrueFlagFailed && !HasTrueFlagSucceeded &&
+        !HasSeenDirtyDeskCutscene && InventoryManager.Instance != null && InventoryManager.Instance.HasKey("hanky");
 
     public bool HasSeenDirtyDeskCutscene
     {
@@ -205,6 +214,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
         if (HasTrueFlagFailed || HasTrueFlagSucceeded || HasSeenDirtyDeskCutscene || (playOnlyOnce && hasPlayed))
         {
             _isPlayRequested = false;
+            StopToiletGlitch();
             ReleaseControls();
             yield break;
         }
@@ -213,7 +223,51 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
             _water.sprite = null;
 
         _isPlayRequested = false;
+        StartToiletGlitch(MapManager.Instance?.CurrentMap);
         PlayCutscene();
+        if (!IsCutsceneRunning)
+            StopToiletGlitch();
+    }
+
+    /// <summary>진엔딩 조건을 만족하면 화장실 진입 암전 중에 글리치를 적용합니다.</summary>
+    public void PrepareEntryGlitch(MapArea targetMap)
+    {
+        if (targetMap == null || targetMap.mapType != EMapType.School_ManToilet || !CanPlayOnEntry ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading))
+            return;
+
+        StartToiletGlitch(targetMap);
+    }
+
+    private void StartToiletGlitch(MapArea map)
+    {
+        if (_glitchController != null) return;
+
+        MapManager mapManager = MapManager.Instance;
+        GlitchEffectController glitch = GlitchEffectController.Instance;
+        if (mapManager == null || map == null || glitch == null) return;
+
+        _glitchController = glitch;
+        _glitchMapManager = mapManager;
+        _glitchMap = map;
+        _glitchMapManager.OnMapChangeStarted += OnMapChangeStarted;
+        _glitchController.RampTo(glitchIntensity, 0f);
+    }
+
+    private void OnMapChangeStarted(EMapType targetMapType)
+    {
+        if (_glitchMap != null && targetMapType != _glitchMap.mapType)
+            StopToiletGlitch();
+    }
+
+    public void StopToiletGlitch()
+    {
+        if (_glitchMapManager != null)
+            _glitchMapManager.OnMapChangeStarted -= OnMapChangeStarted;
+        _glitchController?.RampTo(0f, 0f);
+        _glitchController = null;
+        _glitchMapManager = null;
+        _glitchMap = null;
     }
 
     protected override void OnCutsceneEndSetup()
@@ -325,6 +379,15 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     private void LateUpdate()
     {
+        // 페이드 없는 이동이나 저장 로드로 이벤트가 중단되어도 글리치를 남기지 않습니다.
+        if (_glitchMap != null && (_glitchMapManager == null ||
+            _glitchMapManager.CurrentMap != _glitchMap ||
+            (SaveManager.Instance != null && SaveManager.Instance.IsLoading)))
+            StopToiletGlitch();
+        else if (_glitchController != null)
+            // 배우 복원 시 추격 적이 공유 머티리얼을 초기화해도 화장실 연출은 유지합니다.
+            _glitchController.RampTo(glitchIntensity, 0f);
+
         // 같은 화장실 안에서 영역을 벗어나는 것과 문을 통해 맵을 나가는 것을 구분한다.
         if (_sunlightMap == null || MapManager.Instance?.CurrentMap == null)
             return;
@@ -364,6 +427,7 @@ public class ToiletTrueFlagCutsceneController : CutsceneControllerBase
 
     protected override void OnDisable()
     {
+        StopToiletGlitch();
         RestoreWashstandInteraction();
         StopMonitoringHeat();
         StopToiletEcho();
