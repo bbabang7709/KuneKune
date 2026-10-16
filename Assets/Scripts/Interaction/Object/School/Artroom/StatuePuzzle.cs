@@ -147,6 +147,7 @@ public class StatuePuzzle : MonoBehaviour, ISaveable
     {
         if (_finishRoutine != null) StopCoroutine(_finishRoutine);
         _finishRoutine = null;
+        ReleaseRewardEventControls();
         _hasReceivedReward = data.GetFlag(RewardReceivedFlag);
         _hasFinishedRewardEvent = data.GetFlag(RewardEventFinishedFlag);
         _isSolved = _hasReceivedReward;
@@ -188,16 +189,43 @@ public class StatuePuzzle : MonoBehaviour, ISaveable
 
     private IEnumerator FinishPuzzleRoutine()
     {
-        yield return new WaitForSeconds(1f);
+        ControlLockManager.Instance?.AddMovementLock(this);
+        ControlLockManager.Instance?.AddInputLock(this);
+        MapManager.Instance?.Player?.GetComponent<PlayerMovement>()?.StopImmediately();
 
-        yield return LightingEventManager.Instance?.FlickerRoutine();
-        yield return new WaitForSeconds(1f);
-        LightingEventManager.Instance?.SetBlackout(fadeIntensity, 0.2f);
-        yield return new WaitForSeconds(1f);
+        try
+        {
+            yield return new WaitForSeconds(1f);
 
-        ApplyRewardEventState();
-        _hasFinishedRewardEvent = true;
+            SoundManager.Instance?.PlaySFX("Fluorescent_Flicker");
+            yield return LightingEventManager.Instance?.FlickerRoutine();
+            yield return new WaitForSeconds(1f);
+            SoundManager.Instance?.PlaySFX("Fluorescent_Blackout");
+            LightingEventManager.Instance?.SetBlackout(fadeIntensity, 0.2f);
+            yield return new WaitForSeconds(1f);
+
+            // 발자국 재생을 시작한 프레임에 잠금을 풀어, 나머지 발자국은 이동하며 볼 수 있게 합니다.
+            ApplyRewardEventState();
+            _hasFinishedRewardEvent = true;
+        }
+        finally
+        {
+            ReleaseRewardEventControls();
+            _finishRoutine = null;
+        }
+    }
+
+    private void ReleaseRewardEventControls()
+    {
+        ControlLockManager.Instance?.RemoveMovementLock(this);
+        ControlLockManager.Instance?.RemoveInputLock(this);
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
         _finishRoutine = null;
+        ReleaseRewardEventControls();
     }
 
     private void ApplyRewardEventState(SaveData data = null)
