@@ -1451,6 +1451,8 @@ MonoBehaviour:
   dialogWhenChase: {fileID: 11400000, guid: bd52dddc969727d4494996563b8097b4, type: 2}
   openSprite: {fileID: 8896562225081582818, guid: e65d2966277fcfa41a996846394c1af5, type: 3}
   openSoundID: DoorOpen_Sliding
+  lockedSoundID: 
+  lockedSoundPitch: 1
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!1 &841200667180126807
@@ -1996,6 +1998,8 @@ MonoBehaviour:
   dialogWhenChase: {fileID: 0}
   openSprite: {fileID: 287366276412487149, guid: e8ad7697c82d3b64b8620d05b94ba408, type: 3}
   openSoundID: DoorOpen_Sliding
+  lockedSoundID: 
+  lockedSoundPitch: 1
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!114 &6591040869143438506
@@ -3713,6 +3717,8 @@ MonoBehaviour:
   dialogWhenChase: {fileID: 0}
   openSprite: {fileID: 287366276412487149, guid: e8ad7697c82d3b64b8620d05b94ba408, type: 3}
   openSoundID: DoorOpen_Sliding
+  lockedSoundID: 
+  lockedSoundPitch: 1
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!1 &2658755351534294222
@@ -6145,6 +6151,8 @@ MonoBehaviour:
   dialogWhenChase: {fileID: 11400000, guid: 85a427d162adcb044b137ae0c021a8e0, type: 2}
   openSprite: {fileID: 0}
   openSoundID: Stairs
+  lockedSoundID: 
+  lockedSoundPitch: 1
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!1 &6184518799605427047
@@ -7970,6 +7978,8 @@ MonoBehaviour:
   dialogWhenChase: {fileID: 0}
   openSprite: {fileID: 0}
   openSoundID: Stairs
+  lockedSoundID: 
+  lockedSoundPitch: 1
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!1 &8141688297647086559
@@ -9386,6 +9396,8 @@ MonoBehaviour:
   dialogWhenChase: {fileID: 0}
   openSprite: {fileID: 8896562225081582818, guid: e65d2966277fcfa41a996846394c1af5, type: 3}
   openSoundID: DoorOpen_Sliding
+  lockedSoundID: 
+  lockedSoundPitch: 1
   transitionDelay: 0.2
   resetDelay: 0.1
 --- !u!1001 &350558871427067342
