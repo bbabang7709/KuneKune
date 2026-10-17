@@ -42,7 +42,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BlockGlitch: 0.03
-    - _GlitchTime: 84.62014
+    - _GlitchTime: 0
     - _Intensity: 0
     - _Jitter: 0.02
     - _NoiseStrength: 0.01
